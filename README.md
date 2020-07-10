@@ -3,6 +3,10 @@
 This project will make it easy to bootstrap Contentful Apps, with React,
 Forma-36, and Field Editors.
 
+## Requirements
+Node 8 or higher
+NPM 5.2 and higher
+
 # Quick Overview
 To start developing your app:
 
