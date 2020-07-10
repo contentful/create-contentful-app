@@ -1,7 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { AppExtensionSDK, BaseExtensionSDK, init, locations } from 'contentful-ui-extensions-sdk';
+import {
+  AppExtensionSDK,
+  FieldExtensionSDK,
+  SidebarExtensionSDK,
+  DialogExtensionSDK,
+  EditorExtensionSDK,
+  PageExtensionSDK,
+  BaseExtensionSDK,
+  init,
+  locations
+} from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
@@ -23,18 +33,18 @@ init((sdk: BaseExtensionSDK) => {
     { location: locations.LOCATION_APP_CONFIG, component: <Config sdk={sdk as AppExtensionSDK} /> },
     {
       location: locations.LOCATION_ENTRY_FIELD,
-      component: <Field />
+      component: <Field sdk={sdk as FieldExtensionSDK} />
     },
     {
       location: locations.LOCATION_ENTRY_EDITOR,
-      component: <EntryEditor />
+      component: <EntryEditor sdk={sdk as EditorExtensionSDK} />
     },
-    { location: locations.LOCATION_DIALOG, component: <Dialog /> },
+    { location: locations.LOCATION_DIALOG, component: <Dialog sdk={sdk as DialogExtensionSDK} /> },
     {
       location: locations.LOCATION_ENTRY_SIDEBAR,
-      component: <Sidebar />
+      component: <Sidebar sdk={sdk as SidebarExtensionSDK} />
     },
-    { location: locations.LOCATION_PAGE, component: <Page /> }
+    { location: locations.LOCATION_PAGE, component: <Page sdk={sdk as PageExtensionSDK} /> }
   ];
 
   // Select a component depending on a location in which the app is rendered.
