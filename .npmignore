@@ -1,0 +1,8 @@
+# Dev files
+.editorconfig
+.eslintignore
+.eslintrc.js
+.pretterrc.js
+commitlint.config.js
+
+node_modules/
