@@ -1,7 +1,11 @@
 # Create Contentful App
 
-This project will make it easy to bootstrap Contentful Apps, with React,
-Forma-36, and Field Editors.
+This project will make it easy to bootstrap [Contentful Apps](https://www.contentful.com/developers/docs/extensibility/app-framework/), with [React](https://reactjs.org/),
+[Forma 36](https://f36.contentful.com/), and [Field Editors](https://www.contentful.com/developers/docs/extensibility/field-editors/).
+
+## Requirements
+Node 8 or higher
+NPM 5.2 and higher
 
 # Quick Overview
 To start developing your app:
