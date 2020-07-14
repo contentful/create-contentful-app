@@ -11,7 +11,7 @@ NPM 5.2 and higher
 To start developing your app:
 
 ```
-npx @contentful/create-contentful-app init my-first-app
+npx create-contentful-app init my-first-app
 cd my-first-app
 npm start
 ```
@@ -19,5 +19,5 @@ npm start
 To use your app, you need to create an [app definition](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/app-definitions):
 
 ```
-npx @contentful/create-contentful-app create-definition
+npx create-contentful-app create-definition
 ```
