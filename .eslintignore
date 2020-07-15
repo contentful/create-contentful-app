@@ -1,2 +1,2 @@
-**/node_modules/**
-/template/src**
+node_modules/**
+template/src**
