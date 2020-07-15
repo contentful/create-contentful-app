@@ -21,3 +21,5 @@ To use your app, you need to create an [app definition](https://www.contentful.c
 ```
 npx @contentful/create-contentful-app create-definition
 ```
+
+[Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.

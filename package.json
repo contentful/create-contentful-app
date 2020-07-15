@@ -1,9 +1,13 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/create-contentful-app.git"
+  },
   "engines": {
     "node": ">=10"
   },
