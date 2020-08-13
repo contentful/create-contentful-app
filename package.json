@@ -48,7 +48,8 @@
   "scripts": {
     "commit": "git-cz",
     "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
-    "commitmsg": "validate-commit-msg"
+    "commitmsg": "validate-commit-msg",
+    "start": "MODE=local node ./lib/index.js"
   },
   "dependencies": {
     "chalk": "^4.1.0",
