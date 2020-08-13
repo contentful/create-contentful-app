@@ -9,7 +9,8 @@ describe('Config Screen component', () => {
       app: {
         onConfigure: jest.fn(),
         getParameters: jest.fn().mockReturnValueOnce({}),
-        setReady: jest.fn()
+        setReady: jest.fn(),
+        getCurrentState: jest.fn()
       }
     };
     const { getByText } = render(<ConfigScreen sdk={mockSdk} />);
