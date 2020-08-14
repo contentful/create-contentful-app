@@ -34,6 +34,11 @@
     "*.css": [
       "prettier --write",
       "git add"
+    ],
+    "package.json": [
+      "node scripts/update-template-dependencies.js",
+      "prettier --write template.json",
+      "git add template.json"
     ]
   },
   "husky": {
@@ -68,8 +73,9 @@
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-node": "11.0.0",
-    "husky": "4.2.1",
+    "husky": "^4.2.1",
     "lint-staged": "10.0.7",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "typescript": "^3.8.0"
   }
 }
