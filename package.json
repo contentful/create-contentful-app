@@ -76,6 +76,20 @@
     "husky": "^4.2.1",
     "lint-staged": "10.0.7",
     "prettier": "1.19.1",
+    "typescript": "^3.8.0",
+    "@contentful/field-editor-single-line": "^0.8.4",
+    "@contentful/field-editor-test-utils": "^0.6.4",
+    "@contentful/forma-36-fcss": "^0.0.35",
+    "@contentful/forma-36-react-components": "^3.39.7",
+    "@contentful/forma-36-tokens": "^0.5.3",
+    "@testing-library/jest-dom": "^5.10.0",
+    "@testing-library/react": "^10.2.1",
+    "@testing-library/user-event": "^12.0.1",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "contentful-ui-extensions-sdk": "3.18.0",
     "typescript": "^3.8.0"
   }
 }
