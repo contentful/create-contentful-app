@@ -42,16 +42,18 @@ try {
     spawn.sync('npm', ['i'], { silent: true, cwd: MODULE_MAIN_PATH });
 
     console.log(` > 📚 Publishing ${package} on the registry...`);
-    let { error } = spawn.sync('npm', ['publish', '--access', 'public'], {
+    const { status } = spawn.sync('npm', ['publish', '--access', 'public'], {
       stdio: 'inherit',
       cwd: MODULE_MAIN_PATH
     });
-    if (error) {
-      throw new Error(error);
+    if (status !== 0) {
+      throw new Error(
+        'Failed to publish. Please check the output above and make sure you have the correct credentials, working network and npm is not down.'
+      );
     }
 
     console.log(`✅ Successfully published ${package}@${ORIGINAL_PACKAGE_JSON.version}!`);
-    console.log();
+    console.log('');
   }
 } catch (err) {
   restoreFiles();
