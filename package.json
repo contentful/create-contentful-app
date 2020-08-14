@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -49,7 +49,8 @@
     "commit": "git-cz",
     "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
     "commitmsg": "validate-commit-msg",
-    "dev": "MODE=local node ./lib/index.js"
+    "dev": "MODE=local node ./lib/index.js",
+    "publish-all": "node scripts/deploy.js"
   },
   "dependencies": {
     "chalk": "^4.1.0",
