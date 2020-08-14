@@ -1,12 +1,10 @@
-/*
+#! /usr/bin/env node
 
- Needs to be deployed 3 times because we need:
-  - Main  CLI tool (@contentful/create-contentful-app)
-  - Parked named to avoid package squatting (create-contentful-app)
-  - Actual custom template package in accordance to create-react-app
-    - i.e: https://create-react-app.dev/docs/custom-templates/
-
-*/
+// Needs to be deployed 3 times because we need:
+//  - Main  CLI tool (@contentful/create-contentful-app)
+//  - Parked named to avoid package squatting (create-contentful-app)
+//  - Actual custom template package in accordance to create-react-app
+//    - i.e: https://create-react-app.dev/docs/custom-templates/
 
 const fs = require('fs');
 const spawn = require('cross-spawn');
