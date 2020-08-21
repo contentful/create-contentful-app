@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Check Outdated
           working_directory: ./dependency-check
-          command: npm outdated --json > ./outdated.json
+          command: (npm outdated --json || true ) > ./outdated.json
       - run:
           name: Create new template
           command: node ./scripts/dependency-check/create-template-from-outdated
