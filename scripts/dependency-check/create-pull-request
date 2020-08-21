@@ -20,7 +20,7 @@ const gitClient = simpleGit(ROOT_PATH);
 
   const branch = `chore/update-dependencies-${Date.now()}`
 
-  await gitClient.checkoutBranch(branch)
+  await gitClient.checkoutBranch(branch, 'master')
 
   await gitClient.add([TEMPLATE_PATH])
 
@@ -29,7 +29,7 @@ const gitClient = simpleGit(ROOT_PATH);
   //   this should include dependency name and version
   await gitClient.commit('chore(deps): update dependencies')
 
-  await gitClient.push('origin')
+  await gitClient.push(['-u', 'origin', branch])
 
   await githubClient.pulls.create({
     owner: 'contentful',
