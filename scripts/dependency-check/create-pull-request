@@ -1,0 +1,54 @@
+#! /bin/usr/env node
+
+const { Octokit } = require('@octokit/rest');
+const simpleGit = require('simple-git');
+const { printErrorAndExit, ROOT_PATH, printSuccess, TEMPLATE_PATH } = require('./utils');
+
+const githubClient = new Octokit({
+  auth: process.env.GITHUB_ACCESS_TOKEN
+});
+
+const gitClient = simpleGit(ROOT_PATH);
+
+(async function main() {
+  const diffSummary = await gitClient.diffSummary();
+
+  if (diffSummary.files.length === 0) {
+    printSuccess('Dependencies are up to date! Not creating a pull request');
+    process.exit(0);
+  }
+
+  const branch = `chore/update-dependencies-${Date.now()}`
+
+  await gitClient
+    .addConfig('user.name', 'Dependency Checker')
+    .addConfig('user.email', 'dependency-checker@contentful.org')
+
+  await gitClient.checkoutBranch(branch, 'master')
+
+  await gitClient.add([TEMPLATE_PATH])
+
+  // TODO: 
+  //   if we decide to do this one dependency at time, 
+  //   this should include dependency name and version
+  await gitClient.commit('chore(deps): update dependencies')
+
+  await gitClient.push(['-u', 'origin', branch])
+
+  await githubClient.pulls.create({
+    owner: 'contentful',
+    repo: 'create-contentful-app',
+    title: `chore(deps): daily update 'template.json'`,
+    head: branch,
+    base: 'master',
+    // TODO: 
+    //   if we decide to do this one dependency at time, 
+    //   this should include dependency name and version
+    //   and possibly the changelog too
+    body: `
+      Bumps dependencies in \`template.json\` with latest packages as of today.
+    `
+  });
+})().catch(e => {
+  printErrorAndExit('Unable to create a pull request', e);
+});
