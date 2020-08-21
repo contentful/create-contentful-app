@@ -18,14 +18,14 @@ jobs:
           command: mkdir -p ./dependency-check
       - run:
           name: Create Package JSON
-          command: node ./script/dependency-check/create-manifest-from-template
+          command: node ./scripts/dependency-check/create-manifest-from-template
       - run:
           name: Check Outdated
           working_directory: ./dependency-check
           command: npm outdated --json > ./outdated.json
       - run:
           name: Create new template
-          command: node ./script/dependency-check/create-template-from-outdated
+          command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
           name: Create Pull Request
           command: npm install @octokit/rest simple-git && node ./scripts/dependency-check/create-pull-request.js
