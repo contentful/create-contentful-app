@@ -20,6 +20,10 @@ const gitClient = simpleGit(ROOT_PATH);
 
   const branch = `chore/update-dependencies-${Date.now()}`
 
+  await gitClient
+    .addConfig('user.name', 'Dependency Checker')
+    .addConfig('user.email', 'dependency-checker@contentful.org')
+
   await gitClient.checkoutBranch(branch, 'master')
 
   await gitClient.add([TEMPLATE_PATH])
