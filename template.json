@@ -4,7 +4,7 @@
       "@contentful/field-editor-single-line": "^0.10.0",
       "@contentful/field-editor-test-utils": "^0.8.0",
       "@contentful/forma-36-fcss": "^0.2.6",
-      "@contentful/forma-36-react-components": "^3.47.0",
+      "@contentful/forma-36-react-components": "^3.47.1",
       "@contentful/forma-36-tokens": "^0.7.3",
       "@testing-library/jest-dom": "^5.11.4",
       "@testing-library/react": "^10.4.9",
