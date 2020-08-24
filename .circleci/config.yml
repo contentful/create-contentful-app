@@ -38,7 +38,7 @@ jobs:
             ( npm t -- --ci --silent || true ) > "${FORMER_CWD}/dependency-check/test-report"
       - run:
           name: Create Pull Request
-          command: npm install @octokit/rest simple-git && node ./scripts/dependency-check/create-pull-request
+          command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
       - run:
           name: Cleanup
           command: rm -rf ./dependency-check
