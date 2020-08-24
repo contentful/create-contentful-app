@@ -1,0 +1,58 @@
+version: 2.1
+
+executors:
+  node-container:
+    docker:
+      - image: node:12
+        environment:
+          NPM_CONFIG_PROGRESS: 'false'
+          NPM_CONFIG_LOGLEVEL: warn
+
+jobs:
+  dependency-check:
+    executor: node-container
+    steps:
+      - checkout
+      - run:
+          name: Create Dependency Check sandbox
+          command: mkdir -p ./dependency-check
+      - run:
+          name: Create Package JSON
+          command: node ./scripts/dependency-check/create-manifest-from-template
+      - run:
+          name: Check Outdated
+          working_directory: ./dependency-check
+          command: (npm outdated --json || true) > ./outdated.json
+      - run:
+          name: Create new template
+          command: node ./scripts/dependency-check/create-template-from-outdated
+      - run:
+          name: Run Tests and Produce Reports
+          command: |
+            FORMER_CWD="$(pwd)"
+            PROJECT=test-$(date +%s)
+            mkdir "${TMPDIR}/${PROJECT}"
+            cd "${TMPDIR}/${PROJECT}"
+            npx @contentful/create-contentful-app init test
+            cd test
+            (CI=true npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
+      - run:
+          name: Create Pull Request
+          command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
+      - run:
+          name: Cleanup
+          command: rm -rf ./dependency-check
+
+workflows:
+  version: 2
+
+  scheduled-dependency-check:
+    triggers:
+      - schedule:
+          # Run each day at midnight
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - dependency-check

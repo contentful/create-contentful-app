@@ -16,6 +16,7 @@ yarn-error.log*
 lerna-debug.log*
 
 dist
+/dependency-check
 
 # editors
 .idea

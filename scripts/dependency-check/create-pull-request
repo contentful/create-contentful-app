@@ -1,0 +1,108 @@
+#! /bin/usr/env node
+
+const { Octokit } = require('@octokit/rest');
+const simpleGit = require('simple-git');
+
+const {
+  TEMPLATE_PATH,
+  TEST_REPORT_PATH,
+  ROOT_PATH,
+  printErrorAndExit,
+  printSuccess,
+  validateAndRead
+} = require('./utils');
+
+const getCompatibilityBadge = (report) => {
+  const testLine = report.split('\n').find(i => i.startsWith('Tests:'));
+
+  const [_, passed, total] = /(\d) passed, (\d) total/.exec(testLine);
+  const compatibilityScore = (Number.parseInt(passed) * 100) / Number.parseInt(total);
+
+  const compatibilityColor = compatibilityScore === 100
+    ? 'green'
+    : compatibilityScore > 80
+      ? 'yellow'
+      : 'red';
+
+  return `https://img.shields.io/badge/compatibility-${compatibilityScore}%25-${compatibilityColor}`;
+};
+
+const createPullRequestMessage = (report) => `
+Bumps dependencies in \`template.json\` with most up to date versions as of today.
+
+![compatibility score](${getCompatibilityBadge(report)})
+
+<details>
+<summary>Test Report</summary>
+<pre>
+${report}
+</pre>
+</details>
+`;
+
+const githubClient = new Octokit({
+  auth: process.env.GITHUB_ACCESS_TOKEN
+});
+
+const gitClient = simpleGit(ROOT_PATH);
+
+const BRANCH_NAME = `chore/update-dependencies-${Date.now()}`;
+const PULL_REQUEST_TITLE = `chore(deps): daily update 'template.json'`;
+const REPOSITORY = 'create-contentful-app';
+const OWNER = 'contentful';
+
+(async function main() {
+  const diffSummary = await gitClient.diffSummary();
+
+  if (diffSummary.files.length === 0) {
+    printSuccess('Dependencies are up to date! Not creating a pull request');
+    process.exit(0);
+  }
+
+  await gitClient
+    .addConfig('user.name', 'Dependency Checker')
+    .addConfig('user.email', 'dependency-checker@contentful.org');
+
+  await gitClient.checkoutBranch(BRANCH_NAME, 'master');
+
+  await gitClient.add([TEMPLATE_PATH]);
+
+  await gitClient.commit('chore(deps): update dependencies');
+
+  await gitClient.push(['-u', 'origin', BRANCH_NAME]);
+
+  const testReport = validateAndRead(TEST_REPORT_PATH);
+
+  const { data: newPullRequest } = await githubClient.pulls.create({
+    owner: OWNER,
+    repo: REPOSITORY,
+    title: PULL_REQUEST_TITLE,
+    head: BRANCH_NAME,
+    base: 'master',
+    body: createPullRequestMessage(testReport)
+  });
+
+  // Try closing previous Dependency Check Pull Requests, if any
+  const { data: pullRequests } = await githubClient.pulls.list({ owner: OWNER, repo: REPOSITORY, state: 'open' });
+
+  for (const pullRequest of pullRequests) {
+    if (pullRequest.title === PULL_REQUEST_TITLE) {
+      await githubClient.pulls.createReview({
+        owner: OWNER,
+        repo: REPOSITORY,
+        pull_number: pullRequest.number,
+        event: 'COMMENT',
+        body: `Closed in favor of #${newPullRequest.number}`
+      });
+
+      await githubClient.pulls.update({
+        owner: OWNER,
+        repo: REPOSITORY,
+        pull_number: pullRequest.number,
+        state: 'closed'
+      });
+    }
+  }
+})().catch(e => {
+  printErrorAndExit('Unable to create a pull request', e);
+});

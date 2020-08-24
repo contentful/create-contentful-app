@@ -1,0 +1,29 @@
+#! /usr/bin/env node
+
+const fs = require('fs')
+const {validateAndRequire, TEMPLATE_PATH, OUTDATED_PATH, printHeader, printInfo, printErrorAndExit, printSuccess} = require('./utils')
+
+// List of packages for which we don't want to have the dependency check
+const ignoredPackages = []
+
+const template = validateAndRequire(TEMPLATE_PATH);
+const outdated = validateAndRequire(OUTDATED_PATH);
+
+printHeader('Creating new template from outdated')
+
+for (const dependency of Object.entries(outdated)) {
+  const [name, {latest}] = dependency
+
+  if (template.package.dependencies[name] && !ignoredPackages.includes(name)) {
+    template.package.dependencies[name] = `^${latest}`
+  }
+}
+
+try {
+  printInfo('Writing new template...')
+  fs.writeFileSync(TEMPLATE_PATH, JSON.stringify(template, null, 2))
+} catch (e) {
+  printErrorAndExit(`Unable to write new template.`, e)
+}
+
+printSuccess(`Successfully created new template at ${TEMPLATE_PATH}`)
