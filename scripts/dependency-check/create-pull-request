@@ -3,13 +3,13 @@
 const { Octokit } = require('@octokit/rest');
 const simpleGit = require('simple-git');
 
-const { printErrorAndExit, ROOT_PATH, printSuccess, TEMPLATE_PATH, TEST_REPORT_PATH } = require('./utils');
+const { printErrorAndExit, ROOT_PATH, printSuccess, TEMPLATE_PATH, TEST_REPORT_PATH, validateAndRead } = require('./utils');
 
 const getCompatibilityBadge = (report) => {
   const testLine = report.split('\n').find(i => i.startsWith('Tests:'))
 
   const [_, passed, total] = /(\d) passed, (\d) total/.exec(testLine);
-  const compatibilityScore = (Number.parseInt(passed) * 100) / Number.parseInt(total);
+  const compatibilityScore = Math.floor((Number.parseInt(passed) * 100) / Number.parseInt(total));
 
   const compatibilityColor = compatibilityScore === 100
     ? 'green'
@@ -62,6 +62,9 @@ const gitClient = simpleGit(ROOT_PATH);
   await gitClient.push(['-u', 'origin', branch])
 
   const testReport = validateAndRead(TEST_REPORT_PATH)
+  console.log('lllll')
+  console.log(testReport)
+  console.log(createPullRequestMessage(testReport))
 
   await githubClient.pulls.create({
     owner: 'contentful',
