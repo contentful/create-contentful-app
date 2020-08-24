@@ -27,6 +27,16 @@ jobs:
           name: Create new template
           command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
+          name: Run Tests and Produce Reports
+          command: |
+            FORMER_CWD=$(pwd)
+            PROJECT=test-$(date +%s)
+            mkdir "${TMPDIR}/${PROJECT}"
+            cd "${TMPDIR}/${PROJECT}"
+            npx @contentful/create-contentful-app init test
+            cd test
+            npm t > "${FORMER_CWD}/dependency-check/test-report"
+      - run:
           name: Create Pull Request
           command: npm install @octokit/rest simple-git && node ./scripts/dependency-check/create-pull-request
       - run:
@@ -35,14 +45,14 @@ jobs:
 
 workflows:
   version: 2
-  
+
   scheduled-dependency-check:
     triggers:
       - schedule:
-          # Run each day at midnight
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only: master
+        # Run each day at midnight
+        cron: "0 0 * * *"
+        filters:
+          branches:
+            only: master
     jobs:
       - dependency-check
