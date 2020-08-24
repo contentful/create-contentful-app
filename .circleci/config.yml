@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Check Outdated
           working_directory: ./dependency-check
-          command: (npm outdated --json || true ) > ./outdated.json
+          command: (npm outdated --json || true) > ./outdated.json
       - run:
           name: Create new template
           command: node ./scripts/dependency-check/create-template-from-outdated
@@ -35,7 +35,7 @@ jobs:
             cd "${TMPDIR}/${PROJECT}"
             npx @contentful/create-contentful-app init test
             cd test
-            ( npm t -- --ci --silent || true ) > "${FORMER_CWD}/dependency-check/test-report"
+            (CI=true npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
       - run:
           name: Create Pull Request
           command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
