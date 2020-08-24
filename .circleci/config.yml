@@ -47,12 +47,12 @@ workflows:
   version: 2
 
   scheduled-dependency-check:
-    triggers:
-      - schedule:
-        # Run each day at midnight
-        cron: "0 0 * * *"
-        filters:
-          branches:
-            only: master
+    #triggers:
+    #  - schedule:
+    #    # Run each day at midnight
+    #    cron: "0 0 * * *"
+    #    filters:
+    #      branches:
+    #        only: master
     jobs:
       - dependency-check
