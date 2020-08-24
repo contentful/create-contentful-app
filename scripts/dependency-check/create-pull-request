@@ -2,7 +2,36 @@
 
 const { Octokit } = require('@octokit/rest');
 const simpleGit = require('simple-git');
-const { printErrorAndExit, ROOT_PATH, printSuccess, TEMPLATE_PATH } = require('./utils');
+
+const { printErrorAndExit, ROOT_PATH, printSuccess, TEMPLATE_PATH, TEST_REPORT_PATH } = require('./utils');
+
+const getCompatibilityBadge = (report) => {
+  const testLine = report.split('\n').find(i => i.startsWith('Tests:'))
+
+  const [_, passed, total] = /(\d) passed, (\d) total/.exec(testLine);
+  const compatibilityScore = (Number.parseInt(passed) * 100) / Number.parseInt(total);
+
+  const compatibilityColor = compatibilityScore === 100
+    ? 'green'
+    : compatibilityScore > 80
+      ? 'yellow'
+      : 'red'
+
+  return `https://img.shields.io/badge/compatibility-${compatibilityScore}%25-${compatibilityColor}`
+}
+
+const createPullRequestMessage = (report) => `
+Bumps dependencies in \`template.json\` with most up to date versions as of today.
+
+![compatibility score](${getCompatibilityBadge(report)})
+
+<details>
+<summary>Test Report</summary>
+<pre>
+${report}
+</pre>
+</details>
+`
 
 const githubClient = new Octokit({
   auth: process.env.GITHUB_ACCESS_TOKEN
@@ -28,12 +57,11 @@ const gitClient = simpleGit(ROOT_PATH);
 
   await gitClient.add([TEMPLATE_PATH])
 
-  // TODO: 
-  //   if we decide to do this one dependency at time, 
-  //   this should include dependency name and version
   await gitClient.commit('chore(deps): update dependencies')
 
   await gitClient.push(['-u', 'origin', branch])
+
+  const testReport = validateAndRead(TEST_REPORT_PATH)
 
   await githubClient.pulls.create({
     owner: 'contentful',
@@ -41,13 +69,7 @@ const gitClient = simpleGit(ROOT_PATH);
     title: `chore(deps): daily update 'template.json'`,
     head: branch,
     base: 'master',
-    // TODO: 
-    //   if we decide to do this one dependency at time, 
-    //   this should include dependency name and version
-    //   and possibly the changelog too
-    body: `
-      Bumps dependencies in \`template.json\` with latest packages as of today.
-    `
+    body: createPullRequestMessage(testReport)
   });
 })().catch(e => {
   printErrorAndExit('Unable to create a pull request', e);

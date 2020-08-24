@@ -35,7 +35,7 @@ jobs:
             cd "${TMPDIR}/${PROJECT}"
             npx @contentful/create-contentful-app init test
             cd test
-            npm t > "${FORMER_CWD}/dependency-check/test-report"
+            ( npm t -- --ci --silent || true ) > "${FORMER_CWD}/dependency-check/test-report"
       - run:
           name: Create Pull Request
           command: npm install @octokit/rest simple-git && node ./scripts/dependency-check/create-pull-request
@@ -49,10 +49,10 @@ workflows:
   scheduled-dependency-check:
     triggers:
       - schedule:
-        # Run each day at midnight
-        cron: "0 0 * * *"
-        filters:
-          branches:
-            only: master
+          # Run each day at midnight
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only: master
     jobs:
       - dependency-check
