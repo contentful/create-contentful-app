@@ -35,7 +35,7 @@ jobs:
             cd "${TMPDIR}/${PROJECT}"
             npx @contentful/create-contentful-app init test
             cd test
-            npm t > "${FORMER_CWD}/dependency-check/test-report"
+            ( npm t -- --ci --silent || true ) > "${FORMER_CWD}/dependency-check/test-report"
       - run:
           name: Create Pull Request
           command: npm install @octokit/rest simple-git && node ./scripts/dependency-check/create-pull-request

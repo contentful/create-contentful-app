@@ -14,10 +14,6 @@ printHeader('Creating new template from outdated')
 for (const dependency of Object.entries(outdated)) {
   const [name, {latest}] = dependency
 
-  // TODO: 
-  //   if we decide to do this one dependency at time, 
-  //   this should check for differences and stop on the
-  //   first discrepancy
   if (template.package.dependencies[name] && !ignoredPackages.includes(name)) {
     template.package.dependencies[name] = `^${latest}`
   }

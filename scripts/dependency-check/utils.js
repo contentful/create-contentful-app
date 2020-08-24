@@ -5,6 +5,7 @@ const ROOT_PATH = path.resolve(__dirname, '..', '..');
 const SANDBOX_PATH = path.resolve(ROOT_PATH, 'dependency-check');
 const TEMPLATE_PATH = path.join(ROOT_PATH, 'template.json');
 const OUTDATED_PATH = path.join(SANDBOX_PATH, 'outdated.json');
+const TEST_REPORT_PATH = path.join(SANDBOX_PATH, 'test-report');
 
 const getStyledString = (style, string) => {
   if (!process.stdout.hasColors()) {
@@ -64,6 +65,14 @@ const validateAndRequire = (path) => {
   return require(path);
 }
 
+const validateAndRead = (filePath) => {
+  try {
+    return fs.readFileSync(filePath, {encoding: 'utf-8'})
+  } catch (e) {
+    printErrorAndExit(`Unable to read file at ${path}`, e);
+  }
+}
+
 module.exports = {
   printError,
   printErrorAndExit,
@@ -71,8 +80,10 @@ module.exports = {
   printHeader,
   printSuccess,
   validateAndRequire,
+  validateAndRead,
   ROOT_PATH,
   SANDBOX_PATH,
   OUTDATED_PATH,
-  TEMPLATE_PATH
+  TEMPLATE_PATH,
+  TEST_REPORT_PATH
 }
