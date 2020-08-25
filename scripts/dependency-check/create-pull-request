@@ -86,7 +86,7 @@ const OWNER = 'contentful';
   const { data: pullRequests } = await githubClient.pulls.list({ owner: OWNER, repo: REPOSITORY, state: 'open' });
 
   for (const pullRequest of pullRequests) {
-    if (pullRequest.title === PULL_REQUEST_TITLE) {
+    if (pullRequest.title === PULL_REQUEST_TITLE && pullRequest.number !== newPullRequest.number) {
       await githubClient.pulls.createReview({
         owner: OWNER,
         repo: REPOSITORY,
