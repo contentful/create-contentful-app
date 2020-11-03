@@ -4,8 +4,7 @@ This project makes it easy to bootstrap [Contentful Apps](https://www.contentful
 
 ## Requirements
 
-Node 8 or higher
-NPM 5.2 and higher
+Node.js 12 or higher
 
 # Quick Overview
 
