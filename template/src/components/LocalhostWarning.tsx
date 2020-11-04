@@ -9,22 +9,18 @@ const LocalhostWarning = () => {
         justifyContent: 'center',
         marginTop: '40px'
       }}>
-      <Note title="It looks like you're running your app locally." style={{ maxWidth: '800px' }}>
+      <Note title="App running outside of Contentful" style={{ maxWidth: '800px' }}>
         <Paragraph>
-          If this is your first time running your app, please run `npx
-          @contentful/create-contentful-app create-defintion` in your terminal then{' '}
-          <TextLink href="https://app.contentful.com/deeplink?link=apps">
-            install your app in a Contentful space.
+          Contentful Apps need to run inside the Contentful web app to function properly. Install
+          the app into a space and render your app into one of the{' '}
+          <TextLink href="https://www.contentful.com/developers/docs/extensibility/ui-extensions/sdk-reference/#locations">
+            available locations
           </TextLink>
-        </Paragraph>
-
-        <br />
-
-        <Paragraph>
-          More information about local development of Contentful apps{' '}
-          <TextLink href="https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-develop-with-the-ui-extension-sdk-locally">
-            can be found here.
+          . Follow our{' '}
+          <TextLink href="https://www.contentful.com/developers/docs/extensibility/app-framework/tutorial/">
+            guide to get started
           </TextLink>
+          .
         </Paragraph>
       </Note>
     </div>
