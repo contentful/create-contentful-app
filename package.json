@@ -9,7 +9,7 @@
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "main": "template.json",
   "files": [
@@ -43,7 +43,7 @@
     }
   },
   "bin": {
-    "create-contentful-app": "./lib/index.js"
+    "create-contentful-app": "lib/index.js"
   },
   "scripts": {
     "commit": "git-cz",
