@@ -22,6 +22,14 @@ const LocalhostWarning = () => {
           </TextLink>
           .
         </Paragraph>
+        <br />
+        <Paragraph>
+          If you're already familiar with the app framework,{' '}
+          <TextLink href="https://app.contentful.com/deeplink?link=apps">
+            manage your AppDefinition and AppInstallation here
+          </TextLink>
+          .
+        </Paragraph>
       </Note>
     </div>
   );
