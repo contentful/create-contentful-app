@@ -16,19 +16,18 @@ const LocalhostWarning = () => {
           <TextLink href="https://www.contentful.com/developers/docs/extensibility/ui-extensions/sdk-reference/#locations">
             available locations
           </TextLink>
-          . Follow our{' '}
-          <TextLink href="https://www.contentful.com/developers/docs/extensibility/app-framework/tutorial/">
-            guide to get started
-          </TextLink>
           .
         </Paragraph>
         <br />
+
         <Paragraph>
-          If you're already familiar with the app framework,{' '}
-          <TextLink href="https://app.contentful.com/deeplink?link=apps">
-            manage your AppDefinition and AppInstallation here
-          </TextLink>
-          .
+          Follow our{' '}
+          <TextLink href="https://www.contentful.com/developers/docs/extensibility/app-framework/tutorial/">
+            guide to
+          </TextLink>{' '}
+          get started or{' '}
+          <TextLink href="https://app.contentful.com/deeplink?link=apps">open Contentful</TextLink>{' '}
+          to manage your app.
         </Paragraph>
       </Note>
     </div>
