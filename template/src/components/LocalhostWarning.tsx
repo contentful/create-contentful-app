@@ -21,11 +21,11 @@ const LocalhostWarning = () => {
         <br />
 
         <Paragraph>
-          Follow our{' '}
+          Follow{' '}
           <TextLink href="https://www.contentful.com/developers/docs/extensibility/app-framework/tutorial/">
-            guide to
+            our guide
           </TextLink>{' '}
-          get started or{' '}
+          to get started or{' '}
           <TextLink href="https://app.contentful.com/deeplink?link=apps">open Contentful</TextLink>{' '}
           to manage your app.
         </Paragraph>
