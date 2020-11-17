@@ -55,4 +55,6 @@ workflows:
             branches:
               only: master
     jobs:
-      - dependency-check
+      - dependency-check:
+          context:
+            - docker-hub-auth
