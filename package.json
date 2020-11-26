@@ -50,7 +50,8 @@
     "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
     "commitmsg": "validate-commit-msg",
     "dev": "MODE=local node ./lib/index.js",
-    "publish-all": "node scripts/deploy.js"
+    "publish-all": "node scripts/deploy.js",
+    "lint": "eslint ./lib ./scripts"
   },
   "dependencies": {
     "chalk": "^4.1.0",
