@@ -9,53 +9,54 @@ const TEST_REPORT_PATH = path.join(SANDBOX_PATH, 'test-report');
 
 const getStyledString = (style, string) => {
   if (!process.stdout.hasColors()) {
-    return string
+    return string;
   }
 
   switch (style) {
     case 'red':
-      return `\x1b[31m${string}\x1b[0m`
+      return `\x1b[31m${string}\x1b[0m`;
     case 'yellow':
-      return `\x1b[33m${string}\x1b[0m`
+      return `\x1b[33m${string}\x1b[0m`;
     case 'green':
-      return `\x1b[32m${string}\x1b[0m`
+      return `\x1b[32m${string}\x1b[0m`;
     default:
-      string
+      string;
   }
-} 
+};
 
 const printError = (error, details) => {
   console.error('');
   console.error(getStyledString('red', ` !!! ${error}`));
   if (details) {
-    console.error('Details: ')
-    console.group()
-    console.error(details)
-    console.groupEnd()
+    console.error('Details: ');
+    console.group();
+    console.error(details);
+    console.groupEnd();
   }
   console.error('');
-}
+};
 
 const printErrorAndExit = (error, details, statusCode = 1) => {
   printError(error, details);
+  // eslint-disable-next-line no-process-exit
   process.exit(statusCode);
-}
+};
 
-const printInfo = (message) => {
+const printInfo = message => {
   console.log(` > ${message}`);
-}
+};
 
-const printHeader = (message) => {
+const printHeader = message => {
   console.log('');
   console.log(getStyledString('yellow', ` > ${message} < `));
   console.log('');
-}
+};
 
-const printSuccess = (message) => {
+const printSuccess = message => {
   console.log(getStyledString('green', ` ✓ ${message}`));
-}
+};
 
-const validateAndRequire = (path) => {
+const validateAndRequire = path => {
   try {
     require.resolve(path);
   } catch (e) {
@@ -63,15 +64,15 @@ const validateAndRequire = (path) => {
   }
 
   return require(path);
-}
+};
 
-const validateAndRead = (filePath) => {
+const validateAndRead = filePath => {
   try {
-    return fs.readFileSync(filePath, {encoding: 'utf-8'})
+    return fs.readFileSync(filePath, { encoding: 'utf-8' });
   } catch (e) {
     printErrorAndExit(`Unable to read file at ${path}`, e);
   }
-}
+};
 
 module.exports = {
   printError,
@@ -86,4 +87,4 @@ module.exports = {
   OUTDATED_PATH,
   TEMPLATE_PATH,
   TEST_REPORT_PATH
-}
+};

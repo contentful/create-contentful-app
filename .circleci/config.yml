@@ -1,12 +1,19 @@
 version: 2.1
 
+environment: &base-env
+    NPM_CONFIG_PROGRESS: 'false'
+    NPM_CONFIG_LOGLEVEL: warn
+    
 executors:
   node-container:
     docker:
       - image: node:12
-        environment:
-          NPM_CONFIG_PROGRESS: 'false'
-          NPM_CONFIG_LOGLEVEL: warn
+        environment: *base-env
+
+  node-container-next-lts:
+    docker:
+      - image: node:14
+        environment: *base-env
 
 jobs:
   dependency-check:
@@ -43,6 +50,44 @@ jobs:
           name: Cleanup
           command: rm -rf ./dependency-check
 
+  lint-and-test: &lint-and-test
+    executor: node-container
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - run:
+          name: Run Linter
+          command: npm run lint
+      - run:
+          name: Run Tests
+          command: npm t
+
+  lint-and-test-next-lts:
+    <<: *lint-and-test
+    executor: node-container-next-lts
+
+  test-built-app: &test-built-app
+    executor: node-container
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          environment:
+            MODE: 'ci'
+          command: |
+            PROJECT=test-$(date +%s)
+            mkdir "${TMPDIR}/${PROJECT}"
+            cd "${TMPDIR}/${PROJECT}"
+            npx @contentful/create-contentful-app init test
+            cd test
+            npm t
+  
+  test-built-app-next-lts:
+    <<: *test-built-app
+    executor: node-container-next-lts
+
 workflows:
   version: 2
 
@@ -56,3 +101,16 @@ workflows:
               only: master
     jobs:
       - dependency-check
+
+  test:
+    jobs:
+      - lint-and-test
+      - lint-and-test-next-lts
+      - test-built-app:
+          requires:
+            - lint-and-test
+            - lint-and-test-next-lts
+      - test-built-app-next-lts:
+          requires:
+            - lint-and-test
+            - lint-and-test-next-lts
