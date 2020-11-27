@@ -77,7 +77,6 @@ jobs:
           environment:
             MODE: 'ci'
           command: |
-            FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
