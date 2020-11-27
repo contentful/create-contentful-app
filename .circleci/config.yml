@@ -74,6 +74,8 @@ jobs:
       - checkout
       - run:
           name: Run Tests and Produce Reports
+          environment:
+            MODE: 'ci'
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
