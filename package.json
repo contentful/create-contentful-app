@@ -59,7 +59,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "contentful-management": "^5.27.3",
-    "create-react-app": "^4.0.0",
+    "create-react-app": "^4.0.1",
     "cross-spawn": "^7.0.3",
     "inquirer": "^7.2.0",
     "open": "^7.0.2",
