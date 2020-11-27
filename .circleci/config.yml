@@ -73,7 +73,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Run Tests and Produce Reports
+          name: Run Tests
           environment:
             MODE: 'ci'
           command: |
