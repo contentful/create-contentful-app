@@ -6,10 +6,10 @@ orbs:
 jobs:
   dependency-check:
     docker:
-      - image: node:12
-        environment:
-          NPM_CONFIG_PROGRESS: 'false'
-          NPM_CONFIG_LOGLEVEL: warn
+       - image: node:12
+         environment:
+            NPM_CONFIG_PROGRESS: 'false'
+            NPM_CONFIG_LOGLEVEL: warn
     steps:
       - checkout
       - run:
@@ -43,8 +43,8 @@ jobs:
           command: rm -rf ./dependency-check
 
   lint-and-test:
-    executor:
-      name: node/default
+    docker:
+       - image: node:15
     parameters:
       node-version:
         type: string
