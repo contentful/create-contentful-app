@@ -147,10 +147,7 @@ workflows:
             - lint-and-test-next-lts
 
       - lint-and-test-latest
-      - test-built-app-latest:
-          requires:
-            - lint-and-test-latest
-          pre-steps:
-            - run:
-                name: Install npm 7.1 as npx in 7.0 does not work
-                command: npm i -g npm@7.1.0
+      # npx currently fails with the latest node version (15.3.0)
+      # - test-built-app-latest:
+      #     requires:
+      #       - lint-and-test-latest
