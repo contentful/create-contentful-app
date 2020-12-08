@@ -38,6 +38,9 @@ commands:
     steps:
       - checkout
       - run:
+          name: Install Dependencies
+          command: npm ci
+      - run:
           name: Run Tests
           environment:
             MODE: 'ci'
@@ -45,7 +48,7 @@ commands:
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            npx @contentful/create-contentful-app init test
+            npx --no-install @contentful/create-contentful-app init test
             cd test
             npm t
 
