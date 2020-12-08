@@ -41,6 +41,9 @@ commands:
           name: Install Dependencies
           command: npm ci
       - run:
+          name: Link package
+          command: npm link
+      - run:
           name: Run Tests
           environment:
             MODE: 'ci'
