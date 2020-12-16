@@ -74,15 +74,23 @@ jobs:
           name: Create new template
           command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
+          name: Install Dependencies
+          command: npm ci
+      - run:
+          name: Link package
+          command: npm link
+      - run:
           name: Run Tests and Produce Reports
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            npx @contentful/create-contentful-app init test
+            npx --no-install @contentful/create-contentful-app init test
             cd test
-            (CI=true npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
+            (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
+          environment:
+            MODE: 'local'
       - run:
           name: Create Pull Request
           command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
