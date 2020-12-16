@@ -92,8 +92,8 @@ jobs:
           environment:
             MODE: 'local'
       - run:
-         name: Create Pull Request
-         command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
+          name: Create Pull Request
+          command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
       - run:
           name: Cleanup
           command: rm -rf ./dependency-check
