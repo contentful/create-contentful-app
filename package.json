@@ -9,7 +9,8 @@
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
   },
   "main": "template.json",
   "files": [
