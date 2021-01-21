@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { AppExtensionSDK } from '@contentful/app-sdk';
 import { Heading, Form, Workbench, Paragraph } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 
@@ -50,7 +50,7 @@ export default class Config extends Component<ConfigProps, ConfigState> {
       parameters: this.state.parameters,
       // In case you don't want to submit any update to app
       // locations, you can just pass the currentState as is
-      targetState: currentState
+      targetState: currentState,
     };
   };
 
