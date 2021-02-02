@@ -1,15 +1,15 @@
 {
   "package": {
     "dependencies": {
-      "@contentful/app-sdk": "^3.31.1",
-      "@contentful/field-editor-single-line": "^0.13.0",
-      "@contentful/field-editor-test-utils": "^0.9.0",
+      "@contentful/app-sdk": "^3.32.0",
+      "@contentful/field-editor-single-line": "^0.13.1",
+      "@contentful/field-editor-test-utils": "^0.10.0",
       "@contentful/forma-36-fcss": "^0.3.0",
-      "@contentful/forma-36-react-components": "^3.78.0",
+      "@contentful/forma-36-react-components": "^3.78.1",
       "@contentful/forma-36-tokens": "^0.10.0",
       "@testing-library/jest-dom": "^5.11.9",
       "@testing-library/react": "^11.2.3",
-      "@testing-library/user-event": "^12.6.2",
+      "@testing-library/user-event": "^12.6.3",
       "@types/jest": "^26.0.20",
       "@types/node": "^14.14.22",
       "@types/react": "^17.0.0",
