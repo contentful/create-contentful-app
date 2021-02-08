@@ -6,7 +6,7 @@ In the project directory, you can run:
 
 #### `npm start`
 
-Creates or updates your app definition in contentful, and runs the app in development mode.
+Creates or updates your app definition in Contentful, and runs the app in development mode.
 Open your app to view it in the browser.
 
 The page will reload if you make edits.
