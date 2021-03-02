@@ -75,7 +75,7 @@
     "eslint": "7.21.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-node": "11.1.0",
-    "husky": "5.1.1",
+    "husky": "5.1.2",
     "lint-staged": "10.5.4",
     "mocha": "^8.2.1",
     "prettier": "2.2.1",
