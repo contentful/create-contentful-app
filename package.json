@@ -63,7 +63,7 @@
     "create-react-app": "^4.0.1",
     "cross-spawn": "^7.0.3",
     "inquirer": "^8.0.0",
-    "open": "^7.0.2",
+    "open": "^8.0.1",
     "tildify": "^2.0.0"
   },
   "devDependencies": {
