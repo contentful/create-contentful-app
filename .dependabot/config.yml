@@ -11,4 +11,8 @@ update_configs:
       - match:
           dependency_type: "all"
           update_type: "all"
+    ignored_updates:
+      - match:
+          dependency_name: "husky"
+          version_requirement: ">=5.0.0"
 
