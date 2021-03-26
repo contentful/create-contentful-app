@@ -82,6 +82,13 @@ const OWNER = 'contentful';
     body: createPullRequestMessage(testReport)
   });
 
+  await githubClient.issues.addLabels({
+    owner: OWNER,
+    repo: REPOSITORY,
+    issue_number: newPullRequest.number,
+    labels: ['dependencies']
+  })
+
   // Try closing previous Dependency Check Pull Requests, if any
   const { data: pullRequests } = await githubClient.pulls.list({ owner: OWNER, repo: REPOSITORY, state: 'open' });
 
