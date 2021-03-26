@@ -1,15 +1,16 @@
 #! /bin/usr/env node
 
-const { Octokit } = require('@octokit/rest');
-const simpleGit = require('simple-git');
-
 const {
   TEMPLATE_PATH,
   TEST_REPORT_PATH,
-  ROOT_PATH,
   printErrorAndExit,
   printSuccess,
-  validateAndRead
+  validateAndRead,
+  createGitClient,
+  createGithubClient,
+  PULL_REQUEST_TITLE,
+  OWNER,
+  REPOSITORY
 } = require('./utils');
 
 const getCompatibilityBadge = (report) => {
@@ -40,16 +41,9 @@ ${report}
 </details>
 `;
 
-const githubClient = new Octokit({
-  auth: process.env.GITHUB_ACCESS_TOKEN
-});
-
-const gitClient = simpleGit(ROOT_PATH);
-
+const githubClient = createGithubClient();
+const gitClient = createGitClient();
 const BRANCH_NAME = `chore/update-dependencies-${Date.now()}`;
-const PULL_REQUEST_TITLE = `chore(deps): daily update 'template.json'`;
-const REPOSITORY = 'create-contentful-app';
-const OWNER = 'contentful';
 
 (async function main() {
   const diffSummary = await gitClient.diffSummary();

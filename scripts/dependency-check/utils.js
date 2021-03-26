@@ -1,6 +1,14 @@
 const path = require('path');
 const fs = require('fs');
 
+const { Octokit } = require('@octokit/rest');
+const simpleGit = require('simple-git');
+
+const PULL_REQUEST_TITLE = `chore(deps): daily update 'template.json'`;
+
+const OWNER = 'contentful';
+const REPOSITORY = 'create-contentful-app';
+
 const ROOT_PATH = path.resolve(__dirname, '..', '..');
 const SANDBOX_PATH = path.resolve(ROOT_PATH, 'dependency-check');
 const TEMPLATE_PATH = path.join(ROOT_PATH, 'template.json');
@@ -74,6 +82,16 @@ const validateAndRead = filePath => {
   }
 };
 
+function createGithubClient() {
+  return new Octokit({
+    auth: process.env.GITHUB_ACCESS_TOKEN
+  });
+}
+
+function createGitClient() {
+  return simpleGit(ROOT_PATH);
+}
+
 module.exports = {
   printError,
   printErrorAndExit,
@@ -82,9 +100,14 @@ module.exports = {
   printSuccess,
   validateAndRequire,
   validateAndRead,
+  PULL_REQUEST_TITLE,
+  OWNER,
+  REPOSITORY,
   ROOT_PATH,
   SANDBOX_PATH,
   OUTDATED_PATH,
   TEMPLATE_PATH,
-  TEST_REPORT_PATH
+  TEST_REPORT_PATH,
+  createGithubClient,
+  createGitClient
 };
