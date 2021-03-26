@@ -60,9 +60,6 @@ jobs:
     executor: node-container-lts
     steps:
       - checkout
-      - run: 
-          name: Install additional dependencies
-          command: npm install @octokit/rest@18 simple-git@2
       - run:
           name: Merge Pull Request
           command: node ./scripts/dependency-check/merge-pull-request.js
