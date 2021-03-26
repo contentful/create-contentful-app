@@ -104,7 +104,7 @@ const OWNER = 'contentful';
       await githubClient.git.deleteRef({
         owner: OWNER,
         repo: REPOSITORY,
-        ref: `heads/${pr.head.ref}`
+        ref: `heads/${pullRequest.head.ref}`
       })
     }
   }
