@@ -87,11 +87,10 @@ const OWNER = 'contentful';
 
   for (const pullRequest of pullRequests) {
     if (pullRequest.title === PULL_REQUEST_TITLE && pullRequest.number !== newPullRequest.number) {
-      await githubClient.pulls.createReview({
+      await githubClient.issues.createComment({
         owner: OWNER,
         repo: REPOSITORY,
         pull_number: pullRequest.number,
-        event: 'COMMENT',
         body: `Closed in favor of #${newPullRequest.number}`
       });
 
@@ -101,6 +100,12 @@ const OWNER = 'contentful';
         pull_number: pullRequest.number,
         state: 'closed'
       });
+
+      await githubClient.git.deleteRef({
+        owner: OWNER,
+        repo: REPOSITORY,
+        ref: `heads/${pr.head.ref}`
+      })
     }
   }
 })().catch(e => {
