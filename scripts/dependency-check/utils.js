@@ -1,3 +1,5 @@
+// @ts-check
+
 const path = require('path');
 const fs = require('fs');
 
@@ -86,5 +88,5 @@ module.exports = {
   SANDBOX_PATH,
   OUTDATED_PATH,
   TEMPLATE_PATH,
-  TEST_REPORT_PATH
+  TEST_REPORT_PATH,
 };

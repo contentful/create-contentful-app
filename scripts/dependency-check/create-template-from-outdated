@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+// @ts-check
+
 const fs = require('fs')
 const {validateAndRequire, TEMPLATE_PATH, OUTDATED_PATH, printHeader, printInfo, printErrorAndExit, printSuccess} = require('./utils')
 
