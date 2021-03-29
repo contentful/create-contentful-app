@@ -1,7 +1,8 @@
 #! /bin/usr/env node
+// @ts-check
 
 const { Octokit } = require('@octokit/rest');
-const simpleGit = require('simple-git');
+const simpleGit = require('simple-git').default;
 
 const {
   TEMPLATE_PATH,
@@ -15,7 +16,7 @@ const {
 const getCompatibilityBadge = (report) => {
   const testLine = report.split('\n').find(i => i.startsWith('Tests:'));
 
-  const [_, passed = 0, total = 0] = /(\d) passed, (\d) total/.exec(testLine) || [];
+  const [_, passed = '0', total = '0'] = /(\d) passed, (\d) total/.exec(testLine) || [];
   const compatibilityScore = (Number.parseInt(passed) * 100) / Number.parseInt(total);
 
   const compatibilityColor = compatibilityScore === 100
@@ -90,7 +91,7 @@ const OWNER = 'contentful';
       await githubClient.issues.createComment({
         owner: OWNER,
         repo: REPOSITORY,
-        pull_number: pullRequest.number,
+        issue_number: pullRequest.number,
         body: `Closed in favor of #${newPullRequest.number}`
       });
 
