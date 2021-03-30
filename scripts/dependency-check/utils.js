@@ -1,3 +1,5 @@
+// @ts-check
+
 const path = require('path');
 const fs = require('fs');
 
@@ -50,21 +52,21 @@ const printErrorAndExit = (error, details, statusCode = 1) => {
   process.exit(statusCode);
 };
 
-const printInfo = message => {
+const printInfo = (message) => {
   console.log(` > ${message}`);
 };
 
-const printHeader = message => {
+const printHeader = (message) => {
   console.log('');
   console.log(getStyledString('yellow', ` > ${message} < `));
   console.log('');
 };
 
-const printSuccess = message => {
+const printSuccess = (message) => {
   console.log(getStyledString('green', ` ✓ ${message}`));
 };
 
-const validateAndRequire = path => {
+const validateAndRequire = (path) => {
   try {
     require.resolve(path);
   } catch (e) {
@@ -74,7 +76,7 @@ const validateAndRequire = path => {
   return require(path);
 };
 
-const validateAndRead = filePath => {
+const validateAndRead = (filePath) => {
   try {
     return fs.readFileSync(filePath, { encoding: 'utf-8' });
   } catch (e) {
@@ -84,7 +86,7 @@ const validateAndRead = filePath => {
 
 function createGithubClient() {
   return new Octokit({
-    auth: process.env.GITHUB_ACCESS_TOKEN
+    auth: process.env.GITHUB_ACCESS_TOKEN,
   });
 }
 
@@ -109,5 +111,5 @@ module.exports = {
   TEMPLATE_PATH,
   TEST_REPORT_PATH,
   createGithubClient,
-  createGitClient
+  createGitClient,
 };

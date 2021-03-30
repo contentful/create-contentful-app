@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+// @ts-check
+
 const path = require('path')
 const fs = require('fs');
 const { printErrorAndExit, printInfo, SANDBOX_PATH, TEMPLATE_PATH, printHeader, printSuccess, validateAndRequire } = require('./utils');
