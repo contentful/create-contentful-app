@@ -3,6 +3,14 @@
 const path = require('path');
 const fs = require('fs');
 
+const { Octokit } = require('@octokit/rest');
+const simpleGit = require('simple-git').default;
+
+const PULL_REQUEST_TITLE = `chore(deps): daily update 'template.json'`;
+
+const OWNER = 'contentful';
+const REPOSITORY = 'create-contentful-app';
+
 const ROOT_PATH = path.resolve(__dirname, '..', '..');
 const SANDBOX_PATH = path.resolve(ROOT_PATH, 'dependency-check');
 const TEMPLATE_PATH = path.join(ROOT_PATH, 'template.json');
@@ -44,21 +52,21 @@ const printErrorAndExit = (error, details, statusCode = 1) => {
   process.exit(statusCode);
 };
 
-const printInfo = message => {
+const printInfo = (message) => {
   console.log(` > ${message}`);
 };
 
-const printHeader = message => {
+const printHeader = (message) => {
   console.log('');
   console.log(getStyledString('yellow', ` > ${message} < `));
   console.log('');
 };
 
-const printSuccess = message => {
+const printSuccess = (message) => {
   console.log(getStyledString('green', ` ✓ ${message}`));
 };
 
-const validateAndRequire = path => {
+const validateAndRequire = (path) => {
   try {
     require.resolve(path);
   } catch (e) {
@@ -68,13 +76,23 @@ const validateAndRequire = path => {
   return require(path);
 };
 
-const validateAndRead = filePath => {
+const validateAndRead = (filePath) => {
   try {
     return fs.readFileSync(filePath, { encoding: 'utf-8' });
   } catch (e) {
     printErrorAndExit(`Unable to read file at ${path}`, e);
   }
 };
+
+function createGithubClient() {
+  return new Octokit({
+    auth: process.env.GITHUB_ACCESS_TOKEN,
+  });
+}
+
+function createGitClient() {
+  return simpleGit(ROOT_PATH);
+}
 
 module.exports = {
   printError,
@@ -84,9 +102,14 @@ module.exports = {
   printSuccess,
   validateAndRequire,
   validateAndRead,
+  PULL_REQUEST_TITLE,
+  OWNER,
+  REPOSITORY,
   ROOT_PATH,
   SANDBOX_PATH,
   OUTDATED_PATH,
   TEMPLATE_PATH,
   TEST_REPORT_PATH,
+  createGithubClient,
+  createGitClient,
 };

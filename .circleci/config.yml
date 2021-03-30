@@ -61,6 +61,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Merge Pull Request
+          command: node ./scripts/dependency-check/merge-pull-request.js
+      - run:
           name: Create Dependency Check sandbox
           command: mkdir -p ./dependency-check
       - run:
@@ -93,7 +96,7 @@ jobs:
             MODE: 'local'
       - run:
           name: Create Pull Request
-          command: npm install @octokit/rest@18 simple-git@2 && node ./scripts/dependency-check/create-pull-request
+          command: node ./scripts/dependency-check/create-pull-request
       - run:
           name: Cleanup
           command: rm -rf ./dependency-check

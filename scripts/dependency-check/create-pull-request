@@ -1,16 +1,17 @@
 #! /bin/usr/env node
 // @ts-check
 
-const { Octokit } = require('@octokit/rest');
-const simpleGit = require('simple-git').default;
-
 const {
   TEMPLATE_PATH,
   TEST_REPORT_PATH,
-  ROOT_PATH,
   printErrorAndExit,
   printSuccess,
-  validateAndRead
+  validateAndRead,
+  createGitClient,
+  createGithubClient,
+  PULL_REQUEST_TITLE,
+  OWNER,
+  REPOSITORY
 } = require('./utils');
 
 const getCompatibilityBadge = (report) => {
@@ -41,16 +42,9 @@ ${report}
 </details>
 `;
 
-const githubClient = new Octokit({
-  auth: process.env.GITHUB_ACCESS_TOKEN
-});
-
-const gitClient = simpleGit(ROOT_PATH);
-
+const githubClient = createGithubClient();
+const gitClient = createGitClient();
 const BRANCH_NAME = `chore/update-dependencies-${Date.now()}`;
-const PULL_REQUEST_TITLE = `chore(deps): daily update 'template.json'`;
-const REPOSITORY = 'create-contentful-app';
-const OWNER = 'contentful';
 
 (async function main() {
   const diffSummary = await gitClient.diffSummary();
@@ -82,6 +76,13 @@ const OWNER = 'contentful';
     base: 'master',
     body: createPullRequestMessage(testReport)
   });
+
+  await githubClient.issues.addLabels({
+    owner: OWNER,
+    repo: REPOSITORY,
+    issue_number: newPullRequest.number,
+    labels: ['dependencies']
+  })
 
   // Try closing previous Dependency Check Pull Requests, if any
   const { data: pullRequests } = await githubClient.pulls.list({ owner: OWNER, repo: REPOSITORY, state: 'open' });
