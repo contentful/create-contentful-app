@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const { Octokit } = require('@octokit/rest');
-const simpleGit = require('simple-git');
+const simpleGit = require('simple-git').default;
 
 const PULL_REQUEST_TITLE = `chore(deps): daily update 'template.json'`;
 
