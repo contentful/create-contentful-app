@@ -19,6 +19,7 @@
     },
     "scripts": {
       "start": "cross-env BROWSER=none react-scripts start"
-    }
+    },
+    "homepage": "."
   }
 }
