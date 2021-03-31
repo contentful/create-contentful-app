@@ -1,0 +1,68 @@
+{
+  "name": "@contentful/create-contentful-app",
+  "version": "0.4.2",
+  "description": "A template for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/create-contentful-app.git"
+  },
+  "engines": {
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
+  },
+  "main": "template.json",
+  "files": [
+    "template",
+    "template.json",
+    "lib"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "cz-customizable.config.js"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "bin": {
+    "create-contentful-app": "lib/index.js"
+  },
+  "scripts": {
+    "commit": "git-cz",
+    "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
+    "commitmsg": "validate-commit-msg",
+    "dev": "MODE=local node ./lib/index.js",
+    "lint": "eslint ./lib",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha ./test/*.test.js",
+    "test:watch": "npm t -- --watch"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "contentful-management": "^7.5.1",
+    "create-react-app": "^4.0.1",
+    "cross-spawn": "^7.0.3",
+    "inquirer": "^8.0.0",
+    "open": "^8.0.1",
+    "tildify": "^2.0.0"
+  }
+}
