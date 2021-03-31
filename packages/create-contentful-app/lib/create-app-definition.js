@@ -73,10 +73,10 @@ module.exports = async function createAppDefition(appDefinitionSettings = {}) {
   ${chalk.cyan('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(
         selectedOrg.name
       )}.
-  
+
   ${chalk.dim(`NOTE: You can update this app definition in your organization settings:
         ${chalk.underline(`https://app.contentful.com/deeplink?link=org`)}`)}
-  
+
   ${chalk.bold('Next steps:')}
     1. To develop, run ${chalk.cyan('`npm start`')} inside your app folder and open:
        ${chalk.underline(
@@ -89,7 +89,7 @@ module.exports = async function createAppDefition(appDefinitionSettings = {}) {
       console.log(`
   Something went wrong while creating the app definition.
   Run ${chalk.cyan('`npx @contentful/create-contentful-app create-definition`')} to try again.
-  
+
   ${err.message}
       `);
 

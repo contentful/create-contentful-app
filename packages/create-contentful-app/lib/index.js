@@ -7,7 +7,7 @@ const spawn = require('cross-spawn');
 const path = require('path');
 const tildify = require('tildify');
 const promptAppDefinitionSettings = require('./prompt-app-definition');
-const createAppDefinition = require('./create-app-definition');
+const createAppDefinition = require('./index');
 
 const command = process.argv[2];
 const appFolder = process.argv[3];
