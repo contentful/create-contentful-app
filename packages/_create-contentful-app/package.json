@@ -1,0 +1,22 @@
+{
+  "name": "create-contentful-app",
+  "version": "0.4.2",
+  "description": "A template for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/create-contentful-app"
+  },
+  "engines": {
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
+  },
+  "dependencies": {
+    "@contentful/create-contentful-app": "0.4.2"
+  },
+  "bin": {
+    "create-contentful-app": "index.js"
+  }
+}

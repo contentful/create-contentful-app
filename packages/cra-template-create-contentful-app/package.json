@@ -1,0 +1,25 @@
+{
+  "name": "@contentful/cra-template-create-contentful-app",
+  "version": "0.4.2",
+  "description": "A template for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/cra-template-create-contentful-app"
+  },
+  "engines": {
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "keywords": [
+    "contentful",
+    "contentful-app",
+    "create-contentful-app"
+  ]
+}

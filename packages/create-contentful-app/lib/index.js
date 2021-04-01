@@ -41,11 +41,9 @@ function initProject() {
       process.exit(1);
     }
 
-    const projectRoot = `file:${path.resolve(__dirname, '../')}`;
     const initCommand = 'node';
     const createReactApp = require.resolve('create-react-app');
-    const templatePkg =
-      process.env.MODE === 'local' ? projectRoot : '@contentful/cra-template-create-contentful-app';
+    const templatePkg = '@contentful/cra-template-create-contentful-app';
 
     const args = [createReactApp, appFolder, '--template', templatePkg, '--use-npm'];
 
