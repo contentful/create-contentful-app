@@ -15,9 +15,11 @@ try {
     console.log('');
     console.log('📦 Preparing package:', package);
 
-    const packageFolder = path.join(PACKAGES_ROOT, package);
+    const packageFolder = path.join(PACKAGES_ROOT, package.replace('/', '--'));
 
-    fs.copySync(MODULE_MAIN_PATH, packageFolder);
+    fs.copySync(MODULE_MAIN_PATH, packageFolder, {
+      filter: (src) => !src.includes('node_modules'),
+    });
 
     const packageJson = { ...ORIGINAL_PACKAGE_JSON, name: package };
 
@@ -29,7 +31,10 @@ try {
 
     console.log(` > 🌳 Committing changes...`);
     spawn.sync('git', ['add', '.'], { silent: true, cwd: packageFolder });
-    spawn.sync('git', ['commit', '-m', `"chore: create ${package} folder"`], { silent: true, cwd: packageFolder });
+    spawn.sync('git', ['commit', '-m', `"chore: create ${package} folder"`], {
+      silent: true,
+      cwd: packageFolder,
+    });
 
     console.log(`✅ Successfully prepared ${package}!`);
     console.log('');

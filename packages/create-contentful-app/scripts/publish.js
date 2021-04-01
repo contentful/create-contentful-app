@@ -3,12 +3,16 @@ const spawn = require('cross-spawn');
 const path = require('path')
 const { PACKAGES, PACKAGES_ROOT, ORIGINAL_PACKAGE_JSON } = require("./constants");
 
+if (!process.env.NPM_TOKEN) {
+  throw new Error('Missing NPM_TOKEN!');
+}
+
 try {
   for (const package of PACKAGES.concat(ORIGINAL_PACKAGE_JSON.name)) {
     console.log('');
     console.log('📦 Publishing package:', package);
 
-    const packageFolder = path.join(PACKAGES_ROOT, package);
+    const packageFolder = path.join(PACKAGES_ROOT, package.replace('/', '-'));
 
     console.log(` > 📚 Publishing ${package} on the registry...`);
     const { status } = spawn.sync('npm', ['publish', '--access', 'public', '--dry-run'], {
@@ -25,5 +29,6 @@ try {
     console.log('');
   }
 } catch (err) {
+  require('./postpublish');
   throw new Error(err);
 }
