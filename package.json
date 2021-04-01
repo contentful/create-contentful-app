@@ -6,7 +6,7 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "link": "lerna run link",
-    "publish": "lerna publish --canary"
+    "publish": "lerna publish"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.0",
@@ -29,6 +29,7 @@
     "sinon": "^10.0.0"
   },
   "dependencies": {
-    "@contentful/create-contentful-app": "file:packages/create-contentful-app"
+    "@contentful/create-contentful-app": "file:packages/create-contentful-app",
+    "@contentful/cra-template-create-contentful-app": "file:packages/cra-template-create-contentful-app"
   }
 }
