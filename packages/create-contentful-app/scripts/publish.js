@@ -1,4 +1,4 @@
-// Needs to be deployed 3 times because we need:
+// Needs to be published 3 times because we need:
 //  - Main  CLI tool (@contentful/create-contentful-app)
 //  - Parked named to avoid package squatting (create-contentful-app)
 //  - Actual custom template package in accordance to create-react-app

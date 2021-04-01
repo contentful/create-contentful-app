@@ -51,10 +51,11 @@
     "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
     "commitmsg": "validate-commit-msg",
     "dev": "MODE=local node ./lib/index.js",
-    "lint": "eslint ./lib",
+    "lint": "eslint ./lib ./scripts",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./test/*.test.js",
-    "test:watch": "npm t -- --watch"
+    "test:watch": "npm t -- --watch",
+    "publish": "node ./scripts/publish.js"
   },
   "dependencies": {
     "chalk": "^4.1.0",
