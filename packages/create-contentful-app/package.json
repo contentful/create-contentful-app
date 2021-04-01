@@ -1,23 +1,19 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.4.3-alpha.286+b0eb5f3",
+  "version": "0.4.2",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/contentful/create-contentful-app.git"
+    "url": "https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/create-contentful-app"
   },
   "engines": {
     "node": ">=12 <15",
     "npm": ">=6 <7"
   },
-  "main": "template.json",
-  "files": [
-    "template",
-    "template.json",
-    "lib"
-  ],
+  "main": "lib/index.js",
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
@@ -50,14 +46,14 @@
     "commit": "git-cz",
     "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
     "commitmsg": "validate-commit-msg",
-    "dev": "MODE=local node ./lib/index.js",
-    "lint": "eslint ./lib ./scripts",
+    "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./test/*.test.js",
     "test:watch": "npm t -- --watch",
     "publish": "node ./scripts/publish.js"
   },
   "dependencies": {
+    "@contentful/cra-template-create-contentful-app": "^0.4.2",
     "chalk": "^4.1.0",
     "contentful-management": "^7.5.1",
     "create-react-app": "^4.0.1",
@@ -65,6 +61,5 @@
     "inquirer": "^8.0.0",
     "open": "^8.0.1",
     "tildify": "^2.0.0"
-  },
-  "gitHead": "b0eb5f3bb0763c5426160db032293cdc143edda2"
+  }
 }
