@@ -1,26 +1,11 @@
-# Create Contentful App
+# `create-contentful-app`
 
-This project makes it easy to bootstrap [Contentful Apps](https://www.contentful.com/developers/docs/extensibility/app-framework/) with [React](https://reactjs.org/) and [Forma 36](https://f36.contentful.com/) (Contentful's design system).
+> TODO: description
 
-## Requirements
-
-- Node.js v12 or v14
-- NPM v6
-
-# Quick Overview
-
-To start developing your app:
+## Usage
 
 ```
-npx @contentful/create-contentful-app init my-first-app
-cd my-first-app
-npm start
-```
+const createContentfulApp = require('create-contentful-app');
 
-To use your app, you need to create an [app definition](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/app-definitions):
-
+// TODO: DEMONSTRATE API
 ```
-npx @contentful/create-contentful-app create-definition
-```
-
-[Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.

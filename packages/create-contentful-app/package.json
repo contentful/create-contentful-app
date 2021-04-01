@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/contentful/create-contentful-app.git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
     "directory": "packages/create-contentful-app"
   },
   "engines": {
@@ -61,5 +61,19 @@
     "inquirer": "^8.0.0",
     "open": "^8.0.1",
     "tildify": "^2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

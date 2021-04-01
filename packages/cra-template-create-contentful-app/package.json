@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/contentful/create-contentful-app.git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
     "directory": "packages/cra-template-create-contentful-app"
   },
   "engines": {
@@ -21,5 +21,13 @@
     "contentful",
     "contentful-app",
     "create-contentful-app"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "main": "template.json",
+  "publishConfig": {
+    "access": "public"
+  }
 }

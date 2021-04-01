@@ -8,11 +8,6 @@
         "*.md"
       ],
       "message": "chore(release): publish"
-    },
-    "bootstrap": {
-      "npmClientArgs": [
-        "--no-package-lock"
-      ]
     }
   },
   "version": "0.4.2"
