@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/contentful/create-contentful-app.git",
+    "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
     "postinstall": "npm run bootstrap",
