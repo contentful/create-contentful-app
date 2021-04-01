@@ -40,7 +40,7 @@ try {
     spawn.sync('npm', ['i'], { silent: true, cwd: MODULE_MAIN_PATH });
 
     console.log(` > 📚 Publishing ${package} on the registry...`);
-    const { status } = spawn.sync('npm', ['publish', '--access', 'public'], {
+    const { status } = spawn.sync('npm', ['publish', '--access', 'public', '--dry-run'], {
       stdio: 'inherit',
       cwd: MODULE_MAIN_PATH
     });

@@ -6,7 +6,7 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "link": "lerna run link",
-    "publish-all": "node scripts/deploy.js"
+    "publish": "lerna publish --canary"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.0",
