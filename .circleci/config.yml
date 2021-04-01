@@ -26,20 +26,20 @@ commands:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm ci
+          command: npm ci && npm run bootstrap
       - run:
           name: Run Linter
           command: npm run lint
       - run:
           name: Run Tests
-          command: npm t
+          command: npm run test
 
   test-built-app:
     steps:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm ci
+          command: npm ci && npm run bootstrap
       - run:
           name: Link package
           command: cd packages/create-contentful-app && npm link
@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm ci
+          command: npm ci && npm run bootstrap
       - run:
           name: Merge Pull Request
           command: node ./scripts/dependency-check/merge-pull-request.js
