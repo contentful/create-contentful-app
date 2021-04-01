@@ -36,6 +36,9 @@ try {
     console.log(` > 📝 Updating package.json with name: ${package}...`);
     fs.writeFileSync(`${MODULE_MAIN_PATH}/package.json`, JSON.stringify(packageJson));
 
+    console.log(` > 🤫 Do not track 'package.json; changes...`);
+    spawn.sync('git', ['update-index', '--assume-unchanged', 'package.json'], { silent: true, cwd: MODULE_MAIN_PATH });
+
     console.log(` > ⚙️  Updating package-lock.json by means of "npm i"...`);
     spawn.sync('npm', ['i'], { silent: true, cwd: MODULE_MAIN_PATH });
 

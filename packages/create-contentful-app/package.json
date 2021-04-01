@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.4.2",
+  "version": "0.4.3-alpha.286+b0eb5f3",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -65,5 +65,6 @@
     "inquirer": "^8.0.0",
     "open": "^8.0.1",
     "tildify": "^2.0.0"
-  }
+  },
+  "gitHead": "b0eb5f3bb0763c5426160db032293cdc143edda2"
 }
