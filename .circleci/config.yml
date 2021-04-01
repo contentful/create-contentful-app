@@ -42,7 +42,7 @@ commands:
           command: npm ci
       - run:
           name: Link package
-          command: npm link
+          command: cd packages/create-contentful-app && npm link
       - run:
           name: Run Tests
           environment:
@@ -81,7 +81,7 @@ jobs:
           command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
           name: Link package
-          command: npm link
+          command: cd packages/create-contentful-app && npm link
       - run:
           name: Run Tests and Produce Reports
           command: |
