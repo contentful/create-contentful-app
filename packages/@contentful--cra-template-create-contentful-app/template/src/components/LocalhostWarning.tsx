@@ -7,7 +7,7 @@ const LocalhostWarning = () => {
       style={{
         display: 'flex',
         justifyContent: 'center',
-        marginTop: '40px'
+        marginTop: '40px',
       }}>
       <Note title="App running outside of Contentful" style={{ maxWidth: '800px' }}>
         <Paragraph>

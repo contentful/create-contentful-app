@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/contentful/create-contentful-app.git",
-    "directory": "packages/cra-template-create-contentful-app"
+    "directory": "packages/@contentful--cra-template-create-contentful-app"
   },
   "engines": {
     "node": ">=12 <15",
@@ -29,5 +29,20 @@
   "main": "template.json",
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

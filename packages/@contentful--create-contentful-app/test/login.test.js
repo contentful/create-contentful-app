@@ -5,7 +5,7 @@ const assert = require('assert');
 const makeTestSubject = (open = stub(), prompt = stub()) => {
   return proxyquire('../lib/login', {
     open,
-    inquirer: { prompt }
+    inquirer: { prompt },
   });
 };
 

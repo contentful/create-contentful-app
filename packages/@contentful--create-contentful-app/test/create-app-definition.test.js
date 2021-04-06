@@ -9,8 +9,8 @@ const makeTestSubject = (login = stub(), client = {}, prompt = stub()) => {
     'contentful-management': {
       createClient: () => {
         return client;
-      }
-    }
+      },
+    },
   });
 };
 
@@ -37,7 +37,7 @@ describe('createAppDefinition', () => {
   it('exits when unable to fetch organizations', async () => {
     const login = stub();
     const client = {
-      getOrganizations: stub().rejects(new Error())
+      getOrganizations: stub().rejects(new Error()),
     };
     const createAppDefinition = makeTestSubject(login, client);
 
@@ -52,7 +52,7 @@ describe('createAppDefinition', () => {
     const login = stub();
     const client = {
       getOrganization: stub().resolves({ createAppDefinition: stub().rejects(new Error()) }),
-      getOrganizations: stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] })
+      getOrganizations: stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] }),
     };
     const prompt = stub().returns({ organizationId });
     const createAppDefinition = makeTestSubject(login, client, prompt);
@@ -73,9 +73,9 @@ describe('createAppDefinition', () => {
     const login = stub();
     const client = {
       getOrganization: stub().resolves({
-        createAppDefinition: stub().resolves({ sys: { id: 'appId' } })
+        createAppDefinition: stub().resolves({ sys: { id: 'appId' } }),
       }),
-      getOrganizations: stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] })
+      getOrganizations: stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] }),
     };
     const prompt = stub().returns({ organizationId });
     const createAppDefinition = makeTestSubject(login, client, prompt);

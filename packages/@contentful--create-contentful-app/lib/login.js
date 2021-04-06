@@ -30,8 +30,8 @@ module.exports = async function login() {
           }
 
           return true;
-        }
-      }
+        },
+      },
     ]);
 
     return mgmtToken;

@@ -1,0 +1,60 @@
+{
+  "name": "@contentful/create-contentful-app",
+  "version": "0.4.2",
+  "description": "A template for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/@contentful--create-contentful-app"
+  },
+  "engines": {
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
+  },
+  "main": "lib/index.js",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "bin": {
+    "create-contentful-app": "lib/index.js"
+  },
+  "scripts": {
+    "prettier": "prettier **/*.js --write --ignore-path .gitignore",
+    "lint": "eslint ./lib",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha ./test/*.test.js",
+    "test:watch": "npm t -- --watch",
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "dependencies": {
+    "@contentful/cra-template-create-contentful-app": "^0.4.2",
+    "chalk": "^4.1.0",
+    "contentful-management": "^7.5.1",
+    "create-react-app": "^4.0.1",
+    "cross-spawn": "^7.0.3",
+    "inquirer": "^8.0.0",
+    "open": "^8.0.1",
+    "tildify": "^2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
