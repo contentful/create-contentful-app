@@ -14,16 +14,8 @@
     "npm": ">=6 <7"
   },
   "main": "index.js",
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "cz-customizable.config.js"
-    }
-  },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js}": [
       "eslint --fix",
       "prettier --write",
       "git add"
@@ -49,10 +41,6 @@
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
   "files": [
     "index.js"
   ],
