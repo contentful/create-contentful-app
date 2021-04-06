@@ -10,9 +10,9 @@ async function fetchOrganizations(client) {
   try {
     const orgs = await client.getOrganizations();
 
-    return orgs.items.map(org => ({
+    return orgs.items.map((org) => ({
       name: org.name,
-      value: org.sys.id
+      value: org.sys.id,
     }));
   } catch (err) {
     console.log(`
@@ -32,7 +32,7 @@ module.exports = async function createAppDefition(appDefinitionSettings = {}) {
     const accessToken = await login();
 
     const client = cma.createClient({
-      accessToken
+      accessToken,
     });
 
     const organizations = await fetchOrganizations(client);
@@ -42,27 +42,27 @@ module.exports = async function createAppDefition(appDefinitionSettings = {}) {
         name: 'organizationId',
         message: 'Select an organization for your app:',
         type: 'list',
-        choices: organizations
-      }
+        choices: organizations,
+      },
     ]);
-    const selectedOrg = organizations.find(org => org.value === organizationId);
+    const selectedOrg = organizations.find((org) => org.value === organizationId);
 
     const appName = appDefinitionSettings.name || path.basename(process.cwd());
     const body = {
       name: appName,
       src: 'http://localhost:3000',
-      locations: appDefinitionSettings.locations.map(location => {
+      locations: appDefinitionSettings.locations.map((location) => {
         if (location === 'entry-field') {
           return {
             location,
-            fieldTypes: appDefinitionSettings.fields
+            fieldTypes: appDefinitionSettings.fields,
           };
         }
 
         return {
-          location
+          location,
         };
-      })
+      }),
     };
 
     try {

@@ -4,7 +4,7 @@ const assert = require('assert');
 
 const makeTestSubject = (prompt = stub()) => {
   return proxyquire('../lib/prompt-app-definition', {
-    inquirer: { prompt }
+    inquirer: { prompt },
   });
 };
 
