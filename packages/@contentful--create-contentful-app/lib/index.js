@@ -6,8 +6,7 @@ const chalk = require('chalk');
 const spawn = require('cross-spawn');
 const path = require('path');
 const tildify = require('tildify');
-const promptAppDefinitionSettings = require('./prompt-app-definition');
-const createAppDefinition = require('./create-app-definition');
+const { createAppDefinition } = require('@contentful/app-scripts');
 
 const command = process.argv[2];
 const appFolder = process.argv[3];
@@ -69,8 +68,6 @@ function initProject() {
 }
 
 (async function main() {
-  let appDefinitionSettings;
-
   function printHelpText() {
     console.log(`
 ${chalk.bold(localCommand)}
@@ -94,8 +91,7 @@ ${chalk.cyan(`$ ${mainCommand} create-definition`)}
       break;
 
     case 'create-definition':
-      appDefinitionSettings = await promptAppDefinitionSettings();
-      await createAppDefinition(appDefinitionSettings);
+      await createAppDefinition.interactive();
       break;
 
     case 'help':

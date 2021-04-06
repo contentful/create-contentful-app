@@ -37,7 +37,6 @@
     "simple-git": "2.37.0",
     "sinon": "^10.0.0"
   },
-  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run pre-commit",

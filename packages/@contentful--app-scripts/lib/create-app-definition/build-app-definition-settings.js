@@ -1,8 +1,9 @@
+// @ts-check
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const path = require('path');
 
-module.exports = async function promptAppDefinition() {
+async function buildAppDefinitionSettings() {
   console.log(
     chalk.dim(`
 NOTE: This will create an app definition in your Contentful organization.
@@ -76,3 +77,6 @@ NOTE: This will create an app definition in your Contentful organization.
 
   return appDefinitionSettings;
 };
+
+
+exports.buildAppDefinitionSettings = buildAppDefinitionSettings;

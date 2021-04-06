@@ -14,14 +14,6 @@
     "npm": ">=6 <7"
   },
   "main": "lib/index.js",
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "cz-customizable.config.js"
-    }
-  },
   "lint-staged": {
     "*.{js}": [
       "eslint --fix",
@@ -29,23 +21,17 @@
       "git add"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "bin": {
     "app-scripts": "bin/app-scripts"
   },
   "scripts": {
-    "commit": "git-cz",
-    "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
-    "commitmsg": "validate-commit-msg",
+    "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./test/*.test.js",
-    "test:watch": "npm t -- --watch"
+    "test:watch": "npm t -- --watch",
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -56,9 +42,17 @@
     "test": "test"
   },
   "files": [
-    "lib"
+    "lib",
+    "bin"
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.2.0",
+    "contentful-management": "^7.14.0",
+    "inquirer": "^8.0.0",
+    "open": "^8.0.5"
   }
 }

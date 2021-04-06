@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@contentful/cra-template-create-contentful-app": "^0.4.2",
+    "@contentful/app-scripts": "^0.4.2",
     "chalk": "^4.1.0",
     "contentful-management": "^7.5.1",
     "create-react-app": "^4.0.1",
