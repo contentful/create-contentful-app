@@ -14,14 +14,6 @@
     "npm": ">=6 <7"
   },
   "main": "lib/index.js",
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "cz-customizable.config.js"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
@@ -43,9 +35,7 @@
     "create-contentful-app": "lib/index.js"
   },
   "scripts": {
-    "commit": "git-cz",
     "prettier": "prettier **/*.{js,jsx,ts,tsx} scripts/**/*.js --write --ignore-path .gitignore",
-    "commitmsg": "validate-commit-msg",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./test/*.test.js",
