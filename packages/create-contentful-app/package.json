@@ -49,8 +49,7 @@
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./test/*.test.js",
-    "test:watch": "npm t -- --watch",
-    "publish": "node ./scripts/publish.js"
+    "test:watch": "npm t -- --watch"
   },
   "dependencies": {
     "@contentful/cra-template-create-contentful-app": "^0.4.2",
