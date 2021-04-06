@@ -12,7 +12,8 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "link": "lerna run link",
-    "publish": "lerna publish"
+    "version": "lerna version --no-private --conventional-commits --create-release github --yes",
+    "publish": "lerna publish from-git --yes"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.0",

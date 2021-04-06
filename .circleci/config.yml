@@ -101,6 +101,17 @@ jobs:
           name: Cleanup
           command: rm -rf ./dependency-check
 
+  release:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run: git config --global user.email "prd-dev-workflows+ecosystem-bot@contentful.com"
+      - run: git config --global user.name "contentful-ecosystem-bot"
+      - run: npm ci && npm run bootstrap
+      - run: npm run version
+      - run: npm run publish
+
   lint-and-test-lts:
     executor: node-container-lts
     steps:
@@ -144,7 +155,7 @@ workflows:
               only: master
     jobs:
       - dependency-check
-
+        
   test:
     jobs:
       - lint-and-test-lts
@@ -156,6 +167,14 @@ workflows:
       - test-built-app-next-lts:
           requires:
             - lint-and-test-next-lts
+
+      - release:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test-built-app-lts
+            - test-built-app-next-lts
 
       - lint-and-test-latest
       # npx currently fails with the latest node version (15.3.0)
