@@ -40,8 +40,8 @@
   "dependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "npm run pre-commit",
+      "commit-msg": "npm run pre-commit"
     }
   }
 }
