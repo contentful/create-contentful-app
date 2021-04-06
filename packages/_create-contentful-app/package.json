@@ -54,7 +54,7 @@
     "test": "test"
   },
   "files": [
-    "lib"
+    "index.js"
   ],
   "publishConfig": {
     "access": "public"
