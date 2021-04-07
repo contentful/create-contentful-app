@@ -42,7 +42,7 @@ const { myCustomLogic } = require('./my-custom-logic')
 (async function main() {
   myCustomLogic();
   
-  createAppDefinition.interactive()
+  await createAppDefinition.interactive()
 })()
 ```
 
@@ -70,7 +70,7 @@ provided a Content Management Token (more details [here](https://www.contentful.
 
 It only runs in interactive mode.
 
-> **Example**
+> **Example** 
 > 
 > ```shell
 > $ contentful-app-scripts create-app-definition
