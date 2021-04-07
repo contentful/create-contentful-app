@@ -23,12 +23,12 @@ npm i -g @contentful/app-scripts
 
 When installed
 ```
-$ contentful-app-scripts --ci create-app-definition 
+$ contentful-app-scripts create-app-definition 
 ```
 
 Otherwise
 ```
-$ npx --no-install @contentful/app-scripts --ci create-app-definition 
+$ npx --no-install @contentful/app-scripts create-app-definition 
 ```
 
 ### 👨‍💻 Programmatic
@@ -69,3 +69,9 @@ Allows creating a new [AppDefinition](https://www.contentful.com/developers/docs
 provided a Content Management Token (more details [here](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)).
 
 It only runs in interactive mode.
+
+> **Example**
+> 
+> ```shell
+> $ contentful-app-scripts create-app-definition
+> ```
