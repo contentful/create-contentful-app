@@ -11,7 +11,7 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "link": "lerna run link",
+    "link": "lerna link",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes",
     "publish": "lerna publish from-git --yes",
     "pre-commit": "lerna run pre-commit",
@@ -37,11 +37,11 @@
     "simple-git": "2.37.0",
     "sinon": "^10.0.0"
   },
-  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run pre-commit",
       "commit-msg": "npm run pre-commit"
     }
-  }
+  },
+  "dependencies": {}
 }

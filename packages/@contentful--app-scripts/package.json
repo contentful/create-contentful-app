@@ -1,13 +1,13 @@
 {
-  "name": "@contentful/create-contentful-app",
+  "name": "@contentful/app-scripts",
   "version": "0.4.2",
-  "description": "A template for building Contentful Apps",
+  "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/contentful/create-contentful-app.git",
-    "directory": "packages/@contentful--create-contentful-app"
+    "directory": "packages/@contentful--app-scripts"
   },
   "engines": {
     "node": ">=12 <15",
@@ -15,32 +15,23 @@
   },
   "main": "lib/index.js",
   "lint-staged": {
-    "*.js": [
+    "*.{js}": [
       "eslint --fix",
       "prettier --write",
       "git add"
     ]
   },
   "bin": {
-    "create-contentful-app": "lib/index.js"
+    "contentful-app-scripts": "bin/app-scripts"
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
+    "test": "mocha ./lib/**/*.test.js",
+    "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-  },
-  "dependencies": {
-    "@contentful/cra-template-create-contentful-app": "^0.4.2",
-    "@contentful/app-scripts": "^0.4.2",
-    "chalk": "^4.1.0",
-    "contentful-management": "^7.5.1",
-    "create-react-app": "^4.0.1",
-    "cross-spawn": "^7.0.3",
-    "inquirer": "^8.0.0",
-    "open": "^8.0.1",
-    "tildify": "^2.0.0"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -48,12 +39,21 @@
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "bin": "bin"
   },
   "files": [
-    "lib"
+    "lib",
+    "bin"
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.2.0",
+    "contentful-management": "^7.14.0",
+    "inquirer": "^8.0.0",
+    "lodash": "^4.17.21",
+    "open": "^8.0.5"
   }
 }

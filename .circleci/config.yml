@@ -4,6 +4,11 @@ environment: &base-env
   NPM_CONFIG_PROGRESS: 'false'
   NPM_CONFIG_LOGLEVEL: warn
 
+install-deps: &install-deps
+  run:
+    name: Install Dependencies
+    command: npm ci && npm run bootstrap -- --force-local && npm run link -- --force-local
+
 executors:
   node-container-lts:
     docker:
@@ -24,9 +29,7 @@ commands:
   lint-and-test:
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm ci && npm run bootstrap
+      - *install-deps
       - run:
           name: Run Linter
           command: npm run lint
@@ -37,22 +40,15 @@ commands:
   test-built-app:
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm ci && npm run bootstrap
-      - run:
-          name: Link package
-          working_directory: ./packages/@contentful--create-contentful-app 
-          command: npm link
+      - *install-deps
       - run:
           name: Run Tests
-          environment:
-            MODE: 'ci'
           command: |
+            FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            npx --no-install @contentful/create-contentful-app init test
+            node "${FORMER_CWD}/packages/@contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
 
@@ -61,9 +57,7 @@ jobs:
     executor: node-container-lts
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm ci && npm run bootstrap
+      - *install-deps
       - run:
           name: Merge Pull Request
           command: node ./scripts/dependency-check/merge-pull-request.js
@@ -81,17 +75,13 @@ jobs:
           name: Create new template
           command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
-          name: Link package
-          working_directory: ./packages/@contentful--create-contentful-app 
-          command: npm link
-      - run:
           name: Run Tests and Produce Reports
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            npx --no-install @contentful/create-contentful-app init test
+            node "${FORMER_CWD}/packages/@contentful--create-contentful-app/lib/index.js" init test
             cd test
             (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
           environment:
@@ -157,7 +147,7 @@ workflows:
               only: master
     jobs:
       - dependency-check
-        
+
   test:
     jobs:
       - lint-and-test-lts
