@@ -28,7 +28,7 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha ./test/*.test.js",
+    "test": "mocha ./lib/**/*.test.js",
     "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -39,7 +39,7 @@
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "bin": "bin"
   },
   "files": [
     "lib",
@@ -53,6 +53,7 @@
     "commander": "^7.2.0",
     "contentful-management": "^7.14.0",
     "inquirer": "^8.0.0",
+    "lodash": "^4.17.21",
     "open": "^8.0.5"
   }
 }
