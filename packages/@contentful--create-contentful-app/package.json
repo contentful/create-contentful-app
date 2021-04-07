@@ -28,8 +28,6 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha ./test/*.test.js",
-    "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
