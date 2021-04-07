@@ -3,30 +3,10 @@ const path = require('path');
 const { createClient } = require('contentful-management');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
+const {getOrganizationId} = require("../get-organization-id");
 const { isString, isPlainObject, has } = require('lodash');
 
 const { throwValidationException } = require('../utils');
-
-async function fetchOrganizations(client) {
-  try {
-    const orgs = await client.getOrganizations();
-
-    return orgs.items.map((org) => ({
-      name: org.name,
-      value: org.sys.id
-    }));
-  } catch (err) {
-    console.log(`
-${chalk.red(
-      'Error:'
-    )} Could not fetch your organizations. Make sure you provided a valid access token.
-
-${err.message}
-    `);
-
-    throw err;
-  }
-}
 
 function assertValidArguments(accessToken, appDefinitionSettings) {
   if (!isString(accessToken)) {
@@ -47,22 +27,11 @@ function assertValidArguments(accessToken, appDefinitionSettings) {
 }
 
 async function createAppDefinition(accessToken, appDefinitionSettings = { locations: [] }) {
-
   assertValidArguments(accessToken, appDefinitionSettings);
 
   const client = createClient({ accessToken });
 
-  const organizations = await fetchOrganizations(client);
-
-  const { organizationId } = await inquirer.prompt([
-    {
-      name: 'organizationId',
-      message: 'Select an organization for your app:',
-      type: 'list',
-      choices: organizations
-    }
-  ]);
-  const selectedOrg = organizations.find((org) => org.value === organizationId);
+  const selectedOrg = await getOrganizationId(client);
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
   const body = {
@@ -83,7 +52,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   };
 
   try {
-    const organization = await client.getOrganization(organizationId);
+    const organization = await client.getOrganization(selectedOrg.value);
     const createdAppDefinition = await organization.createAppDefinition(body);
 
     console.log(`
