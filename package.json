@@ -42,5 +42,6 @@
       "pre-commit": "npm run pre-commit",
       "commit-msg": "npm run pre-commit"
     }
-  }
+  },
+  "dependencies": {}
 }

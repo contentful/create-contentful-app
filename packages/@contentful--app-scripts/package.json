@@ -22,7 +22,7 @@
     ]
   },
   "bin": {
-    "app-scripts": "bin/app-scripts"
+    "contentful-app-scripts": "bin/app-scripts"
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
