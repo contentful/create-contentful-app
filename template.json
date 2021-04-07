@@ -1,7 +1,7 @@
 {
   "package": {
     "dependencies": {
-      "@contentful/app-sdk": "^3.32.2",
+      "@contentful/app-sdk": "^3.33.0",
       "@contentful/field-editor-single-line": "^0.14.1",
       "@contentful/field-editor-test-utils": "^0.11.1",
       "@contentful/forma-36-fcss": "^0.3.1",
