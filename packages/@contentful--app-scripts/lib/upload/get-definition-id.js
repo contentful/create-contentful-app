@@ -1,19 +1,20 @@
-const chalk = require("chalk");
+const chalk = require('chalk');
 const inquirer = require('inquirer');
+const ora = require('ora');
 
 async function fetchDefinitions(client, orgId) {
   try {
     const organization = await client.getOrganization(orgId);
-    const definitions = await organization.getAppDefinitions()
+    const definitions = await organization.getAppDefinitions();
     return definitions.items.map((def) => ({
       name: def.name,
-      value: def.sys.id
+      value: def.sys.id,
     }));
   } catch (err) {
     console.log(`
 ${chalk.red(
-      'Error:'
-    )} Could not fetch your app-definitions. Make sure you provided a valid access token.
+  'Error:'
+)} Could not fetch your app-definitions. Make sure you provided a valid access token.
 
 ${err.message}
     `);
@@ -22,17 +23,18 @@ ${err.message}
   }
 }
 
-
 async function getDefinitionId(client, orgId) {
+  const defSpinner = ora('Get all defitnions').start();
   const definitions = await fetchDefinitions(client, orgId);
+  defSpinner.stop();
 
   const { definitionId } = await inquirer.prompt([
     {
       name: 'definitionId',
       message: 'Select an app for your upload:',
       type: 'list',
-      choices: definitions
-    }
+      choices: definitions,
+    },
   ]);
   return definitions.find((org) => org.value === definitionId);
 }
