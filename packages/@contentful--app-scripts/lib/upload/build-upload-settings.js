@@ -2,7 +2,6 @@
 
 const inquirer = require('inquirer');
 const { getDefinitionId } = require('./get-definition-id');
-const ora = require('ora');
 const { createClient } = require('contentful-management');
 const { getManagementToken } = require('../get-management-token');
 const { getOrganizationId } = require('../get-organization-id');
@@ -26,9 +25,9 @@ async function buildAppUploadSettings() {
   // Add app-config & dialog automatically
   return {
     ...appUploadSettings,
-    orgId: selectedOrg.value,
-    defId: selectedDefinition.value,
-    mgmToken: accessToken,
+    organisation: selectedOrg,
+    definition: selectedDefinition,
+    accessToken,
   };
 }
 

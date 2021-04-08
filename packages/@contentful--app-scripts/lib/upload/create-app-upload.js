@@ -2,7 +2,6 @@ const glob = require('glob');
 const chalk = require('chalk');
 const ora = require('ora');
 const fs = require('fs');
-const fetch = require('node-fetch');
 const JSZip = require('jszip');
 const { createClient } = require('contentful-management');
 
@@ -27,14 +26,13 @@ async function createZipFileFromDirectory(path) {
   files.forEach(([path, data]) => {
     zip.file(path, data);
   });
-  return await zip.generateAsync({ type: 'string' });
+  return await zip.generateAsync({ type: 'nodebuffer' });
 }
 
 async function createAppBundleFromFile(orgId, token, zip) {
   const client = await createClient({ accessToken: token });
   const org = await client.getOrganization(orgId);
-  const appUpload = await org.createAppUpload(zip);
-  return appUpload;
+  return await org.createAppUpload(zip);
 }
 
 async function createAppUpload(settings) {
@@ -42,10 +40,21 @@ async function createAppUpload(settings) {
   // todo replace with real directory
   const zipFile = await createZipFileFromDirectory('./example');
   zipFileSpinner.stop();
-  console.log(chalk.cyan(`Files successfully zipped`));
+  console.log('----------------------------');
+  console.log(
+    `${chalk.yellow('Done!')} Files from ${chalk.dim(
+      settings['bundle-directory']
+    )} successfully zipped`
+  );
+  console.log('----------------------------');
   const uploadSpinner = ora('Uploading your files').start();
-  await createAppBundleFromFile(settings.orgId, settings.mgmToken, zipFile);
+  const appUpload = await createAppBundleFromFile(
+    settings.organisation.value,
+    settings.accessToken,
+    zipFile
+  );
   uploadSpinner.stop();
+  return appUpload;
 }
 
 exports.createAppUpload = createAppUpload;
