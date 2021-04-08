@@ -52,7 +52,9 @@
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "contentful-management": "^7.14.0",
+    "glob": "^7.1.6",
     "inquirer": "^8.0.0",
+    "jszip": "^3.6.0",
     "lodash": "^4.17.21",
     "open": "^8.0.5"
   }

@@ -31,7 +31,7 @@ NOTE: This will create an app upload in your Contentful organization.
 
   // Add app-config & dialog automatically
   return {...appUploadSettings, orgId: selectedOrg.value, defId: selectedDefinition.value};
-};
+}
 
 
 exports.buildAppUploadSettings = buildAppUploadSettings;
