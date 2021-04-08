@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -52,11 +52,8 @@
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "contentful-management": "^7.14.0",
-    "glob": "^7.1.6",
     "inquirer": "^8.0.0",
-    "jszip": "^3.6.0",
     "lodash": "^4.17.21",
-    "open": "^8.0.5",
-    "ora": "^5.4.0"
+    "open": "^8.0.5"
   }
 }

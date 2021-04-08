@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.4.4](https://github.com/contentful/create-contentful-app/compare/v0.4.3...v0.4.4) (2021-04-09)
+## [0.4.4](https://github.com/contentful/create-contentful-app/compare/v0.4.3...v0.4.4) (2021-04-08)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
 
@@ -16,10 +16,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* add defaults for pr script ([162b208](https://github.com/contentful/create-contentful-app/commit/162b2080f54e461723d67144d593a2c2f970feef))
-* extract app scripts ([#368](https://github.com/contentful/create-contentful-app/issues/368)) ([85d4a49](https://github.com/contentful/create-contentful-app/commit/85d4a49fb4954cf8dfd9bc54b7b36ae18d2a3bec))
-* extract app scripts ([#368](https://github.com/contentful/create-contentful-app/issues/368)) ([9e53220](https://github.com/contentful/create-contentful-app/commit/9e5322074fc09cec4ba21fe9b97bc674ae02c3ed))
+* extract app scripts ([#368](https://github.com/contentful/create-contentful-app/issues/368)) ([c580119](https://github.com/contentful/create-contentful-app/commit/c580119fe4dc1dcf97cb484e0b38f3e6ecfe82dc))
 * **mockSdk:** pass mocksdk to every component ([441351d](https://github.com/contentful/create-contentful-app/commit/441351d37f5a953f5251e9f88af59690e32eadeb))
+* add defaults for pr script ([162b208](https://github.com/contentful/create-contentful-app/commit/162b2080f54e461723d67144d593a2c2f970feef))
 * add forma-36 tokens css import ([6edae00](https://github.com/contentful/create-contentful-app/commit/6edae006af20be3cd840c954a91cfa61c1dc4435))
 * cleanup old pull requests when creating a new one ([1fd31a9](https://github.com/contentful/create-contentful-app/commit/1fd31a9222d320af5d7eb03a5c82a2c2af6b4bd0))
 * don't auto close PRs ([18524d6](https://github.com/contentful/create-contentful-app/commit/18524d684ecb5d30fc0042a91cb4e39228ecf156))
@@ -51,13 +50,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * update warning copy ([1354ed8](https://github.com/contentful/create-contentful-app/commit/1354ed89c6be494faef2d440cf32af62a8e81889))
 * use @contentful/app-sdk ([#218](https://github.com/contentful/create-contentful-app/issues/218)) ([c1b95b6](https://github.com/contentful/create-contentful-app/commit/c1b95b6e0b975b72da967c42013ca185bbcabfa4))
 * use relative paths for build output ([#366](https://github.com/contentful/create-contentful-app/issues/366)) ([dac985d](https://github.com/contentful/create-contentful-app/commit/dac985d6e981b8948dce5f998be8a388bff988c6))
-
-
-
-
-
-# CHANGELOG
-
-The changelog is automatically updated using
-[semantic-release](https://github.com/semantic-release/semantic-release). You
-can see it on the [releases page](../../releases).
