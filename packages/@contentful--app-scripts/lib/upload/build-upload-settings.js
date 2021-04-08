@@ -24,7 +24,12 @@ async function buildAppUploadSettings() {
   const selectedDefinition = await getDefinitionId(client, selectedOrg.value);
 
   // Add app-config & dialog automatically
-  return { ...appUploadSettings, orgId: selectedOrg.value, defId: selectedDefinition.value };
+  return {
+    ...appUploadSettings,
+    orgId: selectedOrg.value,
+    defId: selectedDefinition.value,
+    mgmToken: accessToken,
+  };
 }
 
 exports.buildAppUploadSettings = buildAppUploadSettings;
