@@ -4,6 +4,11 @@ environment: &base-env
   NPM_CONFIG_PROGRESS: 'false'
   NPM_CONFIG_LOGLEVEL: warn
 
+install-deps: &install-deps
+  run:
+    name: Install Dependencies
+    command: npm ci && npm run bootstrap -- --force-local && npm run link -- --force-local
+
 executors:
   node-container-lts:
     docker:
@@ -24,34 +29,26 @@ commands:
   lint-and-test:
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm ci
+      - *install-deps
       - run:
           name: Run Linter
           command: npm run lint
       - run:
           name: Run Tests
-          command: npm t
+          command: npm run test
 
   test-built-app:
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm ci
-      - run:
-          name: Link package
-          command: npm link
+      - *install-deps
       - run:
           name: Run Tests
-          environment:
-            MODE: 'ci'
           command: |
+            FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            npx --no-install @contentful/create-contentful-app init test
+            node "${FORMER_CWD}/packages/@contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
 
@@ -60,9 +57,7 @@ jobs:
     executor: node-container-lts
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm ci
+      - *install-deps
       - run:
           name: Merge Pull Request
           command: node ./scripts/dependency-check/merge-pull-request.js
@@ -80,16 +75,13 @@ jobs:
           name: Create new template
           command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
-          name: Link package
-          command: npm link
-      - run:
           name: Run Tests and Produce Reports
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            npx --no-install @contentful/create-contentful-app init test
+            node "${FORMER_CWD}/packages/@contentful--create-contentful-app/lib/index.js" init test
             cd test
             (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
           environment:
@@ -100,6 +92,18 @@ jobs:
       - run:
           name: Cleanup
           command: rm -rf ./dependency-check
+
+  release:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
+      - run: git config --global user.name "whydah-gally"
+      - run: npm ci && npm run bootstrap
+      - run: npm run version
+      - run: npm run publish
 
   lint-and-test-lts:
     executor: node-container-lts
@@ -156,6 +160,14 @@ workflows:
       - test-built-app-next-lts:
           requires:
             - lint-and-test-next-lts
+
+      - release:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test-built-app-lts
+            - test-built-app-next-lts
 
       - lint-and-test-latest
       # npx currently fails with the latest node version (15.3.0)

@@ -1,8 +1,9 @@
+// @ts-check
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const path = require('path');
 
-module.exports = async function promptAppDefinition() {
+async function buildAppDefinitionSettings() {
   console.log(
     chalk.dim(`
 NOTE: This will create an app definition in your Contentful organization.
@@ -14,7 +15,7 @@ NOTE: This will create an app definition in your Contentful organization.
   const appDefinitionSettings = await inquirer.prompt([
     {
       name: 'name',
-      message: `App name (${path.basename(process.cwd())}):`
+      message: `App name (${path.basename(process.cwd())}):`,
     },
     {
       name: 'locations',
@@ -24,8 +25,8 @@ NOTE: This will create an app definition in your Contentful organization.
         { name: 'Entry field (entry-field) ', value: 'entry-field' },
         { name: 'Entry editor (entry-editor)', value: 'entry-editor' },
         { name: 'Entry sidebar (entry-sidebar) ', value: 'entry-sidebar' },
-        { name: 'Page (page) ', value: 'page' }
-      ]
+        { name: 'Page (page) ', value: 'page' },
+      ],
     },
     {
       name: 'fields',
@@ -49,15 +50,15 @@ NOTE: This will create an app definition in your Contentful organization.
             type: 'Array',
             items: {
               type: 'Link',
-              linkType: 'Entry'
-            }
-          }
+              linkType: 'Entry',
+            },
+          },
         },
         { name: 'Media reference', value: { type: 'Link', linkType: 'Asset' } },
         {
           name: 'Media reference, list',
-          value: { type: 'Array', items: { type: 'Link', linkType: 'Asset' } }
-        }
+          value: { type: 'Array', items: { type: 'Link', linkType: 'Asset' } },
+        },
       ],
       when(answers) {
         return answers.locations.includes('entry-field');
@@ -67,8 +68,8 @@ NOTE: This will create an app definition in your Contentful organization.
           return 'You must choose at least one field type.';
         }
         return true;
-      }
-    }
+      },
+    },
   ]);
 
   // Add app-config & dialog automatically
@@ -76,3 +77,6 @@ NOTE: This will create an app definition in your Contentful organization.
 
   return appDefinitionSettings;
 };
+
+
+exports.buildAppDefinitionSettings = buildAppDefinitionSettings;

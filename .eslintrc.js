@@ -3,5 +3,13 @@ module.exports = {
   env: {
     node: true,
     mocha: true
+  },
+  rules: {
+    "node/no-extraneous-require": [
+      "error", {
+        // DevDeps are hoisted by lerna
+        "allowModules": Object.keys(require('./package.json').devDependencies)
+      }
+    ]
   }
 };

@@ -6,8 +6,7 @@ const chalk = require('chalk');
 const spawn = require('cross-spawn');
 const path = require('path');
 const tildify = require('tildify');
-const promptAppDefinitionSettings = require('./prompt-app-definition');
-const createAppDefinition = require('./create-app-definition');
+const { createAppDefinition } = require('@contentful/app-scripts');
 
 const command = process.argv[2];
 const appFolder = process.argv[3];
@@ -41,11 +40,9 @@ function initProject() {
       process.exit(1);
     }
 
-    const projectRoot = `file:${path.resolve(__dirname, '../')}`;
     const initCommand = 'node';
     const createReactApp = require.resolve('create-react-app');
-    const templatePkg =
-      process.env.MODE === 'local' ? projectRoot : '@contentful/cra-template-create-contentful-app';
+    const templatePkg = '@contentful/cra-template-create-contentful-app';
 
     const args = [createReactApp, appFolder, '--template', templatePkg, '--use-npm'];
 
@@ -71,8 +68,6 @@ function initProject() {
 }
 
 (async function main() {
-  let appDefinitionSettings;
-
   function printHelpText() {
     console.log(`
 ${chalk.bold(localCommand)}
@@ -96,8 +91,7 @@ ${chalk.cyan(`$ ${mainCommand} create-definition`)}
       break;
 
     case 'create-definition':
-      appDefinitionSettings = await promptAppDefinitionSettings();
-      await createAppDefinition(appDefinitionSettings);
+      await createAppDefinition.interactive();
       break;
 
     case 'help':

@@ -1,0 +1,44 @@
+{
+  "name": "create-contentful-app",
+  "version": "0.4.4",
+  "description": "A template for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/create-contentful-app"
+  },
+  "engines": {
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
+  },
+  "main": "index.js",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "bin": {
+    "create-contentful-app": "index.js"
+  },
+  "dependencies": {
+    "@contentful/create-contentful-app": "^0.4.4"
+  },
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  }
+}

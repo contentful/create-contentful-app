@@ -1,0 +1,48 @@
+{
+  "name": "@contentful/cra-template-create-contentful-app",
+  "version": "0.4.4",
+  "description": "A template for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/@contentful--cra-template-create-contentful-app"
+  },
+  "engines": {
+    "node": ">=12 <15",
+    "npm": ">=6 <7"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "keywords": [
+    "contentful",
+    "contentful-app",
+    "create-contentful-app"
+  ],
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "main": "template.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
