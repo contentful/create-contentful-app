@@ -1,0 +1,77 @@
+const chalk = require('chalk');
+const inquirer = require('inquirer');
+const ora = require('ora');
+const { showCreationError } = require('../utils');
+const { createClient } = require('contentful-management');
+
+const { createAppUpload } = require('./create-app-upload');
+
+async function createAppBundleFromUpload(settings, appUploadId) {
+  const clientSpinner = ora('Verifing your upload').start();
+  const client = createClient({ accessToken: settings.accessToken });
+  const org = await client.getOrganization(settings.organisation.value);
+  const appDefinition = await org.getAppDefinition(settings.definition.value);
+  clientSpinner.stop();
+  const { comment } = await inquirer.prompt([
+    {
+      name: 'comment',
+      message: `Add a comment to the created bundle:`,
+      default: '',
+    },
+  ]);
+  let appBundle = null;
+  const bundleSpinner = ora('Creating the app bundle').start();
+  try {
+    appBundle = await appDefinition.createAppBundle({ appUploadId });
+  } catch (err) {
+    showCreationError('app upload', err.message);
+  }
+  bundleSpinner.stop();
+  return appBundle;
+}
+
+async function createAppBundle(settings) {
+  let appUpload = null;
+  try {
+    appUpload = await createAppUpload(settings);
+    console.log(
+      `${chalk.yellow(
+        'Done!'
+      )} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
+        appUpload.sys.id
+      )}) has been created`
+    );
+  } catch (err) {
+    showCreationError('app bundle', err.message);
+  }
+
+  if (!appUpload) return;
+
+  console.log('----------------------------');
+  const appBundle = await createAppBundleFromUpload(settings, appUpload.sys.id);
+
+  if (!appBundle) return;
+
+  console.log(
+    `${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
+      settings.definition.name
+    )} in ${chalk.bold(settings.organisation.name)}.
+
+  Bundle Id: ${chalk.yellow(appBundle.sys.id)}
+  `
+  );
+  console.log(`
+  ${chalk.green(`NEXT STEPS:`)}
+
+    ${chalk.bold('You can activate this app bundle in your apps settings:')}
+
+      ${chalk.underline(`https://app.contentful.com/deeplink?link=app-definition-list`)}
+
+    ${chalk.bold('or by simply running the cli command:')}
+
+      ${chalk.underline(`contentful-app-scripts activate`)}
+
+  `);
+}
+
+exports.createAppBundle = createAppBundle;
