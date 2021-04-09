@@ -12,17 +12,11 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   const org = await client.getOrganization(settings.organisation.value);
   const appDefinition = await org.getAppDefinition(settings.definition.value);
   clientSpinner.stop();
-  const { comment } = await inquirer.prompt([
-    {
-      name: 'comment',
-      message: `Add a comment to the created bundle:`,
-      default: '',
-    },
-  ]);
+
   let appBundle = null;
   const bundleSpinner = ora('Creating the app bundle').start();
   try {
-    appBundle = await appDefinition.createAppBundle({ appUploadId, comment });
+    appBundle = await appDefinition.createAppBundle({ appUploadId, comment: settings.comment });
   } catch (err) {
     showCreationError('app upload', err.message);
   }

@@ -24,7 +24,7 @@ ${err.message}
 }
 
 async function selectOrganization(client) {
-  const orgSpinner = ora('Getting your organizations').start();
+  const orgSpinner = ora('Fetching your organizations').start();
   let organizations = null;
   try {
     organizations = await fetchOrganizations(client);

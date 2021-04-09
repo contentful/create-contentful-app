@@ -16,13 +16,10 @@ async function createZipFileFromDirectory(path) {
       });
     });
 
-    console.log(
-      `
-    ${chalk.blueBright('Info:')} Creating a zip file from ${filePaths.length} file${
-        filePaths.length !== 1 ? 's' : ''
-      }.
-      `
-    );
+    console.log(`
+${chalk.blueBright('Info:')} Creating a zip file from ${filePaths.length} file${
+      filePaths.length !== 1 ? 's' : ''
+    }.`);
 
     const files = await Promise.all(
       filePaths.map(

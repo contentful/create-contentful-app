@@ -24,7 +24,7 @@ ${err.message}
 }
 
 async function selectDefinition(client, orgId) {
-  const defSpinner = ora('Get all defitnions').start();
+  const defSpinner = ora('Fetching all definitions').start();
   const definitions = await fetchDefinitions(client, orgId);
   defSpinner.stop();
 

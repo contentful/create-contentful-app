@@ -14,7 +14,13 @@ async function buildAppUploadSettings() {
       message: `Bundle directory, if not current:`,
       default: '.',
     },
+    {
+      name: 'comment',
+      message: `Add a comment to the created bundle:`,
+      default: '',
+    },
   ]);
+
   const accessToken = await getManagementToken();
 
   const client = createClient({ accessToken });

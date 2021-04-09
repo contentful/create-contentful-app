@@ -43,6 +43,7 @@ async function getUploadSettingsArgs(options) {
       organisation: selectedOrg,
       definition: selectedDefinition,
       accessToken: options.token,
+      comment: options.comment,
     };
   } catch (err) {
     console.log(`

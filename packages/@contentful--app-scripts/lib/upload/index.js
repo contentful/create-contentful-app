@@ -11,7 +11,6 @@ module.exports = {
   },
   async nonInteractive(program, options) {
     const settings = await getUploadSettingsArgs(options);
-    console.log(settings);
     await createAppBundle(settings);
   },
 };
