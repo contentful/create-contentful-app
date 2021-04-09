@@ -10,7 +10,7 @@ const { getManagementToken } = require('../get-management-token');
 async function buildAppUploadSettings() {
   const appUploadSettings = await inquirer.prompt([
     {
-      name: 'bundle-directory',
+      name: 'bundleDirectory',
       message: `Bundle directory, if not current:`,
       default: '.',
     },

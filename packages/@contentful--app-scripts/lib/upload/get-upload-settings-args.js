@@ -39,7 +39,7 @@ async function getUploadSettingsArgs(options) {
       options.definitionId
     );
     return {
-      'bundle-directory': options.bundleDir,
+      bundleDirectory: options.bundleDir,
       organisation: selectedOrg,
       definition: selectedDefinition,
       accessToken: options.token,
