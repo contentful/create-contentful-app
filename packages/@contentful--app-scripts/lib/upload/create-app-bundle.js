@@ -1,5 +1,4 @@
 const chalk = require('chalk');
-const inquirer = require('inquirer');
 const ora = require('ora');
 const { showCreationError } = require('../utils');
 const { createClient } = require('contentful-management');
