@@ -3,7 +3,7 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const {createAppDefinition, upload} = require('../')
+const {createAppDefinition, upload, activate} = require('../')
 
 
 async function runCommand(command, options) {
@@ -33,6 +33,17 @@ async function runCommand(command, options) {
     .option('--comment [comment]', 'Optional comment for the created bundle')
     .action(async (options) => {
       await runCommand(upload, options);
+    })
+
+  program
+    .command('activate')
+    .description('Upload your build folder and create an app bundle')
+    .option('--bundle-id [bundleId]', 'The id of your bundle')
+    .option('--organization-id [orgId]', 'The id of your organisation')
+    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--token [accessToken]', 'Your content management access token')
+    .action((options) => {
+      runCommand(program, activate, options);
     })
 
   await program.parseAsync(process.argv);

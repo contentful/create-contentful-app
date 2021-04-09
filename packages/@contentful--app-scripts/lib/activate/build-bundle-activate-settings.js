@@ -1,0 +1,38 @@
+// @ts-check
+
+const inquirer = require('inquirer');
+const { selectDefinition } = require('../definition-api');
+const { selectOrganization } = require('../organization-api');
+
+const { createClient } = require('contentful-management');
+const { getManagementToken } = require('../get-management-token');
+
+async function buildBundleActivateSettings() {
+  const appUploadSettings = await inquirer.prompt([
+    {
+      name: 'bundleId',
+      message: `The id of the bundle you want to activate (required):`,
+      validate: (input) => input.length > 0,
+    },
+  ]);
+
+  const accessToken = await getManagementToken();
+
+  const client = createClient({ accessToken });
+
+  const selectedOrg = await selectOrganization(client);
+
+  const selectedDefinition = await selectDefinition(client, selectedOrg.value);
+
+  console.log(appUploadSettings);
+
+  // Add app-config & dialog automatically
+  return {
+    ...appUploadSettings,
+    organisation: selectedOrg,
+    definition: selectedDefinition,
+    accessToken,
+  };
+}
+
+exports.buildBundleActivateSettings = buildBundleActivateSettings;
