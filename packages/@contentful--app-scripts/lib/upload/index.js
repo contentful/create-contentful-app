@@ -6,7 +6,6 @@ const { buildAppUploadSettings } = require('./build-upload-settings');
 module.exports = {
   async interactive() {
     const settings = await buildAppUploadSettings();
-    console.log(settings);
     await createAppBundle(settings);
   },
   async nonInteractive(program, options) {
