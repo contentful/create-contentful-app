@@ -18,7 +18,7 @@ function validateArguments(options) {
       console.log(
         `
   ${chalk.red('Invalid Arguments:')} the argument ${chalk.cyan(argument)} was not defined
-  Run ${chalk.dim('REPLACE WITH COMMAND --help')} to see all required arguments
+  Run ${chalk.dim('contentful-app-scripts upload --help')} to see all required arguments
         `
       );
       throw new Error('Invalid Arguments');

@@ -15,8 +15,6 @@ function runCommand(program, command, options) {
   program
     .version(version)
     .option('--ci', 'Execute in non-interactive mode', false)
-    .action((wat) => console.log(wat))
-
 
   program
     .command('create-app-definition')
@@ -24,8 +22,6 @@ function runCommand(program, command, options) {
     .action((options) => {
       runCommand(program, createAppDefinition, options);
     })
-
-
 
   program
     .command('upload')
