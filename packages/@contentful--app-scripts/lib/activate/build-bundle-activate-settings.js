@@ -24,8 +24,6 @@ async function buildBundleActivateSettings() {
 
   const selectedDefinition = await selectDefinition(client, selectedOrg.value);
 
-  console.log(appUploadSettings);
-
   // Add app-config & dialog automatically
   return {
     ...appUploadSettings,
