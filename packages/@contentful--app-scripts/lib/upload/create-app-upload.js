@@ -43,7 +43,6 @@ async function createZipFileFromDirectory(path) {
       }
       zip.file(localPath, data);
     });
-    console.log(zip);
     return await zip.generateAsync({ type: 'nodebuffer' });
   } catch (err) {
     showCreationError('zip file', err.message);

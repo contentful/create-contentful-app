@@ -1,10 +1,11 @@
 // @ts-check
 
 const inquirer = require('inquirer');
-const { getDefinitionId } = require('./get-definition-id');
+const { selectDefinition } = require('./definition-api');
+const { selectOrganization } = require('./organization-api');
+
 const { createClient } = require('contentful-management');
 const { getManagementToken } = require('../get-management-token');
-const { getOrganizationId } = require('../get-organization-id');
 
 async function buildAppUploadSettings() {
   const appUploadSettings = await inquirer.prompt([
@@ -18,9 +19,9 @@ async function buildAppUploadSettings() {
 
   const client = createClient({ accessToken });
 
-  const selectedOrg = await getOrganizationId(client);
+  const selectedOrg = await selectOrganization(client);
 
-  const selectedDefinition = await getDefinitionId(client, selectedOrg.value);
+  const selectedDefinition = await selectDefinition(client, selectedOrg.value);
 
   // Add app-config & dialog automatically
   return {

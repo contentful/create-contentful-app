@@ -23,10 +23,18 @@ ${err.message}
   }
 }
 
-async function getOrganizationId(client) {
+async function selectOrganization(client) {
   const orgSpinner = ora('Getting your organizations').start();
-  const organizations = await fetchOrganizations(client);
-  orgSpinner.stop();
+  let organizations = null;
+  try {
+    organizations = await fetchOrganizations(client);
+  } finally {
+    orgSpinner.stop();
+  }
+
+  if (!organizations) {
+    return null;
+  }
   const { organizationId } = await inquirer.prompt([
     {
       name: 'organizationId',
@@ -38,4 +46,27 @@ async function getOrganizationId(client) {
   return organizations.find((org) => org.value === organizationId);
 }
 
-exports.getOrganizationId = getOrganizationId;
+async function getOrganizationById(client, orgId) {
+  try {
+    const org = await client.getOrganization(orgId);
+    return {
+      name: org.name,
+      value: org.sys.id,
+    };
+  } catch (err) {
+    console.log(`
+${chalk.red(
+  'Error:'
+)} Could not fetch your organization. Make sure you provided a valid access token.
+
+${err.message}
+    `);
+
+    throw err;
+  }
+}
+
+module.exports = {
+  selectOrganization,
+  getOrganizationById,
+};

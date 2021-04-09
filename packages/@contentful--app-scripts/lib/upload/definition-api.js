@@ -23,7 +23,7 @@ ${err.message}
   }
 }
 
-async function getDefinitionId(client, orgId) {
+async function selectDefinition(client, orgId) {
   const defSpinner = ora('Get all defitnions').start();
   const definitions = await fetchDefinitions(client, orgId);
   defSpinner.stop();
@@ -39,4 +39,28 @@ async function getDefinitionId(client, orgId) {
   return definitions.find((org) => org.value === definitionId);
 }
 
-exports.getDefinitionId = getDefinitionId;
+async function getDefinitionById(client, orgId, defId) {
+  try {
+    const organization = await client.getOrganization(orgId);
+    const definition = await organization.getAppDefinition(defId);
+    return {
+      name: definition.name,
+      value: definition.sys.id,
+    };
+  } catch (err) {
+    console.log(`
+${chalk.red(
+  'Error:'
+)} Could not fetch your definitions. Make sure you provided a valid access token.
+
+${err.message}
+    `);
+
+    throw err;
+  }
+}
+
+module.exports = {
+  selectDefinition,
+  getDefinitionById,
+};
