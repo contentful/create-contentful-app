@@ -43,7 +43,11 @@ async function createZipFileFromDirectory(path) {
       }
       zip.file(localPath, data);
     });
-    return await zip.generateAsync({ type: 'nodebuffer' });
+    const zipFile = await zip.generateAsync({ type: 'nodebuffer' });
+    console.log('----------------------------');
+    console.log(`${chalk.yellow('Done!')} Files from ${chalk.dim(path)} successfully zipped`);
+    console.log('----------------------------');
+    return zipFile;
   } catch (err) {
     showCreationError('zip file', err.message);
     return null;
@@ -63,14 +67,6 @@ async function createAppUpload(settings) {
   zipFileSpinner.stop();
 
   if (!zipFile) return;
-
-  console.log('----------------------------');
-  console.log(
-    `${chalk.yellow('Done!')} Files from ${chalk.dim(
-      settings['bundle-directory']
-    )} successfully zipped`
-  );
-  console.log('----------------------------');
 
   const uploadSpinner = ora('Uploading your files').start();
   try {
