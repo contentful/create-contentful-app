@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const chalk = require('chalk');
 const ora = require('ora');
 const { throwError } = require('./utils');
 

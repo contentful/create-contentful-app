@@ -6,9 +6,9 @@ const { version } = require('../package.json');
 const {createAppDefinition, upload} = require('../')
 
 
-function runCommand(program, command, options) {
+function runCommand(command, options) {
   const {ci} = program.opts()
-  return ci ? command.nonInteractive(program, options) : command.interactive(program);
+  return ci ? command.nonInteractive(options) : command.interactive();
 }
 
 (async function main() {
@@ -20,7 +20,7 @@ function runCommand(program, command, options) {
     .command('create-app-definition')
     .description('Create a new AppDefinition for an App')
     .action((options) => {
-      runCommand(program, createAppDefinition, options);
+      runCommand(createAppDefinition, options);
     })
 
   program
@@ -32,7 +32,7 @@ function runCommand(program, command, options) {
     .option('--token [accessToken]', 'Your content management access token')
     .option('--comment [comment]', 'Optional comment for the created bundle')
     .action((options) => {
-      runCommand(program, upload, options);
+      runCommand(upload, options);
     })
 
   await program.parseAsync(process.argv);

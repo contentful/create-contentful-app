@@ -21,7 +21,7 @@ function validateArguments(options) {
   Run ${chalk.dim('contentful-app-scripts upload --help')} to see all required arguments
         `
       );
-      throw new Error('Invalid Arguments');
+      throw new TypeError('Invalid Arguments');
     }
   });
 }

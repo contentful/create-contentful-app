@@ -8,7 +8,7 @@ module.exports = {
     const settings = await buildAppUploadSettings();
     await createAppBundle(settings);
   },
-  async nonInteractive(program, options) {
+  async nonInteractive(options) {
     const settings = await getUploadSettingsArgs(options);
     await createAppBundle(settings);
   },
