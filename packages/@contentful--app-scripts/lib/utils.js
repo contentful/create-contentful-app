@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const inquirer = require('inquirer');
 
 const throwValidationException = (subject, message, details) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);
@@ -28,8 +29,21 @@ ${err.message}
   throw err;
 };
 
+const selectFromList = async (list, message) => {
+  const { elementId } = await inquirer.prompt([
+    {
+      name: 'elementId',
+      message: message,
+      type: 'list',
+      choices: list,
+    },
+  ]);
+  return list.find((el) => el.value === elementId);
+};
+
 module.exports = {
   throwValidationException,
   throwError,
+  selectFromList,
   showCreationError,
 };

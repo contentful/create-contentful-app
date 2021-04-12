@@ -1,6 +1,5 @@
-const chalk = require('chalk');
-const inquirer = require('inquirer');
 const ora = require('ora');
+const { selectFromList } = require('./utils');
 const { throwError } = require('./utils');
 
 async function fetchDefinitions(client, orgId) {
@@ -24,15 +23,7 @@ async function selectDefinition(client, orgId) {
   const definitions = await fetchDefinitions(client, orgId);
   defSpinner.stop();
 
-  const { definitionId } = await inquirer.prompt([
-    {
-      name: 'definitionId',
-      message: 'Select an app for your upload:',
-      type: 'list',
-      choices: definitions,
-    },
-  ]);
-  return definitions.find((org) => org.value === definitionId);
+  return await selectFromList(definitions, 'Select an app for your upload:');
 }
 
 async function getDefinitionById(client, orgId, defId) {

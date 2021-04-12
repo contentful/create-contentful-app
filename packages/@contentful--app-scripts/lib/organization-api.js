@@ -1,5 +1,5 @@
-const inquirer = require('inquirer');
 const ora = require('ora');
+const { selectFromList } = require('./utils');
 const { throwError } = require('./utils');
 
 async function fetchOrganizations(client) {
@@ -30,15 +30,7 @@ async function selectOrganization(client) {
   if (!organizations) {
     return null;
   }
-  const { organizationId } = await inquirer.prompt([
-    {
-      name: 'organizationId',
-      message: 'Select an organization for your app:',
-      type: 'list',
-      choices: organizations,
-    },
-  ]);
-  return organizations.find((org) => org.value === organizationId);
+  return await selectFromList(organizations, 'Select an organization for your app:');
 }
 
 async function getOrganizationById(client, orgId) {
