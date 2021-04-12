@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const ora = require('ora');
+const { throwError } = require('./utils');
 
 async function fetchDefinitions(client, orgId) {
   try {
@@ -11,15 +12,10 @@ async function fetchDefinitions(client, orgId) {
       value: def.sys.id,
     }));
   } catch (err) {
-    console.log(`
-${chalk.red(
-  'Error:'
-)} Could not fetch your app-definitions. Make sure you provided a valid access token.
-
-${err.message}
-    `);
-
-    throw err;
+    throwError(
+      'Could not fetch your app-definitions. Make sure you provided a valid access token.',
+      err
+    );
   }
 }
 
@@ -48,14 +44,10 @@ async function getDefinitionById(client, orgId, defId) {
       value: definition.sys.id,
     };
   } catch (err) {
-    console.log(`
-${chalk.red(
-  'Error:'
-)} Could not fetch your definitions. Make sure you provided a valid access token.
-
-${err.message}
-    `);
-
+    throwError(
+      'Could not fetch your app-definition. Make sure you provided a valid definition id or access token.',
+      err
+    );
     throw err;
   }
 }
