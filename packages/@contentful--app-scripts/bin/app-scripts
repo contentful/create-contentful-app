@@ -43,7 +43,7 @@ async function runCommand(command, options) {
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
     .action((options) => {
-      runCommand(program, activate, options);
+      runCommand(activate, options);
     })
 
   await program.parseAsync(process.argv);

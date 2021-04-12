@@ -3,8 +3,8 @@ const { getActivateSettingsArgs } = require('./get-activate-args');
 const { buildBundleActivateSettings } = require('./build-bundle-activate-settings');
 
 module.exports = {
-  async interactive() {
-    const settings = await buildBundleActivateSettings();
+  async interactive(options) {
+    const settings = await buildBundleActivateSettings(options);
     activateBundle(settings);
   },
   async nonInteractive(program, options) {
