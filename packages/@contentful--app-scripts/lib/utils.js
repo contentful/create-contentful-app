@@ -18,7 +18,18 @@ const showCreationError = (subject, message) => {
     `);
 };
 
+const throwError = (err, message) => {
+  console.log(`
+${chalk.red('Error:')} ${message}.
+
+${err.message}
+    `);
+
+  throw err;
+};
+
 module.exports = {
   throwValidationException,
+  throwError,
   showCreationError,
 };

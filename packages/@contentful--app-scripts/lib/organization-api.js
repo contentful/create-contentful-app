@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
+const { throwError } = require('./utils');
 
 async function fetchOrganizations(client) {
   try {
@@ -11,15 +12,10 @@ async function fetchOrganizations(client) {
       value: org.sys.id,
     }));
   } catch (err) {
-    console.log(`
-${chalk.red(
-  'Error:'
-)} Could not fetch your organizations. Make sure you provided a valid access token.
-
-${err.message}
-    `);
-
-    throw err;
+    throwError(
+      err,
+      'Could not fetch your organizations. Make sure you provided a valid access token.'
+    );
   }
 }
 
@@ -54,15 +50,10 @@ async function getOrganizationById(client, orgId) {
       value: org.sys.id,
     };
   } catch (err) {
-    console.log(`
-${chalk.red(
-  'Error:'
-)} Could not fetch your organization. Make sure you provided a valid access token.
-
-${err.message}
-    `);
-
-    throw err;
+    throwError(
+      err,
+      'Could not fetch your organization. Make sure you provided a valid access token.'
+    );
   }
 }
 

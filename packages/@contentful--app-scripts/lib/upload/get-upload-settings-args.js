@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const ora = require('ora');
-const { getDefinitionById } = require('./definition-api');
-const { getOrganizationById } = require('./organization-api');
+const { getDefinitionById } = require('../definition-api');
+const { getOrganizationById } = require('../organization-api');
 
 const { createClient } = require('contentful-management');
 

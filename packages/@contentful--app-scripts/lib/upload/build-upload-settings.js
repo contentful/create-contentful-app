@@ -1,8 +1,8 @@
 // @ts-check
 
 const inquirer = require('inquirer');
-const { selectDefinition } = require('./definition-api');
-const { selectOrganization } = require('./organization-api');
+const { selectDefinition } = require('../definition-api');
+const { selectOrganization } = require('../organization-api');
 
 const { createClient } = require('contentful-management');
 const { getManagementToken } = require('../get-management-token');
