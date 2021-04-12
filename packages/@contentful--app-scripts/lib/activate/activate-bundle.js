@@ -1,5 +1,6 @@
 const ora = require('ora');
 const chalk = require('chalk');
+const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
 async function activateBundle({ accessToken, organisation, definition, bundleId }) {
@@ -16,8 +17,17 @@ async function activateBundle({ accessToken, organisation, definition, bundleId 
     },
   };
   currentDefinition.src = undefined;
-  await currentDefinition.update();
-  activationSpinner.stop();
+  try {
+    await currentDefinition.update();
+  } catch (err) {
+    throwError(
+      err,
+      'Something went wrong activating your bundle. Make sure you used the correct definition-id'
+    );
+  } finally {
+    activationSpinner.stop();
+  }
+
   console.log(
     `${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
       definition.name
