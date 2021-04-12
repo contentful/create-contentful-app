@@ -1,7 +1,8 @@
 const glob = require('glob');
 const chalk = require('chalk');
-const fs = require('fs');
+const fs = require('fs').promises;
 const JSZip = require('jszip');
+const util = require('util');
 const { showCreationError } = require('../utils');
 
 async function convertPathToFileData(filePath) {
@@ -25,15 +26,12 @@ function addFilesToZip(files, zip, path) {
   return zip;
 }
 
+const globPromise = util.promisify(glob);
+
 async function createZipFileFromDirectory(path) {
   try {
     let zip = new JSZip();
-    const filePaths = await new Promise((res) => {
-      glob(path + '/**/*', { nodir: true }, (err, paths) => {
-        res(paths);
-      });
-    });
-
+    const filePaths = await globPromise(path + '/**/*', { nodir: true });
     console.log(`
 ${chalk.blueBright('Info:')} Creating a zip file from ${filePaths.length} file${
       filePaths.length !== 1 ? 's' : ''
