@@ -7,7 +7,7 @@ module.exports = {
     const settings = await buildBundleActivateSettings(options);
     activateBundle(settings);
   },
-  async nonInteractive(program, options) {
+  async nonInteractive(options) {
     const settings = await getActivateSettingsArgs(options);
     activateBundle(settings);
   },

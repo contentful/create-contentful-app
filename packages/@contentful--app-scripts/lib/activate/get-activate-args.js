@@ -1,9 +1,7 @@
 const chalk = require('chalk');
 const ora = require('ora');
-const { getDefinitionById } = require('../definition-api');
-const { getOrganizationById } = require('../organization-api');
-
-const { createClient } = require('contentful-management');
+const { getAppInfo } = require('../get-app-info');
+const { validateArguments } = require('../validate-arguments');
 
 const requiredOptions = {
   definitionId: '--definition-id',
@@ -12,37 +10,15 @@ const requiredOptions = {
   token: '--token',
 };
 
-function validateArguments(options) {
-  Object.entries(requiredOptions).forEach(([option, argument]) => {
-    if (!options[option]) {
-      console.log(
-        `
-  ${chalk.red('Invalid Arguments:')} the argument ${chalk.cyan(argument)} was not defined
-  Run ${chalk.dim('contentful-app-scripts upload --help')} to see all required arguments
-        `
-      );
-      throw new Error('Invalid Arguments');
-    }
-  });
-}
-
 async function getActivateSettingsArgs(options) {
   const validateSpinner = ora('Validating your input').start();
 
   try {
-    validateArguments(options);
-    const client = createClient({ accessToken: options.token });
-    const selectedOrg = await getOrganizationById(client, options.organizationId);
-    const selectedDefinition = await getDefinitionById(
-      client,
-      options.organizationId,
-      options.definitionId
-    );
+    validateArguments(requiredOptions, options, 'activate');
+    const appInfo = await getAppInfo(options);
     return {
+      ...appInfo,
       bundleId: options.bundleId,
-      organisation: selectedOrg,
-      definition: selectedDefinition,
-      accessToken: options.token,
       comment: options.comment,
     };
   } catch (err) {

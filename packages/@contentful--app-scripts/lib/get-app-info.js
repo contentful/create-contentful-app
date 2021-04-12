@@ -3,6 +3,7 @@ const { getDefinitionById, selectDefinition } = require('./definition-api');
 const { selectOrganization, getOrganizationById } = require('./organization-api');
 const { createClient } = require('contentful-management');
 const { getManagementToken } = require('./get-management-token');
+
 const getAppInfo = async (options) => {
   const accessToken = options.token || (await getManagementToken());
 
