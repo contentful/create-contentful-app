@@ -15,7 +15,10 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   let appBundle = null;
   const bundleSpinner = ora('Creating the app bundle').start();
   try {
-    appBundle = await appDefinition.createAppBundle({ appUploadId, comment: settings.comment });
+    appBundle = await appDefinition.createAppBundle({
+      appUploadId,
+      comment: settings.comment.length > 0 ? settings.comment : undefined,
+    });
   } catch (err) {
     showCreationError('app upload', err.message);
   }

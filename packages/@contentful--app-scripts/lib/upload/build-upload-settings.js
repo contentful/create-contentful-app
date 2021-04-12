@@ -36,8 +36,6 @@ async function buildAppUploadSettings(options) {
     ? await getOrganizationById(client, options.organizationId)
     : await selectOrganization(client);
 
-  console.log(selectedOrg);
-
   const selectedDefinition = options.definitionId
     ? await getDefinitionById(client, selectedOrg.value, options.definitionId)
     : await selectDefinition(client, selectedOrg.value);
