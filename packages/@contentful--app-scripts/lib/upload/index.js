@@ -4,8 +4,8 @@ const { createAppBundle } = require('./create-app-bundle');
 const { buildAppUploadSettings } = require('./build-upload-settings');
 
 module.exports = {
-  async interactive() {
-    const settings = await buildAppUploadSettings();
+  async interactive(options) {
+    const settings = await buildAppUploadSettings(options);
     await createAppBundle(settings);
   },
   async nonInteractive(options) {

@@ -8,7 +8,7 @@ const {createAppDefinition, upload} = require('../')
 
 function runCommand(command, options) {
   const {ci} = program.opts()
-  return ci ? command.nonInteractive(options) : command.interactive();
+  return ci ? command.nonInteractive(options) : command.interactive(options);
 }
 
 (async function main() {
