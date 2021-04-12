@@ -48,14 +48,13 @@ async function createAppBundle(settings) {
 
   if (!appBundle) return;
 
-  console.log(
-    `${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
-      settings.definition.name
-    )} in ${chalk.bold(settings.organisation.name)}.
+  console.log(`
+  ${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
+    settings.definition.name
+  )} in ${chalk.bold(settings.organisation.name)}.
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}
-  `
-  );
+  `);
   console.log(`
   ${chalk.green(`NEXT STEPS:`)}
 
