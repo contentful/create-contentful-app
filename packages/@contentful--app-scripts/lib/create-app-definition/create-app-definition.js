@@ -40,7 +40,8 @@ function assertValidArguments(accessToken, appDefinitionSettings) {
         appDefinitionSettings,
         null,
         2
-      )}``Example: ${JSON.stringify(
+      )}`,
+      `Example: ${JSON.stringify(
         {
           name: 'app-name',
           locations: ['entry-field'],
