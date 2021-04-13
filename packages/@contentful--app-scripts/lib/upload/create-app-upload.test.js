@@ -4,7 +4,7 @@ const proxyquire = require('proxyquire');
 describe('createAppUpload', () => {
   let createAppUpload, clientMock;
   const uploadMock = { sys: { id: 'test-id' } };
-  const mockSettings = {
+  const mockedSettings = {
     accessToken: 'token',
     organisation: { value: 'id' },
     definition: { value: 'id' },
@@ -35,14 +35,14 @@ describe('createAppUpload', () => {
   });
 
   it('successfully creates an app upload from settings', async () => {
-    const appUpload = await createAppUpload(mockSettings);
+    const appUpload = await createAppUpload(mockedSettings);
     assert.strictEqual(appUpload, uploadMock);
   });
   it('shows creation error when createAppUpload throws', async () => {
     clientMock.getOrganization = () => ({
       createAppUpload: stub().rejects(new Error()),
     });
-    await createAppUpload(mockSettings);
+    await createAppUpload(mockedSettings);
 
     assert(console.log.calledWith(match(/Creation error:/)));
   });

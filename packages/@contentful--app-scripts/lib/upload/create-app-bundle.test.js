@@ -3,7 +3,7 @@ const assert = require('assert');
 const proxyquire = require('proxyquire');
 
 const bundleMock = { sys: { id: 'mocked_bundle' } };
-const mockSettings = {
+const mockedSettings = {
   accessToken: 'token',
   organisation: { value: 'id' },
   definition: { value: 'id' },
@@ -39,7 +39,7 @@ describe('createAppBundleFromUpload', () => {
     }));
   });
   it('creates app bundle', async () => {
-    const bundle = await createAppBundleFromUpload(mockSettings, 'upload-id');
+    const bundle = await createAppBundleFromUpload(mockedSettings, 'upload-id');
     assert.strictEqual(bundle, bundleMock);
   });
   it('shows creation error when createAppBundle throws', async () => {
@@ -48,7 +48,7 @@ describe('createAppBundleFromUpload', () => {
         createAppBundle: stub().rejects(new Error()),
       }),
     });
-    await createAppBundleFromUpload(mockSettings, 'upload-id');
+    await createAppBundleFromUpload(mockedSettings, 'upload-id');
 
     assert(console.log.calledWith(match(/Creation error:/)));
   });
@@ -87,13 +87,13 @@ describe('createAppBundleFromSettings', () => {
     }));
   });
   it('creates app bundle', async () => {
-    await createAppBundleFromSettings(mockSettings);
+    await createAppBundleFromSettings(mockedSettings);
     assert(console.log.calledWith(match(/Your files were successfully uploaded/)));
     assert(console.log.calledWith(match(/Created a new app bundle/)));
   });
   it('shows creation error when app upload did not succeed', async () => {
     uploadMock = stub().rejects(new Error())();
-    await createAppBundleFromSettings(mockSettings);
+    await createAppBundleFromSettings(mockedSettings);
     assert(console.log.calledWith(match(/Creation error:/)));
   });
 });
