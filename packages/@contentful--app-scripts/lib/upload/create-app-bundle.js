@@ -9,8 +9,8 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   console.log(settings.definition);
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({ accessToken: settings.accessToken });
-  const organization = await client.getOrganization(settings.organisation.value);
-  const appDefinition = await organization.getAppDefinition(settings.definition.value);
+  const organisation = await client.getOrganization(settings.organisation.value);
+  const appDefinition = await organisation.getAppDefinition(settings.definition.value);
   clientSpinner.stop();
 
   let appBundle = null;
@@ -66,7 +66,7 @@ async function createAppBundleFromSettings(settings) {
 
     ${chalk.bold('or by simply running the cli command:')}
 
-      ${chalk.underline(`contentful-app-scripts activate`)}
+      ${chalk.underline(`'npx @contentful/app-scripts activate'`)}
 
   `);
 }
