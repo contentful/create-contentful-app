@@ -9,8 +9,8 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   console.log(settings.definition);
   const clientSpinner = ora('Verifing your upload').start();
   const client = createClient({ accessToken: settings.accessToken });
-  const org = await client.getOrganization(settings.organisation.value);
-  const appDefinition = await org.getAppDefinition(settings.definition.value);
+  const organization = await client.getOrganization(settings.organisation.value);
+  const appDefinition = await organization.getAppDefinition(settings.definition.value);
   clientSpinner.stop();
 
   let appBundle = null;
