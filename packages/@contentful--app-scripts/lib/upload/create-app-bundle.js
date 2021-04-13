@@ -6,6 +6,7 @@ const { createClient } = require('contentful-management');
 const { createAppUpload } = require('./create-app-upload');
 
 async function createAppBundleFromUpload(settings, appUploadId) {
+  console.log(settings.definition);
   const clientSpinner = ora('Verifing your upload').start();
   const client = createClient({ accessToken: settings.accessToken });
   const org = await client.getOrganization(settings.organisation.value);
@@ -17,7 +18,7 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   try {
     appBundle = await appDefinition.createAppBundle({
       appUploadId,
-      comment: settings.comment.length > 0 ? settings.comment : undefined,
+      comment: settings.comment && settings.comment.length > 0 ? settings.comment : undefined,
     });
   } catch (err) {
     showCreationError('app upload', err.message);
@@ -26,7 +27,7 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   return appBundle;
 }
 
-async function createAppBundle(settings) {
+async function createAppBundleFromSettings(settings) {
   let appUpload = null;
   try {
     appUpload = await createAppUpload(settings);
@@ -69,4 +70,5 @@ async function createAppBundle(settings) {
   `);
 }
 
-exports.createAppBundle = createAppBundle;
+exports.createAppBundleFromSettings = createAppBundleFromSettings;
+exports.createAppBundleFromUpload = createAppBundleFromUpload;
