@@ -31,6 +31,7 @@ async function createAppBundleFromSettings(settings) {
   let appUpload = null;
   try {
     appUpload = await createAppUpload(settings);
+    console.log('UPLOAD', appUpload);
     console.log(
       `${chalk.yellow(
         'Done!'
@@ -39,7 +40,7 @@ async function createAppBundleFromSettings(settings) {
       )}) has been created`
     );
   } catch (err) {
-    showCreationError('app bundle', err.message);
+    showCreationError('app upload', err.message);
   }
 
   if (!appUpload) return;
