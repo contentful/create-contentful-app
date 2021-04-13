@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { validateArguments } = require('./validate-arguments');
-const { stub, match } = require('sinon');
+const { stub } = require('sinon');
 
 describe('validateArguments', () => {
   const options = {
