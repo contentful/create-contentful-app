@@ -20,7 +20,7 @@ async function createAppUpload(settings) {
   const uploadSpinner = ora('Uploading your files...').start();
   try {
     appUpload = await createAppBundleFromFile(
-      settings.organisation.value,
+      settings.organization.value,
       settings.accessToken,
       zipFile
     );

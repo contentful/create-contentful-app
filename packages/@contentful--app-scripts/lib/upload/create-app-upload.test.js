@@ -6,7 +6,7 @@ describe('createAppUpload', () => {
   const uploadMock = { sys: { id: 'test-id' } };
   const mockedSettings = {
     accessToken: 'token',
-    organisation: { value: 'id' },
+    organization: { value: 'id' },
     definition: { value: 'id' },
   };
   beforeEach(() => {

@@ -9,8 +9,8 @@ async function createAppBundleFromUpload(settings, appUploadId) {
   console.log(settings.definition);
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({ accessToken: settings.accessToken });
-  const organisation = await client.getOrganization(settings.organisation.value);
-  const appDefinition = await organisation.getAppDefinition(settings.definition.value);
+  const organization = await client.getOrganization(settings.organization.value);
+  const appDefinition = await organization.getAppDefinition(settings.definition.value);
   clientSpinner.stop();
 
   let appBundle = null;
@@ -53,7 +53,7 @@ async function createAppBundleFromSettings(settings) {
   console.log(`
   ${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
     settings.definition.name
-  )} in ${chalk.bold(settings.organisation.name)}.
+  )} in ${chalk.bold(settings.organization.name)}.
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}
   `);

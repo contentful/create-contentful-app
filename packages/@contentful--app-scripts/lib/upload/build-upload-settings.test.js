@@ -14,8 +14,8 @@ describe('build-upload-settings', () => {
     stubs = {
       getDefinitionByIdStub: stub().returns({ value: 'id' }),
       selectDefinitionStub: stub().returns({ value: 'id' }),
-      getOrganisationByIdStub: stub().returns({ value: 'id' }),
-      selectOrganisationStub: stub().returns({ value: 'id' }),
+      getOrganizationByIdStub: stub().returns({ value: 'id' }),
+      selectOrganizationStub: stub().returns({ value: 'id' }),
     };
     ({ buildAppUploadSettings } = proxyquire('./build-upload-settings', {
       '../definition-api': {
@@ -23,8 +23,8 @@ describe('build-upload-settings', () => {
         selectDefinition: stubs.selectDefinitionStub,
       },
       '../organization-api': {
-        getOrganizationById: stubs.getOrganisationByIdStub,
-        selectOrganization: stubs.selectOrganisationStub,
+        getOrganizationById: stubs.getOrganizationByIdStub,
+        selectOrganization: stubs.selectOrganizationStub,
       },
       inquirer: {
         prompt: stub(),
@@ -34,10 +34,10 @@ describe('build-upload-settings', () => {
       },
     }));
   });
-  it('calls select Organisation when id not provided', async () => {
+  it('calls select Organization when id not provided', async () => {
     await buildAppUploadSettings({ ...mockedSettings, organizationId: undefined });
-    assert.strictEqual(stubs.selectOrganisationStub.called, true);
-    assert.strictEqual(stubs.getOrganisationByIdStub.called, false);
+    assert.strictEqual(stubs.selectOrganizationStub.called, true);
+    assert.strictEqual(stubs.getOrganizationByIdStub.called, false);
   });
   it('calls getOrganizationById when id provided', async () => {
     await buildAppUploadSettings(mockedSettings);

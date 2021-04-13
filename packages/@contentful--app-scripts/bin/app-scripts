@@ -27,7 +27,7 @@ async function runCommand(command, options) {
     .command('upload')
     .description('Upload your build folder and create an app bundle')
     .option('--bundle-dir [directory]', 'The directory of your build folder')
-    .option('--organization-id [orgId]', 'The id of your organisation')
+    .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--comment [comment]', 'Optional comment for the created bundle')

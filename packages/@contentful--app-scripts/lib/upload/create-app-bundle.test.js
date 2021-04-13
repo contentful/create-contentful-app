@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire');
 const bundleMock = { sys: { id: 'mocked_bundle' } };
 const mockedSettings = {
   accessToken: 'token',
-  organisation: { value: 'id' },
+  organization: { value: 'id' },
   definition: { value: 'id' },
 };
 

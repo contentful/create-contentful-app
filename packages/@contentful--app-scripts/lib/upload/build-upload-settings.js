@@ -43,7 +43,7 @@ async function buildAppUploadSettings(options) {
   // Add app-config & dialog automatically
   return {
     ...appUploadSettings,
-    organisation: selectedOrg,
+    organization: selectedOrg,
     definition: selectedDefinition,
     accessToken,
   };
