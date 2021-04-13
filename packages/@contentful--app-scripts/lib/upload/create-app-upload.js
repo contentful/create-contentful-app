@@ -32,4 +32,6 @@ async function createAppUpload(settings) {
   return appUpload;
 }
 
-exports.createAppUpload = createAppUpload;
+module.exports = {
+  createAppUpload,
+};

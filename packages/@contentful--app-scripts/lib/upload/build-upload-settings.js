@@ -49,4 +49,6 @@ async function buildAppUploadSettings(options) {
   };
 }
 
-exports.buildAppUploadSettings = buildAppUploadSettings;
+module.exports = {
+  buildAppUploadSettings,
+};

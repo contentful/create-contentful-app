@@ -57,4 +57,6 @@ async function getUploadSettingsArgs(options) {
   }
 }
 
-exports.getUploadSettingsArgs = getUploadSettingsArgs;
+module.exports = {
+  getUploadSettingsArgs,
+};

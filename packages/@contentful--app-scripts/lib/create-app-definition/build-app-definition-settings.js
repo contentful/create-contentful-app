@@ -76,7 +76,8 @@ NOTE: This will create an app definition in your Contentful organization.
   appDefinitionSettings.locations = ['app-config', 'dialog', ...appDefinitionSettings.locations];
 
   return appDefinitionSettings;
+}
+
+module.exports = {
+  buildAppDefinitionSettings,
 };
-
-
-exports.buildAppDefinitionSettings = buildAppDefinitionSettings;

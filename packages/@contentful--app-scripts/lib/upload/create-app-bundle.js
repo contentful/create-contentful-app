@@ -71,5 +71,7 @@ async function createAppBundleFromSettings(settings) {
   `);
 }
 
-exports.createAppBundleFromSettings = createAppBundleFromSettings;
-exports.createAppBundleFromUpload = createAppBundleFromUpload;
+module.exports = {
+  createAppBundleFromSettings,
+  createAppBundleFromUpload,
+};

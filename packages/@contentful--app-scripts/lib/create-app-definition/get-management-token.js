@@ -34,6 +34,8 @@ async function getManagementToken() {
   ]);
 
   return mgmtToken;
-};
+}
 
-exports.getManagementToken = getManagementToken;
+module.exports = {
+  getManagementToken,
+};
