@@ -48,10 +48,7 @@ describe('createAppBundleFromUpload', () => {
         createAppBundle: stub().rejects(new Error()),
       }),
     });
-    await createAppBundleFromUpload(
-      { accessToken: 'token', organisation: { value: 'id' }, definition: { value: 'id' } },
-      'upload-id'
-    );
+    await createAppBundleFromUpload(mockSettings, 'upload-id');
 
     assert(console.log.calledWith(match(/Creation error:/)));
   });
