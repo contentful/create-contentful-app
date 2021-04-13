@@ -62,11 +62,11 @@ async function createAppBundleFromSettings(settings) {
 
     ${chalk.bold('You can activate this app bundle in your apps settings:')}
 
-      ${chalk.underline(`https://app.contentful.com/deeplink?link=app-definition-list`)}
+      ${chalk.underline('https://app.contentful.com/deeplink?link=app-definition-list')}
 
     ${chalk.bold('or by simply running the cli command:')}
 
-      ${chalk.underline(`'npx @contentful/app-scripts activate'`)}
+      ${chalk.underline('npx @contentful/app-scripts activate')}
 
   `);
 }
