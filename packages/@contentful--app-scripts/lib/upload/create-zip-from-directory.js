@@ -8,7 +8,7 @@ async function createZipFileFromDirectory(path) {
     zip.addLocalFolder(path);
     console.log(zip.getEntries()[0].entryName);
     console.log('----------------------------');
-    console.log(`${chalk.yellow('Done!')} Files from ${chalk.dim(path)} successfully zipped`);
+    console.log(`${chalk.yellow('Done!')} Files from ${chalk.dim(path)} successfully zipped.`);
     console.log('----------------------------');
 
     return zip.toBuffer();

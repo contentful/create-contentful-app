@@ -11,13 +11,13 @@ async function createAppBundleFromFile(orgId, token, zip) {
 
 async function createAppUpload(settings) {
   let appUpload = null;
-  const zipFileSpinner = ora('Preparing your files for upload').start();
+  const zipFileSpinner = ora('Preparing your files for upload...').start();
   const zipFile = await createZipFileFromDirectory(settings.bundleDirectory || '.');
   zipFileSpinner.stop();
 
   if (!zipFile) return;
 
-  const uploadSpinner = ora('Uploading your files').start();
+  const uploadSpinner = ora('Uploading your files...').start();
   try {
     appUpload = await createAppBundleFromFile(
       settings.organisation.value,

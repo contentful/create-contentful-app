@@ -19,18 +19,18 @@ async function fetchOrganizations(client) {
 }
 
 async function selectOrganization(client) {
-  const orgSpinner = ora('Fetching your organizations').start();
-  let organizations = null;
+  const orgSpinner = ora('Fetching your organisations...').start();
+  let organisations = null;
   try {
-    organizations = await fetchOrganizations(client);
+    organisations = await fetchOrganizations(client);
   } finally {
     orgSpinner.stop();
   }
 
-  if (!organizations) {
+  if (!organisations) {
     return null;
   }
-  return await selectFromList(organizations, 'Select an organization for your app:');
+  return await selectFromList(organisations, 'Select an organization for your app:');
 }
 
 async function getOrganizationById(client, orgId) {

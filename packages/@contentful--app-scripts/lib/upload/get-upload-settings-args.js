@@ -27,7 +27,7 @@ function validateArguments(options) {
 }
 
 async function getUploadSettingsArgs(options) {
-  const validateSpinner = ora('Validating your input').start();
+  const validateSpinner = ora('Validating your input...').start();
 
   try {
     validateArguments(options);
@@ -47,7 +47,7 @@ async function getUploadSettingsArgs(options) {
     };
   } catch (err) {
     console.log(`
-      ${chalk.red('Validation failed')}
+      ${chalk.red('Validation failed!')}
       ${err.message}
     `);
     // eslint-disable-next-line no-process-exit
