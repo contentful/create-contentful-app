@@ -6,7 +6,7 @@ function validateArguments(requiredOptions, options, command) {
       console.log(
         `
   ${chalk.red('Invalid Arguments:')} the argument ${chalk.cyan(argument)} was not defined
-  Run ${chalk.dim(`contentful-app-scripts ${command} --help`)} to see all required arguments
+  Run ${chalk.dim(`npx @contentful/app-scripts ${command} --help`)} to see all required arguments
         `
       );
       throw new Error('Invalid Arguments');
