@@ -23,4 +23,6 @@ const getAppInfo = async (options) => {
   };
 };
 
-exports.getAppInfo = getAppInfo;
+module.exports = {
+  getAppInfo,
+};
