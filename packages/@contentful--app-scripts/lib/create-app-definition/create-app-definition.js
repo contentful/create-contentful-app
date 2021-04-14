@@ -13,13 +13,13 @@ async function fetchOrganizations(client) {
 
     return orgs.items.map((org) => ({
       name: org.name,
-      value: org.sys.id
+      value: org.sys.id,
     }));
   } catch (err) {
     console.log(`
 ${chalk.red(
-      'Error:'
-    )} Could not fetch your organizations. Make sure you provided a valid access token.
+  'Error:'
+)} Could not fetch your organizations. Make sure you provided a valid access token.
 
 ${err.message}
     `);
@@ -36,18 +36,25 @@ function assertValidArguments(accessToken, appDefinitionSettings) {
   if (!isPlainObject(appDefinitionSettings) || !has(appDefinitionSettings, 'locations')) {
     throwValidationException(
       'AppDefinitionSettings',
-      `Expected plain object with 'location' property, got ${JSON.stringify(appDefinitionSettings, null, 2)}`
-        `Example: ${JSON.stringify({
+      `Expected plain object with 'location' property, got ${JSON.stringify(
+        appDefinitionSettings,
+        null,
+        2
+      )}`,
+      `Example: ${JSON.stringify(
+        {
           name: 'app-name',
           locations: ['entry-field'],
-          fields: [{ type: 'Boolean' }]
-        }, null, 2)}`
+          fields: [{ type: 'Boolean' }],
+        },
+        null,
+        2
+      )}`
     );
   }
 }
 
 async function createAppDefinition(accessToken, appDefinitionSettings = { locations: [] }) {
-
   assertValidArguments(accessToken, appDefinitionSettings);
 
   const client = createClient({ accessToken });
@@ -59,8 +66,8 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
       name: 'organizationId',
       message: 'Select an organization for your app:',
       type: 'list',
-      choices: organizations
-    }
+      choices: organizations,
+    },
   ]);
   const selectedOrg = organizations.find((org) => org.value === organizationId);
 
@@ -72,14 +79,14 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
       if (location === 'entry-field') {
         return {
           location,
-          fieldTypes: appDefinitionSettings.fields
+          fieldTypes: appDefinitionSettings.fields,
         };
       }
 
       return {
-        location
+        location,
       };
-    })
+    }),
   };
 
   try {
@@ -97,8 +104,8 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   ${chalk.bold('Next steps:')}
     1. To develop, run ${chalk.cyan('`npm start`')} inside your app folder and open:
         ${chalk.underline(
-      `https://app.contentful.com/deeplink?link=apps&id=${createdAppDefinition.sys.id}`
-    )}
+          `https://app.contentful.com/deeplink?link=apps&id=${createdAppDefinition.sys.id}`
+        )}
     2. To learn how to build your first Contentful app, visit:
         ${chalk.underline(`https://ctfl.io/app-tutorial`)}
       `);
@@ -114,5 +121,6 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   }
 }
 
-
-exports.createAppDefinition = createAppDefinition;
+module.exports = {
+  createAppDefinition,
+};

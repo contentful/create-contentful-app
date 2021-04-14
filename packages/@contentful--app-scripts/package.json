@@ -49,11 +49,13 @@
     "access": "public"
   },
   "dependencies": {
+    "adm-zip": "^0.5.5",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "contentful-management": "^7.14.0",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
-    "open": "^8.0.5"
+    "open": "^8.0.5",
+    "ora": "^5.4.0"
   }
 }
