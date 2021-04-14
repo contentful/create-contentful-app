@@ -78,7 +78,10 @@ It only runs in interactive mode.
 
 ### Upload a bundle to an App Definition
 
-Allows you to upload a build directory and create a new AppBundle that is bound to an [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/)
+Allows you to upload a build directory and create a new AppBundle that is bound to an [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/).
+
+**Note:** To make the app serve the bundle you need to [activate](#activate-an-appBundle) it
+
 It runs in interactive or non-interactive mode
 
 #### Interactive mode:
@@ -109,7 +112,48 @@ When passing the `--ci` argument adding all variables as arguments is required
 
 | Argument                 | Description                                                                                                                                    |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bundle-dir`           | The directory of you build folder (e.g.: `./build`)                                                                                            |
+| `--bundle-dir`           | The directory of your build folder (e.g.: `./build`)                                                                                            |
+| `--organization-id`      | The ID of your organisation                                                                                                                    |
+| `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
+| `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
+
+**Note:** You can also pass all arguments in interactive mode to skip being asked for it. 
+
+
+### Activate an AppBundle
+
+Allows you to activate an AppBundle for an AppDefinition.
+When activated the app will serve the newly activated app bundle. 
+
+#### Interactive mode:
+
+It will ask for all required options
+
+> **Example**
+>
+> ```shell
+> $ contentful-app-scripts activate
+> ```
+
+#### Non-interactive mode:
+
+When passing the `--ci` argument adding all variables as arguments is required
+
+> **Example**
+>
+> ```shell
+> $ contentful-app-scripts activate --ci
+>     --bundle-id some-bundle-id 
+>     --organization-id some-org-id 
+>     --definition-id some-app-def-id 
+>     --token $MY_CONTENTFUL_PAT
+> ```
+
+**Options:**
+
+| Argument                 | Description                                                                                                                                    |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bundle-id`            | The ID of the AppBundle you want to activate                                                                                                   |
 | `--organization-id`      | The ID of your organisation                                                                                                                    |
 | `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
 | `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
