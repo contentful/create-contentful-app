@@ -5,10 +5,10 @@ const { buildBundleActivateSettings } = require('./build-bundle-activate-setting
 module.exports = {
   async interactive(options) {
     const settings = await buildBundleActivateSettings(options);
-    activateBundle(settings);
+    await activateBundle(settings);
   },
   async nonInteractive(options) {
     const settings = await getActivateSettingsArgs(options);
-    activateBundle(settings);
+    await activateBundle(settings);
   },
 };
