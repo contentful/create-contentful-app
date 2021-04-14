@@ -5,12 +5,11 @@ const { createClient } = require('contentful-management');
 
 async function activateBundle({ accessToken, organization, definition, bundleId }) {
   const activationSpinner = ora('Activating your bundle').start();
-  const client = createClient({ accessToken });
+  const plainClient = createClient({ accessToken }, { type: 'plain' });
 
-  const definitionUrl = `/organizations/${organization.value}/app_definitions/${definition.value}`;
-
-  const currentDefinition = await client.rawRequest({
-    url: definitionUrl,
+  const currentDefinition = await plainClient.appDefinition.get({
+    appDefinitionId: definition.value,
+    organizationId: organization.value,
   });
 
   currentDefinition.bundle = {
@@ -23,7 +22,13 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
   delete currentDefinition.src;
 
   try {
-    await client.rawRequest({ url: definitionUrl, method: 'PUT', data: currentDefinition });
+    await plainClient.appDefinition.update(
+      {
+        appDefinitionId: definition.value,
+        organizationId: organization.value,
+      },
+      currentDefinition
+    );
   } catch (err) {
     throwError(
       err,
