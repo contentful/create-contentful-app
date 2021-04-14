@@ -22,6 +22,27 @@ async function removeOldEnv(envKey) {
   }
 }
 
+async function addEnvFileToGitIgnore() {
+  try {
+    const gitIgnoreFile = '.gitignore';
+    await fsPromises.access(gitIgnoreFile, fs.constants.F_OK);
+    const gitIgnoreFileData = await fsPromises.readFile(gitIgnoreFile, {encoding: 'utf-8'});
+    const envFileNameRegex = new RegExp(`(^|${EOL})?${envFileName}*?${EOL}?`);
+
+    if (!envFileNameRegex.test(gitIgnoreFileData)) {
+      await fsPromises.writeFile(gitIgnoreFile, `${EOL}${envFileName}${EOL}`, {
+        encoding: 'utf-8',
+        flag: 'a'
+      });
+    }
+
+  } catch(err) {
+    console.log(`${
+      chalk.yellow('Warning: could not add .env file to .gitignore. Please don\'t forget to add it manually')
+    }`)
+  }
+}
+
 async function checkFileEnvExists() {
   let envFileExists = false;
   try {
@@ -49,6 +70,8 @@ async function cacheEnvVars(envObj) {
       encoding: 'utf-8',
       flag: 'a'
     });
+
+    await addEnvFileToGitIgnore();
 
     console.log(`
       Saved new Environment variable(s) locally: ${ chalk.cyan(Object.keys(envObj).join(", ")) }
