@@ -25,7 +25,7 @@ async function runCommand(command, options) {
 
   program
     .command('upload')
-    .description('Upload your build folder and create an app bundle')
+    .description('Upload your build folder and create an AppBundle')
     .option('--bundle-dir [directory]', 'The directory of your build folder')
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id [defId]', 'The id of your apps definition')
@@ -37,13 +37,13 @@ async function runCommand(command, options) {
 
   program
     .command('activate')
-    .description('Upload your build folder and create an app bundle')
+    .description('Activate your AppBundle')
     .option('--bundle-id [bundleId]', 'The id of your bundle')
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
-    .action((options) => {
-      runCommand(activate, options);
+    .action(async (options) => {
+      await runCommand(activate, options);
     })
 
   await program.parseAsync(process.argv);
