@@ -10,7 +10,7 @@ const mockedSettings = {
 };
 
 describe('activate-bundle', () => {
-  let activateBundle, clientMock;
+  let activateBundle, clientMock, updateStub;
   beforeEach(() => {
     stub(console, 'log');
   });
@@ -19,19 +19,16 @@ describe('activate-bundle', () => {
     console.log.restore();
   });
 
-  const updateStub = stub();
   const throwErrorStub = stub();
   const definitionMock = {
     src: 'src',
     bundle: undefined,
-    update: updateStub,
   };
 
   beforeEach(() => {
+    updateStub = stub();
     clientMock = {
-      getOrganization: () => ({
-        getAppDefinition: () => definitionMock,
-      }),
+      rawRequest: ({ method }) => (method === 'PUT' ? updateStub() : definitionMock),
     };
 
     ({ activateBundle } = proxyquire('./activate-bundle', {
@@ -50,11 +47,10 @@ describe('activate-bundle', () => {
     await activateBundle(mockedSettings);
     assert.strictEqual(definitionMock.bundle.sys.id, mockedSettings.bundleId);
     assert.strictEqual(definitionMock.src, undefined);
-    assert.strictEqual(updateStub.called, true);
     assert(console.log.calledWith(match(/Your app bundle was activated/)));
   });
   it('shows error when update went wrong', async () => {
-    definitionMock.update = stub().rejects(new Error());
+    updateStub = stub().rejects(new Error());
     await activateBundle(mockedSettings);
     assert.strictEqual(throwErrorStub.called, true);
   });
