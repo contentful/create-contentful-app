@@ -39,7 +39,7 @@ async function runCommand(command, options) {
     .command('activate')
     .description('Upload your build folder and create an app bundle')
     .option('--bundle-id [bundleId]', 'The id of your bundle')
-    .option('--organization-id [orgId]', 'The id of your organisation')
+    .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
     .action((options) => {

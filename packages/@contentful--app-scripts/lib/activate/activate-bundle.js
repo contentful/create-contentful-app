@@ -3,11 +3,11 @@ const chalk = require('chalk');
 const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
-async function activateBundle({ accessToken, organisation, definition, bundleId }) {
+async function activateBundle({ accessToken, organization, definition, bundleId }) {
   const activationSpinner = ora('Activating your bundle').start();
   const client = createClient({ accessToken });
-  const currentOrganisation = await client.getOrganization(organisation.value);
-  const currentDefinition = await currentOrganisation.getAppDefinition(definition.value);
+  const currentOrganization = await client.getOrganization(organization.value);
+  const currentDefinition = await currentOrganization.getAppDefinition(definition.value);
 
   currentDefinition.bundle = {
     sys: {
@@ -31,7 +31,7 @@ async function activateBundle({ accessToken, organisation, definition, bundleId 
   console.log(
     `${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
       definition.name
-    )} in ${chalk.bold(organisation.name)}.
+    )} in ${chalk.bold(organization.name)}.
 
   Bundle Id: ${chalk.yellow(bundleId)}
   `

@@ -1,4 +1,3 @@
-// get organisation-id, app-definition-id and access token from options or ask for it
 const { getDefinitionById, selectDefinition } = require('./definition-api');
 const { selectOrganization, getOrganizationById } = require('./organization-api');
 const { createClient } = require('contentful-management');
@@ -9,17 +8,17 @@ const getAppInfo = async (options) => {
 
   const client = createClient({ accessToken });
 
-  const organisation = options.organizationId
+  const organization = options.organizationId
     ? await getOrganizationById(client, options.organizationId)
     : await selectOrganization(client);
 
   const definition = options.definitionId
-    ? await getDefinitionById(client, organisation.value, options.definitionId)
-    : await selectDefinition(client, organisation.value);
+    ? await getDefinitionById(client, organization.value, options.definitionId)
+    : await selectDefinition(client, organization.value);
 
   return {
     accessToken,
-    organisation,
+    organization,
     definition,
   };
 };
