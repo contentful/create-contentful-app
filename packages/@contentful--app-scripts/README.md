@@ -85,7 +85,7 @@ It runs in interactive or non-interactive mode
 
 #### Interactive mode:
 
-In interactive mode, it will ask for all required options
+In the interactive mode, the CLI will ask for all required options
 
 > **Example**
 >
@@ -126,7 +126,7 @@ When activated the app will serve the newly activated AppBundle.
 
 #### Interactive mode:
 
-In interactive mode, it will ask for all required options
+In the interactive mode, the CLI will ask for all required options
 
 > **Example**
 >
