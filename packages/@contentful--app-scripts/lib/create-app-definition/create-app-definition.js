@@ -6,6 +6,7 @@ const inquirer = require('inquirer');
 const { isString, isPlainObject, has } = require('lodash');
 
 const { throwValidationException } = require('../utils');
+const { cacheEnvVars } = require('../cache-credential');
 
 async function fetchOrganizations(client) {
   try {
@@ -71,6 +72,11 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   ]);
   const selectedOrg = organizations.find((org) => org.value === organizationId);
 
+  await cacheEnvVars({
+    'CONTENTFUL_ORG_ID': organizationId,
+    'CONTENTFUL_ACCESS_TOKEN': accessToken,
+  });
+
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
   const body = {
     name: appName,
@@ -92,6 +98,9 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   try {
     const organization = await client.getOrganization(organizationId);
     const createdAppDefinition = await organization.createAppDefinition(body);
+    await cacheEnvVars({
+      'CONTENTFUL_APP_DEF_ID': createdAppDefinition.sys.id
+    });
 
     console.log(`
   ${chalk.cyan('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(
