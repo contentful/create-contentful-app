@@ -100,10 +100,10 @@ When passing the `--ci` argument adding all variables as arguments is required
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts upload --ci
->     --bundle-dir ./built 
->     --organization-id some-org-id 
->     --definition-id some-app-def-id 
+> $ contentful-app-scripts upload --ci \
+>     --bundle-dir ./built \
+>     --organization-id some-org-id \ 
+>     --definition-id some-app-def-id \ 
 >     --token $MY_CONTENTFUL_PAT
 > ```
 
@@ -122,7 +122,7 @@ When passing the `--ci` argument adding all variables as arguments is required
 ### Activate an AppBundle
 
 Allows you to activate an AppBundle for an AppDefinition.
-When activated the app will serve the newly activated app bundle.
+When activated the app will serve the newly activated AppBundle.
 
 #### Interactive mode:
 
@@ -141,10 +141,10 @@ When passing the `--ci` argument adding all variables as arguments is required
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts activate --ci
->     --bundle-id some-bundle-id 
->     --organization-id some-org-id 
->     --definition-id some-app-def-id 
+> $ contentful-app-scripts activate --ci \
+>     --bundle-id some-bundle-id \
+>     --organization-id some-org-id \ 
+>     --definition-id some-app-def-id \ 
 >     --token $MY_CONTENTFUL_PAT
 > ```
 
