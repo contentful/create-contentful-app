@@ -38,7 +38,7 @@ async function addEnvFileToGitIgnore() {
 
   } catch(err) {
     console.log(`${
-      chalk.yellow('Warning: could not add .env file to .gitignore. Please don\'t forget to add it manually')
+      chalk.yellow('Warning: could not add .env file to .gitignore. Please don\'t forget to add it manually.')
     }`)
   }
 }
