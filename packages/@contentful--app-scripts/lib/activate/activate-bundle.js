@@ -38,4 +38,6 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
   );
 }
 
-exports.activateBundle = activateBundle;
+module.exports = {
+  activateBundle,
+};
