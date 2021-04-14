@@ -6,8 +6,12 @@ const { createClient } = require('contentful-management');
 async function activateBundle({ accessToken, organization, definition, bundleId }) {
   const activationSpinner = ora('Activating your bundle').start();
   const client = createClient({ accessToken });
-  const currentOrganization = await client.getOrganization(organization.value);
-  const currentDefinition = await currentOrganization.getAppDefinition(definition.value);
+
+  const definitionUrl = `/organizations/${organization.value}/app_definitions/${definition.value}`;
+
+  const currentDefinition = await client.rawRequest({
+    url: definitionUrl,
+  });
 
   currentDefinition.bundle = {
     sys: {
@@ -16,13 +20,14 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
       type: 'Link',
     },
   };
-  currentDefinition.src = undefined;
+  delete currentDefinition.src;
+
   try {
-    await currentDefinition.update();
+    await client.rawRequest({ url: definitionUrl, method: 'PUT', data: currentDefinition });
   } catch (err) {
     throwError(
       err,
-      'Something went wrong activating your bundle. Make sure you used the correct definition-id'
+      'Something went wrong activating your bundle. Make sure you used the correct definition-id.'
     );
   } finally {
     activationSpinner.stop();
