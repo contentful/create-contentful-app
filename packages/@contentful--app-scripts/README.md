@@ -73,7 +73,7 @@ It only runs in interactive mode.
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts create-app-definition
+> $ npx --no-install @contentful/app-scripts create-app-definition
 > ``` 
 
 ### Upload a bundle to an App Definition
@@ -90,7 +90,7 @@ In interactive mode, it will ask for all required options
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts upload
+> $ npx --no-install @contentful/app-scripts upload
 > ```
 
 #### Non-interactive mode:
@@ -100,7 +100,7 @@ When passing the `--ci` argument adding all variables as arguments is required
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts upload --ci \
+> $ npx --no-install @contentful/app-scripts upload --ci \
 >     --bundle-dir ./built \
 >     --organization-id some-org-id \ 
 >     --definition-id some-app-def-id \ 
@@ -131,7 +131,7 @@ In interactive mode, it will ask for all required options
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts activate
+> $ npx --no-install @contentful/app-scripts activate
 > ```
 
 #### Non-interactive mode:
@@ -141,7 +141,7 @@ When passing the `--ci` argument adding all variables as arguments is required
 > **Example**
 >
 > ```shell
-> $ contentful-app-scripts activate --ci \
+> $ npx --no-install @contentful/app-scripts activate --ci \
 >     --bundle-id some-bundle-id \
 >     --organization-id some-org-id \ 
 >     --definition-id some-app-def-id \ 
