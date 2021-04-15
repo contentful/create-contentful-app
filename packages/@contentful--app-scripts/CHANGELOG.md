@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/contentful/create-contentful-app/compare/v0.5.1...v0.6.0) (2021-04-15)
+
+
+### Features
+
+* (scripts) activate bundle script ([#383](https://github.com/contentful/create-contentful-app/issues/383)) ([a7ad609](https://github.com/contentful/create-contentful-app/commit/a7ad6094ff6d77482571f8b4a03746204810938b))
+
+
+
+
+
 ## [0.5.1](https://github.com/contentful/create-contentful-app/compare/v0.5.0...v0.5.1) (2021-04-15)
 
 **Note:** Version bump only for package @contentful/app-scripts
