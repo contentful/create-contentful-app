@@ -43,7 +43,8 @@
   },
   "files": [
     "lib",
-    "bin"
+    "bin",
+    "utils"
   ],
   "publishConfig": {
     "access": "public"
