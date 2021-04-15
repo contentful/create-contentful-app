@@ -6,7 +6,6 @@ const { createClient } = require('contentful-management');
 const { createAppUpload } = require('./create-app-upload');
 
 async function createAppBundleFromUpload(settings, appUploadId) {
-  console.log(settings.definition);
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({ accessToken: settings.accessToken });
   const organization = await client.getOrganization(settings.organization.value);
@@ -56,7 +55,7 @@ async function createAppBundleFromSettings(settings) {
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}
   `);
-  console.log(settings);
+
   if (settings.skipActivation) {
     console.log(`
   ${chalk.green(`NEXT STEPS:`)}

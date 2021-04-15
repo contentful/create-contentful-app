@@ -6,7 +6,6 @@ const { buildAppUploadSettings } = require('./build-upload-settings');
 
 async function uploadAndActivate(settings) {
   const bundle = await createAppBundleFromSettings(settings);
-  console.log(settings);
   if (!settings.skipActivation) {
     await activateBundle({ ...settings, bundleId: bundle.sys.id });
   }
