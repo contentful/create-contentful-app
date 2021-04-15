@@ -81,7 +81,7 @@ It only runs in interactive mode.
 Allows you to upload a build directory and create a new AppBundle that is bound to an [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/).
 It runs in interactive or non-interactive mode
 
-**Note:** The command will automatically activate the bundle. To skip the activation you can either select it in the interactive mode or pass the `--skip-activation` argument and then manually [activate](#activate-an-appBundle) it
+**Note:** The command will automatically activate the bundle. To skip the activation you can pass the `--skip-activation` argument in interactive and non-interactive mode and then manually [activate](#activate-an-appBundle) it
 
 #### Interactive mode:
 

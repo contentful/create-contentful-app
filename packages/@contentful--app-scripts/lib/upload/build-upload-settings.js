@@ -19,14 +19,6 @@ async function buildAppUploadSettings(options) {
       default: '',
     });
   }
-  if (!options.skipActivation) {
-    prompts.push({
-      name: 'skipActivation',
-      message: `Skip automatic activation of the bundle:`,
-      type: 'confirm',
-      default: false,
-    });
-  }
 
   const appUploadSettings = await inquirer.prompt(prompts);
 
@@ -34,7 +26,7 @@ async function buildAppUploadSettings(options) {
   // Add app-config & dialog automatically
   return {
     bundleDirectory: options.bundleDir,
-    skipActivation: options.skipActivation,
+    skipActivation: !!options.skipActivation,
     comment: options.comment,
     ...appUploadSettings,
     ...appInfo,
