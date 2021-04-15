@@ -20,6 +20,19 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
+#### `npm run upload`
+
+Uploads the build folder to contentful and creates a bundle that is automatically activated.
+The command guides you through the deployment process and asks for all required arguments.
+Read [here](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/#deployment) for more information about the deployment process.
+
+#### `npm run upload-ci`
+
+Similar to `npm run upload` it will upload your app to contentful and activate it. The only difference is   
+that with this command all required arguments are read from the environment variables, for example when you add
+the upload command to your CI pipeline.
+
+
 ## Libraries to use
 
 To make your app look and feel like Contentful use the following libraries:
