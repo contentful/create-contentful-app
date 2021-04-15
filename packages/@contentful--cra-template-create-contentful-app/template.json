@@ -22,8 +22,10 @@
     },
     "scripts": {
       "start": "cross-env BROWSER=none react-scripts start",
-      "upload": "contentful-app-scripts upload",
-      "upload-ci": "contentful-app-scripts upload --ci"
+      "upload": "contentful-app-scripts upload --bundle-dir ./build",
+      "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build",
+      "activate": "contentful-app-scripts activate",
+      "activate-ci": "contentful-app-scripts activate --ci"
     },
     "homepage": "."
   }
