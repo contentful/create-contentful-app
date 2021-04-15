@@ -19,6 +19,7 @@ async function getUploadSettingsArgs(options) {
     return {
       ...appInfo,
       bundleDirectory: options.bundleDir,
+      skipActivation: options.skipActivation,
       comment: options.comment,
     };
   } catch (err) {

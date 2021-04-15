@@ -26,6 +26,7 @@ async function buildAppUploadSettings(options) {
   // Add app-config & dialog automatically
   return {
     bundleDirectory: options.bundleDir,
+    skipActivation: !!options.skipActivation,
     comment: options.comment,
     ...appUploadSettings,
     ...appInfo,
