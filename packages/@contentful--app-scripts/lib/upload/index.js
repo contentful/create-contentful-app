@@ -1,15 +1,24 @@
+const { activateBundle } = require('../activate/activate-bundle');
 const { getUploadSettingsArgs } = require('./get-upload-settings-args');
 const { createAppBundleFromSettings } = require('./create-app-bundle');
 
 const { buildAppUploadSettings } = require('./build-upload-settings');
 
+async function uploadAndActivate(settings) {
+  const bundle = await createAppBundleFromSettings(settings);
+  console.log(settings);
+  if (!settings.skipActivation) {
+    await activateBundle({ ...settings, bundleId: bundle.sys.id });
+  }
+}
+
 module.exports = {
   async interactive(options) {
     const settings = await buildAppUploadSettings(options);
-    await createAppBundleFromSettings(settings);
+    await uploadAndActivate(settings);
   },
   async nonInteractive(options) {
     const settings = await getUploadSettingsArgs(options);
-    await createAppBundleFromSettings(settings);
+    await uploadAndActivate(settings);
   },
 };

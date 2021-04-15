@@ -56,7 +56,9 @@ async function createAppBundleFromSettings(settings) {
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}
   `);
-  console.log(`
+  console.log(settings);
+  if (settings.skipActivation) {
+    console.log(`
   ${chalk.green(`NEXT STEPS:`)}
 
     ${chalk.bold('You can activate this app bundle in your apps settings:')}
@@ -68,6 +70,9 @@ async function createAppBundleFromSettings(settings) {
       ${chalk.underline('npx @contentful/app-scripts activate')}
 
   `);
+  }
+
+  return appBundle;
 }
 
 module.exports = {
