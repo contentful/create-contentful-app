@@ -3,7 +3,7 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const {createAppDefinition, upload} = require('../')
+const {createAppDefinition, upload, activate} = require('../')
 
 
 async function runCommand(command, options) {
@@ -25,7 +25,7 @@ async function runCommand(command, options) {
 
   program
     .command('upload')
-    .description('Upload your build folder and create an app bundle')
+    .description('Upload your build folder and create an AppBundle')
     .option('--bundle-dir [directory]', 'The directory of your build folder')
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id [defId]', 'The id of your apps definition')
@@ -33,6 +33,17 @@ async function runCommand(command, options) {
     .option('--comment [comment]', 'Optional comment for the created bundle')
     .action(async (options) => {
       await runCommand(upload, options);
+    })
+
+  program
+    .command('activate')
+    .description('Mark an AppBundle as "active" for a given AppDefinition')
+    .option('--bundle-id [bundleId]', 'The id of your bundle')
+    .option('--organization-id [orgId]', 'The id of your organization')
+    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--token [accessToken]', 'Your content management access token')
+    .action(async (options) => {
+      await runCommand(activate, options);
     })
 
   await program.parseAsync(process.argv);

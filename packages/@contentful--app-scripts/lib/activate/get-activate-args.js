@@ -6,24 +6,24 @@ const { validateArguments } = require('../validate-arguments');
 const requiredOptions = {
   definitionId: '--definition-id',
   organizationId: '--organization-id',
-  bundleDir: '--bundle-dir',
+  bundleId: '--bundle-id',
   token: '--token',
 };
 
-async function getUploadSettingsArgs(options) {
-  const validateSpinner = ora('Validating your input...').start();
+async function getActivateSettingsArgs(options) {
+  const validateSpinner = ora('Validating your input').start();
 
   try {
-    validateArguments(requiredOptions, options, 'upload');
+    validateArguments(requiredOptions, options, 'activate');
     const appInfo = await getAppInfo(options);
     return {
       ...appInfo,
-      bundleDirectory: options.bundleDir,
+      bundleId: options.bundleId,
       comment: options.comment,
     };
   } catch (err) {
     console.log(`
-      ${chalk.red('Validation failed!')}
+      ${chalk.red('Validation failed')}
       ${err.message}
     `);
     // eslint-disable-next-line no-process-exit
@@ -33,6 +33,4 @@ async function getUploadSettingsArgs(options) {
   }
 }
 
-module.exports = {
-  getUploadSettingsArgs,
-};
+exports.getActivateSettingsArgs = getActivateSettingsArgs;

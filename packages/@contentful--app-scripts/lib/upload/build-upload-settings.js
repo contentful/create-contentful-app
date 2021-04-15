@@ -1,13 +1,7 @@
 // @ts-check
 
 const inquirer = require('inquirer');
-const { getDefinitionById } = require('../definition-api');
-const { getOrganizationById } = require('../organization-api');
-const { selectDefinition } = require('../definition-api');
-const { selectOrganization } = require('../organization-api');
-
-const { createClient } = require('contentful-management');
-const { getManagementToken } = require('../get-management-token');
+const { getAppInfo } = require('../get-app-info');
 
 async function buildAppUploadSettings(options) {
   const prompts = [];
@@ -28,24 +22,13 @@ async function buildAppUploadSettings(options) {
 
   const appUploadSettings = await inquirer.prompt(prompts);
 
-  const accessToken = options.token || (await getManagementToken());
-
-  const client = createClient({ accessToken });
-
-  const selectedOrg = options.organizationId
-    ? await getOrganizationById(client, options.organizationId)
-    : await selectOrganization(client);
-
-  const selectedDefinition = options.definitionId
-    ? await getDefinitionById(client, selectedOrg.value, options.definitionId)
-    : await selectDefinition(client, selectedOrg.value);
-
+  const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically
   return {
+    bundleDirectory: options.bundleDir,
+    comment: options.comment,
     ...appUploadSettings,
-    organization: selectedOrg,
-    definition: selectedDefinition,
-    accessToken,
+    ...appInfo,
   };
 }
 
