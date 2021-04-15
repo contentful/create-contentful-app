@@ -1,36 +1,48 @@
-const { cacheEnvVars } = require('./index');
+const proxyquire = require('proxyquire');
 const { DOTENV_FILE } = require('../constants');
-const fs = require('fs');
 const assert = require('assert');
 
-const fsPromises = fs.promises;
-const TEMP_DOTENV_FILE = '.env.temp';
+const mockFs = () => {
+  let data = {};
+
+  return {
+    promises: {
+      async access(name){
+        if (data[name]) {
+          return undefined;
+        }
+        throw new Error();
+      },
+      async writeFile(name, fileData, opts = {}){
+        if (opts.flag === 'a') {
+          data[name] = `${data[name] || ''}${fileData}`;
+        } else {
+          data[name] = fileData
+        }
+      },
+      async readFile(name){ return data[name] },
+    },
+    constants: {
+      F_OK: true
+    },
+    resetData() {
+      data = {}
+    },
+  };
+}
+const mockedFs = mockFs();
+const { cacheEnvVars } = proxyquire('./index', {'fs': mockedFs});
 
 describe('Caching environment variables', () => {
-  before(async () => {
-    try {
-      await fsPromises.access(DOTENV_FILE, fs.constants.F_OK);
-      await fsPromises.copyFile(DOTENV_FILE, TEMP_DOTENV_FILE);
-      await fsPromises.unlink(DOTENV_FILE);
-    } catch(_) {
-      // ignore if file doesnt exist
-    }
-  });
 
-  after(async () => {
-    try {
-      await fsPromises.unlink(DOTENV_FILE)
-      await fsPromises.access(TEMP_DOTENV_FILE, fs.constants.F_OK);
-      await fsPromises.copyFile(TEMP_DOTENV_FILE, DOTENV_FILE);
-      await fsPromises.unlink(TEMP_DOTENV_FILE);
-    } catch(_) {
-      // ignore if file doesnt exist
-    }
-  });
+  beforeEach(() => {
+    mockedFs.resetData();
+  })
 
   it('should create .env file if its missing', async () => {
     await cacheEnvVars({'CONTENTFUL_TOKEN': 'test_value'});
-    const fileExists = (await fsPromises.access(DOTENV_FILE, fs.constants.F_OK)) === undefined;
+
+    const fileExists = await mockedFs.promises.access(DOTENV_FILE, mockedFs.constants.F_OK) === undefined;
     assert.ok(fileExists);
   })
 
@@ -40,10 +52,10 @@ CONTENTFUL_TOKEN=old_value`;
     const expectedData = `CONTENTFUL_APP_DEF_ID=some_app_def_id
 CONTENTFUL_TOKEN=new_value`;
 
-    await fsPromises.writeFile(DOTENV_FILE, envData, {encoding: 'utf-8'});
+    await mockedFs.promises.writeFile(DOTENV_FILE, envData, {encoding: 'utf-8'});
 
     await cacheEnvVars({'CONTENTFUL_TOKEN': 'new_value'});
-    const fileData = await fsPromises.readFile(DOTENV_FILE, {encoding: 'utf-8'});
+    const fileData = await mockedFs.promises.readFile(DOTENV_FILE, {encoding: 'utf-8'});
     assert.strictEqual(fileData, expectedData);
   })
 
@@ -52,10 +64,10 @@ CONTENTFUL_TOKEN=new_value`;
     const expectedData = `CONTENTFUL_APP_DEF_ID=some_app_def_id
 CONTENTFUL_TOKEN=new_value_2`;
 
-    await fsPromises.writeFile(DOTENV_FILE, envData, {encoding: 'utf-8'});
+    await mockedFs.promises.writeFile(DOTENV_FILE, envData, {encoding: 'utf-8'});
 
     await cacheEnvVars({'CONTENTFUL_TOKEN': 'new_value_2'});
-    const fileData = await fsPromises.readFile(DOTENV_FILE, {encoding: 'utf-8'});
+    const fileData = await mockedFs.promises.readFile(DOTENV_FILE, {encoding: 'utf-8'});
     assert.strictEqual(fileData, expectedData);
   })
 });

@@ -6,7 +6,7 @@ const inquirer = require('inquirer');
 const { isString, isPlainObject, has } = require('lodash');
 
 const { throwValidationException } = require('../utils');
-const { cacheEnvVars } = require('../cache-credential');
+const { cacheEnvVars } = require('../../utils/cache-credential');
 
 async function fetchOrganizations(client) {
   try {
