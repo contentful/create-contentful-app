@@ -25,6 +25,8 @@ async function buildAppUploadSettings(options) {
   const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically
   return {
+    bundleDirectory: options.bundleDir,
+    comment: options,
     ...appUploadSettings,
     ...appInfo,
   };

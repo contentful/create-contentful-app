@@ -37,7 +37,7 @@ async function runCommand(command, options) {
 
   program
     .command('activate')
-    .description('Activate your AppBundle')
+    .description('Mark an AppBundle as "active" for a given AppDefinition')
     .option('--bundle-id [bundleId]', 'The id of your bundle')
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id  [defId]', 'The id of your apps definition')
