@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
