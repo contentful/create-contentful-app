@@ -1,0 +1,52 @@
+{
+  "name": "test-proj2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@contentful/app-sdk": "^3.33.0",
+    "@contentful/field-editor-single-line": "^0.14.1",
+    "@contentful/field-editor-test-utils": "^0.11.1",
+    "@contentful/forma-36-fcss": "^0.3.1",
+    "@contentful/forma-36-react-components": "^3.87.0",
+    "@contentful/forma-36-tokens": "^0.10.1",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.3",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.39",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "cross-env": "^7.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.2.4"
+  },
+  "scripts": {
+    "start": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "upload": "contentful-app-scripts upload --bundle-dir ./build",
+    "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $ORG_ID --definition-id $APP_DEFINITION_ID --token $CMA_TOKEN"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@contentful/app-scripts": "^0.5.1"
+  },
+  "homepage": "."
+}
