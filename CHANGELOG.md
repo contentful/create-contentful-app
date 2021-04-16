@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/contentful/create-contentful-app/compare/v0.6.2...v0.7.0) (2021-04-16)
+
+
+### Features
+
+* **CacheEnvVars:** Add .env file to gitignore if possible ([c8f856d](https://github.com/contentful/create-contentful-app/commit/c8f856dc7d8d569e4fdd757f663a8f327c76ff9b))
+
+
+
+
+
 ## [0.6.2](https://github.com/contentful/create-contentful-app/compare/v0.6.1...v0.6.2) (2021-04-16)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
