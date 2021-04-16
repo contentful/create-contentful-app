@@ -24,7 +24,7 @@
       "start": "cross-env BROWSER=none react-scripts start",
       "upload": "contentful-app-scripts upload --bundle-dir ./build",
       "upload": "contentful-app-scripts upload --bundle-dir ./build",
-      "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $ORG_ID --definition-id $APP_DEFINITION_ID --token $CMA_TOKEN"
+      "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $CONTENTFUL_ORG_ID --definition-id $CONTENTFUL_APP_DEF_ID --token $CONTENTFUL_ACCESS_TOKEN"
     },
     "homepage": "."
   }
