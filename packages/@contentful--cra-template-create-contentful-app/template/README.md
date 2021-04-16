@@ -32,6 +32,11 @@ Similar to `npm run upload` it will upload your app to contentful and activate i
 that with this command all required arguments are read from the environment variables, for example when you add
 the upload command to your CI pipeline.
 
+For this command to work, the following environment variables must be set: 
+
+- `CONTENTFUL_ORG_ID` - The ID of your organization
+- `CONTENTFUL_APP_DEF_ID` - The ID of the app to which to add the bundle
+- `CONTENTFUL_ACCESS_TOKEN` - A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)
 
 ## Libraries to use
 
