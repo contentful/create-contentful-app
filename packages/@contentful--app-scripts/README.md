@@ -81,7 +81,7 @@ It only runs in interactive mode.
 Allows you to upload a build directory and create a new AppBundle that is bound to an [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/).
 It runs in interactive or non-interactive mode
 
-**Note:** To make the app serve the bundle you need to [activate](#activate-an-appBundle) it
+**Note:** The command will automatically activate the bundle. To skip the activation you can pass the `--skip-activation` argument in interactive and non-interactive mode and then manually [activate](#activate-an-appBundle) it
 
 #### Interactive mode:
 
@@ -95,7 +95,7 @@ In the interactive mode, the CLI will ask for all required options
 
 #### Non-interactive mode:
 
-When passing the `--ci` argument adding all variables as arguments is required
+When passing the `--ci` argument the command will fail when the required variables are not set as arguments.
 
 > **Example**
 >
@@ -111,10 +111,11 @@ When passing the `--ci` argument adding all variables as arguments is required
 
 | Argument                 | Description                                                                                                                                    |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bundle-dir`           | The directory of your build folder (e.g.: `./build`)                                                                                            |
+| `--bundle-dir`           | The directory of your build folder (e.g.: `./build`)                                                                                           |
 | `--organization-id`      | The ID of your organisation                                                                                                                    |
 | `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
 | `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
+| `--skip-activation`      | (optional) Boolean flag to skip the automatic activation of the `AppBundle`                                                                    |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
