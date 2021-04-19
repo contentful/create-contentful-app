@@ -3,6 +3,10 @@
 const chalk = require('chalk');
 const open = require('open');
 const inquirer = require('inquirer');
+const { cacheEnvVars } = require('../utils/cache-credential');
+const {
+  ACCESS_TOKEN_ENV_KEY
+} = require('../utils/constants');
 
 async function getManagementToken() {
   const redirectUrl = 'https://www.contentful.com/developers/cli-oauth-page/';
@@ -17,6 +21,7 @@ async function getManagementToken() {
     console.log(err.message);
     throw err;
   }
+  const cachedAccessToken = process.env[ACCESS_TOKEN_ENV_KEY];
 
   const { mgmtToken } = await inquirer.prompt([
     {
@@ -30,8 +35,13 @@ async function getManagementToken() {
 
         return true;
       },
+      default: cachedAccessToken,
     },
   ]);
+
+  if (mgmtToken !== cachedAccessToken) {
+    await cacheEnvVars({[ACCESS_TOKEN_ENV_KEY]: mgmtToken});
+  }
 
   return mgmtToken;
 }
