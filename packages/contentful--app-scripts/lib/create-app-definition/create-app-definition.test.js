@@ -6,7 +6,7 @@ const organizationId = 'orgId';
 const token = 'token';
 
 describe('createAppDefinition', () => {
-  let subject, clientMock, promptMock;
+  let subject, clientMock, promptMock, cachedEnvVarsMock;
 
   beforeEach(() => {
     stub(console, 'log');
@@ -22,6 +22,8 @@ describe('createAppDefinition', () => {
       getOrganizations: stub()
     };
 
+    cachedEnvVarsMock = stub().resolves(undefined);
+
     promptMock = stub();
 
     ({ createAppDefinition: subject } = proxyquire('./create-app-definition', {
@@ -30,6 +32,9 @@ describe('createAppDefinition', () => {
         createClient: () => {
           return clientMock;
         }
+      },
+      '../../utils/cache-credential': {
+        cacheEnvVars: cachedEnvVarsMock
       }
     }));
   });
@@ -72,5 +77,6 @@ describe('createAppDefinition', () => {
     assert(loggedMessage.includes(orgSettingsLink));
     assert(loggedMessage.includes(appLink));
     assert(loggedMessage.includes(tutorialLink));
+    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], {CONTENTFUL_ORG_ID: organizationId});
   });
 });
