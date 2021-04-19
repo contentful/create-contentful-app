@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha ./lib/**/*.test.js ./lib/*.test.js",
+    "test": "mocha ./lib/**/*.test.js ./lib/*.test.js ./utils/**/*.test.js",
     "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -43,7 +43,8 @@
   },
   "files": [
     "lib",
-    "bin"
+    "bin",
+    "utils"
   ],
   "publishConfig": {
     "access": "public"
@@ -53,6 +54,8 @@
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "contentful-management": "^7.14.0",
+    "dotenv": "^8.2.0",
+    "ignore": "^5.1.8",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
     "open": "^8.0.5",
