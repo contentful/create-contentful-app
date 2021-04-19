@@ -7,6 +7,10 @@ const { isString, isPlainObject, has } = require('lodash');
 
 const { throwValidationException } = require('../utils');
 const { cacheEnvVars } = require('../../utils/cache-credential');
+const {
+  ORG_ID_ENV_KEY,
+  APP_DEF_ENV_KEY,
+} = require('../../utils/constants');
 
 async function fetchOrganizations(client) {
   try {
@@ -60,7 +64,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
 
   const client = createClient({ accessToken });
   const organizations = await fetchOrganizations(client);
-  const cachedOrgId = process.env.CONTENTFUL_ORG_ID;
+  const cachedOrgId = process.env[ORG_ID_ENV_KEY];
 
   const { organizationId } = await inquirer.prompt([
     {
@@ -68,13 +72,13 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
       message: 'Select an organization for your app:',
       type: 'list',
       choices: organizations,
-      default: process.env.CONTENTFUL_ORG_ID,
+      default: cachedOrgId,
     },
   ]);
   const selectedOrg = organizations.find((org) => org.value === organizationId);
 
   if (organizationId !== cachedOrgId) {
-    await cacheEnvVars({'CONTENTFUL_ORG_ID': organizationId});
+    await cacheEnvVars({[ORG_ID_ENV_KEY]: organizationId});
   }
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
@@ -99,7 +103,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
     const organization = await client.getOrganization(organizationId);
     const createdAppDefinition = await organization.createAppDefinition(body);
     await cacheEnvVars({
-      'CONTENTFUL_APP_DEF_ID': createdAppDefinition.sys.id
+      [APP_DEF_ENV_KEY]: createdAppDefinition.sys.id
     });
 
     console.log(`
