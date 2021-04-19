@@ -6,6 +6,7 @@ const inquirer = require('inquirer');
 const { isString, isPlainObject, has } = require('lodash');
 
 const { throwValidationException } = require('../utils');
+const { cacheEnvVars } = require('../../utils/cache-credential');
 
 async function fetchOrganizations(client) {
   try {
@@ -58,8 +59,8 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   assertValidArguments(accessToken, appDefinitionSettings);
 
   const client = createClient({ accessToken });
-
   const organizations = await fetchOrganizations(client);
+  const cachedOrgId = process.env.CONTENTFUL_ORG_ID;
 
   const { organizationId } = await inquirer.prompt([
     {
@@ -67,9 +68,14 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
       message: 'Select an organization for your app:',
       type: 'list',
       choices: organizations,
+      default: process.env.CONTENTFUL_ORG_ID,
     },
   ]);
   const selectedOrg = organizations.find((org) => org.value === organizationId);
+
+  if (organizationId !== cachedOrgId) {
+    await cacheEnvVars({'CONTENTFUL_ORG_ID': organizationId});
+  }
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
   const body = {
@@ -92,6 +98,9 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   try {
     const organization = await client.getOrganization(organizationId);
     const createdAppDefinition = await organization.createAppDefinition(body);
+    await cacheEnvVars({
+      'CONTENTFUL_APP_DEF_ID': createdAppDefinition.sys.id
+    });
 
     console.log(`
   ${chalk.cyan('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(
