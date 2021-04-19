@@ -29,13 +29,15 @@ ${err.message}
   throw err;
 };
 
-const selectFromList = async (list, message) => {
+const selectFromList = async (list, message, defaultFallbackId) => {
+  const defaultOption = list.findIndex(item => item.value === defaultFallbackId);
   const { elementId } = await inquirer.prompt([
     {
       name: 'elementId',
       message: message,
       type: 'list',
       choices: list,
+      ...(defaultFallbackId ? {default: defaultOption} : {}),
     },
   ]);
   return list.find((el) => el.value === elementId);
