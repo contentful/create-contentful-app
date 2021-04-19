@@ -1,6 +1,9 @@
 const proxyquire = require('proxyquire');
 const { stub, match } = require('sinon');
 const assert = require('assert');
+const {
+  ORG_ID_ENV_KEY,
+} = require('../../utils/constants');
 
 const organizationId = 'orgId';
 const token = 'token';
@@ -77,6 +80,6 @@ describe('createAppDefinition', () => {
     assert(loggedMessage.includes(orgSettingsLink));
     assert(loggedMessage.includes(appLink));
     assert(loggedMessage.includes(tutorialLink));
-    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], {CONTENTFUL_ORG_ID: organizationId});
+    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], {[ORG_ID_ENV_KEY]: organizationId});
   });
 });
