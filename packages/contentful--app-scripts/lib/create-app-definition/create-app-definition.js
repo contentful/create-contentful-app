@@ -2,10 +2,9 @@ const path = require('path');
 
 const { createClient } = require('contentful-management');
 const chalk = require('chalk');
-const inquirer = require('inquirer');
 const { isString, isPlainObject, has } = require('lodash');
 
-const { throwValidationException } = require('../utils');
+const { throwValidationException, selectFromList } = require('../utils');
 const { cacheEnvVars } = require('../../utils/cache-credential');
 const {
   ORG_ID_ENV_KEY,
@@ -64,22 +63,9 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
 
   const client = createClient({ accessToken });
   const organizations = await fetchOrganizations(client);
-  const cachedOrgId = process.env[ORG_ID_ENV_KEY];
 
-  const { organizationId } = await inquirer.prompt([
-    {
-      name: 'organizationId',
-      message: 'Select an organization for your app:',
-      type: 'list',
-      choices: organizations,
-      default: cachedOrgId,
-    },
-  ]);
-  const selectedOrg = organizations.find((org) => org.value === organizationId);
-
-  if (organizationId !== cachedOrgId) {
-    await cacheEnvVars({[ORG_ID_ENV_KEY]: organizationId});
-  }
+  const selectedOrg = await selectFromList(organizations, 'Select an organization for your app:', ORG_ID_ENV_KEY);
+  const organizationId = selectedOrg.value;
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
   const body = {

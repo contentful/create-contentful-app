@@ -6,7 +6,7 @@ async function createZipFileFromDirectory(path) {
   try {
     const zip = new AdmZip();
     zip.addLocalFolder(path);
-    console.log('----------------------------');
+    console.log('\n----------------------------');
     console.log(`${chalk.yellow('Done!')} Files from ${chalk.dim(path)} successfully zipped.`);
     console.log('----------------------------');
 
