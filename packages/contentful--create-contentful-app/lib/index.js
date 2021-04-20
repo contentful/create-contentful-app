@@ -7,6 +7,7 @@ const spawn = require('cross-spawn');
 const path = require('path');
 const tildify = require('tildify');
 const { createAppDefinition } = require('@contentful/app-scripts');
+const { version } = require('../package.json');
 
 const command = process.argv[2];
 const appFolder = process.argv[3];
@@ -18,7 +19,7 @@ function getTemplate() {
   const templatePkg = '@contentful/cra-template-create-contentful-app';
 
   if (!process.env.USE_LINKED_TEMPLATE) {
-    return templatePkg;
+    return `${templatePkg}@${version}`;
   }
 
   const linkedTemplatePath = path.relative(
