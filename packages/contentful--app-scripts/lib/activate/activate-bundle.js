@@ -38,8 +38,8 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
     activationSpinner.stop();
   }
 
-  console.log(
-    `${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
+  console.log(`
+  ${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
       definition.name
     )} in ${chalk.bold(organization.name)}.
 
