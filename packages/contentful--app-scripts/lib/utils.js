@@ -36,8 +36,8 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
 
   if (cachedElement) {
     console.log(`
-      ${message}
-      Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
+  ${message}
+  Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
     `)
     return cachedElement;
 

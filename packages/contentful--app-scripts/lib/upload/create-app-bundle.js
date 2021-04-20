@@ -30,20 +30,20 @@ async function createAppBundleFromSettings(settings) {
   let appUpload = null;
   try {
     appUpload = await createAppUpload(settings);
-    console.log(
-      `${chalk.yellow(
-        'Done!'
-      )} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
-        appUpload.sys.id
-      )}) has been created.`
-    );
+    console.log(`
+  ${chalk.yellow(
+    'Done!'
+  )} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
+    appUpload.sys.id
+  )}) has been created.`);
   } catch (err) {
     showCreationError('app upload', err.message);
   }
 
   if (!appUpload) return;
 
-  console.log('----------------------------');
+  console.log(`
+  ----------------------------`);
   const appBundle = await createAppBundleFromUpload(settings, appUpload.sys.id);
 
   if (!appBundle) return;
