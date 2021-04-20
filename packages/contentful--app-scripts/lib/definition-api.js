@@ -22,10 +22,9 @@ async function fetchDefinitions(client, orgId) {
 async function selectDefinition(client, orgId) {
   const defSpinner = ora('Fetching all definitions...').start();
   const definitions = await fetchDefinitions(client, orgId);
-  const cachedAppDefId = process.env[APP_DEF_ENV_KEY];
   defSpinner.stop();
 
-  return await selectFromList(definitions, 'Select an app for your upload:', cachedAppDefId);
+  return  await selectFromList(definitions, 'Select an app for your upload:', APP_DEF_ENV_KEY);
 }
 
 async function getDefinitionById(client, orgId, defId) {
