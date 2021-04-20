@@ -24,7 +24,7 @@ async function selectDefinition(client, orgId) {
   const definitions = await fetchDefinitions(client, orgId);
   defSpinner.stop();
 
-  return  await selectFromList(definitions, 'Select an app for your upload:', APP_DEF_ENV_KEY);
+  return await selectFromList(definitions, 'Select an app for your upload:', APP_DEF_ENV_KEY);
 }
 
 async function getDefinitionById(client, orgId, defId) {
