@@ -7,12 +7,32 @@ const spawn = require('cross-spawn');
 const path = require('path');
 const tildify = require('tildify');
 const { createAppDefinition } = require('@contentful/app-scripts');
+const { version } = require('../package.json');
 
 const command = process.argv[2];
 const appFolder = process.argv[3];
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
+
+function getTemplate() {
+  const templatePkg = '@contentful/cra-template-create-contentful-app';
+
+  if (!process.env.USE_LINKED_TEMPLATE) {
+    return `${templatePkg}@${version}`;
+  }
+
+  const linkedTemplatePath = path.relative(
+    process.cwd(),
+    path.dirname(require.resolve(templatePkg))
+  );
+
+  console.log();
+  console.log(chalk.dim('> Using linked template at %s'), chalk.blueBright(linkedTemplatePath));
+  console.log();
+
+  return `file:${linkedTemplatePath}`;
+}
 
 function onSuccess(folder) {
   console.log(`
@@ -42,9 +62,9 @@ function initProject() {
 
     const initCommand = 'node';
     const createReactApp = require.resolve('create-react-app');
-    const templatePkg = '@contentful/cra-template-create-contentful-app';
+    const template = getTemplate();
 
-    const args = [createReactApp, appFolder, '--template', templatePkg, '--use-npm'];
+    const args = [createReactApp, appFolder, '--template', template, '--use-npm'];
 
     console.log(
       `Creating a Contentful app in ${chalk.bold(tildify(path.resolve(process.cwd(), appFolder)))}.`

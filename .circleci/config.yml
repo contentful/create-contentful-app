@@ -43,12 +43,14 @@ commands:
       - *install-deps
       - run:
           name: Run Tests
+          environment:
+            USE_LINKED_TEMPLATE: 1
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            node "${FORMER_CWD}/packages/@contentful--create-contentful-app/lib/index.js" init test
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
 
@@ -76,16 +78,16 @@ jobs:
           command: node ./scripts/dependency-check/create-template-from-outdated
       - run:
           name: Run Tests and Produce Reports
+          environment:
+            USE_LINKED_TEMPLATE: 1
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            node "${FORMER_CWD}/packages/@contentful--create-contentful-app/lib/index.js" init test
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
-          environment:
-            MODE: 'local'
       - run:
           name: Create Pull Request
           command: node ./scripts/dependency-check/create-pull-request
