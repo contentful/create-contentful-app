@@ -8,8 +8,8 @@ async function buildAppUploadSettings(options) {
   if (!options.bundleDir) {
     prompts.push({
       name: 'bundleDirectory',
-      message: `Bundle directory, if not current:`,
-      default: '.',
+      message: `Bundle directory, if not default:`,
+      default: './build',
     });
   }
   if (!options.comment) {
