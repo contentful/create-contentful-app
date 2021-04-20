@@ -7,6 +7,7 @@ const spawn = require('cross-spawn');
 const path = require('path');
 const tildify = require('tildify');
 const { createAppDefinition } = require('@contentful/app-scripts');
+const { version } = require('../package.json');
 
 const command = process.argv[2];
 const appFolder = process.argv[3];
@@ -42,7 +43,7 @@ function initProject() {
 
     const initCommand = 'node';
     const createReactApp = require.resolve('create-react-app');
-    const templatePkg = '@contentful/cra-template-create-contentful-app';
+    const templatePkg = `@contentful/cra-template-create-contentful-app@${version}`;
 
     const args = [createReactApp, appFolder, '--template', templatePkg, '--use-npm'];
 
