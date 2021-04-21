@@ -172,7 +172,6 @@ workflows:
             - test-built-app-next-lts
 
       - lint-and-test-latest
-      # npx currently fails with the latest node version (15.3.0)
-      # - test-built-app-latest:
-      #     requires:
-      #       - lint-and-test-latest
+      - test-built-app-latest:
+          requires:
+            - lint-and-test-latest
