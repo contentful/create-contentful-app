@@ -10,8 +10,8 @@
     "directory": "packages/contentful--app-scripts"
   },
   "engines": {
-    "node": ">=12 <15",
-    "npm": ">=6 <7"
+    "node": ">=12 <=15",
+    "npm": ">=6 <=7"
   },
   "main": "lib/index.js",
   "lint-staged": {
