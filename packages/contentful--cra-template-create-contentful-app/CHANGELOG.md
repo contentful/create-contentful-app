@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/contentful/create-contentful-app/compare/v0.7.4...v0.8.0) (2021-04-21)
+
+
+### Features
+
+* update engines property ([638e4cc](https://github.com/contentful/create-contentful-app/commit/638e4cc3eb8b707de8c885df181cac8e13da905f))
+
+
+
+
+
 ## [0.7.4](https://github.com/contentful/create-contentful-app/compare/v0.7.3...v0.7.4) (2021-04-20)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
