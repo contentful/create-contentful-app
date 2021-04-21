@@ -12,7 +12,7 @@ const {
 const checkTokenValidity = async (accessToken) => {
   try {
     const client = createClient({ accessToken });
-    await client.getOrganizations();
+    await client.getCurrentUser();
     return true;
 
   } catch(err) {
@@ -32,36 +32,34 @@ async function getManagementToken() {
 
   if (cachedTokenValid) {
     return cachedAccessToken;
-
-  } else {
-
-    try {
-      open(oauthUrl);
-    } catch (err) {
-      console.log(`${chalk.red('Error:')} Failed to open browser`);
-      console.log(err.message);
-      throw err;
-    }
-
-    const { mgmtToken } = await inquirer.prompt([
-      {
-        name: 'mgmtToken',
-        message: 'Please paste your access token:',
-        type: 'password',
-        validate(answer) {
-          if (!answer) {
-            return `${chalk.red('Error:')} Failed to login into Contentful.`;
-          }
-
-          return true;
-        },
-      },
-    ]);
-
-    await cacheEnvVars({[ACCESS_TOKEN_ENV_KEY]: mgmtToken});
-
-    return mgmtToken;
   }
+
+  try {
+    open(oauthUrl);
+  } catch (err) {
+    console.log(`${chalk.red('Error:')} Failed to open browser`);
+    console.log(err.message);
+    throw err;
+  }
+
+  const { mgmtToken } = await inquirer.prompt([
+    {
+      name: 'mgmtToken',
+      message: 'Please paste your access token:',
+      type: 'password',
+      validate(answer) {
+        if (!answer) {
+          return `${chalk.red('Error:')} Failed to login into Contentful.`;
+        }
+
+        return true;
+      },
+    },
+  ]);
+
+  await cacheEnvVars({[ACCESS_TOKEN_ENV_KEY]: mgmtToken});
+
+  return mgmtToken;
 }
 
 module.exports = {
