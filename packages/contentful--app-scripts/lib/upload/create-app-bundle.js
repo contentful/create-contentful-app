@@ -42,8 +42,8 @@ async function createAppBundleFromSettings(settings) {
 
   if (!appUpload) return;
 
-  console.log(`
-  ----------------------------`);
+  console.log("")
+  console.log(`  ----------------------------`);
   const appBundle = await createAppBundleFromUpload(settings, appUpload.sys.id);
 
   if (!appBundle) return;
