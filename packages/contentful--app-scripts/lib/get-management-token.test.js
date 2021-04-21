@@ -21,7 +21,7 @@ describe('getManagementToken', () => {
       inquirer: { prompt: promptMock },
       open: openMock,
       'contentful-management': {
-        createClient(accessToken) {
+        createClient() {
           return {
             async getOrganizations() {
               throw new Error();
