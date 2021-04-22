@@ -12,8 +12,8 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "link": "lerna link",
-    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publsih",
-    "publish": "lerna publish from-git --yes --no-verify-access --exact --force-publsih",
+    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publish",
+    "publish": "lerna publish from-git --yes --no-verify-access --exact --force-publish",
     "pre-commit": "lerna run pre-commit",
     "commit-msg": "lerna run commit-msg"
   },
