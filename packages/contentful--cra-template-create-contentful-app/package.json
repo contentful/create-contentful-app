@@ -1,6 +1,6 @@
 {
   "name": "@contentful/cra-template-create-contentful-app",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",

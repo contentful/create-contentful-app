@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.3](https://github.com/contentful/create-contentful-app/compare/v0.8.2...v0.8.3) (2021-04-22)
+
+
+### Bug Fixes
+
+* always have versions in sync ([#405](https://github.com/contentful/create-contentful-app/issues/405)) ([c173a91](https://github.com/contentful/create-contentful-app/commit/c173a919dcd69684fe4b521579bd5c76c10ae0a3))
+
+
+
+
+
 ## [0.8.1](https://github.com/contentful/create-contentful-app/compare/v0.8.0...v0.8.1) (2021-04-21)
 
 
