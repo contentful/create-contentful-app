@@ -1,6 +1,6 @@
 {
   "name": "create-contentful-app",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "create-contentful-app": "index.js"
   },
   "dependencies": {
-    "@contentful/create-contentful-app": "0.8.7"
+    "@contentful/create-contentful-app": "0.8.8"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
