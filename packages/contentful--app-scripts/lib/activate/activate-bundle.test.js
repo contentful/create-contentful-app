@@ -23,6 +23,7 @@ describe('activate-bundle', () => {
   const definitionMock = {
     src: 'src',
     bundle: undefined,
+    locations: []
   };
 
   beforeEach(() => {
@@ -46,9 +47,10 @@ describe('activate-bundle', () => {
     }));
   });
 
-  it('updates definition with bundle and sets src to undefined', async () => {
+  it('updates definition with bundle, sets default location, and sets src to undefined', async () => {
     await activateBundle(mockedSettings);
     assert.strictEqual(definitionMock.bundle.sys.id, mockedSettings.bundleId);
+    assert.strictEqual(definitionMock.locations.length, 1);
     assert.strictEqual(definitionMock.src, undefined);
     assert.strictEqual(updateStub.called, true);
     assert(console.log.calledWith(match(/Your app bundle was activated/)));
