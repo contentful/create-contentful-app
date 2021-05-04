@@ -14,7 +14,7 @@
     "link": "lerna link",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publish",
     "publish": "lerna publish from-git --yes --no-verify-access --exact --force-publish",
-    "publish:canary": "lerna publish from-git --canary --yes --no-verify-access --exact --force-publish",
+    "publish:canary": "lerna publish --canary --yes --no-verify-access --exact --force-publish",
     "pre-commit": "lerna run pre-commit",
     "commit-msg": "lerna run commit-msg"
   },
