@@ -3,7 +3,7 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const {createAppDefinition, upload, activate} = require('../')
+const {createAppDefinition, upload, activate, open} = require('../')
 
 
 async function runCommand(command, options) {
@@ -45,6 +45,14 @@ async function runCommand(command, options) {
     .option('--token [accessToken]', 'Your content management access token')
     .action(async (options) => {
       await runCommand(activate, options);
+    })
+
+  program
+    .command('open')
+    .description('Opens the app editor for a given AppDefinition')
+    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .action(async (options) => {
+      await open.run(options)
     })
 
   await program.parseAsync(process.argv);
