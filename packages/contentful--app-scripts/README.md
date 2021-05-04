@@ -167,7 +167,7 @@ It opens the settings in the contentful web app so that you can use the UI to ch
 > **Example**
 >
 > ```shell
-> $ npx --no-install @contentful/app-scripts open --definition-id some-definition-id
+> $ npx --no-install @contentful/app-scripts open-settings --definition-id some-definition-id
 > ```
 
 You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) has been set. 
@@ -175,5 +175,5 @@ You can also execute this command without the argument if the environment variab
 > **Example**
 >
 > ```shell
-> $ CONTENTFUL_APP_DEF_ID=some-definition-id npx --no-install @contentful/app-scripts open
+> $ CONTENTFUL_APP_DEF_ID=some-definition-id npx --no-install @contentful/app-scripts open-settings
 > ```
