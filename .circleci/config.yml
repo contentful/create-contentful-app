@@ -54,6 +54,14 @@ commands:
             cd test
             npm t
 
+  prepare-release:
+    steps:
+      - checkout
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
+      - run: git config --global user.name "whydah-gally"
+      - run: npm ci && npm run bootstrap
+
 jobs:
   dependency-check:
     executor: node-container-lts
@@ -99,13 +107,16 @@ jobs:
     docker:
       - image: circleci/node:12
     steps:
-      - checkout
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
-      - run: git config --global user.name "whydah-gally"
-      - run: npm ci && npm run bootstrap
+      - prepare-release
       - run: npm run version
       - run: npm run publish
+
+  release-canary:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - prepare-release
+      - run: npm run publish:canary
 
   lint-and-test-lts:
     executor: node-container-lts
@@ -167,6 +178,14 @@ workflows:
           filters:
             branches:
               only: master
+          requires:
+            - test-built-app-lts
+            - test-built-app-next-lts
+
+      - release-canary:
+          filters:
+            branches:
+              only: canary
           requires:
             - test-built-app-lts
             - test-built-app-next-lts
