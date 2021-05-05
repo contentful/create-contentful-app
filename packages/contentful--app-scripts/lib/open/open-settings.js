@@ -35,7 +35,13 @@ async function openSettings(options) {
     throw new Error('No app-definition-id');
   }
 
-  open(`${REDIRECT_URL}&id=${definitionId}`);
+  try {
+    open(`${REDIRECT_URL}&id=${definitionId}`);
+  } catch (err) {
+    console.log(`${chalk.red('Error:')} Failed to open browser`);
+    console.log(err.message);
+    throw err;
+  }
 }
 
 module.exports = {
