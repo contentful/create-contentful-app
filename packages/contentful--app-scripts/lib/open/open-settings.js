@@ -21,6 +21,10 @@ async function openSettings(options) {
     definitionId = prompts.definitionId;
   }
 
+  console.log(definitionId, 'DEFID');
+  console.log(options, 'options');
+  console.log(process.env[APP_DEF_ENV_KEY], 'process.env[APP_DEF_ENV_KEY]');
+
   if (!definitionId) {
     console.log(`
         ${chalk.red('Error:')} There was no app-definition defined.
