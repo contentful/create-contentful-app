@@ -1,4 +1,4 @@
-const { stub, match } = require('sinon');
+const { stub } = require('sinon');
 const assert = require('assert');
 const { APP_DEF_ENV_KEY } = require('../../utils/constants');
 const proxyquire = require('proxyquire');
