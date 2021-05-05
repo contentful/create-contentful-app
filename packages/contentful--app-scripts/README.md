@@ -159,3 +159,21 @@ When passing the `--ci` argument adding all variables as arguments is required
 | `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it. 
+
+### Open Settings of an AppDefinition
+
+It opens the settings in the contentful web app so that you can use the UI to change the settings of an [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/). 
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts open-settings --definition-id some-definition-id
+> ```
+
+You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) has been set. 
+
+> **Example**
+>
+> ```shell
+> $ CONTENTFUL_APP_DEF_ID=some-definition-id npx --no-install @contentful/app-scripts open-settings
+> ```
