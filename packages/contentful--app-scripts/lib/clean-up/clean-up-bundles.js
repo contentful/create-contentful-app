@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const ora = require('ora');
+const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
 const deleteMOCK = () =>
@@ -19,11 +20,19 @@ async function deleteBundle(bundleId, index, maxIndex) {
 }
 
 async function cleanUpBundles(settings) {
-  const client = createClient({ accessToken: settings.accessToken }, { type: 'plain' });
-  const bundles = await client.appBundle.getMany({
-    appDefinitionId: settings.definition.value,
-    organizationId: settings.organization.value,
-  });
+  let bundles;
+  const bundlesSpinner = ora(`Fetching all bundles...`).start();
+  try {
+    const client = createClient({ accessToken: settings.accessToken }, { type: 'plain' });
+    bundles = await client.appBundle.getMany({
+      appDefinitionId: settings.definition.value,
+      organizationId: settings.organization.value,
+    });
+  } catch (e) {
+    throwError(e, 'Something went wrong fetching the bundles');
+  }
+
+  bundlesSpinner.stop();
 
   const bundlesToDelete = bundles.items.slice(settings.keep);
 
@@ -33,8 +42,12 @@ async function cleanUpBundles(settings) {
 
   console.log(`${chalk.cyan('Info:')} ${bundlesToDelete.length} bundles will be deleted`);
 
-  for (const [index, bundle] of bundlesToDelete.entries()) {
-    await deleteBundle(bundle.sys.id, index, bundlesToDelete.length);
+  try {
+    for (const [index, bundle] of bundlesToDelete.entries()) {
+      await deleteBundle(bundle.sys.id, index, bundlesToDelete.length);
+    }
+  } catch (e) {
+    throwError(e, 'Something went wrong deleting the bundles');
   }
 }
 
