@@ -61,6 +61,7 @@ async function runCommand(command, options) {
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
+    .option('--keep [keepAmount]', 'The amount of bundles that should remain')
     .action(async (options) => {
       await runCommand(cleanup, options);
     })

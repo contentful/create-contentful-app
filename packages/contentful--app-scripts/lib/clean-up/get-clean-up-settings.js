@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const ora = require('ora');
+const { DEFAULT_BUNDLES_TO_KEEP } = require('../../utils/constants');
 const { validateArguments } = require('../validate-arguments');
 const { getAppInfo } = require('../get-app-info');
 
@@ -14,7 +15,11 @@ async function getCleanUpSettingsArgs(options) {
 
   try {
     validateArguments(requiredOptions, options, 'upload');
-    return getAppInfo(options);
+    const appInfo = await getAppInfo(options);
+    return {
+      ...appInfo,
+      keep: options.keep !== undefined ? +options.keep : DEFAULT_BUNDLES_TO_KEEP,
+    };
   } catch (err) {
     console.log(`
       ${chalk.red('Validation failed!')}
