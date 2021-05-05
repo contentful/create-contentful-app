@@ -3,27 +3,24 @@ const ora = require('ora');
 const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
-const deleteMOCK = () =>
-  new Promise((res) => {
-    setTimeout(() => {
-      res();
-    }, 2000);
-  });
-
-async function deleteBundle(bundleId, index, maxIndex) {
+async function deleteBundle(bundleId, index, maxIndex, client, settings) {
   const deleteSpinner = ora(`Deleting ${index + 1} out of ${maxIndex} bundles...`).start();
-  await deleteMOCK();
+  await client.appBundle.delete({
+    appBundleId: bundleId,
+    appDefinitionId: settings.definition.value,
+    organizationId: settings.organization.value,
+  });
   deleteSpinner.stop();
   console.log(
-    `${chalk.cyan('Info:')} ${index + 1} out of ${maxIndex} bundles was deleted successfully`
+    `${chalk.green('Done:')} ${index + 1} out of ${maxIndex} bundles was deleted successfully`
   );
 }
 
 async function cleanUpBundles(settings) {
   let bundles;
+  const client = createClient({ accessToken: settings.accessToken }, { type: 'plain' });
   const bundlesSpinner = ora(`Fetching all bundles...`).start();
   try {
-    const client = createClient({ accessToken: settings.accessToken }, { type: 'plain' });
     bundles = await client.appBundle.getMany({
       appDefinitionId: settings.definition.value,
       organizationId: settings.organization.value,
@@ -40,12 +37,19 @@ async function cleanUpBundles(settings) {
     console.log(`${chalk.yellow('Warning:')} There is nothing to delete`);
   }
 
-  console.log(`${chalk.cyan('Info:')} ${bundlesToDelete.length} bundles will be deleted`);
+  console.log(`
+
+${chalk.cyan('Info:')} ${bundlesToDelete.length} bundles will be deleted
+
+  `);
 
   try {
     for (const [index, bundle] of bundlesToDelete.entries()) {
-      await deleteBundle(bundle.sys.id, index, bundlesToDelete.length);
+      await deleteBundle(bundle.sys.id, index, bundlesToDelete.length, client, settings);
     }
+    console.log(
+      `${chalk.green('Success:')} All ${bundlesToDelete.length} bundles are deleted successfully`
+    );
   } catch (e) {
     throwError(e, 'Something went wrong deleting the bundles');
   }
