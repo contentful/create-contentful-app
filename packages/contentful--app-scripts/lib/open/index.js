@@ -1,7 +1,10 @@
 const { openSettings } = require('./open-settings');
 
 module.exports = {
-  async run(options) {
+  interactive(options) {
     openSettings(options);
+  },
+  nonInteractive() {
+    throw new Error(`"open-settings" is not available in non-interactive mode`);
   },
 };

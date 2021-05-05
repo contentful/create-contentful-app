@@ -52,7 +52,7 @@ async function runCommand(command, options) {
     .description('Opens the app editor for a given AppDefinition')
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .action(async (options) => {
-      await open.run(options)
+      await runCommand(open, options);
     })
 
   await program.parseAsync(process.argv);

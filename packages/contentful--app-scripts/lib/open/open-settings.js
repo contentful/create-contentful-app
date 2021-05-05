@@ -1,5 +1,6 @@
 const open = require('open');
 const chalk = require('chalk');
+const inquirer = require('inquirer');
 const { APP_DEF_ENV_KEY } = require('../../utils/constants');
 
 const REDIRECT_URL = 'https://app.contentful.com/deeplink?link=app-definition';
@@ -11,6 +12,16 @@ async function openSettings(options) {
   } else if (process.env[APP_DEF_ENV_KEY]) {
     definitionId = process.env[APP_DEF_ENV_KEY];
   } else {
+    const prompts = await inquirer.prompt([
+      {
+        name: 'definitionId',
+        message: `The id of the app:`,
+      },
+    ]);
+    definitionId = prompts.definitionId;
+  }
+
+  if (!definitionId) {
     console.log(`
         ${chalk.red('Error:')} There was no app-definition defined.
 
