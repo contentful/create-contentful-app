@@ -9,7 +9,6 @@ module.exports = {
   },
   async nonInteractive(options) {
     const settings = await getCleanUpSettingsArgs(options);
-
     await cleanUpBundles(settings);
   },
 };
