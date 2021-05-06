@@ -11,9 +11,7 @@ async function deleteBundle(bundleId, index, maxIndex, client, settings) {
     organizationId: settings.organization.value,
   });
   deleteSpinner.stop();
-  console.log(
-    `${chalk.green('Done:')} ${index + 1} out of ${maxIndex} bundles was deleted successfully`
-  );
+  console.log(`${chalk.green('Done:')} ${index + 1}/${maxIndex} bundles deleted successfully`);
 }
 
 async function cleanUpBundles(settings) {
@@ -39,7 +37,9 @@ async function cleanUpBundles(settings) {
 
   console.log(`
 
-${chalk.cyan('Info:')} ${bundlesToDelete.length} bundles will be deleted
+${chalk.cyan('Info:')} ${bundlesToDelete.length} bundle${
+    bundlesToDelete.length > 1 ? 's' : ''
+  } will be deleted
 
   `);
 
