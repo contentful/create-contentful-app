@@ -1,5 +1,7 @@
 const chalk = require('chalk');
 const ora = require('ora');
+const Bottleneck = require('bottleneck');
+const { MAX_CONCURRENT_DELETION_CALLS } = require('../../utils/constants');
 const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
@@ -10,9 +12,21 @@ async function deleteBundle(bundleId, index, maxIndex, client, settings) {
     appDefinitionId: settings.definition.value,
     organizationId: settings.organization.value,
   });
+
   deleteSpinner.stop();
   console.log(`${chalk.green('Done:')} ${index + 1}/${maxIndex} bundles deleted successfully`);
 }
+
+const scheduleBundleDeletion = async (bundlesToDelete, client, settings) => {
+  const limiter = new Bottleneck({ maxConcurrent: MAX_CONCURRENT_DELETION_CALLS });
+  await Promise.all(
+    bundlesToDelete.map((bundle, index) =>
+      limiter.schedule(() =>
+        deleteBundle(bundle.sys.id, index, bundlesToDelete.length, client, settings)
+      )
+    )
+  );
+};
 
 async function cleanUpBundles(settings) {
   let bundles;
@@ -44,9 +58,7 @@ ${chalk.cyan('Info:')} ${bundlesToDelete.length} bundle${
   `);
 
   try {
-    for (const [index, bundle] of bundlesToDelete.entries()) {
-      await deleteBundle(bundle.sys.id, index, bundlesToDelete.length, client, settings);
-    }
+    await scheduleBundleDeletion(bundlesToDelete, client, settings);
     console.log(
       `${chalk.green('Success:')} All ${bundlesToDelete.length} bundles are deleted successfully`
     );
