@@ -29,11 +29,15 @@ const scheduleBundleDeletion = async (bundlesToDelete, client, settings) => {
 };
 
 async function cleanUpBundles(settings) {
-  let bundles;
+  let bundles, definition;
   const client = createClient({ accessToken: settings.accessToken }, { type: 'plain' });
   const bundlesSpinner = ora(`Fetching all bundles...`).start();
   try {
     bundles = await client.appBundle.getMany({
+      appDefinitionId: settings.definition.value,
+      organizationId: settings.organization.value,
+    });
+    definition = await client.appDefinition.get({
       appDefinitionId: settings.definition.value,
       organizationId: settings.organization.value,
     });
@@ -43,7 +47,13 @@ async function cleanUpBundles(settings) {
 
   bundlesSpinner.stop();
 
-  const bundlesToDelete = bundles.items.slice(settings.keep);
+  let bundlesToDelete = bundles.items.slice(settings.keep);
+
+  if (definition.bundle) {
+    bundlesToDelete = bundlesToDelete.filter(
+      (bundle) => bundle.sys.id !== definition.bundle.sys.id
+    );
+  }
 
   if (bundlesToDelete.length < 1) {
     console.log(`${chalk.yellow('Warning:')} There is nothing to delete`);

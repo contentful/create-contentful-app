@@ -2,7 +2,8 @@ const { stub, match } = require('sinon');
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 
-const mockedBundles = [
+const mockedSettings = { definition: { value: 'test' }, organization: { value: 'test' } };
+const bundlesFixture = [
   { sys: { id: 'test-1' } },
   { sys: { id: 'test-2' } },
   { sys: { id: 'test-3' } },
@@ -13,16 +14,17 @@ const mockedBundles = [
   { sys: { id: 'test-8' } },
 ];
 
-const mockedSettings = { definition: { value: 'test' }, organization: { value: 'test' } };
-
 describe('cleanUpBundles', () => {
   let subject, clientMock, deleteMock;
+  let mockedBundles = bundlesFixture;
+
   beforeEach(() => {
     stub(console, 'log');
   });
 
   afterEach(() => {
     console.log.restore();
+    mockedBundles = bundlesFixture;
   });
 
   beforeEach(() => {
@@ -30,6 +32,10 @@ describe('cleanUpBundles', () => {
     clientMock = {
       appBundle: {
         getMany: () => ({ items: mockedBundles }),
+        delete: deleteMock,
+      },
+      appDefinition: {
+        get: () => ({ bundle: { sys: { id: 'active-bundle' } } }),
         delete: deleteMock,
       },
     };
@@ -51,6 +57,11 @@ describe('cleanUpBundles', () => {
   it('deletes all when 0 to keep on a list of 4', async () => {
     await subject({ ...mockedSettings, keep: 0 });
     assert.strictEqual(deleteMock.callCount, mockedBundles.length);
+  });
+  it('does not delete the active one', async () => {
+    mockedBundles = [{ sys: { id: 'test-1' } }, { sys: { id: 'active-bundle' } }];
+    await subject({ ...mockedSettings, keep: 0 });
+    assert.strictEqual(deleteMock.callCount, 1);
   });
   it('shows a warning when nothing will be deleted and delete is not called', async () => {
     await subject({ ...mockedSettings, keep: 100 });
