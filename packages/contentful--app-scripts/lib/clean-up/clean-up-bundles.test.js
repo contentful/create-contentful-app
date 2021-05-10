@@ -70,23 +70,29 @@ describe('cleanUpBundles', () => {
   });
   it('only runs specific deletion calls at a time ', async () => {
     const clock = useFakeTimers();
-    // a map of all deletion calls with a timestamp
-    const deletionCallTimes = [];
-    clientMock.appBundle.delete = () => {
-      // adds a time-stamp and calls return a promise after 100ms
-      deletionCallTimes.push(Date.now());
-      return new Promise((res) => setTimeout(() => res(), 100));
-    };
+    clientMock.appBundle.delete = stub().callsFake(() => new Promise((r) => setTimeout(r, 100)));
     subject({ ...mockedSettings, keep: 0 });
-    await clock.tickAsync(bundlesFixture.length * 200);
-    deletionCallTimes.forEach((timestamp, index) => {
-      if (index % 2 === 0) {
-        // when the first call in batch should be called approx at the same time as the next one
-        assert.strictEqual(deletionCallTimes[index + 1] - deletionCallTimes[index] < 100, true);
-      } else if (deletionCallTimes[index + 1]) {
-        // when the second call in batch the one after should wait for the first two to finish
-        assert.strictEqual(deletionCallTimes[index + 1] - deletionCallTimes[index] > 100, true);
-      }
-    });
+    await clock.tickAsync(50);
+    // Here we expect only the first ones to be called
+    assert.strictEqual(clientMock.appBundle.delete.callCount, 2); // 2 is batch size
+    await clock.tickAsync(150);
+    // Here the next ones also have called
+    assert.strictEqual(clientMock.appBundle.delete.callCount, 4); // 2 before + 2 new
+  });
+  it('slow call will occupy slot until finished', async () => {
+    const clock = useFakeTimers();
+    mockedBundles.unshift({ sys: { id: 'slow' } });
+    clientMock.appBundle.delete = stub().callsFake(
+      ({ appBundleId }) => new Promise((r) => setTimeout(r, appBundleId === 'slow' ? 200 : 100))
+    );
+    subject({ ...mockedSettings, keep: 0 });
+    await clock.tickAsync(50);
+    // Here we expect only the first ones to be called
+    assert.strictEqual(clientMock.appBundle.delete.callCount, 2); // 2 is batch size
+    await clock.tickAsync(100);
+    // Here there are still only two called
+    assert.strictEqual(clientMock.appBundle.delete.callCount, 3); // 2 before + 1 new  (1 still in flight and occupies slot)
+    await clock.tickAsync(100);
+    assert.strictEqual(clientMock.appBundle.delete.callCount, 5); // 3 before + 2 new  (slot is free again)
   });
 });
