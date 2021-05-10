@@ -33,7 +33,7 @@ async function selectOrganization(client) {
     return null;
   }
 
-  return await selectFromList(organizations, 'Select an organization for your app:', ORG_ID_ENV_KEY);
+  return await selectFromList(organizations, 'Select an organization:', ORG_ID_ENV_KEY);
 }
 
 async function getOrganizationById(client, orgId) {
