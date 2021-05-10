@@ -194,7 +194,7 @@ In the interactive mode, the CLI will ask for all required options
 > $ npx --no-install @contentful/app-scripts bundle-cleanup
 > ```
 
-You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) has been set. 
+You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) and (`CONTENTFUL_ORG_ID`) has been set. 
 
 #### Non-interactive mode:
 
