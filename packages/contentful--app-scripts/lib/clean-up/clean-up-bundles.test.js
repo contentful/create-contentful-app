@@ -1,4 +1,4 @@
-const { stub, match } = require('sinon');
+const { stub, match, useFakeTimers } = require('sinon');
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 
@@ -23,8 +23,8 @@ describe('cleanUpBundles', () => {
   });
 
   afterEach(() => {
-    console.log.restore();
     mockedBundles = bundlesFixture;
+    console.log.restore();
   });
 
   beforeEach(() => {
@@ -69,6 +69,7 @@ describe('cleanUpBundles', () => {
     assert(console.log.calledWith(match(/There is nothing to delete/)));
   });
   it('only runs specific deletion calls at a time ', async () => {
+    const clock = useFakeTimers();
     // a map of all deletion calls with a timestamp
     const deletionCallTimes = [];
     clientMock.appBundle.delete = () => {
@@ -76,7 +77,8 @@ describe('cleanUpBundles', () => {
       deletionCallTimes.push(Date.now());
       return new Promise((res) => setTimeout(() => res(), 100));
     };
-    await subject({ ...mockedSettings, keep: 0 });
+    subject({ ...mockedSettings, keep: 0 });
+    await clock.tickAsync(bundlesFixture.length * 200);
     deletionCallTimes.forEach((timestamp, index) => {
       if (index % 2 === 0) {
         // when the first call in batch should be called approx at the same time as the next one
