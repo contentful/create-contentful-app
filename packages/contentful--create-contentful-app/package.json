@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.8.30",
+  "version": "0.8.31",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -32,8 +32,8 @@
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "dependencies": {
-    "@contentful/app-scripts": "0.8.30",
-    "@contentful/cra-template-create-contentful-app": "0.8.30",
+    "@contentful/app-scripts": "0.8.31",
+    "@contentful/cra-template-create-contentful-app": "0.8.31",
     "chalk": "^4.1.0",
     "contentful-management": "^7.5.1",
     "create-react-app": "^4.0.1",
