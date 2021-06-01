@@ -26,7 +26,7 @@ const validateBundle = path => {
     console.warn(
       `${chalk.red(
         'Warning:'
-      )} This bundle uses absolute paths. Please use relative paths instead for correct rendering`
+      )} This bundle uses absolute paths. Please use relative paths instead for correct rendering. See more details here https://www.contentful.com/developers/docs/extensibility/app-framework/app-bundle/#limitations`
     );
     console.log('----------------------------');
   }
