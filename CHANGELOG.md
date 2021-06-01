@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/contentful/create-contentful-app/compare/v0.8.49...v0.9.0) (2021-06-01)
+
+
+### Features
+
+* [EXT-2678] add validation for build folder ([1978d7a](https://github.com/contentful/create-contentful-app/commit/1978d7a3c684b9ed8d5e76a683bf9c613af54eb6))
+* include docs link in warning ([142f382](https://github.com/contentful/create-contentful-app/commit/142f382cf7b8fa1e35548b05ef4e6a2fbb68223b))
+
+
+
+
+
 ## [0.8.49](https://github.com/contentful/create-contentful-app/compare/v0.8.48...v0.8.49) (2021-06-01)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
