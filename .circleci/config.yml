@@ -22,7 +22,7 @@ executors:
 
   node-container-latest:
     docker:
-      - image: node:15
+      - image: node:16
         environment: *base-env
 
 commands:
