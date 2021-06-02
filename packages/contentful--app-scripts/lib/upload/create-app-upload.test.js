@@ -31,6 +31,7 @@ describe('createAppUpload', () => {
         },
       },
       './create-zip-from-directory': { createZipFileFromDirectory: () => 'zip_file' },
+      './validate-bundle': { validateBundle: () => {} },
     }));
   });
 
