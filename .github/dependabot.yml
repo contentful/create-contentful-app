@@ -1,28 +1,93 @@
 version: 2
-registries:
-  npm-registry-registry-npmjs-org:
-    type: npm-registry
-    url: https://registry.npmjs.org
-    token: "${{secrets.NPM_REGISTRY_REGISTRY_NPMJS_ORG_TOKEN}}"
 
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "00:00"
-    timezone: Etc/UCT
-  open-pull-requests-limit: 99
-  ignore:
-  - dependency-name: husky
-    versions:
-    - ">=5.0.0"
-  - dependency-name: contentful-management
-    versions:
-    - 7.15.2
-    - 7.16.0
-  commit-message:
-    prefix: build
-    include: scope
-  registries:
-  - npm-registry-registry-npmjs-org
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/contentful--app-scripts'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/contentful--cra-template-create-contentful-app'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/contentful--create-contentful-app'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/create-contentful-app'
