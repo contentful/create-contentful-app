@@ -4,10 +4,9 @@ x-config: &config
   package-ecosystem: npm
   schedule:
     interval: daily
-    time: "13:30"
-    timezone: "Europe/Berlin"
-  target-branch: "fix/dependabot"
   open-pull-requests-limit: 99
+  reviewers:
+  - "team-extensibility"
   ignore:
   - dependency-name: husky
     versions:
