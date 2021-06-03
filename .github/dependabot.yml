@@ -1,32 +1,93 @@
 version: 2
 
-x-config: &config
-  package-ecosystem: npm
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 99
-  reviewers:
-  - "team-extensibility"
-  ignore:
-  - dependency-name: husky
-    versions:
-    - ">=5.0.0"
-  - dependency-name: contentful-management
-    versions:
-    - 7.15.2
-    - 7.16.0
-  commit-message:
-    prefix: chore
-    include: scope
-
 updates:
-- <<: *config
-  directory: '/'
-- <<: *config
-  directory: '/packages/contentful--app-scripts'
-- <<: *config
-  directory: '/packages/contentful--cra-template-create-contentful-app'
-- <<: *config
-  directory: '/packages/contentful--create-contentful-app'
-- <<: *config
-  directory: '/packages/create-contentful-app'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/contentful--app-scripts'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/contentful--cra-template-create-contentful-app'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/contentful--create-contentful-app'
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: chore
+      include: scope
+    directory: '/packages/create-contentful-app'
