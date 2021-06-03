@@ -6,7 +6,7 @@ updates:
       interval: daily
     open-pull-requests-limit: 99
     reviewers:
-      - 'team-extensibility'
+      - 'contentful/team-extensibility'
     ignore:
       - dependency-name: husky
         versions:
@@ -24,7 +24,7 @@ updates:
       interval: daily
     open-pull-requests-limit: 99
     reviewers:
-      - 'team-extensibility'
+      - 'contentful/team-extensibility'
     ignore:
       - dependency-name: husky
         versions:
@@ -42,7 +42,7 @@ updates:
       interval: daily
     open-pull-requests-limit: 99
     reviewers:
-      - 'team-extensibility'
+      - 'contentful/team-extensibility'
     ignore:
       - dependency-name: husky
         versions:
@@ -60,7 +60,7 @@ updates:
       interval: daily
     open-pull-requests-limit: 99
     reviewers:
-      - 'team-extensibility'
+      - 'contentful/team-extensibility'
     ignore:
       - dependency-name: husky
         versions:
@@ -78,7 +78,7 @@ updates:
       interval: daily
     open-pull-requests-limit: 99
     reviewers:
-      - 'team-extensibility'
+      - 'contentful/team-extensibility'
     ignore:
       - dependency-name: husky
         versions:
