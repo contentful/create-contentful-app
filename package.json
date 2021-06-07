@@ -12,7 +12,6 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "link": "lerna link",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
     "publish": "lerna publish from-git --yes --no-verify-access",
     "pre-commit": "lerna run pre-commit",
