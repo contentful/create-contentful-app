@@ -46,5 +46,10 @@
       "commit-msg": "npm run pre-commit"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "@contentful/app-scripts": "file:packages/contentful--app-scripts",
+    "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
+    "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
+    "create-contentful-app": "file:packages/create-contentful-app"
+  }
 }
