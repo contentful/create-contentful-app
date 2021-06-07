@@ -3,6 +3,7 @@
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/contentful/create-contentful-app.git"
@@ -11,9 +12,8 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "link": "lerna link",
-    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publish",
-    "publish": "lerna publish from-git --yes --no-verify-access --exact --force-publish",
+    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
+    "publish": "lerna publish from-git --yes --no-verify-access",
     "pre-commit": "lerna run pre-commit",
     "commit-msg": "lerna run commit-msg"
   },
@@ -46,5 +46,10 @@
       "commit-msg": "npm run pre-commit"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "@contentful/app-scripts": "file:packages/contentful--app-scripts",
+    "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
+    "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
+    "create-contentful-app": "file:packages/create-contentful-app"
+  }
 }

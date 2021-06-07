@@ -7,7 +7,7 @@ environment: &base-env
 install-deps: &install-deps
   run:
     name: Install Dependencies
-    command: npm ci && npm run bootstrap -- --force-local && npm run link -- --force-local
+    command: npm ci && npm run bootstrap
 
 executors:
   node-container-lts:

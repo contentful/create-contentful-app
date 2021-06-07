@@ -25,7 +25,7 @@
     "create-contentful-app": "index.js"
   },
   "dependencies": {
-    "@contentful/create-contentful-app": "0.9.10"
+    "@contentful/create-contentful-app": "file:../contentful--create-contentful-app"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
