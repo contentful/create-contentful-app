@@ -17,6 +17,6 @@ updates:
           - 7.16.0
     commit-message:
       prefix: fix
-      development-prefix: chore
+      prefix-development: chore
       include: scope
     directory: '/'
