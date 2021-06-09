@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.12](https://github.com/contentful/create-contentful-app/compare/v0.9.11...v0.9.12) (2021-06-09)
+
+
+### Bug Fixes
+
+* fix lerna versions ([#509](https://github.com/contentful/create-contentful-app/issues/509)) ([e9ba995](https://github.com/contentful/create-contentful-app/commit/e9ba995edc2819babea62657ebe4fd659c18d882))
+
+
+
+
+
 ## [0.9.10](https://github.com/contentful/create-contentful-app/compare/v0.9.9...v0.9.10) (2021-06-07)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
