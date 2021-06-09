@@ -12,7 +12,7 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
+    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publish",
     "publish": "lerna publish from-git --yes --no-verify-access",
     "pre-commit": "lerna run pre-commit",
     "commit-msg": "lerna run commit-msg"
