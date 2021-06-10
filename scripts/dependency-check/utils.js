@@ -12,8 +12,13 @@ const OWNER = 'contentful';
 const REPOSITORY = 'create-contentful-app';
 
 const ROOT_PATH = path.resolve(__dirname, '..', '..');
-const SANDBOX_PATH = path.resolve(ROOT_PATH, 'dependency-check');
-const TEMPLATE_PATH = path.join(ROOT_PATH, 'packages', '@contentful--cra-template-create-contentful-app', 'template.json');
+const SANDBOX_PATH = path.resolve(ROOT_PATH, 'scripts', 'dependency-check');
+const TEMPLATE_PATH = path.join(
+  ROOT_PATH,
+  'packages',
+  'contentful--cra-template-create-contentful-app',
+  'template.json'
+);
 const OUTDATED_PATH = path.join(SANDBOX_PATH, 'outdated.json');
 const TEST_REPORT_PATH = path.join(SANDBOX_PATH, 'test-report');
 
