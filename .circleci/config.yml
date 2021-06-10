@@ -7,7 +7,7 @@ environment: &base-env
 install-deps: &install-deps
   run:
     name: Install Dependencies
-    command: npm ci && npm run bootstrap -- --force-local && npm run link -- --force-local
+    command: npm ci && npm run bootstrap
 
 executors:
   node-container-lts:
@@ -22,7 +22,7 @@ executors:
 
   node-container-latest:
     docker:
-      - image: node:15
+      - image: node:16
         environment: *base-env
 
 commands:

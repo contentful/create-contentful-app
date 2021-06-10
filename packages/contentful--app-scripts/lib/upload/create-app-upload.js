@@ -1,5 +1,6 @@
 const ora = require('ora');
 const { createZipFileFromDirectory } = require('./create-zip-from-directory');
+const { validateBundle } = require('./validate-bundle');
 const { showCreationError } = require('../utils');
 const { createClient } = require('contentful-management');
 
@@ -10,6 +11,7 @@ async function createAppBundleFromFile(orgId, token, zip) {
 }
 
 async function createAppUpload(settings) {
+  validateBundle(settings.bundleDirectory || '.');
   let appUpload = null;
   const zipFileSpinner = ora('Preparing your files for upload...').start();
   const zipFile = await createZipFileFromDirectory(settings.bundleDirectory || '.');
