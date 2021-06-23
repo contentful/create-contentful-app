@@ -1,0 +1,22 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99
+    reviewers:
+      - 'contentful/team-extensibility'
+    ignore:
+      - dependency-name: husky
+        versions:
+          - '>=5.0.0'
+      - dependency-name: contentful-management
+        versions:
+          - 7.15.2
+          - 7.16.0
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
+    directory: '/'

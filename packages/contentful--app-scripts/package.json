@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "0.8.8",
+  "version": "0.9.16",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -10,8 +10,8 @@
     "directory": "packages/contentful--app-scripts"
   },
   "engines": {
-    "node": ">=12 <=15",
-    "npm": ">=6 <=7"
+    "node": ">=12",
+    "npm": ">=6"
   },
   "main": "lib/index.js",
   "lint-staged": {
@@ -55,7 +55,7 @@
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "contentful-management": "^7.14.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "ignore": "^5.1.8",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",

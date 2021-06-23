@@ -3,6 +3,7 @@
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/contentful/create-contentful-app.git"
@@ -11,34 +12,33 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "link": "lerna link",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publish",
-    "publish": "lerna publish from-git --yes --no-verify-access --exact --force-publish",
-    "publish:canary": "lerna publish --canary --yes --no-verify-access --exact --force-publish",
+    "publish": "lerna publish from-git --yes --no-verify-access",
+    "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
     "pre-commit": "lerna run pre-commit",
     "commit-msg": "lerna run commit-msg"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.0",
-    "@commitlint/config-conventional": "12.1.1",
-    "@octokit/rest": "18.5.3",
+    "@commitlint/config-conventional": "12.1.4",
+    "@octokit/rest": "18.5.6",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "babel-eslint": "10.1.0",
     "commitizen": "^4.0.3",
     "cz-customizable": "6.3.0",
-    "eslint": "7.25.0",
+    "eslint": "7.28.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-node": "11.1.0",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "husky": "^4.3.8",
     "lerna": "^4.0.0",
-    "lint-staged": "10.5.4",
-    "mocha": "^8.2.1",
-    "prettier": "2.2.1",
+    "lint-staged": "11.0.0",
+    "mocha": "^9.0.0",
+    "prettier": "2.3.1",
     "proxyquire": "^2.1.3",
-    "simple-git": "2.38.0",
-    "sinon": "^10.0.0",
+    "simple-git": "2.39.1",
+    "sinon": "^11.0.0",
     "typescript": "^4.2.4"
   },
   "husky": {
@@ -47,5 +47,10 @@
       "commit-msg": "npm run pre-commit"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "@contentful/app-scripts": "file:packages/contentful--app-scripts",
+    "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
+    "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
+    "create-contentful-app": "file:packages/create-contentful-app"
+  }
 }

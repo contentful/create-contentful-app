@@ -3,29 +3,68 @@
 // @ts-check
 
 const fs = require('fs')
+const simpleGit = require('simple-git');
+const exec = require('child_process').exec
+
 const {validateAndRequire, TEMPLATE_PATH, OUTDATED_PATH, printHeader, printInfo, printErrorAndExit, printSuccess} = require('./utils')
 
 // List of packages for which we don't want to have the dependency check
 const ignoredPackages = []
 
-const template = validateAndRequire(TEMPLATE_PATH);
-const outdated = validateAndRequire(OUTDATED_PATH);
+async function createTemplate() {
+  const template = validateAndRequire(TEMPLATE_PATH);
+  const outdated = validateAndRequire(OUTDATED_PATH);
 
-printHeader('Creating new template from outdated')
+  printHeader('Creating new template from outdated')
 
-for (const dependency of Object.entries(outdated)) {
-  const [name, {latest}] = dependency
 
-  if (template.package.dependencies[name] && !ignoredPackages.includes(name)) {
-    template.package.dependencies[name] = `^${latest}`
+  for (const dependency of Object.entries(outdated)) {
+    const [name, {latest}] = dependency
+
+    if (template.package.dependencies[name] && !ignoredPackages.includes(name)) {
+      template.package.dependencies[name] = `^${latest}`
+    }
+    if (template.package.devDependencies[name] && !ignoredPackages.includes(name)) {
+      template.package.devDependencies[name] = `^${latest}`
+    }
   }
+
+  const git = simpleGit();
+  const gitStatus = await git.status()
+  const currentBranch = gitStatus.current
+
+  // update the app-scripts package to latest canary version when run in canary branch
+  if (currentBranch === 'canary') {
+    try {
+      const result = await new Promise((res, rej) => {
+        exec('npm view @contentful/cra-template-create-contentful-app --json', (err, stdout) => {
+          if (err) {
+            rej(err)
+          } else {
+            res(stdout);
+          }
+        })
+      })
+
+      const latestCanaryVersion = JSON.parse(result)['dist-tags'].canary;
+      template.package.devDependencies["@contentful/app-scripts"] = latestCanaryVersion
+    } catch (e) {
+      console.error(`Could not get the latest canary version`, e)
+    }
+  }
+
+
+
+
+  try {
+    printInfo('Writing new template...')
+    fs.writeFileSync(TEMPLATE_PATH, JSON.stringify(template, null, 2))
+  } catch (e) {
+    printErrorAndExit(`Unable to write new template.`, e)
+  }
+
+  printSuccess(`Successfully created new template at ${TEMPLATE_PATH}`)
 }
 
-try {
-  printInfo('Writing new template...')
-  fs.writeFileSync(TEMPLATE_PATH, JSON.stringify(template, null, 2))
-} catch (e) {
-  printErrorAndExit(`Unable to write new template.`, e)
-}
+createTemplate()
 
-printSuccess(`Successfully created new template at ${TEMPLATE_PATH}`)
