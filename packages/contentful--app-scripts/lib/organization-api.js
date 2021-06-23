@@ -1,6 +1,7 @@
 const ora = require('ora');
 const { selectFromList } = require('./utils');
 const { throwError } = require('./utils');
+const { ORG_ID_ENV_KEY } = require('../utils/constants');
 
 async function fetchOrganizations(client) {
   try {
@@ -21,6 +22,7 @@ async function fetchOrganizations(client) {
 async function selectOrganization(client) {
   const orgSpinner = ora('Fetching your organizations...').start();
   let organizations = null;
+
   try {
     organizations = await fetchOrganizations(client);
   } finally {
@@ -30,7 +32,8 @@ async function selectOrganization(client) {
   if (!organizations) {
     return null;
   }
-  return await selectFromList(organizations, 'Select an organization for your app:');
+
+  return await selectFromList(organizations, 'Select an organization:', ORG_ID_ENV_KEY);
 }
 
 async function getOrganizationById(client, orgId) {

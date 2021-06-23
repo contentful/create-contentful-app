@@ -3,7 +3,7 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const {createAppDefinition, upload, activate} = require('../')
+const {createAppDefinition, upload, activate, cleanup, open} = require('../')
 
 
 async function runCommand(command, options) {
@@ -45,6 +45,25 @@ async function runCommand(command, options) {
     .option('--token [accessToken]', 'Your content management access token')
     .action(async (options) => {
       await runCommand(activate, options);
+    })
+
+  program
+    .command('open-settings')
+    .description('Opens the app editor for a given AppDefinition')
+    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .action(async (options) => {
+      await runCommand(open, options);
+    })
+
+  program
+    .command('bundle-cleanup')
+    .description('Removes old, non-active bundles, only keeps the 50 most recent ones')
+    .option('--organization-id [orgId]', 'The id of your organization')
+    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--token [accessToken]', 'Your content management access token')
+    .option('--keep [keepAmount]', 'The amount of bundles that should remain')
+    .action(async (options) => {
+      await runCommand(cleanup, options);
     })
 
   await program.parseAsync(process.argv);

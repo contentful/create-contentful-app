@@ -1,6 +1,7 @@
 const ora = require('ora');
 const { selectFromList } = require('./utils');
 const { throwError } = require('./utils');
+const { APP_DEF_ENV_KEY } = require('../utils/constants');
 
 async function fetchDefinitions(client, orgId) {
   try {
@@ -23,7 +24,7 @@ async function selectDefinition(client, orgId) {
   const definitions = await fetchDefinitions(client, orgId);
   defSpinner.stop();
 
-  return await selectFromList(definitions, 'Select an app for your upload:');
+  return await selectFromList(definitions, 'Select an app:', APP_DEF_ENV_KEY);
 }
 
 async function getDefinitionById(client, orgId, defId) {

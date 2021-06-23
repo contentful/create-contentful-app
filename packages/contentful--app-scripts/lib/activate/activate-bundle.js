@@ -6,6 +6,7 @@ const { createClient } = require('contentful-management');
 async function activateBundle({ accessToken, organization, definition, bundleId }) {
   const activationSpinner = ora('Activating your bundle').start();
   const plainClient = createClient({ accessToken }, { type: 'plain' });
+  const defaultLocations = [{location: 'dialog'}];
 
   const currentDefinition = await plainClient.appDefinition.get({
     appDefinitionId: definition.value,
@@ -19,6 +20,9 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
       type: 'Link',
     },
   };
+  if (!currentDefinition.locations.length) {
+    currentDefinition.locations = defaultLocations;
+  }
   delete currentDefinition.src;
 
   try {
@@ -38,8 +42,8 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
     activationSpinner.stop();
   }
 
-  console.log(
-    `${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
+  console.log(`
+  ${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
       definition.name
     )} in ${chalk.bold(organization.name)}.
 

@@ -2,10 +2,14 @@ const path = require('path');
 
 const { createClient } = require('contentful-management');
 const chalk = require('chalk');
-const inquirer = require('inquirer');
 const { isString, isPlainObject, has } = require('lodash');
 
-const { throwValidationException } = require('../utils');
+const { throwValidationException, selectFromList } = require('../utils');
+const { cacheEnvVars } = require('../../utils/cache-credential');
+const {
+  ORG_ID_ENV_KEY,
+  APP_DEF_ENV_KEY,
+} = require('../../utils/constants');
 
 async function fetchOrganizations(client) {
   try {
@@ -58,18 +62,10 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   assertValidArguments(accessToken, appDefinitionSettings);
 
   const client = createClient({ accessToken });
-
   const organizations = await fetchOrganizations(client);
 
-  const { organizationId } = await inquirer.prompt([
-    {
-      name: 'organizationId',
-      message: 'Select an organization for your app:',
-      type: 'list',
-      choices: organizations,
-    },
-  ]);
-  const selectedOrg = organizations.find((org) => org.value === organizationId);
+  const selectedOrg = await selectFromList(organizations, 'Select an organization for your app:', ORG_ID_ENV_KEY);
+  const organizationId = selectedOrg.value;
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
   const body = {
@@ -92,6 +88,9 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   try {
     const organization = await client.getOrganization(organizationId);
     const createdAppDefinition = await organization.createAppDefinition(body);
+    await cacheEnvVars({
+      [APP_DEF_ENV_KEY]: createdAppDefinition.sys.id
+    });
 
     console.log(`
   ${chalk.cyan('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(

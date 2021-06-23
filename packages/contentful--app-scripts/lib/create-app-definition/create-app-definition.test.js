@@ -1,12 +1,15 @@
 const proxyquire = require('proxyquire');
 const { stub, match } = require('sinon');
 const assert = require('assert');
+const {
+  APP_DEF_ENV_KEY,
+} = require('../../utils/constants');
 
 const organizationId = 'orgId';
 const token = 'token';
 
 describe('createAppDefinition', () => {
-  let subject, clientMock, promptMock;
+  let subject, clientMock, selectFromListMock, cachedEnvVarsMock;
 
   beforeEach(() => {
     stub(console, 'log');
@@ -22,14 +25,21 @@ describe('createAppDefinition', () => {
       getOrganizations: stub()
     };
 
-    promptMock = stub();
+    cachedEnvVarsMock = stub().resolves(undefined);
+
+    selectFromListMock = stub();
 
     ({ createAppDefinition: subject } = proxyquire('./create-app-definition', {
-      inquirer: { prompt: promptMock },
       'contentful-management': {
         createClient: () => {
           return clientMock;
         }
+      },
+      '../../utils/cache-credential': {
+        cacheEnvVars: cachedEnvVarsMock
+      },
+      '../utils': {
+        selectFromList: selectFromListMock
       }
     }));
   });
@@ -46,7 +56,7 @@ describe('createAppDefinition', () => {
   it('throws if unable to create definition', async () => {
     clientMock.getOrganization = stub().resolves({ createAppDefinition: stub().rejects(new Error()) });
     clientMock.getOrganizations = stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] });
-    promptMock.returns({ organizationId });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await assert.rejects(() => subject(token, { locations: [] }));
     assert(console.log.calledWith(match(/Something went wrong while creating the app definition/)));
@@ -62,7 +72,7 @@ describe('createAppDefinition', () => {
       createAppDefinition: stub().resolves({ sys: { id: 'appId' } })
     });
     clientMock.getOrganizations = stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] });
-    promptMock.returns({ organizationId });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await assert.doesNotReject(() => subject(token, { locations: [] }));
 
@@ -72,5 +82,6 @@ describe('createAppDefinition', () => {
     assert(loggedMessage.includes(orgSettingsLink));
     assert(loggedMessage.includes(appLink));
     assert(loggedMessage.includes(tutorialLink));
+    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], {[APP_DEF_ENV_KEY]: 'appId'});
   });
 });

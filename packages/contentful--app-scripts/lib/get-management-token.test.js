@@ -19,7 +19,16 @@ describe('getManagementToken', () => {
 
     ({ getManagementToken: subject } = proxyquire('./get-management-token', {
       inquirer: { prompt: promptMock },
-      open: openMock
+      open: openMock,
+      'contentful-management': {
+        createClient() {
+          return {
+            async getOrganizations() {
+              throw new Error();
+            }
+          }
+        }
+      }
     }));
   });
 

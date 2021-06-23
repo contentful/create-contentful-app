@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const inquirer = require('inquirer');
+const { cacheEnvVars } = require('../utils/cache-credential');
 
 const throwValidationException = (subject, message, details) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);
@@ -29,16 +30,33 @@ ${err.message}
   throw err;
 };
 
-const selectFromList = async (list, message) => {
-  const { elementId } = await inquirer.prompt([
-    {
-      name: 'elementId',
-      message: message,
-      type: 'list',
-      choices: list,
-    },
-  ]);
-  return list.find((el) => el.value === elementId);
+const selectFromList = async (list, message, cachedOptionEnvVar) => {
+  const cachedEnvVar = process.env[cachedOptionEnvVar]
+  const cachedElement = list.find(item => item.value === cachedEnvVar);
+
+  if (cachedElement) {
+    console.log(`
+  ${message}
+  Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
+    `)
+    return cachedElement;
+
+  } else {
+    const { elementId } = await inquirer.prompt([
+      {
+        name: 'elementId',
+        message: message,
+        type: 'list',
+        choices: list,
+      },
+    ]);
+
+    if (cachedOptionEnvVar) {
+      await cacheEnvVars({[cachedOptionEnvVar]: elementId});
+    }
+
+    return list.find((el) => el.value === elementId);
+  }
 };
 
 module.exports = {
