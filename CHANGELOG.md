@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/contentful/create-contentful-app/compare/v0.9.29...v0.10.0) (2021-06-23)
+
+
+### Features
+
+* app hosting release ([#400](https://github.com/contentful/create-contentful-app/issues/400)) ([3fc3b30](https://github.com/contentful/create-contentful-app/commit/3fc3b308a8ab0b7c28d04ab3b493635ce3ae7322)), closes [#392](https://github.com/contentful/create-contentful-app/issues/392) [#402](https://github.com/contentful/create-contentful-app/issues/402) [#421](https://github.com/contentful/create-contentful-app/issues/421) [#422](https://github.com/contentful/create-contentful-app/issues/422) [#428](https://github.com/contentful/create-contentful-app/issues/428) [#392](https://github.com/contentful/create-contentful-app/issues/392) [#402](https://github.com/contentful/create-contentful-app/issues/402) [#421](https://github.com/contentful/create-contentful-app/issues/421) [#422](https://github.com/contentful/create-contentful-app/issues/422) [#428](https://github.com/contentful/create-contentful-app/issues/428) [#513](https://github.com/contentful/create-contentful-app/issues/513) [#514](https://github.com/contentful/create-contentful-app/issues/514)
+
+
+
+
+
 ## [0.9.29](https://github.com/contentful/create-contentful-app/compare/v0.9.28...v0.9.29) (2021-06-22)
 
 
