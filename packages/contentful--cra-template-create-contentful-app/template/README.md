@@ -24,7 +24,7 @@ Your app is ready to be deployed!
 
 Uploads the build folder to contentful and creates a bundle that is automatically activated.
 The command guides you through the deployment process and asks for all required arguments.
-Read [here](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/#deployment) for more information about the deployment process.
+Read [here](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/#deploy-with-contentful) for more information about the deployment process.
 
 #### `npm run upload-ci`
 
