@@ -12,7 +12,7 @@ const OWNER = 'contentful';
 const REPOSITORY = 'create-contentful-app';
 
 const ROOT_PATH = path.resolve(__dirname, '..', '..');
-const SANDBOX_PATH = path.resolve(ROOT_PATH, 'scripts', 'dependency-check');
+const SANDBOX_PATH = path.resolve(ROOT_PATH, 'dependency-check');
 const TEMPLATE_PATH = path.join(
   ROOT_PATH,
   'packages',
