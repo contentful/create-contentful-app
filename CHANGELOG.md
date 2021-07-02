@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.10](https://github.com/contentful/create-contentful-app/compare/v0.10.9...v0.10.10) (2021-07-02)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 7.2.0 to 8.0.0 ([8054690](https://github.com/contentful/create-contentful-app/commit/805469010e0fa924a451b14984541191bd926d06))
+
+
+
+
+
 ## [0.10.9](https://github.com/contentful/create-contentful-app/compare/v0.10.8...v0.10.9) (2021-07-01)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
