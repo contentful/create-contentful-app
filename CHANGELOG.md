@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://github.com/contentful/create-contentful-app/compare/v0.10.11...v0.10.12) (2021-07-02)
+
+
+### Bug Fixes
+
+* [] use correct sandbox path ([42f92da](https://github.com/contentful/create-contentful-app/commit/42f92daea34c97fd00d67e367095d7936303ed6b))
+
+
+
+
+
 ## [0.10.11](https://github.com/contentful/create-contentful-app/compare/v0.10.10...v0.10.11) (2021-07-02)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
