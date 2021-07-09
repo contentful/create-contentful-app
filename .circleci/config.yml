@@ -78,6 +78,10 @@ jobs:
           name: Create Package JSON
           command: node ./scripts/dependency-check/create-manifest-from-template
       - run:
+          name: Install packages
+          working_directory: ./dependency-check
+          command: npm install
+      - run:
           name: Check Outdated
           working_directory: ./dependency-check
           command: (npm outdated --json || true) > ./outdated.json
