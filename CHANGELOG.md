@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/contentful/create-contentful-app/compare/v0.11.0...v0.11.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* run npm install before checking outdated deps ([#563](https://github.com/contentful/create-contentful-app/issues/563)) ([4c54c9a](https://github.com/contentful/create-contentful-app/commit/4c54c9a04bf0662fc30ac33451c111555be71cf6))
+
+
+
+
+
 # [0.11.0](https://github.com/contentful/create-contentful-app/compare/v0.10.22...v0.11.0) (2021-07-09)
 
 
