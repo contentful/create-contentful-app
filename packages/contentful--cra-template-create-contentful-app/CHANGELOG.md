@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/contentful/create-contentful-app/compare/v0.10.22...v0.11.0) (2021-07-09)
+
+
+### Features
+
+* use react function component instead of class ([#561](https://github.com/contentful/create-contentful-app/issues/561)) ([2e5bdbe](https://github.com/contentful/create-contentful-app/commit/2e5bdbe8e282ce4a71e4af0f7514d7126854f435))
+
+
+
+
+
 ## [0.10.22](https://github.com/contentful/create-contentful-app/compare/v0.10.21...v0.10.22) (2021-07-08)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
