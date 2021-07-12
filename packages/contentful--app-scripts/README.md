@@ -23,12 +23,12 @@ npm i -g @contentful/app-scripts
 
 When installed
 ```
-$ contentful-app-scripts create-app-definition 
+$ contentful-app-scripts create-app-definition
 ```
 
 Otherwise
 ```
-$ npx --no-install @contentful/app-scripts create-app-definition 
+$ npx --no-install @contentful/app-scripts create-app-definition
 ```
 
 ### 👨‍💻 Programmatic
@@ -74,7 +74,7 @@ It only runs in interactive mode.
 >
 > ```shell
 > $ npx --no-install @contentful/app-scripts create-app-definition
-> ``` 
+> ```
 
 ### Upload a bundle to an App Definition
 
@@ -102,8 +102,8 @@ When passing the `--ci` argument the command will fail when the required variabl
 > ```shell
 > $ npx --no-install @contentful/app-scripts upload --ci \
 >     --bundle-dir ./built \
->     --organization-id some-org-id \ 
->     --definition-id some-app-def-id \ 
+>     --organization-id some-org-id \
+>     --definition-id some-app-def-id \
 >     --token $MY_CONTENTFUL_PAT
 > ```
 
@@ -116,6 +116,7 @@ When passing the `--ci` argument the command will fail when the required variabl
 | `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
 | `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
 | `--skip-activation`      | (optional) Boolean flag to skip the automatic activation of the `AppBundle`                                                                    |
+| `--comment`              | (optional) A comment which will be associated with the created `AppBundle`. Can be used to differentiate bundles.                               |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
@@ -144,8 +145,8 @@ When passing the `--ci` argument adding all variables as arguments is required
 > ```shell
 > $ npx --no-install @contentful/app-scripts activate --ci \
 >     --bundle-id some-bundle-id \
->     --organization-id some-org-id \ 
->     --definition-id some-app-def-id \ 
+>     --organization-id some-org-id \
+>     --definition-id some-app-def-id \
 >     --token $MY_CONTENTFUL_PAT
 > ```
 
@@ -194,7 +195,7 @@ In the interactive mode, the CLI will ask for all required options
 > $ npx --no-install @contentful/app-scripts bundle-cleanup
 > ```
 
-You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) and (`CONTENTFUL_ORG_ID`) has been set. 
+You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) and (`CONTENTFUL_ORG_ID`) has been set.
 
 #### Non-interactive mode:
 
@@ -204,8 +205,8 @@ When passing the `--ci` argument adding all variables as arguments is required
 >
 > ```shell
 > $ npx --no-install @contentful/app-scripts bundle-cleanup --ci \
->     --organization-id some-org-id \ 
->     --definition-id some-app-def-id \ 
+>     --organization-id some-org-id \
+>     --definition-id some-app-def-id \
 >     --token $MY_CONTENTFUL_PAT
 >     --keep 30
 > ```
@@ -219,4 +220,4 @@ When passing the `--ci` argument adding all variables as arguments is required
 | `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
 | `--keep`                 | Optional, the amount of bundles to keep                                                                                                        |
 
-**Note:** You can also pass all arguments in interactive mode to skip being asked for it. 
+**Note:** You can also pass all arguments in interactive mode to skip being asked for it.
