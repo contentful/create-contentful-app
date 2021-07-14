@@ -11,6 +11,7 @@ import {
   init,
   locations,
 } from '@contentful/app-sdk';
+import { createClient } from 'contentful-management';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import '@contentful/forma-36-tokens/dist/css/index.css';
@@ -31,6 +32,24 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
   render(<LocalhostWarning />, root);
 } else {
   init((sdk) => {
+    // How to create an instance of the the contentful-management-api client
+    // Can be removed together with the contentful-management package if it is not needed
+    // Visit https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api
+    // to find out more
+    const cma = createClient(
+      { apiAdapter: sdk.cmaAdapter },
+      {
+        type: 'plain',
+        defaults: {
+          environmentId: sdk.ids.environment,
+          spaceId: sdk.ids.space,
+        },
+      }
+    );
+
+    // Use the plain or nested client without any additional configuration
+    // cma.locale.getMany({})
+
     const root = document.getElementById('root');
 
     // All possible locations for your app
