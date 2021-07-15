@@ -32,8 +32,8 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
   render(<LocalhostWarning />, root);
 } else {
   init((sdk) => {
-    // How to create an instance of the the contentful-management-api client
-    // Can be removed together with the contentful-management package if it is not needed
+    // You can create an instance of the the contentful-management client.
+    // This and the contentful-management package can be removed if its not used
     // Visit https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api
     // to find out more
     const cma = createClient(
