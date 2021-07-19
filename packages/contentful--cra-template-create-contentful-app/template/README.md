@@ -48,10 +48,10 @@ To make your app look and feel like Contentful use the following libraries:
 ## Using the contentful-management SDK
 
 With the sdk and the contentful-management package installed,
-you can also create an instance of the contentful-management client using the `cmaAdapter`, which is part of the sdk, without additional configuration.
+you can also create an instance of the contentful-management client using the `cmaAdapter`, which is part of the sdk, without passing the access token.
 
 
-```
+```js
 const cma = createClient(
   { apiAdapter: sdk.cmaAdapter },
   {
@@ -66,7 +66,7 @@ const cma = createClient(
 cma.locale.getMany({})
 ```
 
-Visit [the official docs](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api)
+Visit [the docs](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api)
 to find out more.
 
 _Note:_ Feel free to uninstall the `contentful-management` package if you are not using the client.
