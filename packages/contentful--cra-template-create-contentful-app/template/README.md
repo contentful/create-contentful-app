@@ -45,6 +45,33 @@ To make your app look and feel like Contentful use the following libraries:
 - [Forma 36](https://f36.contentful.com/) – Contentful's design system
 - [Contentful Field Editors](https://www.contentful.com/developers/docs/extensibility/field-editors/) – Contentful's field editor React components
 
+## Using the contentful-management SDK
+
+With the sdk and the contentful-management package installed,
+you can also create an instance of the contentful-management client using the `cmaAdapter`, which is part of the sdk, without additional configuration.
+
+
+```
+const cma = createClient(
+  { apiAdapter: sdk.cmaAdapter },
+  {
+    type: 'plain',
+    defaults: {
+      environmentId: sdk.ids.environment,
+      spaceId: sdk.ids.space,
+    },
+  }
+);
+
+cma.locale.getMany({})
+```
+
+Visit [the official docs](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api)
+to find out more.
+
+_Note:_ Feel free to uninstall the `contentful-management` package if you are not using the client.
+    
+
 ## Learn More
 
 [Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.

@@ -32,24 +32,6 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
   render(<LocalhostWarning />, root);
 } else {
   init((sdk) => {
-    // You can create an instance of the the contentful-management client.
-    // This and the contentful-management package can be removed if its not used
-    // Visit https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api
-    // to find out more
-    const cma = createClient(
-      { apiAdapter: sdk.cmaAdapter },
-      {
-        type: 'plain',
-        defaults: {
-          environmentId: sdk.ids.environment,
-          spaceId: sdk.ids.space,
-        },
-      }
-    );
-
-    // Use the plain or nested client without any additional configuration
-    // cma.locale.getMany({})
-
     const root = document.getElementById('root');
 
     // All possible locations for your app
