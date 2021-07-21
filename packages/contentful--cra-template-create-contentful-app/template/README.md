@@ -66,7 +66,7 @@ const cma = createClient(
 cma.locale.getMany({})
 ```
 
-Visit [the docs](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-api)
+Visit [the docs](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library)
 to find out more.
 
 _Note:_ Feel free to uninstall the `contentful-management` package if you are not using the client.
