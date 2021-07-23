@@ -6,7 +6,7 @@
       "@contentful/field-editor-test-utils": "^0.16.0",
       "@contentful/forma-36-fcss": "^0.3.2",
       "@contentful/forma-36-react-components": "^3.90.7",
-      "@contentful/forma-36-tokens": "^0.10.2",
+      "@contentful/forma-36-tokens": "^0.11.0",
       "@testing-library/jest-dom": "^5.14.1",
       "@testing-library/react": "^12.0.0",
       "@testing-library/user-event": "^13.1.9",
