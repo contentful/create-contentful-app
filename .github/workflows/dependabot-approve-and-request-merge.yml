@@ -1,0 +1,17 @@
+name: "dependabot approve-and-request-merge"
+
+on:
+  pull_request_target
+
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+
+#    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: automerge
+        uses: actions/github-script@v4.0.2
+        with:
+          script: |
+            console.log(context)
+#          github-token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
