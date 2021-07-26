@@ -1,7 +1,6 @@
 name: "dependabot approve-and-request-merge"
 
-on:
-  pull_request_target
+on: pull_request
 
 jobs:
   worker:
