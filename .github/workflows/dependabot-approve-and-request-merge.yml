@@ -36,4 +36,4 @@ jobs:
               event: 'APPROVE',
               body: '@dependabot merge'
             })
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.WHYDAH_GITHUB_TOKEN_AUTO_APPROVE }}
