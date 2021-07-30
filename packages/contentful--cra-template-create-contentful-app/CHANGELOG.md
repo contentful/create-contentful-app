@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/contentful/create-contentful-app/compare/v0.11.25...v0.12.0) (2021-07-30)
+
+
+### Features
+
+* [] add cma adapter example to readme ([#571](https://github.com/contentful/create-contentful-app/issues/571)) ([8e51c57](https://github.com/contentful/create-contentful-app/commit/8e51c578c7ccfbd2adc0589db22eb911cf3a047a))
+
+
+
+
+
 ## [0.11.25](https://github.com/contentful/create-contentful-app/compare/v0.11.24...v0.11.25) (2021-07-30)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
