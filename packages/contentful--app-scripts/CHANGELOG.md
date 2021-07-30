@@ -3,6 +3,151 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.25](https://github.com/contentful/create-contentful-app/compare/v0.11.24...v0.11.25) (2021-07-30)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.24](https://github.com/contentful/create-contentful-app/compare/v0.11.23...v0.11.24) (2021-07-30)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.23](https://github.com/contentful/create-contentful-app/compare/v0.11.22...v0.11.23) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.22](https://github.com/contentful/create-contentful-app/compare/v0.11.21...v0.11.22) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.21](https://github.com/contentful/create-contentful-app/compare/v0.11.20...v0.11.21) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.20](https://github.com/contentful/create-contentful-app/compare/v0.11.19...v0.11.20) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.19](https://github.com/contentful/create-contentful-app/compare/v0.11.18...v0.11.19) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.18](https://github.com/contentful/create-contentful-app/compare/v0.11.17...v0.11.18) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.17](https://github.com/contentful/create-contentful-app/compare/v0.11.16...v0.11.17) (2021-07-27)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 8.0.0 to 8.1.0 ([8d67c0b](https://github.com/contentful/create-contentful-app/commit/8d67c0be2df6981c70233d1782be14db61a5f597))
+
+
+
+
+
+## [0.11.16](https://github.com/contentful/create-contentful-app/compare/v0.11.15...v0.11.16) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.15](https://github.com/contentful/create-contentful-app/compare/v0.11.14...v0.11.15) (2021-07-27)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.14](https://github.com/contentful/create-contentful-app/compare/v0.11.13...v0.11.14) (2021-07-27)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.29.0 to 7.31.0 ([05181b0](https://github.com/contentful/create-contentful-app/commit/05181b00612863c1e7e45c6fc56e1b0b88c502d1))
+
+
+
+
+
+## [0.11.13](https://github.com/contentful/create-contentful-app/compare/v0.11.12...v0.11.13) (2021-07-25)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.12](https://github.com/contentful/create-contentful-app/compare/v0.11.11...v0.11.12) (2021-07-24)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.11](https://github.com/contentful/create-contentful-app/compare/v0.11.10...v0.11.11) (2021-07-21)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.10](https://github.com/contentful/create-contentful-app/compare/v0.11.9...v0.11.10) (2021-07-21)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
+## [0.11.9](https://github.com/contentful/create-contentful-app/compare/v0.11.8...v0.11.9) (2021-07-16)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.27.1 to 7.29.0 ([e1e10d6](https://github.com/contentful/create-contentful-app/commit/e1e10d6b92771688b50e77018768a9db5e463862))
+
+
+
+
+
 ## [0.11.8](https://github.com/contentful/create-contentful-app/compare/v0.11.7...v0.11.8) (2021-07-15)
 
 
