@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.3](https://github.com/contentful/create-contentful-app/compare/v0.12.2...v0.12.3) (2021-08-02)
+
+
+### Bug Fixes
+
+* **deps:** bump chalk from 4.1.1 to 4.1.2 ([f5d1907](https://github.com/contentful/create-contentful-app/commit/f5d1907e2d9e0a6db1448a79e0d780851dbbec06))
+
+
+
+
+
 ## [0.12.2](https://github.com/contentful/create-contentful-app/compare/v0.12.1...v0.12.2) (2021-08-02)
 
 **Note:** Version bump only for package @contentful/app-scripts
