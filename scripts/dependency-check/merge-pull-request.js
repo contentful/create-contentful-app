@@ -33,7 +33,8 @@ async function main() {
   });
 
   const allCheckRunsSuccessful = checkRuns.every(
-    ({ status, conclusion }) => status === 'completed' && conclusion === 'success'
+    ({ status, conclusion }) =>
+      status === 'completed' && ['success', 'skipped', 'neutral'].includes(conclusion)
   );
 
   if (!allCheckRunsSuccessful) {
