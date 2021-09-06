@@ -1,9 +1,11 @@
 import React from 'react';
+import { PlainClientAPI } from 'contentful-management';
 import { Paragraph } from '@contentful/forma-36-react-components';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 interface FieldProps {
   sdk: FieldExtensionSDK;
+  cma: PlainClientAPI;
 }
 
 const Field = (props: FieldProps) => {

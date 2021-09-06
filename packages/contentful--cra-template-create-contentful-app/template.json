@@ -1,7 +1,7 @@
 {
   "package": {
     "dependencies": {
-      "@contentful/app-sdk": "^3.38.0",
+      "@contentful/app-sdk": "^4.0.0-alpha.31",
       "@contentful/field-editor-single-line": "^0.15.0",
       "@contentful/field-editor-test-utils": "^0.17.0",
       "@contentful/forma-36-fcss": "^0.3.2",
@@ -14,6 +14,7 @@
       "@types/node": "^16.0.1",
       "@types/react": "^17.0.14",
       "@types/react-dom": "^17.0.9",
+      "contentful-management": "^7.36.1",
       "typescript": "^4.3.5",
       "cross-env": "^7.0.3"
     },
