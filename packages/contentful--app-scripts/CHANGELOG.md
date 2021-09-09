@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.33](https://github.com/contentful/create-contentful-app/compare/v0.12.32...v0.12.33) (2021-09-09)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.31.0 to 7.36.2 ([a8b70af](https://github.com/contentful/create-contentful-app/commit/a8b70af8c71116694a5b753e71ccc15184d3392c))
+
+
+
+
+
 ## [0.12.32](https://github.com/contentful/create-contentful-app/compare/v0.12.31...v0.12.32) (2021-09-09)
 
 **Note:** Version bump only for package @contentful/app-scripts
