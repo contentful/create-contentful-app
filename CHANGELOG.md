@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.35](https://github.com/contentful/create-contentful-app/compare/v0.12.34...v0.12.35) (2021-09-13)
+
+
+### Bug Fixes
+
+* **deps:** bump adm-zip from 0.5.5 to 0.5.6 ([85cd7bc](https://github.com/contentful/create-contentful-app/commit/85cd7bc9ee1f75d9fa83993724da4f440087a6f6))
+
+
+
+
+
 ## [0.12.34](https://github.com/contentful/create-contentful-app/compare/v0.12.33...v0.12.34) (2021-09-10)
 
 
