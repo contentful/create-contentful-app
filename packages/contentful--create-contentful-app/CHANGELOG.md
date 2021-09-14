@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.41](https://github.com/contentful/create-contentful-app/compare/v0.12.40...v0.12.41) (2021-09-14)
+
+
+### Bug Fixes
+
+* **deps:** bump inquirer from 8.1.2 to 8.1.3 ([5320004](https://github.com/contentful/create-contentful-app/commit/5320004b90f9dfce864de44953d3dcc430ab2fbb))
+
+
+
+
+
 ## [0.12.40](https://github.com/contentful/create-contentful-app/compare/v0.12.39...v0.12.40) (2021-09-14)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
