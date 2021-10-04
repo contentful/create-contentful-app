@@ -3,6 +3,254 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.60](https://github.com/contentful/create-contentful-app/compare/v0.12.59...v0.12.60) (2021-10-01)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.59](https://github.com/contentful/create-contentful-app/compare/v0.12.58...v0.12.59) (2021-10-01)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.58](https://github.com/contentful/create-contentful-app/compare/v0.12.57...v0.12.58) (2021-09-30)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.57](https://github.com/contentful/create-contentful-app/compare/v0.12.56...v0.12.57) (2021-09-30)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.56](https://github.com/contentful/create-contentful-app/compare/v0.12.55...v0.12.56) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.55](https://github.com/contentful/create-contentful-app/compare/v0.12.54...v0.12.55) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.54](https://github.com/contentful/create-contentful-app/compare/v0.12.53...v0.12.54) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.53](https://github.com/contentful/create-contentful-app/compare/v0.12.52...v0.12.53) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.52](https://github.com/contentful/create-contentful-app/compare/v0.12.51...v0.12.52) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.51](https://github.com/contentful/create-contentful-app/compare/v0.12.50...v0.12.51) (2021-09-27)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.50](https://github.com/contentful/create-contentful-app/compare/v0.12.49...v0.12.50) (2021-09-27)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.49](https://github.com/contentful/create-contentful-app/compare/v0.12.48...v0.12.49) (2021-09-23)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.48](https://github.com/contentful/create-contentful-app/compare/v0.12.47...v0.12.48) (2021-09-21)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.47](https://github.com/contentful/create-contentful-app/compare/v0.12.46...v0.12.47) (2021-09-21)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.46](https://github.com/contentful/create-contentful-app/compare/v0.12.45...v0.12.46) (2021-09-21)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.45](https://github.com/contentful/create-contentful-app/compare/v0.12.44...v0.12.45) (2021-09-16)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.44](https://github.com/contentful/create-contentful-app/compare/v0.12.43...v0.12.44) (2021-09-16)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.43](https://github.com/contentful/create-contentful-app/compare/v0.12.42...v0.12.43) (2021-09-15)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.42](https://github.com/contentful/create-contentful-app/compare/v0.12.41...v0.12.42) (2021-09-15)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.41](https://github.com/contentful/create-contentful-app/compare/v0.12.40...v0.12.41) (2021-09-14)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.40](https://github.com/contentful/create-contentful-app/compare/v0.12.39...v0.12.40) (2021-09-14)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.39](https://github.com/contentful/create-contentful-app/compare/v0.12.38...v0.12.39) (2021-09-14)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.38](https://github.com/contentful/create-contentful-app/compare/v0.12.37...v0.12.38) (2021-09-14)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.37](https://github.com/contentful/create-contentful-app/compare/v0.12.36...v0.12.37) (2021-09-13)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.36](https://github.com/contentful/create-contentful-app/compare/v0.12.35...v0.12.36) (2021-09-13)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.35](https://github.com/contentful/create-contentful-app/compare/v0.12.34...v0.12.35) (2021-09-13)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.34](https://github.com/contentful/create-contentful-app/compare/v0.12.33...v0.12.34) (2021-09-10)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.33](https://github.com/contentful/create-contentful-app/compare/v0.12.32...v0.12.33) (2021-09-09)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.32](https://github.com/contentful/create-contentful-app/compare/v0.12.31...v0.12.32) (2021-09-09)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.31](https://github.com/contentful/create-contentful-app/compare/v0.12.30...v0.12.31) (2021-09-07)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
+## [0.12.30](https://github.com/contentful/create-contentful-app/compare/v0.12.29...v0.12.30) (2021-09-07)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
 ## [0.12.29](https://github.com/contentful/create-contentful-app/compare/v0.12.28...v0.12.29) (2021-09-06)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app

@@ -3,6 +3,290 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.60](https://github.com/contentful/create-contentful-app/compare/v0.12.59...v0.12.60) (2021-10-01)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.59](https://github.com/contentful/create-contentful-app/compare/v0.12.58...v0.12.59) (2021-10-01)
+
+
+### Bug Fixes
+
+* **deps:** bump adm-zip from 0.5.6 to 0.5.7 ([e09e8e1](https://github.com/contentful/create-contentful-app/commit/e09e8e1babf0711c5c5ef3145ef4bafc786dc562))
+
+
+
+
+
+## [0.12.58](https://github.com/contentful/create-contentful-app/compare/v0.12.57...v0.12.58) (2021-09-30)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.57](https://github.com/contentful/create-contentful-app/compare/v0.12.56...v0.12.57) (2021-09-30)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.56](https://github.com/contentful/create-contentful-app/compare/v0.12.55...v0.12.56) (2021-09-28)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.39.1 to 7.41.0 ([6519bcd](https://github.com/contentful/create-contentful-app/commit/6519bcdbeba74da28c22fb9efff964ecb4170171))
+
+
+
+
+
+## [0.12.55](https://github.com/contentful/create-contentful-app/compare/v0.12.54...v0.12.55) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.54](https://github.com/contentful/create-contentful-app/compare/v0.12.53...v0.12.54) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.53](https://github.com/contentful/create-contentful-app/compare/v0.12.52...v0.12.53) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.52](https://github.com/contentful/create-contentful-app/compare/v0.12.51...v0.12.52) (2021-09-28)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.51](https://github.com/contentful/create-contentful-app/compare/v0.12.50...v0.12.51) (2021-09-27)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.50](https://github.com/contentful/create-contentful-app/compare/v0.12.49...v0.12.50) (2021-09-27)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.49](https://github.com/contentful/create-contentful-app/compare/v0.12.48...v0.12.49) (2021-09-23)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.48](https://github.com/contentful/create-contentful-app/compare/v0.12.47...v0.12.48) (2021-09-21)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.47](https://github.com/contentful/create-contentful-app/compare/v0.12.46...v0.12.47) (2021-09-21)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.46](https://github.com/contentful/create-contentful-app/compare/v0.12.45...v0.12.46) (2021-09-21)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.39.0 to 7.39.1 ([b1a5033](https://github.com/contentful/create-contentful-app/commit/b1a5033267bfc2a0c95bcc6268700972b2adf139))
+
+
+
+
+
+## [0.12.45](https://github.com/contentful/create-contentful-app/compare/v0.12.44...v0.12.45) (2021-09-16)
+
+
+### Bug Fixes
+
+* **deps:** bump inquirer from 8.1.4 to 8.1.5 ([d30f888](https://github.com/contentful/create-contentful-app/commit/d30f8888b7c0e6abff93db6f1a9c07fcb70d90f6))
+
+
+
+
+
+## [0.12.44](https://github.com/contentful/create-contentful-app/compare/v0.12.43...v0.12.44) (2021-09-16)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.43](https://github.com/contentful/create-contentful-app/compare/v0.12.42...v0.12.43) (2021-09-15)
+
+
+### Bug Fixes
+
+* **deps:** bump inquirer from 8.1.3 to 8.1.4 ([52b4596](https://github.com/contentful/create-contentful-app/commit/52b45961f01b2c2fd73e665a45a59953e5251414))
+
+
+
+
+
+## [0.12.42](https://github.com/contentful/create-contentful-app/compare/v0.12.41...v0.12.42) (2021-09-15)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.38.2 to 7.39.0 ([62b8a19](https://github.com/contentful/create-contentful-app/commit/62b8a19d75ff26cdec6bd0153be99f2f977c66d9))
+
+
+
+
+
+## [0.12.41](https://github.com/contentful/create-contentful-app/compare/v0.12.40...v0.12.41) (2021-09-14)
+
+
+### Bug Fixes
+
+* **deps:** bump inquirer from 8.1.2 to 8.1.3 ([5320004](https://github.com/contentful/create-contentful-app/commit/5320004b90f9dfce864de44953d3dcc430ab2fbb))
+
+
+
+
+
+## [0.12.40](https://github.com/contentful/create-contentful-app/compare/v0.12.39...v0.12.40) (2021-09-14)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.39](https://github.com/contentful/create-contentful-app/compare/v0.12.38...v0.12.39) (2021-09-14)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.38](https://github.com/contentful/create-contentful-app/compare/v0.12.37...v0.12.38) (2021-09-14)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.38.0 to 7.38.2 ([eeae82e](https://github.com/contentful/create-contentful-app/commit/eeae82e3499a5f25357ee0ec8177d07d4a41f89e))
+
+
+
+
+
+## [0.12.37](https://github.com/contentful/create-contentful-app/compare/v0.12.36...v0.12.37) (2021-09-13)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.36.2 to 7.38.0 ([ef9adbd](https://github.com/contentful/create-contentful-app/commit/ef9adbdae19344d37acc058dc03c4666f57cdd5a))
+
+
+
+
+
+## [0.12.36](https://github.com/contentful/create-contentful-app/compare/v0.12.35...v0.12.36) (2021-09-13)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.35](https://github.com/contentful/create-contentful-app/compare/v0.12.34...v0.12.35) (2021-09-13)
+
+
+### Bug Fixes
+
+* **deps:** bump adm-zip from 0.5.5 to 0.5.6 ([85cd7bc](https://github.com/contentful/create-contentful-app/commit/85cd7bc9ee1f75d9fa83993724da4f440087a6f6))
+
+
+
+
+
+## [0.12.34](https://github.com/contentful/create-contentful-app/compare/v0.12.33...v0.12.34) (2021-09-10)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 8.1.0 to 8.2.0 ([9a5fdc6](https://github.com/contentful/create-contentful-app/commit/9a5fdc628fe91b5a53304ca1c94bb51a624e3e7c))
+
+
+
+
+
+## [0.12.33](https://github.com/contentful/create-contentful-app/compare/v0.12.32...v0.12.33) (2021-09-09)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 7.31.0 to 7.36.2 ([a8b70af](https://github.com/contentful/create-contentful-app/commit/a8b70af8c71116694a5b753e71ccc15184d3392c))
+
+
+
+
+
+## [0.12.32](https://github.com/contentful/create-contentful-app/compare/v0.12.31...v0.12.32) (2021-09-09)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.31](https://github.com/contentful/create-contentful-app/compare/v0.12.30...v0.12.31) (2021-09-07)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.12.30](https://github.com/contentful/create-contentful-app/compare/v0.12.29...v0.12.30) (2021-09-07)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
 ## [0.12.29](https://github.com/contentful/create-contentful-app/compare/v0.12.28...v0.12.29) (2021-09-06)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
