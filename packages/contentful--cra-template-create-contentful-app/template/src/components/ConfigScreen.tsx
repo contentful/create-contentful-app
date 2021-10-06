@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { AppExtensionSDK } from '@contentful/app-sdk';
+import { PlainClientAPI } from 'contentful-management';
 import { Heading, Form, Workbench, Paragraph } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 
@@ -7,6 +8,7 @@ export interface AppInstallationParameters {}
 
 interface ConfigProps {
   sdk: AppExtensionSDK;
+  cma: PlainClientAPI;
 }
 
 const Config = (props: ConfigProps) => {
@@ -41,7 +43,8 @@ const Config = (props: ConfigProps) => {
     (async () => {
       // Get current parameters of the app.
       // If the app is not installed yet, `parameters` will be `null`.
-      const currentParameters: AppInstallationParameters | null = await props.sdk.app.getParameters();
+      const currentParameters: AppInstallationParameters | null =
+        await props.sdk.app.getParameters();
 
       if (currentParameters) {
         setParameters(currentParameters);
@@ -50,8 +53,8 @@ const Config = (props: ConfigProps) => {
       // Once preparation has finished, call `setReady` to hide
       // the loading screen and present the app to a user.
       props.sdk.app.setReady();
-    })()
-  }, [props.sdk])
+    })();
+  }, [props.sdk]);
 
   return (
     <Workbench className={css({ margin: '80px' })}>
@@ -61,6 +64,6 @@ const Config = (props: ConfigProps) => {
       </Form>
     </Workbench>
   );
-}
+};
 
 export default Config;

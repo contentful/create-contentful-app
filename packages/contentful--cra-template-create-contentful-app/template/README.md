@@ -47,39 +47,13 @@ To make your app look and feel like Contentful use the following libraries:
 
 ## Using the `contentful-management` SDK
 
-With the SDK and the `contentful-management` package installed, you can also 
-create an instance of the `contentful-management` client using the `cmaAdapter`, 
-which is part of the SDK, without passing the access token.
-
-Install the package
-
-```bash
-npm i @contentful/contentful-management@latest @contentful/app-sdk@canary
-```
-
-Use it in your app
+In the default create contentful app output, a contentful management client is
+passed into each location. This can be used to interact with Contentful's
+management API. For example
 
 ```js
-import { init } from '@contentful/app-sdk'
-import { createClient } from 'contentful-management'
-
-
-init(sdk => {
-  // Create the client scoped to current space-environment
-  const cma = createClient(
-    { apiAdapter: sdk.cmaAdapter },
-    {
-      type: 'plain',
-      defaults: {
-        environmentId: sdk.ids.environment,
-        spaceId: sdk.ids.space,
-      },
-    }
-  );
-
   // Use the client
   cma.locale.getMany({}).then((locales) => console.log(locales))
-})
 
 ```
 
