@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/contentful/create-contentful-app/compare/v0.12.67...v0.13.0) (2021-10-06)
+
+
+### Bug Fixes
+
+* bump app sdk to v4.2.0 ([062d1a7](https://github.com/contentful/create-contentful-app/commit/062d1a7ab86f710cc78e213eb133274b8477afa4))
+* bump field editor dependencies ([f07dd81](https://github.com/contentful/create-contentful-app/commit/f07dd81653a86e5021c360f1c2bfa1e1005a1705))
+* update app sdk to stable v4 ([76fc839](https://github.com/contentful/create-contentful-app/commit/76fc83986be1417f7be495e26e8c7bcf59774997))
+
+
+### Features
+
+* **cca-template:** [EXT-2970] add cma adapter ([c1ab9a9](https://github.com/contentful/create-contentful-app/commit/c1ab9a918a2d563c64ea1f2dce33629114712ef1))
+
+
+
+
+
 ## [0.12.67](https://github.com/contentful/create-contentful-app/compare/v0.12.66...v0.12.67) (2021-10-06)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
