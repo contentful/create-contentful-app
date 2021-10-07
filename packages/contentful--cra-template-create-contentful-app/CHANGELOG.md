@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/contentful/create-contentful-app/compare/v0.13.0...v0.13.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* move createClient into init callback ([#676](https://github.com/contentful/create-contentful-app/issues/676)) ([ddfa90a](https://github.com/contentful/create-contentful-app/commit/ddfa90a5db6a4d6608dcc125d34e423b2b343e0d))
+
+
+
+
+
 # [0.13.0](https://github.com/contentful/create-contentful-app/compare/v0.12.67...v0.13.0) (2021-10-06)
 
 
