@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.6](https://github.com/contentful/create-contentful-app/compare/v0.13.5...v0.13.6) (2021-10-08)
+
+
+### Bug Fixes
+
+* **deps:** bump open from 8.2.1 to 8.3.0 ([75e2574](https://github.com/contentful/create-contentful-app/commit/75e25741a3279f32219f72b568a3828f8d28f7b5))
+
+
+
+
+
 ## [0.13.5](https://github.com/contentful/create-contentful-app/compare/v0.13.4...v0.13.5) (2021-10-08)
 
 
