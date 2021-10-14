@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.13](https://github.com/contentful/create-contentful-app/compare/v0.13.12...v0.13.13) (2021-10-14)
+
+**Note:** Version bump only for package @contentful/cra-template-create-contentful-app
+
+
+
+
+
 ## [0.13.12](https://github.com/contentful/create-contentful-app/compare/v0.13.11...v0.13.12) (2021-10-13)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
