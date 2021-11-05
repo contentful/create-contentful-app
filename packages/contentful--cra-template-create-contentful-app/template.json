@@ -6,7 +6,6 @@
       "@contentful/forma-36-react-components": "^3.100.1",
       "@contentful/forma-36-tokens": "^0.11.1",
       "contentful-management": "^7.45.0",
-      "cross-env": "^7.0.3",
       "emotion": "^10.0.17",
       "react": "^17.0.2",
       "react-dom": "^17.0.2",
@@ -21,6 +20,7 @@
       "@types/node": "^16.11.6",
       "@types/react": "^17.0.34",
       "@types/react-dom": "^17.0.11",
+      "cross-env": "^7.0.3",
       "typescript": "^4.4.4"
     },
     "scripts": {
