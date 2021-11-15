@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/contentful/create-contentful-app/compare/v0.13.43...v0.14.0) (2021-11-15)
+
+
+### Bug Fixes
+
+* **template:** add missing cma prop to test setup ([d56d137](https://github.com/contentful/create-contentful-app/commit/d56d137cb3c7ba0db741b80eabc747512910812d))
+* **template:** name default export same as unit name ([93c4382](https://github.com/contentful/create-contentful-app/commit/93c4382bae3be231aabefd3019cd1d9ef849748d))
+
+
+### Features
+
+* **template:** enhance gitignore ([312796c](https://github.com/contentful/create-contentful-app/commit/312796c2603b69135e213e1a085ca304904a4265))
+* **template:** update imports and improve types ([e0610ee](https://github.com/contentful/create-contentful-app/commit/e0610eec01f2e605b3e6eab829130210f32640cd))
+* configure default testId in template for testing-library ([e40e50a](https://github.com/contentful/create-contentful-app/commit/e40e50a542366816d42b74b0547f2b1ad5fc0bc2))
+
+
+
+
+
 ## [0.13.43](https://github.com/contentful/create-contentful-app/compare/v0.13.42...v0.13.43) (2021-11-15)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
