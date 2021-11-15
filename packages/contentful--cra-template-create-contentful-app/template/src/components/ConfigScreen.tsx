@@ -6,12 +6,12 @@ import { css } from 'emotion';
 
 export interface AppInstallationParameters {}
 
-interface ConfigProps {
+interface ConfigScreenProps {
   sdk: AppExtensionSDK;
   cma: PlainClientAPI;
 }
 
-const Config = (props: ConfigProps) => {
+const ConfigScreen = (props: ConfigScreenProps) => {
   const [parameters, setParameters] = useState<AppInstallationParameters>({});
 
   const onConfigure = useCallback(async () => {
@@ -66,4 +66,4 @@ const Config = (props: ConfigProps) => {
   );
 };
 
-export default Config;
+export default ConfigScreen;
