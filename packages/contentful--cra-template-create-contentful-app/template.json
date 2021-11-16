@@ -2,8 +2,8 @@
   "package": {
     "dependencies": {
       "@contentful/app-sdk": "^4.2.0",
-      "@contentful/field-editor-single-line": "^0.15.5",
-      "@contentful/field-editor-test-utils": "^0.18.0",
+      "@contentful/field-editor-single-line": "^1.0.0",
+      "@contentful/field-editor-test-utils": "^1.0.0",
       "@contentful/forma-36-fcss": "^0.3.2",
       "@contentful/forma-36-react-components": "^3.90.7",
       "@contentful/forma-36-tokens": "^0.11.0",
@@ -19,7 +19,7 @@
       "cross-env": "^7.0.3"
     },
     "devDependencies": {
-      "@contentful/app-scripts": "^0.13.0"
+      "@contentful/app-scripts": "^0.14.0"
     },
     "scripts": {
       "start": "cross-env BROWSER=none react-scripts start",
