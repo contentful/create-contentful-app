@@ -19,7 +19,7 @@
       "cross-env": "^7.0.3"
     },
     "devDependencies": {
-      "@contentful/app-scripts": "^0.13.0"
+      "@contentful/app-scripts": "^0.14.0"
     },
     "scripts": {
       "start": "cross-env BROWSER=none react-scripts start",
