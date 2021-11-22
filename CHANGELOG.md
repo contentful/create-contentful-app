@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.12](https://github.com/contentful/create-contentful-app/compare/v0.14.11...v0.14.12) (2021-11-22)
+
+
+### Bug Fixes
+
+* **deps:** bump semver-regex from 3.1.2 to 3.1.3 ([bbfedaf](https://github.com/contentful/create-contentful-app/commit/bbfedaf369906551581eb609de257b176002545c))
+
+
+
+
+
 ## [0.14.11](https://github.com/contentful/create-contentful-app/compare/v0.14.10...v0.14.11) (2021-11-22)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
