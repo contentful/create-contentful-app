@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.28](https://github.com/contentful/create-contentful-app/compare/v0.14.27...v0.14.28) (2021-12-08)
+
+
+### Bug Fixes
+
+* **deps:** bump path-parse from 1.0.6 to 1.0.7 ([33e6f9f](https://github.com/contentful/create-contentful-app/commit/33e6f9f5b2f94de054d14d0efaf9f26c634208e6))
+
+
+
+
+
 ## [0.14.27](https://github.com/contentful/create-contentful-app/compare/v0.14.26...v0.14.27) (2021-12-08)
 
 
