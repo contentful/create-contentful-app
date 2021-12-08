@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.29](https://github.com/contentful/create-contentful-app/compare/v0.14.28...v0.14.29) (2021-12-08)
+
+
+### Bug Fixes
+
+* **deps:** bump @npmcli/git from 2.0.6 to 2.1.0 ([069fd5a](https://github.com/contentful/create-contentful-app/commit/069fd5aee7361fc9af20e27f7484698a4b5206c8))
+
+
+
+
+
 ## [0.14.28](https://github.com/contentful/create-contentful-app/compare/v0.14.27...v0.14.28) (2021-12-08)
 
 
