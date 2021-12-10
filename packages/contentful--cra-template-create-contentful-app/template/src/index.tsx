@@ -13,10 +13,7 @@ import {
   locations,
 } from '@contentful/app-sdk';
 import type { KnownSDK } from '@contentful/app-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import '@contentful/forma-36-tokens/dist/css/index.css';
-import './index.css';
+import { GlobalStyles } from '@contentful/f36-components';
 
 import ConfigScreen from './components/ConfigScreen';
 import EntryEditor from './components/EntryEditor';
@@ -82,7 +79,13 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
     // Select a component depending on a location in which the app is rendered.
     ComponentLocationSettings.forEach((componentLocationSetting) => {
       if (sdk.location.is(componentLocationSetting.location)) {
-        render(componentLocationSetting.component, root);
+        render(
+          <>
+            <GlobalStyles />
+            {componentLocationSetting.component}
+          </>,
+          root
+        );
       }
     });
   });
