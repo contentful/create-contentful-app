@@ -36,7 +36,7 @@
     "@contentful/cra-template-create-contentful-app": "file:../contentful--cra-template-create-contentful-app",
     "chalk": "^4.1.0",
     "contentful-management": "^7.5.1",
-    "create-react-app": "^4.0.3",
+    "create-react-app": "^5.0.0",
     "cross-spawn": "^7.0.3",
     "inquirer": "^8.0.0",
     "open": "^8.0.1",
