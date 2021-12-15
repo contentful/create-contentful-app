@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.35](https://github.com/contentful/create-contentful-app/compare/v0.14.34...v0.14.35) (2021-12-15)
+
+
+### Bug Fixes
+
+* bump create-react-app and react-scripts ([#759](https://github.com/contentful/create-contentful-app/issues/759)) ([f8780d1](https://github.com/contentful/create-contentful-app/commit/f8780d16da721dbc22b99b19803ce58305d85982))
+
+
+
+
+
 ## [0.14.34](https://github.com/contentful/create-contentful-app/compare/v0.14.33...v0.14.34) (2021-12-14)
 
 **Note:** Version bump only for package create-contentful-app
