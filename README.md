@@ -4,7 +4,7 @@ This project makes it easy to bootstrap [Contentful Apps](https://www.contentful
 
 ## Requirements
 
-- Node.js v12, v14, or v16
+- Node.js v14 or v16
 - NPM v6 or v7
 
 # Quick Overview
