@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.40](https://github.com/contentful/create-contentful-app/compare/v0.14.39...v0.14.40) (2021-12-20)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
 ## [0.14.39](https://github.com/contentful/create-contentful-app/compare/v0.14.38...v0.14.39) (2021-12-17)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
