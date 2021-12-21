@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.46](https://github.com/contentful/create-contentful-app/compare/v0.14.45...v0.14.46) (2021-12-21)
+
+
+### Bug Fixes
+
+* **test:** mock missing properties instead of ignoring typecheck ([f3f51de](https://github.com/contentful/create-contentful-app/commit/f3f51de3882e52021bf07fe1beac0fb1251714d2))
+* **tests:** ignore typecheck for test which breaks dev-build ([b5aba2b](https://github.com/contentful/create-contentful-app/commit/b5aba2bd2051610330e4da60ab11eee9642bf95a))
+
+
+
+
+
 ## [0.14.45](https://github.com/contentful/create-contentful-app/compare/v0.14.44...v0.14.45) (2021-12-21)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
