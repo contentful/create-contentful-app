@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.60](https://github.com/contentful/create-contentful-app/compare/v0.14.59...v0.14.60) (2022-01-07)
+
+
+### Bug Fixes
+
+* update to Node 16 and dependencies ([#786](https://github.com/contentful/create-contentful-app/issues/786)) ([faddb49](https://github.com/contentful/create-contentful-app/commit/faddb49185858fca3b813d07185fb1c5527c9505))
+
+
+
+
+
 ## [0.14.59](https://github.com/contentful/create-contentful-app/compare/v0.14.58...v0.14.59) (2022-01-07)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
