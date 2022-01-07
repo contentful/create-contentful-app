@@ -12,12 +12,12 @@ install-deps: &install-deps
 executors:
   node-container-lts:
     docker:
-      - image: node:14
+      - image: node:16
         environment: *base-env
 
   node-container-latest:
     docker:
-      - image: node:16
+      - image: node:17
         environment: *base-env
 
 commands:
