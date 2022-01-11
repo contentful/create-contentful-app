@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "0.14.31",
+  "version": "0.14.62",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "directory": "packages/contentful--app-scripts"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6"
   },
   "main": "lib/index.js",

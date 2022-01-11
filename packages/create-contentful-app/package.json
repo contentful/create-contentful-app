@@ -1,6 +1,6 @@
 {
   "name": "create-contentful-app",
-  "version": "0.14.31",
+  "version": "0.14.62",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "directory": "packages/create-contentful-app"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6"
   },
   "main": "index.js",
