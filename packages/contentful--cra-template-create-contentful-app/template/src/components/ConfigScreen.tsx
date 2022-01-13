@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { AppExtensionSDK } from '@contentful/app-sdk';
 import { PlainClientAPI } from 'contentful-management';
-import { Heading, Form, Workbench, Paragraph } from '@contentful/forma-36-react-components';
-import styles from './ConfigScreen.module.css';
+import { Heading, Form, Paragraph, Flex } from '@contentful/f36-components';
+import { css } from 'emotion';
 
 export interface AppInstallationParameters {}
 
@@ -57,12 +57,12 @@ const ConfigScreen = (props: ConfigScreenProps) => {
   }, [props.sdk]);
 
   return (
-    <Workbench className={styles.Container}>
+    <Flex flexDirection="column" className={css({ margin: '80px', maxWidth: '800px' })}>
       <Form>
         <Heading>App Config</Heading>
         <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
       </Form>
-    </Workbench>
+    </Flex>
   );
 };
 
