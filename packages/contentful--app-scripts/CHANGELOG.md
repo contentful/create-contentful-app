@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.75](https://github.com/contentful/create-contentful-app/compare/v0.14.74...v0.14.75) (2022-01-18)
+
+
+### Bug Fixes
+
+* **deps:** bump dotenv from 14.1.0 to 14.2.0 ([c7f4485](https://github.com/contentful/create-contentful-app/commit/c7f448563422028c9989157f09a09112b0a2e8b3))
+
+
+
+
+
 ## [0.14.74](https://github.com/contentful/create-contentful-app/compare/v0.14.73...v0.14.74) (2022-01-18)
 
 **Note:** Version bump only for package @contentful/app-scripts
