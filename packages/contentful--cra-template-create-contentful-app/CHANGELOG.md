@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.83](https://github.com/contentful/create-contentful-app/compare/v0.14.82...v0.14.83) (2022-01-21)
+
+
+### Bug Fixes
+
+* remove css file ([#808](https://github.com/contentful/create-contentful-app/issues/808)) ([873b9c6](https://github.com/contentful/create-contentful-app/commit/873b9c60fd66920d07062e495180de11828ab708))
+
+
+
+
+
 ## [0.14.82](https://github.com/contentful/create-contentful-app/compare/v0.14.81...v0.14.82) (2022-01-21)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
