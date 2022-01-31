@@ -11,7 +11,7 @@
       "react-scripts": "5.0.0"
     },
     "devDependencies": {
-      "@contentful/app-scripts": "0.9.17-alpha.16",
+      "@contentful/app-scripts": "^0.14.97",
       "@testing-library/jest-dom": "^5.15.0",
       "@testing-library/react": "^12.1.2",
       "@types/jest": "^27.0.2",
