@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.109](https://github.com/contentful/create-contentful-app/compare/v0.14.108...v0.14.109) (2022-02-01)
+
+
+### Bug Fixes
+
+* bump forma to the version with fixed GlobalStyles ([3425ac7](https://github.com/contentful/create-contentful-app/commit/3425ac7a4a8b0aa7d132ab9d44519a1434e91024))
+
+
+
+
+
 ## [0.14.108](https://github.com/contentful/create-contentful-app/compare/v0.14.107...v0.14.108) (2022-02-01)
 
 **Note:** Version bump only for package @contentful/cra-template-create-contentful-app
