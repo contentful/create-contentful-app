@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.14.109",
+  "version": "0.14.110",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
