@@ -55,7 +55,7 @@
     "chalk": "^4.1.0",
     "commander": "^9.0.0",
     "contentful-management": "^7.14.0",
-    "dotenv": "^15.0.0",
+    "dotenv": "^16.0.0",
     "ignore": "^5.1.8",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
