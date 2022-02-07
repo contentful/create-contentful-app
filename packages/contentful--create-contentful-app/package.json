@@ -14,7 +14,7 @@
     "npm": ">=6"
   },
   "type": "module",
-  "main": "lib/index.mjs",
+  "main": "lib/index.js",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -23,7 +23,7 @@
     ]
   },
   "bin": {
-    "create-contentful-app": "lib/index.mjs"
+    "create-contentful-app": "lib/index.js"
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",

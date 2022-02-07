@@ -45,7 +45,7 @@ commands:
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.mjs" init test
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
 
@@ -92,7 +92,7 @@ jobs:
             PROJECT=test-$(date +%s)
             mkdir "${TMPDIR}/${PROJECT}"
             cd "${TMPDIR}/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.mjs" init test
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
       - run:

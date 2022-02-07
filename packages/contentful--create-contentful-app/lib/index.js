@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import degit from 'degit';
 import { resolve } from 'path';
 import tildify from 'tildify';
-import { exec, rmIfExists } from './utils.mjs';
+import { exec, rmIfExists } from './utils.js';
 
 const command = process.argv[2];
 

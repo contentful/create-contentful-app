@@ -14,7 +14,7 @@
     "npm": ">=6"
   },
   "type": "module",
-  "main": "index.mjs",
+  "main": "index.js",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -23,7 +23,7 @@
     ]
   },
   "bin": {
-    "create-contentful-app": "index.mjs"
+    "create-contentful-app": "index.js"
   },
   "dependencies": {
     "@contentful/create-contentful-app": "file:../contentful--create-contentful-app"
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
   "files": [
-    "index.mjs"
+    "index.js"
   ],
   "publishConfig": {
     "access": "public"
