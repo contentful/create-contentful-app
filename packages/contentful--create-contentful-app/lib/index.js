@@ -18,9 +18,7 @@ const mainCommand = `npx ${localCommand}`;
 
 function successMessage(folder) {
   console.log(`
-${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(
-    tildify(resolve(process.cwd(), folder))
-  )}.
+${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(tildify(folder))}.
 
 We suggest that you begin by running:
 
@@ -77,7 +75,7 @@ async function initProject() {
 
     await exec('npm', ['install'], { cwd: fullAppFolder });
 
-    successMessage(appFolder);
+    successMessage(fullAppFolder);
   } catch (err) {
     console.log(`${chalk.red('Error:')} Failed to create ${appFolder}
 
