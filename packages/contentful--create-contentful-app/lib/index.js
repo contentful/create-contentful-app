@@ -35,7 +35,7 @@ function updatePackageName(appFolder) {
 }
 
 async function cloneTemplate(name, destination) {
-  const d = degit(`contentful/apps/examples/templates/${name}`, { mode: 'tar' });
+  const d = degit(`contentful/apps/templates/${name}`, { mode: 'tar' });
 
   try {
     await d.clone(destination);
@@ -65,7 +65,7 @@ async function initProject() {
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
     await cloneTemplate(
-      'typescript-template#ext-3435', // TODO: needs to be adjusted once PR is merged
+      'typescript#ext-3435', // TODO: needs to be adjusted once PR is merged
       fullAppFolder
     );
 
