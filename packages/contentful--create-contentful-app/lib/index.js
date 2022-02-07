@@ -5,9 +5,11 @@
 import { createAppDefinition } from '@contentful/app-scripts';
 import chalk from 'chalk';
 import degit from 'degit';
-import { resolve } from 'path';
+import { readFileSync, writeFileSync } from 'fs';
+import { basename, resolve } from 'path';
 import tildify from 'tildify';
 import { exec, rmIfExists } from './utils.js';
+import os from 'os';
 
 const command = process.argv[2];
 
@@ -25,6 +27,13 @@ We suggest that you begin by running:
     ${chalk.cyan(`cd ${folder}`)}
     ${chalk.cyan(`${mainCommand} create-definition`)}
   `);
+}
+
+function updatePackageName(appFolder) {
+  const packageJsonPath = resolve(appFolder, 'package.json');
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  packageJson.name = basename(appFolder);
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + os.EOL);
 }
 
 async function cloneTemplate(name, destination) {
@@ -64,6 +73,7 @@ async function initProject() {
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
+    updatePackageName(fullAppFolder);
 
     await exec('npm', ['install'], { cwd: fullAppFolder });
 
