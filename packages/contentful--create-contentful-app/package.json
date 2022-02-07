@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "@contentful/app-scripts": "file:../contentful--app-scripts",
-    "@contentful/cra-template-create-contentful-app": "file:../contentful--cra-template-create-contentful-app",
     "chalk": "^4.1.0",
     "contentful-management": "^7.5.1",
     "degit": "2.8.4",

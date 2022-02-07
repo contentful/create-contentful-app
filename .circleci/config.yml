@@ -38,8 +38,6 @@ commands:
       - *install-deps
       - run:
           name: Run Tests
-          environment:
-            USE_LINKED_TEMPLATE: 1
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
@@ -58,50 +56,6 @@ commands:
       - run: npm ci && npm run bootstrap
 
 jobs:
-  dependency-check:
-    executor: node-container-lts
-    steps:
-      - checkout
-      - *install-deps
-      - run:
-          name: Merge Pull Request
-          command: node ./scripts/dependency-check/merge-pull-request.js
-      - run:
-          name: Create Dependency Check sandbox
-          command: mkdir -p ./dependency-check
-      - run:
-          name: Create Package JSON
-          command: node ./scripts/dependency-check/create-manifest-from-template
-      - run:
-          name: Install packages
-          working_directory: ./dependency-check
-          command: npm install
-      - run:
-          name: Check Outdated
-          working_directory: ./dependency-check
-          command: (npm outdated --json || true) > ./outdated.json
-      - run:
-          name: Create new template
-          command: node ./scripts/dependency-check/create-template-from-outdated
-      - run:
-          name: Run Tests and Produce Reports
-          environment:
-            USE_LINKED_TEMPLATE: 1
-          command: |
-            FORMER_CWD="$(pwd)"
-            PROJECT=test-$(date +%s)
-            mkdir "${TMPDIR}/${PROJECT}"
-            cd "${TMPDIR}/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
-            cd test
-            (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
-      - run:
-          name: Create Pull Request
-          command: node ./scripts/dependency-check/create-pull-request
-      - run:
-          name: Cleanup
-          command: rm -rf ./dependency-check
-
   release:
     docker:
       - image: circleci/node:12
@@ -139,19 +93,6 @@ jobs:
 
 workflows:
   version: 2
-
-  scheduled-dependency-check:
-    triggers:
-      - schedule:
-          # Run each day at midnight
-          cron: '0 0 * * *'
-          filters:
-            branches:
-              only:
-                - master
-                - canary
-    jobs:
-      - dependency-check
 
   test:
     jobs:
