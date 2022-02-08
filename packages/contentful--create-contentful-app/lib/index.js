@@ -64,10 +64,7 @@ async function initProject() {
 
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
-    await cloneTemplate(
-      'typescript#ext-3435', // TODO: needs to be adjusted once PR is merged
-      fullAppFolder
-    );
+    await cloneTemplate('typescript', fullAppFolder);
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
