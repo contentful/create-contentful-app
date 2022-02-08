@@ -38,7 +38,8 @@
     "contentful-management": "^7.5.1",
     "degit": "2.8.4",
     "inquirer": "^8.0.0",
-    "tildify": "^2.0.0"
+    "tildify": "^2.0.0",
+    "validate-npm-package-name": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -55,6 +56,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/degit": "2.8.3"
+    "@types/degit": "2.8.3",
+    "@types/validate-npm-package-name": "^3.0.3"
   }
 }

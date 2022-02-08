@@ -10,6 +10,7 @@ import { basename, resolve } from 'path';
 import tildify from 'tildify';
 import { exec, rmIfExists } from './utils.js';
 import os from 'os';
+import validateAppName from 'validate-npm-package-name';
 
 const command = process.argv[2];
 
@@ -49,25 +50,24 @@ async function cloneTemplate(name, destination) {
 }
 
 async function initProject() {
-  const appFolder = process.argv[3];
-  const fullAppFolder = resolve(process.cwd(), appFolder);
+  const appName = process.argv[3];
 
   try {
-    if (!appFolder) {
-      console.log();
-      console.log(
-        `Please provide a name for your app, e.g. ${chalk.cyan(`\`${mainCommand} init my-app\``)}.`
-      );
-      console.log();
-      process.exit(1);
+    if (!appName) {
+      throw new Error(`Please provide a name for your app, e.g. \`${mainCommand} init my-app\``);
     }
+
+    if (!validateAppName(appName).validForNewPackages) {
+      throw new Error(
+        `Cannot create an app named "${appName}". Please choose a different name for your app.`
+      );
+    }
+
+    const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
-    await cloneTemplate(
-      'typescript#ext-3435', // TODO: needs to be adjusted once PR is merged
-      fullAppFolder
-    );
+    await cloneTemplate('typescript', fullAppFolder);
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
@@ -77,7 +77,7 @@ async function initProject() {
 
     successMessage(fullAppFolder);
   } catch (err) {
-    console.log(`${chalk.red('Error:')} Failed to create ${appFolder}
+    console.log(`${chalk.red('Error:')} Failed to create ${appName}
 
   ${err}
 `);
