@@ -13,6 +13,7 @@
     "node": ">=14",
     "npm": ">=6"
   },
+  "type": "module",
   "main": "index.js",
   "lint-staged": {
     "*.js": [

@@ -13,6 +13,7 @@
     "node": ">=12",
     "npm": ">=6"
   },
+  "type": "module",
   "main": "lib/index.js",
   "lint-staged": {
     "*.js": [
@@ -36,11 +37,10 @@
     "@contentful/cra-template-create-contentful-app": "file:../contentful--cra-template-create-contentful-app",
     "chalk": "^4.1.0",
     "contentful-management": "^7.5.1",
-    "create-react-app": "^5.0.0",
-    "cross-spawn": "^7.0.3",
+    "degit": "2.8.4",
     "inquirer": "^8.0.0",
-    "open": "^8.0.1",
-    "tildify": "^2.0.0"
+    "tildify": "^2.0.0",
+    "validate-npm-package-name": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -55,5 +55,9 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/degit": "2.8.3",
+    "@types/validate-npm-package-name": "^3.0.3"
   }
 }

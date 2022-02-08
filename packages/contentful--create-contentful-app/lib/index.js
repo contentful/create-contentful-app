@@ -2,87 +2,85 @@
 
 /* eslint-disable no-console, no-process-exit */
 
-const chalk = require('chalk');
-const spawn = require('cross-spawn');
-const path = require('path');
-const tildify = require('tildify');
-const { createAppDefinition } = require('@contentful/app-scripts');
-const { version } = require('../package.json');
+import { createAppDefinition } from '@contentful/app-scripts';
+import chalk from 'chalk';
+import degit from 'degit';
+import { readFileSync, writeFileSync } from 'fs';
+import { basename, resolve } from 'path';
+import tildify from 'tildify';
+import { exec, rmIfExists } from './utils.js';
+import os from 'os';
+import validateAppName from 'validate-npm-package-name';
 
 const command = process.argv[2];
-const appFolder = process.argv[3];
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
 
-function getTemplate() {
-  const templatePkg = '@contentful/cra-template-create-contentful-app';
-
-  if (!process.env.USE_LINKED_TEMPLATE) {
-    return `${templatePkg}@${version}`;
-  }
-
-  const linkedTemplatePath = path.relative(
-    process.cwd(),
-    path.dirname(require.resolve(templatePkg))
-  );
-
-  console.log();
-  console.log(chalk.dim('> Using linked template at %s'), chalk.blueBright(linkedTemplatePath));
-  console.log();
-
-  return `file:${linkedTemplatePath}`;
-}
-
-function onSuccess(folder) {
+function successMessage(folder) {
   console.log(`
-${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(
-    tildify(path.resolve(process.cwd(), folder))
-  )}.
+${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(tildify(folder))}.
 
 We suggest that you begin by running:
 
     ${chalk.cyan(`cd ${folder}`)}
     ${chalk.cyan(`${mainCommand} create-definition`)}
   `);
-
-  process.exit();
 }
 
-function initProject() {
+function updatePackageName(appFolder) {
+  const packageJsonPath = resolve(appFolder, 'package.json');
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  packageJson.name = basename(appFolder);
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + os.EOL);
+}
+
+async function cloneTemplate(name, destination) {
+  const d = degit(`contentful/apps/templates/${name}`, { mode: 'tar' });
+
   try {
-    if (!appFolder) {
-      console.log();
-      console.log(
-        `Please provide a name for your app, e.g. ${chalk.cyan(`\`${mainCommand} init my-app\``)}.`
-      );
-      console.log();
-      process.exit(1);
+    await d.clone(destination);
+  } catch (e) {
+    let message = 'Error creating app';
+    if (e.code === 'DEST_NOT_EMPTY') {
+      message = 'destination directory is not empty';
+    }
+    throw new Error(message);
+  }
+}
+
+async function initProject() {
+  const appName = process.argv[3];
+
+  try {
+    if (!appName) {
+      throw new Error(`Please provide a name for your app, e.g. \`${mainCommand} init my-app\``);
     }
 
-    const initCommand = 'node';
-    const createReactApp = require.resolve('create-react-app');
-    const template = getTemplate();
+    if (!validateAppName(appName).validForNewPackages) {
+      throw new Error(
+        `Cannot create an app named "${appName}". Please choose a different name for your app.`
+      );
+    }
 
-    const args = [createReactApp, appFolder, '--template', template, '--use-npm'];
+    const fullAppFolder = resolve(process.cwd(), appName);
 
-    console.log(
-      `Creating a Contentful app in ${chalk.bold(tildify(path.resolve(process.cwd(), appFolder)))}.`
-    );
+    console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
-    const appCreateProcess = spawn(initCommand, args, { stdio: 'inherit' });
-    appCreateProcess.on('exit', (exitCode) => {
-      if (exitCode === 0) {
-        onSuccess(appFolder);
-      } else {
-        process.exit(exitCode);
-      }
-    });
+    await cloneTemplate('typescript', fullAppFolder);
+
+    rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
+    rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
+    updatePackageName(fullAppFolder);
+
+    await exec('npm', ['install'], { cwd: fullAppFolder });
+
+    successMessage(fullAppFolder);
   } catch (err) {
-    console.log(`${chalk.red('Error:')} Failed to create ${appFolder}:
+    console.log(`${chalk.red('Error:')} Failed to create ${appName}
 
-      ${err}
-      `);
+  ${err}
+`);
     process.exit(1);
   }
 }
@@ -107,7 +105,7 @@ ${chalk.cyan(`$ ${mainCommand} create-definition`)}
 
   switch (command) {
     case 'init':
-      initProject();
+      await initProject();
       break;
 
     case 'create-definition':
