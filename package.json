@@ -21,7 +21,6 @@
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
     "@commitlint/config-conventional": "16.0.0",
-    "@octokit/rest": "18.12.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "babel-eslint": "10.1.0",
@@ -37,7 +36,6 @@
     "mocha": "^9.0.0",
     "prettier": "2.5.1",
     "proxyquire": "^2.1.3",
-    "simple-git": "3.1.1",
     "sinon": "^13.0.0",
     "typescript": "^4.2.4"
   },
@@ -49,7 +47,6 @@
   },
   "dependencies": {
     "@contentful/app-scripts": "file:packages/contentful--app-scripts",
-    "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
     "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
     "create-contentful-app": "file:packages/create-contentful-app"
   }
