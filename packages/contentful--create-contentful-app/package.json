@@ -35,6 +35,7 @@
   "dependencies": {
     "@contentful/app-scripts": "file:../contentful--app-scripts",
     "chalk": "^4.1.0",
+    "commander": "^9.0.0",
     "contentful-management": "^7.5.1",
     "degit": "2.8.4",
     "inquirer": "^8.0.0",
