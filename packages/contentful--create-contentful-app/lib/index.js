@@ -8,9 +8,10 @@ import degit from 'degit';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import tildify from 'tildify';
-import { exec, rmIfExists } from './utils.js';
 import os from 'os';
 import validateAppName from 'validate-npm-package-name';
+import { program } from 'commander';
+import { exec, rmIfExists, printHelpText } from './utils.js';
 
 const command = process.argv[2];
 
@@ -67,7 +68,15 @@ async function initProject() {
 
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
-    await cloneTemplate('typescript', fullAppFolder);
+    program
+      .option('--javascript, -js')
+      .option('--typescript, -ts')
+      .action(async (opts) => {
+        const templateType = opts.Js ? 'javascript' : 'typescript';
+        await cloneTemplate(templateType, fullAppFolder);
+      })
+
+    await program.parseAsync();
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
@@ -85,23 +94,8 @@ async function initProject() {
   }
 }
 
+
 (async function main() {
-  function printHelpText() {
-    console.log(`
-${chalk.bold(localCommand)}
-
-${chalk.dim('Available commands:')}
-
-${chalk.cyan(`$ ${mainCommand} init app-name`)}
-
-  Bootstraps your app inside a new folder "app-name".
-
-${chalk.cyan(`$ ${mainCommand} create-definition`)}
-
-  Creates an app definition for your app in a Contentful
-  organization of your choice.
-  `);
-  }
 
   switch (command) {
     case 'init':
@@ -113,11 +107,11 @@ ${chalk.cyan(`$ ${mainCommand} create-definition`)}
       break;
 
     case 'help':
-      printHelpText();
+      printHelpText(mainCommand, localCommand);
       break;
 
     case undefined:
-      printHelpText();
+      printHelpText(mainCommand, localCommand);
       break;
 
     default:
