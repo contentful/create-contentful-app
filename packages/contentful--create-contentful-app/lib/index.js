@@ -11,8 +11,9 @@ import tildify from 'tildify';
 import { exec, rmIfExists } from './utils.js';
 import os from 'os';
 import validateAppName from 'validate-npm-package-name';
+import { program } from 'commander';
 
-const command = process.argv[2];
+const manager = process.argv[0];
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
@@ -49,18 +50,16 @@ async function cloneTemplate(name, destination) {
   }
 }
 
-async function initProject() {
-  const appName = process.argv[3];
-
+async function initProject(appName, options) {
   try {
-    if (!appName) {
-      throw new Error(`Please provide a name for your app, e.g. \`${mainCommand} init my-app\``);
-    }
-
     if (!validateAppName(appName).validForNewPackages) {
       throw new Error(
         `Cannot create an app named "${appName}". Please choose a different name for your app.`
       );
+    }
+
+    if (options.npm && options.yarn) {
+      throw new Error(`Please provide either ${chalk.bold('--yarn')} or ${chalk.bold('--npm')} flag, but not both`);
     }
 
     const fullAppFolder = resolve(process.cwd(), appName);
@@ -73,7 +72,13 @@ async function initProject() {
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
     updatePackageName(fullAppFolder);
 
-    await exec('npm', ['install'], { cwd: fullAppFolder });
+    const useYarn = (options.yarn || manager === 'yarn') && !options.npm;
+
+    if (useYarn) {
+      await exec('yarn', [], { cwd: fullAppFolder });
+    } else {
+      await exec('npm', ['install'], { cwd: fullAppFolder });
+    }
 
     successMessage(fullAppFolder);
   } catch (err) {
@@ -86,44 +91,25 @@ async function initProject() {
 }
 
 (async function main() {
-  function printHelpText() {
-    console.log(`
-${chalk.bold(localCommand)}
+  program
+    .command('init')
+    .description('Bootstraps your app inside a new folder ‘app-name’')
+    .argument('<app-name>', 'App name')
+    .option('--npm', 'Use NPM')
+    .option('--yarn', 'Use Yarn')
+    .action(initProject);
 
-${chalk.dim('Available commands:')}
-
-${chalk.cyan(`$ ${mainCommand} init app-name`)}
-
-  Bootstraps your app inside a new folder "app-name".
-
-${chalk.cyan(`$ ${mainCommand} create-definition`)}
-
-  Creates an app definition for your app in a Contentful
-  organization of your choice.
-  `);
-  }
-
-  switch (command) {
-    case 'init':
-      await initProject();
-      break;
-
-    case 'create-definition':
+  program
+    .command('create-definition')
+    .description('Creates an app definition for your app in a Contentful organization of your choice.')
+    .action(async () => {
       await createAppDefinition.interactive();
-      break;
+    });
 
-    case 'help':
-      printHelpText();
-      break;
+  program
+    .name(chalk.cyan('@contentful/create-contentful-app'))
+    .usage(chalk.cyan('[command]'))
+    .helpOption(false);
 
-    case undefined:
-      printHelpText();
-      break;
-
-    default:
-      console.log();
-      console.log(`${chalk.red('Error:')} Unknown command.`);
-      printHelpText();
-      process.exit(1);
-  }
+  program.parse();
 })();
