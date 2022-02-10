@@ -38,7 +38,6 @@
     "commander": "^9.0.0",
     "contentful-management": "^7.5.1",
     "degit": "2.8.4",
-    "inquirer": "^8.0.0",
     "tildify": "^2.0.0",
     "validate-npm-package-name": "^3.0.0"
   },
