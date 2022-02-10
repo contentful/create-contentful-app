@@ -108,7 +108,7 @@ async function initProject(appName, options) {
 
   program
     .name(chalk.cyan('@contentful/create-contentful-app'))
-    .usage(chalk.cyan('[command]'))
+    .usage(chalk.cyan('[options] {[app-name]|[command]}'))
     .helpOption(false);
 
   program.parse();
