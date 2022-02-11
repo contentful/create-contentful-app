@@ -22,7 +22,7 @@ export function rmIfExists(path) {
 }
 
 export function detectManager() {
-  switch (basename(process.env.npm_execpath)) {
+  switch (basename(process.env.npm_execpath || '')) {
     case 'yarn.js':
       return 'yarn';
     case 'npx-cli.js':
