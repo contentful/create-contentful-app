@@ -13,8 +13,6 @@ import os from 'os';
 import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
 
-console.log(process.argv);
-
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
 
