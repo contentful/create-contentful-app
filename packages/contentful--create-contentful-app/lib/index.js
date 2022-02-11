@@ -62,7 +62,7 @@ async function initProject(appName, options) {
 
     if (options.npm && options.yarn) {
       console.log(
-        `${chalk.yellow('Warning')}: Provided both ${chalk.bold('--yarn')} and ${chalk.bold(
+        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--yarn')} and ${chalk.bold(
           '--npm'
         )} flags, using ${chalk.greenBright('--npm')}.`
       );
@@ -70,7 +70,7 @@ async function initProject(appName, options) {
 
     if (options.Js && options.Ts) {
       console.log(
-        `${chalk.yellow('Warning')}: Provided both ${chalk.bold('--javascript')} and ${chalk.bold(
+        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--javascript')} and ${chalk.bold(
           '--typescript'
         )} flags, using ${chalk.greenBright('--typescript')}.`
       );
