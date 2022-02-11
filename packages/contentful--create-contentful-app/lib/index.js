@@ -56,15 +56,25 @@ async function initProject(appName, options) {
       );
     }
 
-    if (options.npm && options.yarn) {
-      throw new Error(
-        `Please provide either ${chalk.bold('--yarn')} or ${chalk.bold('--npm')} flag, but not both`
-      );
-    }
-
     const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
+
+    if (options.npm && options.yarn) {
+      console.log(
+        `${chalk.yellow('Warning')}: Provided both ${chalk.bold('--yarn')} and ${chalk.bold(
+          '--npm'
+        )} flags, using ${chalk.greenBright('--npm')}.`
+      );
+    }
+
+    if (options.Js && options.Ts) {
+      console.log(
+        `${chalk.yellow('Warning')}: Provided both ${chalk.bold('--javascript')} and ${chalk.bold(
+          '--typescript'
+        )} flags, using ${chalk.greenBright('--typescript')}.`
+      );
+    }
 
     const templateType = options.Js ? 'javascript' : 'typescript';
     await cloneTemplate(templateType, fullAppFolder);
@@ -93,7 +103,7 @@ async function initProject(appName, options) {
 
 (async function main() {
   program
-    .command('init', { isDefault: true, hidden: true })
+    .command('init', { isDefault: true })
     .description('Bootstrap your app inside a new folder ‘app-name’')
     .argument('[app-name]', 'App name', 'my-app')
     .option('--npm', 'Use NPM')
