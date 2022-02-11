@@ -8,7 +8,7 @@ import degit from 'degit';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import tildify from 'tildify';
-import { exec, rmIfExists } from './utils.js';
+import { exec, rmIfExists, detectManager } from './utils.js';
 import os from 'os';
 import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
@@ -72,7 +72,9 @@ async function initProject(appName, options) {
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
     updatePackageName(fullAppFolder);
 
-    if (options.yarn && !options.npm) {
+    const useYarn = (options.yarn || detectManager() === 'yarn') && !options.npm;
+
+    if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
       await exec('npm', ['install'], { cwd: fullAppFolder });
