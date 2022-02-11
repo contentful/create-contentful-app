@@ -94,7 +94,7 @@ async function initProject(appName, options) {
   program
     .command('init', { isDefault: true, hidden: true })
     .description('Bootstrap your app inside a new folder ‘app-name’')
-    .argument('[app-name]', 'App name')
+    .argument('[app-name]', 'App name', 'my-app')
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
     .action(initProject);
