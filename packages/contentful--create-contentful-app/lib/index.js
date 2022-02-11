@@ -13,7 +13,7 @@ import os from 'os';
 import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
 
-const manager = process.argv[0];
+console.log(process.argv);
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
@@ -59,7 +59,9 @@ async function initProject(appName, options) {
     }
 
     if (options.npm && options.yarn) {
-      throw new Error(`Please provide either ${chalk.bold('--yarn')} or ${chalk.bold('--npm')} flag, but not both`);
+      throw new Error(
+        `Please provide either ${chalk.bold('--yarn')} or ${chalk.bold('--npm')} flag, but not both`
+      );
     }
 
     const fullAppFolder = resolve(process.cwd(), appName);
@@ -72,9 +74,7 @@ async function initProject(appName, options) {
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
     updatePackageName(fullAppFolder);
 
-    const useYarn = (options.yarn || manager === 'yarn') && !options.npm;
-
-    if (useYarn) {
+    if (options.yarn && !options.npm) {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
       await exec('npm', ['install'], { cwd: fullAppFolder });
@@ -101,7 +101,9 @@ async function initProject(appName, options) {
 
   program
     .command('create-definition')
-    .description('Creates an app definition for your app in a Contentful organization of your choice.')
+    .description(
+      'Creates an app definition for your app in a Contentful organization of your choice.'
+    )
     .action(async () => {
       await createAppDefinition.interactive();
     });
@@ -111,5 +113,5 @@ async function initProject(appName, options) {
     .usage(chalk.cyan('[options] {[app-name]|[command]}'))
     .helpOption(false);
 
-  program.parse();
+  await program.parseAsync();
 })();
