@@ -8,12 +8,10 @@ import degit from 'degit';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import tildify from 'tildify';
+import { exec, rmIfExists, detectManager } from './utils.js';
 import os from 'os';
 import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
-import { exec, rmIfExists, printHelpText } from './utils.js';
-
-const command = process.argv[2];
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
@@ -50,14 +48,8 @@ async function cloneTemplate(name, destination) {
   }
 }
 
-async function initProject() {
-  const appName = process.argv[3];
-
+async function initProject(appName, options) {
   try {
-    if (!appName) {
-      throw new Error(`Please provide a name for your app, e.g. \`${mainCommand} init my-app\``);
-    }
-
     if (!validateAppName(appName).validForNewPackages) {
       throw new Error(
         `Cannot create an app named "${appName}". Please choose a different name for your app.`
@@ -68,21 +60,36 @@ async function initProject() {
 
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
-    program
-      .option('--javascript, -js')
-      .option('--typescript, -ts')
-      .action(async (opts) => {
-        const templateType = opts.Js ? 'javascript' : 'typescript';
-        await cloneTemplate(templateType, fullAppFolder);
-      })
+    if (options.npm && options.yarn) {
+      console.log(
+        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--yarn')} and ${chalk.bold(
+          '--npm'
+        )} flags, using ${chalk.greenBright('--npm')}.`
+      );
+    }
 
-    await program.parseAsync();
+    if (options.Js && options.Ts) {
+      console.log(
+        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--javascript')} and ${chalk.bold(
+          '--typescript'
+        )} flags, using ${chalk.greenBright('--typescript')}.`
+      );
+    }
+
+    const templateType = options.Js ? 'javascript' : 'typescript';
+    await cloneTemplate(templateType, fullAppFolder);
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
     updatePackageName(fullAppFolder);
 
-    await exec('npm', ['install'], { cwd: fullAppFolder });
+    const useYarn = (options.yarn || detectManager() === 'yarn') && !options.npm;
+
+    if (useYarn) {
+      await exec('yarn', [], { cwd: fullAppFolder });
+    } else {
+      await exec('npm', ['install'], { cwd: fullAppFolder });
+    }
 
     successMessage(fullAppFolder);
   } catch (err) {
@@ -94,30 +101,30 @@ async function initProject() {
   }
 }
 
-
 (async function main() {
+  program
+    .command('init', { isDefault: true })
+    .description('Bootstrap your app inside a new folder ‘app-name’')
+    .argument('[app-name]', 'App name', 'my-app')
+    .option('--npm', 'Use NPM')
+    .option('--yarn', 'Use Yarn')
+    .option('--javascript, -js')
+    .option('--typescript, -ts')
+    .action(initProject);
 
-  switch (command) {
-    case 'init':
-      await initProject();
-      break;
-
-    case 'create-definition':
+  program
+    .command('create-definition')
+    .description(
+      'Creates an app definition for your app in a Contentful organization of your choice.'
+    )
+    .action(async () => {
       await createAppDefinition.interactive();
-      break;
+    });
 
-    case 'help':
-      printHelpText(mainCommand, localCommand);
-      break;
+  program
+    .name(chalk.cyan('@contentful/create-contentful-app'))
+    .usage(chalk.cyan('[options] {[app-name]|[command]}'))
+    .helpOption(false);
 
-    case undefined:
-      printHelpText(mainCommand, localCommand);
-      break;
-
-    default:
-      console.log();
-      console.log(`${chalk.red('Error:')} Unknown command.`);
-      printHelpText();
-      process.exit(1);
-  }
+  await program.parseAsync();
 })();
