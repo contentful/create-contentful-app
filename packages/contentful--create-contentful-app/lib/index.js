@@ -66,7 +66,8 @@ async function initProject(appName, options) {
 
     console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
 
-    await cloneTemplate('typescript', fullAppFolder);
+    const templateType = options.Js ? 'javascript' : 'typescript';
+    await cloneTemplate(templateType, fullAppFolder);
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
@@ -97,6 +98,8 @@ async function initProject(appName, options) {
     .argument('[app-name]', 'App name', 'my-app')
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
+    .option('--javascript, -js')
+    .option('--typescript, -ts')
     .action(initProject);
 
   program
