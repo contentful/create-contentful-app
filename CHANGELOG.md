@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.119](https://github.com/contentful/create-contentful-app/compare/v0.14.118...v0.14.119) (2022-02-13)
+
+
+### Bug Fixes
+
+* **deps:** bump follow-redirects from 1.14.6 to 1.14.8 ([c9e1be8](https://github.com/contentful/create-contentful-app/commit/c9e1be86a7c35b8124c13ebae9d5e41d7e0cfb3a))
+
+
+
+
+
 ## [0.14.118](https://github.com/contentful/create-contentful-app/compare/v0.14.117...v0.14.118) (2022-02-10)
 
 
