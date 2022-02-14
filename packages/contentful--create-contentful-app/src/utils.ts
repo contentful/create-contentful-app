@@ -3,7 +3,7 @@ import { existsSync, rmSync } from 'fs';
 import { basename } from 'path';
 
 export function exec(command, args, options) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const process = spawn(command, args, { stdio: 'inherit', ...options });
     process.on('exit', (exitCode) => {
       if (exitCode === 0) {

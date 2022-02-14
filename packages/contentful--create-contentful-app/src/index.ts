@@ -3,14 +3,14 @@
 /* eslint-disable no-console, no-process-exit */
 
 import { createAppDefinition } from '@contentful/app-scripts';
-import chalk from 'chalk';
-import degit from 'degit';
+import * as chalk from 'chalk';
+import * as degit from 'degit';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
-import tildify from 'tildify';
-import { exec, rmIfExists, detectManager } from './utils.js';
-import os from 'os';
-import validateAppName from 'validate-npm-package-name';
+import tildify = require('tildify');
+import { exec, rmIfExists, detectManager } from './utils';
+import { EOL } from 'os';
+import * as validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
 
@@ -32,7 +32,7 @@ function updatePackageName(appFolder) {
   const packageJsonPath = resolve(appFolder, 'package.json');
   const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
   packageJson.name = basename(appFolder);
-  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + os.EOL);
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + EOL);
 }
 
 async function cloneTemplate(name, destination) {
@@ -54,8 +54,8 @@ async function promptAppName() {
     {
       name: 'name',
       message: 'App name',
-      default: 'contentful-app',
-    },
+      default: 'contentful-app'
+    }
   ]);
 }
 
