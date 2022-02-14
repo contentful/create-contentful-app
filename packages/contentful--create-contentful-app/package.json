@@ -26,7 +26,7 @@
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
-    "lint": "eslint ./lib",
+    "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "preversion": "npm run build",
     "pre-commit": "lint-staged",
