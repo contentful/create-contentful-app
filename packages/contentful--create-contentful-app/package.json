@@ -28,7 +28,6 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
-    "preversion": "npm run build",
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
     "build": "PARCEL_WORKERS=0 parcel build ./src/index.ts --dist-dir lib "

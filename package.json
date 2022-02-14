@@ -16,7 +16,8 @@
     "publish": "lerna publish from-git --yes --no-verify-access",
     "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
     "pre-commit": "lerna run pre-commit",
-    "commit-msg": "lerna run commit-msg"
+    "commit-msg": "lerna run commit-msg",
+    "build": "lerna run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
