@@ -12,6 +12,7 @@ import { exec, rmIfExists, detectManager } from './utils.js';
 import os from 'os';
 import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
+import inquirer from 'inquirer';
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
@@ -48,8 +49,23 @@ async function cloneTemplate(name, destination) {
   }
 }
 
+async function promptAppName() {
+  return await inquirer.prompt([
+    {
+      name: 'name',
+      message: 'App name',
+      default: 'contentful-app',
+    },
+  ]);
+}
+
 async function initProject(appName, options) {
   try {
+    if (!appName) {
+      const prompt = await promptAppName();
+      appName = prompt.name;
+    }
+
     if (!validateAppName(appName).validForNewPackages) {
       throw new Error(
         `Cannot create an app named "${appName}". Please choose a different name for your app.`
@@ -105,7 +121,7 @@ async function initProject(appName, options) {
   program
     .command('init', { isDefault: true })
     .description('Bootstrap your app inside a new folder ‘app-name’')
-    .argument('[app-name]', 'App name', 'my-app')
+    .argument('[app-name]', 'App name')
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
     .option('--javascript, -js')
