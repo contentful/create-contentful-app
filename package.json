@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
-    "@commitlint/config-conventional": "16.0.0",
+    "@commitlint/config-conventional": "16.2.1",
     "@octokit/rest": "18.12.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
