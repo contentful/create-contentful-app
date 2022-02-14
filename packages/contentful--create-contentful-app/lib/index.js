@@ -61,7 +61,9 @@ async function initProject(appName, options) {
       throw new Error(
         `The ${chalk.bold('create-definition')} command has been removed from ${chalk.cyan(
           'create-contentful-app'
-        )}.`
+        )}.\nTo create a new app definition first run ${chalk.cyan(
+          'npx create-contentful-app'
+        )} and then ${chalk.cyan('npm run create-definition')} within the new folder.`
       );
     }
 
