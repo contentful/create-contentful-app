@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { createAppDefinition } from '@contentful/app-scripts';
-import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import { EOL } from 'os';
@@ -10,20 +9,22 @@ import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
 
-import { clone } from './template';
-import { detectManager, exec, rmIfExists } from './utils';
+import { cloneTemplateIn } from './template';
+import { detectManager, exec } from './utils';
+import { CLIOptions } from './types';
+import { choice, error, highlight, success, warn } from './logger';
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
 
 function successMessage(folder: string) {
   console.log(`
-${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(tildify(folder))}.
+${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
 
 We suggest that you begin by running:
 
-    ${chalk.cyan(`cd ${folder}`)}
-    ${chalk.cyan(`${mainCommand} create-definition`)}
+    ${success(`cd ${folder}`)}
+    ${success(`${mainCommand} create-definition`)}
   `);
 }
 
@@ -44,13 +45,6 @@ async function promptAppName() {
   ]);
 }
 
-type CLIOptions = Partial<{
-  npm: boolean;
-  yarn: boolean;
-  Js: boolean;
-  Ts: boolean;
-}>
-
 async function initProject(appName: string, options: CLIOptions) {
   try {
     if (!appName) {
@@ -66,29 +60,22 @@ async function initProject(appName: string, options: CLIOptions) {
 
     const fullAppFolder = resolve(process.cwd(), appName);
 
-    console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
+    console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
     if (options.npm && options.yarn) {
-      console.log(
-        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--yarn')} and ${chalk.bold(
-          '--npm'
-        )} flags, using ${chalk.greenBright('--npm')}.`
-      );
+      warn(`Provided both ${highlight('--yarn')} and ${highlight(
+        '--npm'
+      )} flags, using ${choice('--npm')}.`);
     }
 
     if (options.Js && options.Ts) {
-      console.log(
-        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--javascript')} and ${chalk.bold(
-          '--typescript'
-        )} flags, using ${chalk.greenBright('--typescript')}.`
-      );
+      warn(`Provided both ${highlight('--javascript')} and ${highlight(
+        '--typescript'
+      )} flags, using ${choice('--typescript')}.`);
     }
 
-    const templateType = options.Js ? 'javascript' : 'typescript';
-    await clone(templateType, fullAppFolder);
+    await cloneTemplateIn(fullAppFolder, options);
 
-    rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
-    rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
     updatePackageName(fullAppFolder);
 
     const useYarn = (options.yarn || detectManager() === 'yarn') && !options.npm;
@@ -101,10 +88,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     successMessage(fullAppFolder);
   } catch (err) {
-    console.log(`${chalk.red('Error:')} Failed to create ${appName}
-
-  ${err}
-`);
+    error(`Failed to create ${appName}`, String(err));
     process.exit(1);
   }
 }
@@ -116,8 +100,9 @@ async function initProject(appName: string, options: CLIOptions) {
     .argument('[app-name]', 'App name')
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
-    .option('--javascript, -js')
-    .option('--typescript, -ts')
+    .option('--javascript, -js', 'Use default javascript template')
+    .option('--typescript, -ts', 'Use default typescript template')
+    .option('-t, --templateSource <url>', 'Provide a template by its source (URL, ...)')
     .action(initProject);
 
   program
@@ -130,8 +115,8 @@ async function initProject(appName: string, options: CLIOptions) {
     });
 
   program
-    .name(chalk.cyan('@contentful/create-contentful-app'))
-    .usage(chalk.cyan('[options] {[app-name]|[command]}'))
+    .name(success('@contentful/create-contentful-app'))
+    .usage(success('[options] {[app-name]|[command]}'))
     .helpOption(false);
 
   await program.parseAsync();
