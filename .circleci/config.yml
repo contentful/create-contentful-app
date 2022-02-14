@@ -46,6 +46,13 @@ commands:
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
+  build:
+    steps:
+      - checkout
+      - *install-deps
+      - run:
+          name: Run build
+          command: npm run build
 
   prepare-release:
     steps:
