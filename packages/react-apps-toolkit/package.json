@@ -1,0 +1,16 @@
+{
+  "name": "react-apps-toolkit",
+  "version": "0.0.1",
+  "description": "Toolkit for building a Contentful app in React",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
+  "keywords": [],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "dependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "typescript": "^4.5.5"
+  }
+}
