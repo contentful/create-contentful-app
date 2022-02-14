@@ -1,8 +1,8 @@
-import { spawn } from 'child_process';
+import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
 import { existsSync, rmSync } from 'fs';
 import { basename } from 'path';
 
-export function exec(command, args, options) {
+export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
     const process = spawn(command, args, { stdio: 'inherit', ...options });
     process.on('exit', (exitCode) => {
@@ -15,7 +15,7 @@ export function exec(command, args, options) {
   });
 }
 
-export function rmIfExists(path) {
+export function rmIfExists(path: string) {
   if (existsSync(path)) {
     rmSync(path);
   }
