@@ -140,7 +140,7 @@ async function initProject(appName, options) {
   program
     .name(`npx ${chalk.cyan('@contentful/create-contentful-app')}`)
     .helpOption(true)
-    .description('bootstraps your app into a newly created directory')
+    .description('Bootstraps your app into a newly created directory')
     .argument('[app-name]', 'app name')
     .option('--npm', 'use NPM')
     .option('--yarn', 'use Yarn')
