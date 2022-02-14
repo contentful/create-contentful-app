@@ -12,7 +12,7 @@ import tildify from 'tildify';
 import { cloneTemplateIn } from './template';
 import { detectManager, exec } from './utils';
 import { CLIOptions } from './types';
-import { choice, error, highlight, success, warn } from './logger';
+import { choice, code, error, highlight, success, warn } from './logger';
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
@@ -96,13 +96,26 @@ async function initProject(appName: string, options: CLIOptions) {
 (async function main() {
   program
     .command('init', { isDefault: true })
-    .description('Bootstrap your app inside a new folder ‘app-name’')
-    .argument('[app-name]', 'App name')
+    .description([
+      'Bootstrap your app inside a new folder ‘my-app’',
+      '',
+      code('  create-contentful-app init my-app'),
+      '',
+      'or you can specify your own template',
+      '',
+      code('  create-contentful-app init my-app --templateSource "github:user/repo"'),
+      '',
+      `Contentful official templates are hosted at ${highlight('https://github.com/contentful/apps/tree/master/templates')}.`
+    ].join('\n'))
+    .argument('[app-name]', 'Name of the app')
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
     .option('--javascript, -js', 'Use default javascript template')
     .option('--typescript, -ts', 'Use default typescript template')
-    .option('-t, --templateSource <url>', 'Provide a template by its source (URL, ...)')
+    .option('-t, --templateSource <url>', [
+      `Provide a template by its source repository`,
+      `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code('github:user/repo')})`
+    ].join('\n'))
     .action(initProject);
 
   program

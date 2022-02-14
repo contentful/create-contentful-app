@@ -22,3 +22,7 @@ export function choice(str: string) {
 export function success(str: string) {
   return chalk.cyan(str);
 }
+
+export function code(str: string) {
+  return chalk.dim(str);
+}
