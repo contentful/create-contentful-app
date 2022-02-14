@@ -1,23 +1,22 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-console, no-process-exit */
-
 import { createAppDefinition } from '@contentful/app-scripts';
-import * as chalk from 'chalk';
-import * as degit from 'degit';
+import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
-import tildify = require('tildify');
-import { exec, rmIfExists, detectManager } from './utils';
 import { EOL } from 'os';
-import * as validateAppName from 'validate-npm-package-name';
+import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
+import tildify from 'tildify';
+
+import { clone } from './template';
+import { detectManager, exec, rmIfExists } from './utils';
 
 const localCommand = '@contentful/create-contentful-app';
 const mainCommand = `npx ${localCommand}`;
 
-function successMessage(folder) {
+function successMessage(folder: string) {
   console.log(`
 ${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(tildify(folder))}.
 
@@ -28,25 +27,11 @@ We suggest that you begin by running:
   `);
 }
 
-function updatePackageName(appFolder) {
+function updatePackageName(appFolder: string) {
   const packageJsonPath = resolve(appFolder, 'package.json');
   const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
   packageJson.name = basename(appFolder);
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + EOL);
-}
-
-async function cloneTemplate(name, destination) {
-  const d = degit(`contentful/apps/templates/${name}`, { mode: 'tar' });
-
-  try {
-    await d.clone(destination);
-  } catch (e) {
-    let message = 'Error creating app';
-    if (e.code === 'DEST_NOT_EMPTY') {
-      message = 'destination directory is not empty';
-    }
-    throw new Error(message);
-  }
 }
 
 async function promptAppName() {
@@ -59,7 +44,14 @@ async function promptAppName() {
   ]);
 }
 
-async function initProject(appName, options) {
+type CLIOptions = Partial<{
+  npm: boolean;
+  yarn: boolean;
+  Js: boolean;
+  Ts: boolean;
+}>
+
+async function initProject(appName: string, options: CLIOptions) {
   try {
     if (!appName) {
       const prompt = await promptAppName();
@@ -93,7 +85,7 @@ async function initProject(appName, options) {
     }
 
     const templateType = options.Js ? 'javascript' : 'typescript';
-    await cloneTemplate(templateType, fullAppFolder);
+    await clone(templateType, fullAppFolder);
 
     rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
     rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
