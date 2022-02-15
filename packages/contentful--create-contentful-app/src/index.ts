@@ -59,7 +59,7 @@ async function initProject(appName: string, options: CLIOptions) {
           'create-contentful-app'
         )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
       );
-      appName = undefined;
+      appName = '';
     }
 
     if (!appName) {
