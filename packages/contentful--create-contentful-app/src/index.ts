@@ -1,48 +1,35 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-console, no-process-exit */
-
 import chalk from 'chalk';
-import degit from 'degit';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
-import tildify from 'tildify';
-import { exec, rmIfExists, detectManager } from './utils.js';
-import os from 'os';
+import { EOL } from 'os';
 import validateAppName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
+import tildify from 'tildify';
 
-function successMessage(folder) {
+import { cloneTemplateIn } from './template';
+import { detectManager, exec } from './utils';
+import { CLIOptions } from './types';
+import { choice, code, error, highlight, success, warn } from './logger';
+
+function successMessage(folder: string) {
   console.log(`
-${chalk.cyan('Success!')} Created a new Contentful app in ${chalk.bold(tildify(folder))}.
+${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
 
 We suggest that you begin by running:
 
-    ${chalk.cyan(`cd ${folder}`)}
-    ${chalk.cyan(`npm start`)}
+    ${success(`cd ${folder}`)}
+    ${success(`npm start`)}
   `);
 }
 
-function updatePackageName(appFolder) {
+function updatePackageName(appFolder: string) {
   const packageJsonPath = resolve(appFolder, 'package.json');
   const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
   packageJson.name = basename(appFolder);
-  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + os.EOL);
-}
-
-async function cloneTemplate(name, destination) {
-  const d = degit(`contentful/apps/templates/${name}`, { mode: 'tar' });
-
-  try {
-    await d.clone(destination);
-  } catch (e) {
-    let message = 'Error creating app';
-    if (e.code === 'DEST_NOT_EMPTY') {
-      message = 'destination directory is not empty';
-    }
-    throw new Error(message);
-  }
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + EOL);
 }
 
 async function promptAppName() {
@@ -55,7 +42,7 @@ async function promptAppName() {
   ]);
 }
 
-async function initProject(appName, options) {
+async function initProject(appName: string, options: CLIOptions) {
   try {
     if (appName === 'create-definition') {
       throw new Error(
@@ -93,29 +80,26 @@ async function initProject(appName, options) {
 
     const fullAppFolder = resolve(process.cwd(), appName);
 
-    console.log(`Creating a Contentful app in ${chalk.bold(tildify(fullAppFolder))}.`);
+    console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
     if (options.npm && options.yarn) {
-      console.log(
-        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--yarn')} and ${chalk.bold(
+      warn(
+        `Provided both ${highlight('--yarn')} and ${highlight('--npm')} flags, using ${choice(
           '--npm'
-        )} flags, using ${chalk.greenBright('--npm')}.`
+        )}.`
       );
     }
 
     if (options.Js && options.Ts) {
-      console.log(
-        `${chalk.yellow('Warning:')} Provided both ${chalk.bold('--javascript')} and ${chalk.bold(
+      warn(
+        `Provided both ${highlight('--javascript')} and ${highlight(
           '--typescript'
-        )} flags, using ${chalk.greenBright('--typescript')}.`
+        )} flags, using ${choice('--typescript')}.`
       );
     }
 
-    const templateType = options.Js ? 'javascript' : 'typescript';
-    await cloneTemplate(templateType, fullAppFolder);
+    await cloneTemplateIn(fullAppFolder, options);
 
-    rmIfExists(resolve(fullAppFolder, 'package-lock.json'));
-    rmIfExists(resolve(fullAppFolder, 'yarn.lock'));
     updatePackageName(fullAppFolder);
 
     const useYarn = (options.yarn || detectManager() === 'yarn') && !options.npm;
@@ -128,25 +112,45 @@ async function initProject(appName, options) {
 
     successMessage(fullAppFolder);
   } catch (err) {
-    console.log(`${chalk.red('Error:')} Failed to create ${appName}
-
-  ${err}
-`);
+    error(`Failed to create ${appName}`, String(err));
     process.exit(1);
   }
 }
 
 (async function main() {
   program
-    .name(`npx ${chalk.cyan('@contentful/create-contentful-app')}`)
+    .name(`npx ${success('create-contentful-app')}`)
     .helpOption(true)
-    .description('Bootstraps your app into a newly created directory')
+    .description(
+      [
+        'Bootstrap your app inside a new folder `my-app`',
+        '',
+        code('  create-contentful-app init my-app'),
+        '',
+        'or you can specify your own template',
+        '',
+        code('  create-contentful-app init my-app --templateSource "github:user/repo"'),
+        '',
+        `Contentful official templates are hosted at ${highlight(
+          'https://github.com/contentful/apps/tree/master/templates'
+        )}.`,
+      ].join('\n')
+    )
     .argument('[app-name]', 'app name')
     .option('--npm', 'use NPM')
     .option('--yarn', 'use Yarn')
     .option('--javascript, -js', 'use JavaScript')
     .option('--typescript, -ts', 'use TypeScript')
-    .action(initProject);
 
+    .option(
+      '-t, --templateSource <url>',
+      [
+        `Provide a template by its source repository`,
+        `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code(
+          'github:user/repo'
+        )})`,
+      ].join('\n')
+    )
+    .action(initProject);
   await program.parseAsync();
 })();
