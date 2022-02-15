@@ -47,10 +47,5 @@
       "pre-commit": "npm run pre-commit",
       "commit-msg": "npm run pre-commit"
     }
-  },
-  "dependencies": {
-    "@contentful/app-scripts": "file:packages/contentful--app-scripts",
-    "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
-    "create-contentful-app": "file:packages/create-contentful-app"
   }
 }
