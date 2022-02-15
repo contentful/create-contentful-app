@@ -30,13 +30,10 @@
     "lint:fix": "npm run lint -- --fix",
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-    "build": "PARCEL_WORKERS=0 parcel build ./src/index.ts --dist-dir lib "
+    "build": "tsc"
   },
   "dependencies": {
     "@contentful/app-scripts": "file:../contentful--app-scripts",
-    "@types/chalk": "^2.2.0",
-    "@types/node": "^17.0.17",
-    "@types/tildify": "^2.0.2",
     "chalk": "^4.1.0",
     "commander": "^9.0.0",
     "contentful-management": "^8.0.0",
@@ -61,11 +58,13 @@
     "access": "public"
   },
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/chalk": "^2.2.0",
     "@types/degit": "^2.8.3",
     "@types/inquirer": "^8.2.0",
+    "@types/node": "^17.0.17",
     "@types/rimraf": "^3.0.2",
-    "@types/validate-npm-package-name": "^3.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
-    "@typescript-eslint/parser": "^5.11.0"
+    "@types/tildify": "^2.0.2",
+    "@types/validate-npm-package-name": "^3.0.3"
   }
 }
