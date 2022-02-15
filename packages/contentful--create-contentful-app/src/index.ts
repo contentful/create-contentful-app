@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import { EOL } from 'os';
-import validateAppName from 'validate-npm-package-name';
+import validateNPMPackageName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
@@ -41,38 +41,49 @@ async function promptAppName() {
   ]);
 }
 
+/**
+ * Validates the user input and ensures it can be used as app name. If no app name is provided, shows a prompt.
+ *
+ * @param appName App name entered by the user
+ * @returns Valid app name
+ */
+async function validateAppName(appName: string): Promise<string> {
+  if (appName === 'create-definition') {
+    throw new Error(
+      `The ${code('create-definition')} command has been removed from ${code(
+        'create-contentful-app'
+      )}.\nTo create a new app definition first run ${code(
+        'npx create-contentful-app'
+      )} and then ${code('npm run create-definition')} within the new folder.`
+    );
+  }
+
+  if (appName === 'init') {
+    warn(
+      `The ${code('init')} command has been removed from ${code(
+        'create-contentful-app'
+      )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
+    );
+    appName = '';
+  }
+
+  if (!appName) {
+    const prompt = await promptAppName();
+    appName = prompt.name;
+  }
+
+  if (!validateNPMPackageName(appName).validForNewPackages) {
+    throw new Error(
+      `Cannot create an app named "${appName}". Please choose a different name for your app.`
+    );
+  }
+
+  return appName;
+}
+
 async function initProject(appName: string, options: CLIOptions) {
   try {
-    if (appName === 'create-definition') {
-      throw new Error(
-        `The ${code('create-definition')} command has been removed from ${code(
-          'create-contentful-app'
-        )}.\nTo create a new app definition first run ${code(
-          'npx create-contentful-app'
-        )} and then ${code('npm run create-definition')} within the new folder.`
-      );
-    }
-
-    if (appName === 'init') {
-      warn(
-        `The ${code('init')} command has been removed from ${code(
-          'create-contentful-app'
-        )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
-      );
-      appName = '';
-    }
-
-    if (!appName) {
-      const prompt = await promptAppName();
-      appName = prompt.name;
-    }
-
-    if (!validateAppName(appName).validForNewPackages) {
-      throw new Error(
-        `Cannot create an app named "${appName}". Please choose a different name for your app.`
-      );
-    }
-
+    appName = await validateAppName(appName);
     const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
