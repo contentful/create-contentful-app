@@ -110,7 +110,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .argument('[app-name]', 'Name of the app')
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
-    .option('--javascript, -js', 'Use default javascript template')
+    .option('--javascript, -js', 'Use default Javascript template')
     .option('--typescript, -ts', 'Use default typescript template')
     .option('-t, --templateSource <url>', [
       `Provide a template by its source repository`,
