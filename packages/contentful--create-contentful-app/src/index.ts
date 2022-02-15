@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import { EOL } from 'os';
@@ -46,23 +45,19 @@ async function initProject(appName: string, options: CLIOptions) {
   try {
     if (appName === 'create-definition') {
       throw new Error(
-        `The ${chalk.bold('create-definition')} command has been removed from ${chalk.cyan(
+        `The ${code('create-definition')} command has been removed from ${code(
           'create-contentful-app'
-        )}.\nTo create a new app definition first run ${chalk.cyan(
+        )}.\nTo create a new app definition first run ${code(
           'npx create-contentful-app'
-        )} and then ${chalk.cyan('npm run create-definition')} within the new folder.`
+        )} and then ${code('npm run create-definition')} within the new folder.`
       );
     }
 
     if (appName === 'init') {
-      console.log(
-        `${chalk.yellow('Warning:')} The ${chalk.bold(
-          'init'
-        )} command has been removed from ${chalk.cyan(
+      warn(
+        `The ${code('init')} command has been removed from ${code(
           'create-contentful-app'
-        )}. You can now create new apps running ${chalk.cyan(
-          'npx create-contentful-app'
-        )} directly.`
+        )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
       );
       appName = undefined;
     }
