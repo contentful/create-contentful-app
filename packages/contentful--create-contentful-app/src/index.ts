@@ -111,7 +111,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('--npm', 'Use NPM')
     .option('--yarn', 'Use Yarn')
     .option('--javascript, -js', 'Use default Javascript template')
-    .option('--typescript, -ts', 'Use default typescript template')
+    .option('--typescript, -ts', 'Use default Typescript template')
     .option('-t, --templateSource <url>', [
       `Provide a template by its source repository`,
       `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code('github:user/repo')})`
