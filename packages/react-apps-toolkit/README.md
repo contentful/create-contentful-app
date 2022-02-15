@@ -9,7 +9,7 @@ but can also be used with any other React app bootstrapped with Contentfuls [app
 ## Installation
 
 ```shell
-npm install --save @contentful/react-apps-toolkit
+npm install @contentful/react-apps-toolkit
 # or
 yarn add @contentful/react-apps-toolkit
 ```
