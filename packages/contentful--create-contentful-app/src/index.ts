@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import { createAppDefinition } from '@contentful/app-scripts';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import { EOL } from 'os';
-import validateAppName from 'validate-npm-package-name';
+import validateNPMPackageName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
@@ -14,9 +13,6 @@ import { detectManager, exec } from './utils';
 import { CLIOptions } from './types';
 import { choice, code, error, highlight, success, warn } from './logger';
 
-const localCommand = '@contentful/create-contentful-app';
-const mainCommand = `npx ${localCommand}`;
-
 function successMessage(folder: string) {
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
@@ -24,7 +20,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
 We suggest that you begin by running:
 
     ${success(`cd ${folder}`)}
-    ${success(`${mainCommand} create-definition`)}
+    ${success(`npm start`)}
   `);
 }
 
@@ -40,38 +36,72 @@ async function promptAppName() {
     {
       name: 'name',
       message: 'App name',
-      default: 'contentful-app'
-    }
+      default: 'contentful-app',
+    },
   ]);
+}
+
+/**
+ * Validates the user input and ensures it can be used as app name. If no app name is provided, shows a prompt.
+ *
+ * @param appName App name entered by the user
+ * @returns Valid app name
+ */
+async function validateAppName(appName: string): Promise<string> {
+  if (appName === 'create-definition') {
+    throw new Error(
+      `The ${code('create-definition')} command has been removed from ${code(
+        'create-contentful-app'
+      )}.\nTo create a new app definition first run ${code(
+        'npx create-contentful-app'
+      )} and then ${code('npm run create-definition')} within the new folder.`
+    );
+  }
+
+  if (appName === 'init') {
+    warn(
+      `The ${code('init')} command has been removed from ${code(
+        'create-contentful-app'
+      )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
+    );
+    appName = '';
+  }
+
+  if (!appName) {
+    const prompt = await promptAppName();
+    appName = prompt.name;
+  }
+
+  if (!validateNPMPackageName(appName).validForNewPackages) {
+    throw new Error(
+      `Cannot create an app named "${appName}". Please choose a different name for your app.`
+    );
+  }
+
+  return appName;
 }
 
 async function initProject(appName: string, options: CLIOptions) {
   try {
-    if (!appName) {
-      const prompt = await promptAppName();
-      appName = prompt.name;
-    }
-
-    if (!validateAppName(appName).validForNewPackages) {
-      throw new Error(
-        `Cannot create an app named "${appName}". Please choose a different name for your app.`
-      );
-    }
-
+    appName = await validateAppName(appName);
     const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
     if (options.npm && options.yarn) {
-      warn(`Provided both ${highlight('--yarn')} and ${highlight(
-        '--npm'
-      )} flags, using ${choice('--npm')}.`);
+      warn(
+        `Provided both ${highlight('--yarn')} and ${highlight('--npm')} flags, using ${choice(
+          '--npm'
+        )}.`
+      );
     }
 
     if (options.Js && options.Ts) {
-      warn(`Provided both ${highlight('--javascript')} and ${highlight(
-        '--typescript'
-      )} flags, using ${choice('--typescript')}.`);
+      warn(
+        `Provided both ${highlight('--javascript')} and ${highlight(
+          '--typescript'
+        )} flags, using ${choice('--typescript')}.`
+      );
     }
 
     await cloneTemplateIn(fullAppFolder, options);
@@ -95,42 +125,38 @@ async function initProject(appName: string, options: CLIOptions) {
 
 (async function main() {
   program
-    .command('init', { isDefault: true })
-    .description([
-      'Bootstrap your app inside a new folder ‘my-app’',
-      '',
-      code('  create-contentful-app init my-app'),
-      '',
-      'or you can specify your own template',
-      '',
-      code('  create-contentful-app init my-app --templateSource "github:user/repo"'),
-      '',
-      `Contentful official templates are hosted at ${highlight('https://github.com/contentful/apps/tree/master/templates')}.`
-    ].join('\n'))
-    .argument('[app-name]', 'Name of the app')
-    .option('--npm', 'Use NPM')
-    .option('--yarn', 'Use Yarn')
-    .option('--javascript, -js', 'Use default Javascript template')
-    .option('--typescript, -ts', 'Use default Typescript template')
-    .option('-t, --templateSource <url>', [
-      `Provide a template by its source repository`,
-      `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code('github:user/repo')})`
-    ].join('\n'))
-    .action(initProject);
-
-  program
-    .command('create-definition')
+    .name(`npx ${success('create-contentful-app')}`)
+    .helpOption(true)
     .description(
-      'Creates an app definition for your app in a Contentful organization of your choice.'
+      [
+        'Bootstrap your app inside a new folder `my-app`',
+        '',
+        code('  create-contentful-app init my-app'),
+        '',
+        'or you can specify your own template',
+        '',
+        code('  create-contentful-app init my-app --templateSource "github:user/repo"'),
+        '',
+        `Contentful official templates are hosted at ${highlight(
+          'https://github.com/contentful/apps/tree/master/templates'
+        )}.`,
+      ].join('\n')
     )
-    .action(async () => {
-      await createAppDefinition.interactive();
-    });
+    .argument('[app-name]', 'app name')
+    .option('--npm', 'use NPM')
+    .option('--yarn', 'use Yarn')
+    .option('--javascript, -js', 'use JavaScript')
+    .option('--typescript, -ts', 'use TypeScript')
 
-  program
-    .name(success('@contentful/create-contentful-app'))
-    .usage(success('[options] {[app-name]|[command]}'))
-    .helpOption(false);
-
+    .option(
+      '-t, --templateSource <url>',
+      [
+        `Provide a template by its source repository`,
+        `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code(
+          'github:user/repo'
+        )})`,
+      ].join('\n')
+    )
+    .action(initProject);
   await program.parseAsync();
 })();
