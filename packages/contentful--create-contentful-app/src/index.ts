@@ -8,10 +8,10 @@ import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
 
-import { cloneTemplateIn } from './template';
-import { detectManager, exec } from './utils';
+import { cloneExampleIn } from './template';
+import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
-import { choice, code, error, highlight, success, warn } from './logger';
+import { code, error, highlight, success, warn } from './logger';
 
 function successMessage(folder: string) {
   console.log(`
@@ -82,35 +82,19 @@ async function validateAppName(appName: string): Promise<string> {
 }
 
 async function initProject(appName: string, options: CLIOptions) {
+  const normalizedOptions = normalizeOptions(options);
+
   try {
     appName = await validateAppName(appName);
     const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    if (options.npm && options.yarn) {
-      warn(
-        `Provided both ${highlight('--yarn')} and ${highlight('--npm')} flags, using ${choice(
-          '--npm'
-        )}.`
-      );
-    }
-
-    if (options.Js && options.Ts) {
-      warn(
-        `Provided both ${highlight('--javascript')} and ${highlight(
-          '--typescript'
-        )} flags, using ${choice('--typescript')}.`
-      );
-    }
-
-    await cloneTemplateIn(fullAppFolder, options);
+    await cloneExampleIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);
 
-    const useYarn = (options.yarn || detectManager() === 'yarn') && !options.npm;
-
-    if (useYarn) {
+    if (normalizedOptions.yarn || detectManager() === 'yarn') {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
       await exec('npm', ['install'], { cwd: fullAppFolder });
@@ -149,7 +133,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('--typescript, -ts', 'use TypeScript')
 
     .option(
-      '-t, --templateSource <url>',
+      '-s, --source <url>',
       [
         `Provide a template by its source repository`,
         `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code(
@@ -157,6 +141,7 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
+    .option('-e, --example <example-name>', 'Bootstrap an example app from https://github.com/contentful/apps/tree/master/examples')
     .action(initProject);
   await program.parseAsync();
 })();

@@ -3,10 +3,11 @@ export type CLIOptions = Partial<{
   yarn: boolean;
   Js: boolean;
   Ts: boolean;
-  templateSource: string
+  source: string;
+  example: string;
 }>
 
-export const ContentfulTemplate = {
+export const ContentfulExample = {
   Javascript: 'javascript',
   Typescript: 'typescript'
 };

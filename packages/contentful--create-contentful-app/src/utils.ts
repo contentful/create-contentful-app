@@ -1,6 +1,10 @@
 import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
 import { existsSync, rmSync } from 'fs';
 import { basename } from 'path';
+import { choice, highlight, warn } from './logger';
+import { CLIOptions } from './types';
+
+const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'Js', 'Ts'] as const;
 
 export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
@@ -30,4 +34,52 @@ export function detectManager() {
     default:
       return 'npm';
   }
+}
+
+export function normalizeOptions(options: CLIOptions): CLIOptions {
+  const normalizedOptions: CLIOptions = { ...options, Ts: true };
+
+  if (normalizedOptions.npm && normalizedOptions.yarn) {
+    warn(
+      `Provided both ${highlight('--yarn')} and ${highlight('--npm')} flags, using ${choice(
+        '--npm'
+      )}.`
+    );
+    delete normalizedOptions.yarn;
+  }
+
+  const mutuallyExclusiveOptions = [];
+  let fallbackOption = '--typescript';
+
+  MUTUALLY_EXCLUSIVE_OPTIONS.forEach((option) => {
+    if (normalizedOptions[option]) {
+      mutuallyExclusiveOptions.push(option);
+    }
+  });
+
+  if (normalizedOptions.source) {
+    fallbackOption = '--source';
+    delete normalizedOptions.example;
+    delete normalizedOptions.Ts;
+    delete normalizedOptions.Js;
+  }
+
+  if (normalizedOptions.example) {
+    fallbackOption = '--example';
+    delete normalizedOptions.Ts;
+    delete normalizedOptions.Js;
+  }
+
+  if (normalizedOptions.Ts) {
+    fallbackOption = '--typescript';
+    delete normalizedOptions.Js;
+  }
+
+  if (mutuallyExclusiveOptions.length > 1) {
+    warn(
+      `Options ${highlight('--source')}, ${highlight('--example')}, ${highlight('--typescript')} and ${highlight('--javascript')} are mutually exclusive, using ${choice(fallbackOption)}.`
+    );
+  }
+
+  return normalizedOptions;
 }
