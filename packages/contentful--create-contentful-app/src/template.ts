@@ -28,7 +28,7 @@ function makeContentfulExampleSource(options: CLIOptions) {
 function getExampleSource(options: CLIOptions) {
   const source = options.source ?? makeContentfulExampleSource(options);
 
-  if (!isContentfulExample(source)) {
+  if (options.source && !isContentfulExample(source)) {
     warn(`Example at ${highlight(source)} is not an official Contentful app example!`);
   }
 

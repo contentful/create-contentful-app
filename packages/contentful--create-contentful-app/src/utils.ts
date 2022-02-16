@@ -37,7 +37,7 @@ export function detectManager() {
 }
 
 export function normalizeOptions(options: CLIOptions): CLIOptions {
-  const normalizedOptions: CLIOptions = { ...options, Ts: true };
+  const normalizedOptions: CLIOptions = { ...options };
 
   if (normalizedOptions.npm && normalizedOptions.yarn) {
     warn(
@@ -73,6 +73,10 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   if (normalizedOptions.Ts) {
     fallbackOption = '--typescript';
     delete normalizedOptions.Js;
+  }
+
+  if (!normalizedOptions.Js) {
+    normalizedOptions.Ts = true;
   }
 
   if (mutuallyExclusiveOptions.length > 1) {
