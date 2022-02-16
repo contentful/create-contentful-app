@@ -129,9 +129,8 @@ async function initProject(appName: string, options: CLIOptions) {
     .argument('[app-name]', 'app name')
     .option('--npm', 'use NPM')
     .option('--yarn', 'use Yarn')
-    .option('--javascript, -js', 'use JavaScript')
-    .option('--typescript, -ts', 'use TypeScript')
-
+    .option('--javascript, -js', 'use default JavaScript template')
+    .option('--typescript, -ts', 'use default TypeScript template')
     .option(
       '-s, --source <url>',
       [
