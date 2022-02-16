@@ -48,6 +48,10 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.yarn;
   }
 
+  if (!normalizedOptions.yarn) {
+    normalizedOptions.npm = true;
+  }
+
   const mutuallyExclusiveOptions = [];
   let fallbackOption = '--typescript';
 
