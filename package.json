@@ -9,10 +9,9 @@
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
-    "bootstrap": "lerna link && lerna exec npm install",
+    "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "build": "lerna run build",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --force-publish",
     "publish": "lerna publish from-git --yes --no-verify-access",
     "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
@@ -21,22 +20,24 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
-    "@commitlint/config-conventional": "16.0.0",
+    "@commitlint/config-conventional": "16.2.1",
+    "@octokit/rest": "18.12.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "babel-eslint": "10.1.0",
     "commitizen": "^4.0.3",
     "cz-customizable": "6.3.0",
-    "eslint": "8.8.0",
+    "eslint": "8.9.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-node": "11.1.0",
     "fs-extra": "^10.0.0",
     "husky": "^4.1.0",
     "lerna": "^4.0.0",
-    "lint-staged": "12.3.2",
+    "lint-staged": "12.3.4",
     "mocha": "^9.0.0",
     "prettier": "2.5.1",
     "proxyquire": "^2.1.3",
+    "simple-git": "3.2.4",
     "sinon": "^13.0.0",
     "typescript": "^4.2.4"
   },
@@ -48,8 +49,8 @@
   },
   "dependencies": {
     "@contentful/app-scripts": "file:packages/contentful--app-scripts",
+    "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
     "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
-    "create-contentful-app": "file:packages/create-contentful-app",
-    "@contenful/react-apps-toolkit": "file:packages/react-apps-toolkit"
+    "create-contentful-app": "file:packages/create-contentful-app"
   }
 }

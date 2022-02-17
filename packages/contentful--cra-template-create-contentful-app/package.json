@@ -1,5 +1,5 @@
 {
-  "name": "create-contentful-app",
+  "name": "@contentful/cra-template-create-contentful-app",
   "version": "0.14.128",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
@@ -7,38 +7,42 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/contentful/create-contentful-app.git",
-    "directory": "packages/create-contentful-app"
+    "directory": "packages/contentful--cra-template-create-contentful-app"
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=12",
     "npm": ">=6"
   },
-  "main": "index.js",
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "bin": {
-    "create-contentful-app": "index.js"
-  },
-  "dependencies": {
-    "@contentful/create-contentful-app": "file:../contentful--create-contentful-app"
-  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "keywords": [
+    "contentful",
+    "contentful-app",
+    "create-contentful-app"
+  ],
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
-  "files": [
-    "index.js"
-  ],
+  "main": "template.json",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
