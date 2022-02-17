@@ -10,19 +10,19 @@ import { rmIfExists } from './utils';
 const EXAMPLES_PATH = 'contentful/apps/examples/';
 
 function isContentfulExample(url: string) {
-  return Object.values(ContentfulExample).some(t => url.includes('contentful/apps/examples/' + t));
+  return Object.values(ContentfulExample).some(t => url.includes(EXAMPLES_PATH + t));
 }
 
 function makeContentfulExampleSource(options: CLIOptions) {
   if (options.example) {
-    return `${EXAMPLES_PATH}${options.example}`;
+    return EXAMPLES_PATH + options.example;
   }
 
   if (options.Js) {
-    return `${EXAMPLES_PATH}${ContentfulExample.Javascript}`;
+    return EXAMPLES_PATH + ContentfulExample.Javascript;
   }
 
-  return `${EXAMPLES_PATH}${ContentfulExample.Typescript}`;
+  return EXAMPLES_PATH + ContentfulExample.Typescript;
 }
 
 function getExampleSource(options: CLIOptions) {
@@ -36,7 +36,7 @@ function getExampleSource(options: CLIOptions) {
 }
 
 async function clone(source: string, destination: string) {
-  const d = degit(source, { mode: 'tar' });
+  const d = degit(source, { mode: 'tar', cache: false });
 
   try {
     await d.clone(destination);
@@ -53,7 +53,7 @@ function validate(destination: string): void {
   const packageJSONLocation = `${destination}/package.json`;
   if (!existsSync(packageJSONLocation)) {
     throw new Error(
-      `Invalid example: missing "${packageJSONLocation}".`
+      `Invalid template: missing "${packageJSONLocation}".`
     );
   }
 
@@ -61,11 +61,11 @@ function validate(destination: string): void {
   try {
     packageJSON = JSON.parse(readFileSync(packageJSONLocation, 'utf-8'));
   } catch (e) {
-    throw new Error(`Invalid example: invalid "${packageJSONLocation}".`);
+    throw new Error(`Invalid template: invalid "${packageJSONLocation}".`);
   }
 
   if (!Object.keys(packageJSON.dependencies).includes('@contentful/app-sdk')) {
-    throw new Error(`Invalid example: missing "@contentful/app-sdk" in "${packageJSONLocation}".`);
+    throw new Error(`Invalid template: missing "@contentful/app-sdk" in "${packageJSONLocation}".`);
   }
 }
 
@@ -74,7 +74,7 @@ function cleanUp(destination: string) {
   rmIfExists(resolve(destination, 'yarn.lock'));
 }
 
-export async function cloneExampleIn(destination: string, options: CLIOptions) {
+export async function cloneTemplateIn(destination: string, options: CLIOptions) {
   const source = getExampleSource(options);
 
   await clone(source, destination);

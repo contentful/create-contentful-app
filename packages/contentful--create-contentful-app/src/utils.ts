@@ -52,14 +52,10 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     normalizedOptions.npm = true;
   }
 
-  const mutuallyExclusiveOptions = [];
   let fallbackOption = '--typescript';
 
-  MUTUALLY_EXCLUSIVE_OPTIONS.forEach((option) => {
-    if (normalizedOptions[option]) {
-      mutuallyExclusiveOptions.push(option);
-    }
-  });
+  const currentMutuallyExclusiveOptions = MUTUALLY_EXCLUSIVE_OPTIONS
+    .filter((option) => normalizedOptions[option]);
 
   if (normalizedOptions.source) {
     fallbackOption = '--source';
@@ -83,7 +79,7 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     normalizedOptions.Ts = true;
   }
 
-  if (mutuallyExclusiveOptions.length > 1) {
+  if (currentMutuallyExclusiveOptions.length > 1) {
     warn(
       `Options ${highlight('--source')}, ${highlight('--example')}, ${highlight('--typescript')} and ${highlight('--javascript')} are mutually exclusive, using ${choice(fallbackOption)}.`
     );

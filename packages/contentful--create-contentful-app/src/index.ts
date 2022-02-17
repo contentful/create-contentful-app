@@ -8,10 +8,12 @@ import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
 
-import { cloneExampleIn } from './template';
+import { cloneTemplateIn } from './template';
 import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
 import { code, error, highlight, success, warn } from './logger';
+
+const DEFAULT_APP_NAME = 'contentful-app';
 
 function successMessage(folder: string) {
   console.log(`
@@ -36,7 +38,7 @@ async function promptAppName() {
     {
       name: 'name',
       message: 'App name',
-      default: 'contentful-app',
+      default: DEFAULT_APP_NAME,
     },
   ]);
 }
@@ -90,7 +92,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    await cloneExampleIn(fullAppFolder, normalizedOptions);
+    await cloneTemplateIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);
 
