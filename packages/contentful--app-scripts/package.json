@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "0.14.105",
+  "version": "0.14.128",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -31,8 +31,7 @@
     "test": "mocha ./lib/**/*.test.js ./lib/*.test.js ./utils/**/*.test.js",
     "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-    "build": "echo \"Nothing to build\""
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -55,8 +54,8 @@
     "bottleneck": "^2.19.5",
     "chalk": "^4.1.0",
     "commander": "^9.0.0",
-    "contentful-management": "^7.14.0",
-    "dotenv": "^15.0.0",
+    "contentful-management": "^8.0.0",
+    "dotenv": "^16.0.0",
     "ignore": "^5.1.8",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
