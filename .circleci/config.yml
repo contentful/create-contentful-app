@@ -12,12 +12,12 @@ install-deps: &install-deps
 executors:
   node-container-lts:
     docker:
-      - image: node:16
+      - image: cimg/node:16.13
         environment: *base-env
 
   node-container-latest:
     docker:
-      - image: node:17
+      - image: cimg/node:current
         environment: *base-env
 
 commands:
@@ -104,7 +104,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.13
     steps:
       - prepare-release
       - run: npm run version
@@ -112,7 +112,7 @@ jobs:
 
   release-canary:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.13
     steps:
       - prepare-release
       - run: npm run publish:canary
