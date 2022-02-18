@@ -3,23 +3,32 @@ import { existsSync, readFileSync } from 'fs';
 import degit from 'degit';
 import rimraf from 'rimraf';
 
-import { CLIOptions, ContentfulTemplate } from './types';
+import { CLIOptions, ContentfulExample } from './types';
 import { highlight, warn } from './logger';
 import { rmIfExists } from './utils';
 
+const EXAMPLES_PATH = 'contentful/apps/examples/';
+
 function isContentfulTemplate(url: string) {
-  return Object.values(ContentfulTemplate).some(t => url.includes('contentful/apps/templates/' + t));
+  return Object.values(ContentfulExample).some(t => url.includes(EXAMPLES_PATH + t));
 }
 
-function makeContentfulTemplateSource(options: CLIOptions) {
-  const name = options.Js ? ContentfulTemplate.Javascript : ContentfulTemplate.Typescript;
-  return `contentful/apps/templates/${name}`;
+function makeContentfulExampleSource(options: CLIOptions) {
+  if (options.example) {
+    return EXAMPLES_PATH + options.example;
+  }
+
+  if (options.Js) {
+    return EXAMPLES_PATH + ContentfulExample.Javascript;
+  }
+
+  return EXAMPLES_PATH + ContentfulExample.Typescript;
 }
 
 function getTemplateSource(options: CLIOptions) {
-  const source = options.templateSource ?? makeContentfulTemplateSource(options);
+  const source = options.source ?? makeContentfulExampleSource(options);
 
-  if (!isContentfulTemplate(source)) {
+  if (options.source && !isContentfulTemplate(source)) {
     warn(`Template at ${highlight(source)} is not an official Contentful app template!`);
   }
 
@@ -27,7 +36,7 @@ function getTemplateSource(options: CLIOptions) {
 }
 
 async function clone(source: string, destination: string) {
-  const d = degit(source, { mode: 'tar' });
+  const d = degit(source, { mode: 'tar', cache: false });
 
   try {
     await d.clone(destination);
@@ -73,7 +82,7 @@ export async function cloneTemplateIn(destination: string, options: CLIOptions) 
   try {
     validate(destination);
   } catch (e) {
-    // cleanup in case of invalid template
+    // cleanup in case of invalid example
     rimraf.sync(destination);
     throw e;
   }
