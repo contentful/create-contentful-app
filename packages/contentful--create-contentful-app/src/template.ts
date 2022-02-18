@@ -9,7 +9,7 @@ import { rmIfExists } from './utils';
 
 const EXAMPLES_PATH = 'contentful/apps/examples/';
 
-function isContentfulExample(url: string) {
+function isContentfulTemplate(url: string) {
   return Object.values(ContentfulExample).some(t => url.includes(EXAMPLES_PATH + t));
 }
 
@@ -25,11 +25,11 @@ function makeContentfulExampleSource(options: CLIOptions) {
   return EXAMPLES_PATH + ContentfulExample.Typescript;
 }
 
-function getExampleSource(options: CLIOptions) {
+function getTemplateSource(options: CLIOptions) {
   const source = options.source ?? makeContentfulExampleSource(options);
 
-  if (options.source && !isContentfulExample(source)) {
-    warn(`Example at ${highlight(source)} is not an official Contentful app example!`);
+  if (options.source && !isContentfulTemplate(source)) {
+    warn(`Template at ${highlight(source)} is not an official Contentful app template!`);
   }
 
   return source;
@@ -75,7 +75,7 @@ function cleanUp(destination: string) {
 }
 
 export async function cloneTemplateIn(destination: string, options: CLIOptions) {
-  const source = getExampleSource(options);
+  const source = getTemplateSource(options);
 
   await clone(source, destination);
 
