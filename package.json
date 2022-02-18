@@ -53,6 +53,6 @@
     "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
     "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
     "create-contentful-app": "file:packages/create-contentful-app",
-    "@contenful/react-apps-toolkit": "file:packages/react-apps-toolkit"
+    "@contenful/react-apps-toolkit": "file:packages/contentful--react-apps-toolkit"
   }
 }
