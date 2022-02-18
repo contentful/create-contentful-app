@@ -48,6 +48,13 @@ commands:
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
+  build:
+    steps:
+      - checkout
+      - *install-deps
+      - run:
+          name: Run build
+          command: npm run build
 
   prepare-release:
     steps:
@@ -127,6 +134,11 @@ jobs:
     steps:
       - lint-and-test
 
+  build:
+    executor: node-container-latest
+    steps:
+      - build
+
   test-built-app-lts:
     executor: node-container-lts
     steps:
@@ -159,6 +171,7 @@ workflows:
       - test-built-app-lts:
           requires:
             - lint-and-test-lts
+      - build
 
       - release:
           filters:
@@ -166,6 +179,7 @@ workflows:
               only: master
           requires:
             - test-built-app-lts
+            - build
 
 
       - release-canary:
@@ -174,8 +188,10 @@ workflows:
               only: canary
           requires:
             - test-built-app-lts
+            - build
 
       - lint-and-test-latest
       - test-built-app-latest:
           requires:
             - lint-and-test-latest
+
