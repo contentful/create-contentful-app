@@ -1,10 +1,19 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "module": "ES2015",
-    "moduleResolution": "Node",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "declaration": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
     "outDir": "dist",
-  },
-  "files": ["src/index.ts"]
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true
+  }
 }
