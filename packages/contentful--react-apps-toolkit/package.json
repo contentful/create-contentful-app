@@ -5,17 +5,9 @@
   "keywords": [],
   "author": "Contentful GmbH",
   "license": "MIT",
-  "engines": {
-    "node": ">=14",
-    "npm": ">=6"
-  },
   "main": "dist/index.js",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
-  },
-  "bin": {
-    "react-apps-toolkit": "dist/index.js"
   },
   "lint-staged": {
     "*.js": [
