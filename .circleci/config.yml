@@ -12,12 +12,12 @@ install-deps: &install-deps
 executors:
   node-container-lts:
     docker:
-      - image: node:16
+      - image: cimg/node:16.14
         environment: *base-env
 
   node-container-latest:
     docker:
-      - image: node:17
+      - image: cimg/node:current
         environment: *base-env
 
 commands:
@@ -43,8 +43,8 @@ commands:
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
-            mkdir "${TMPDIR}/${PROJECT}"
-            cd "${TMPDIR}/${PROJECT}"
+            mkdir "/tmp/${PROJECT}"
+            cd "/tmp/${PROJECT}"
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             npm t
@@ -97,8 +97,8 @@ jobs:
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
-            mkdir "${TMPDIR}/${PROJECT}"
-            cd "${TMPDIR}/${PROJECT}"
+            mkdir "/tmp/${PROJECT}"
+            cd "/tmp/${PROJECT}"
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
             cd test
             (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
@@ -111,7 +111,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.14
     steps:
       - prepare-release
       - run: npm run version
@@ -119,7 +119,7 @@ jobs:
 
   release-canary:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.14
     steps:
       - prepare-release
       - run: npm run publish:canary
