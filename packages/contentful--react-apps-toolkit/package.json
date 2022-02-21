@@ -22,6 +22,9 @@
       "git add"
     ]
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rimraf dist && tsc",
     "pre-commit": "lint-staged",
