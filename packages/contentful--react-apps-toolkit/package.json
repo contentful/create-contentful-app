@@ -14,6 +14,7 @@
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
+  "homepage": "https://github.com/contentful/create-contentful-app/tree/master/packages/contentful--react-apps-toolkit#readme",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
