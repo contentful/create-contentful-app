@@ -6,6 +6,11 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/contentful--react-apps-toolkit"
+  },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
