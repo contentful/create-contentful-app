@@ -15,10 +15,9 @@
   },
   "main": "lib/index.js",
   "lint-staged": {
-    "*.{js}": [
+    "*.js": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "bin": {
