@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.136](https://github.com/contentful/create-contentful-app/compare/v0.14.135...v0.14.136) (2022-02-22)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.135](https://github.com/contentful/create-contentful-app/compare/v0.14.134...v0.14.135) (2022-02-22)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.134](https://github.com/contentful/create-contentful-app/compare/v0.14.133...v0.14.134) (2022-02-21)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.133](https://github.com/contentful/create-contentful-app/compare/v0.14.132...v0.14.133) (2022-02-21)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.132](https://github.com/contentful/create-contentful-app/compare/v0.14.131...v0.14.132) (2022-02-21)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.131](https://github.com/contentful/create-contentful-app/compare/v0.14.130...v0.14.131) (2022-02-21)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.130](https://github.com/contentful/create-contentful-app/compare/v0.14.129...v0.14.130) (2022-02-18)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+
+
+
+
+## [0.14.129](https://github.com/contentful/create-contentful-app/compare/v0.14.128...v0.14.129) (2022-02-17)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 8.1.2 to 8.1.3 ([d727cbd](https://github.com/contentful/create-contentful-app/commit/d727cbdf66c43bbd178c634c1d38639cec81ca6c))
+
+
+
+
+
 ## [0.14.128](https://github.com/contentful/create-contentful-app/compare/v0.14.127...v0.14.128) (2022-02-15)
 
 **Note:** Version bump only for package @contentful/create-contentful-app

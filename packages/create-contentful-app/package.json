@@ -1,6 +1,6 @@
 {
   "name": "create-contentful-app",
-  "version": "0.14.128",
+  "version": "0.15.0",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -18,8 +18,7 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "bin": {

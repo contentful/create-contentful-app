@@ -22,7 +22,7 @@ executors:
 
   node-container-latest:
     docker:
-      - image: node:17
+      - image: cimg/node:current
         environment: *base-env
 
 commands:
@@ -48,8 +48,8 @@ commands:
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
-            mkdir "${TMPDIR}/${PROJECT}"
-            cd "${TMPDIR}/${PROJECT}"
+            mkdir "/tmp/${PROJECT}"
+            cd "/tmp/${PROJECT}"
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" test
             cd test
             npm t
@@ -66,7 +66,7 @@ commands:
 jobs:
   release:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16
     steps:
       - prepare-release
       - run: npm run version
@@ -74,7 +74,7 @@ jobs:
 
   release-canary:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16
     steps:
       - prepare-release
       - run: npm run publish:canary
