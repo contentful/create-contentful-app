@@ -1,6 +1,6 @@
 {
   "name": "@contentful/cra-template-create-contentful-app",
-  "version": "0.14.133",
+  "version": "0.15.0",
   "description": "A template for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -37,12 +37,10 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.css": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
