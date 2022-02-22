@@ -56,7 +56,7 @@ async function validateAppName(appName: string): Promise<string> {
         'create-contentful-app'
       )}.\nTo create a new app definition first run ${code(
         'npx create-contentful-app'
-      )} and then ${code('npm run create-definition')} within the new folder.`
+      )} and then ${code('npm run create-app-definition')} within the new folder.`
     );
   }
 
