@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.0](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.0...create-contentful-app@1.1.0-alpha.0) (2022-02-22)
+
+
+### Features
+
+* EXT-3461 support custom templates ([#868](https://github.com/contentful/create-contentful-app/issues/868)) ([c21a7d5](https://github.com/contentful/create-contentful-app/commit/c21a7d52a29ccc871a04d4ea4bedf9d46f41ddcb))
+* remove `init` and `create-definition` command [EXT-2746] ([#867](https://github.com/contentful/create-contentful-app/issues/867)) ([0c70401](https://github.com/contentful/create-contentful-app/commit/0c704019566cc96f511c3caf35dca870ce139f5b))
+* replace create-react-app with degit [EXT-3404] ([#845](https://github.com/contentful/create-contentful-app/issues/845)) ([3c9376b](https://github.com/contentful/create-contentful-app/commit/3c9376b1f6be93b9325de6b06504263ffb6161af))
+
+
+
+
+
 # 0.15.0 (2022-02-22)
 
 
