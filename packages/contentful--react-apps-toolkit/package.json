@@ -1,0 +1,48 @@
+{
+  "name": "@contentful/react-apps-toolkit",
+  "version": "0.0.1",
+  "description": "Toolkit for building a Contentful app in React",
+  "keywords": [],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/contentful--react-apps-toolkit"
+  },
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app/tree/master/packages/contentful--react-apps-toolkit#readme",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "jest",
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^12.1.3",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/jest": "^27.4.0",
+    "@types/react": "^17.0.39",
+    "jest": "^27.5.0",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -9,9 +9,10 @@
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna link && lerna exec npm install",
     "test": "lerna run test",
     "lint": "lerna run lint",
+    "build": "lerna run build",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
     "publish": "lerna publish from-git --yes --no-verify-access",
     "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
@@ -51,6 +52,7 @@
     "@contentful/app-scripts": "file:packages/contentful--app-scripts",
     "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
     "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
-    "create-contentful-app": "file:packages/create-contentful-app"
+    "create-contentful-app": "file:packages/create-contentful-app",
+    "@contenful/react-apps-toolkit": "file:packages/contentful--react-apps-toolkit"
   }
 }
