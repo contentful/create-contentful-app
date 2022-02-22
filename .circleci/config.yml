@@ -121,8 +121,7 @@ workflows:
       - release-canary:
           filters:
             branches:
-              # TODO: revert to canary after testing
-              only: ci/fix-deployments
+              only: canary
           requires:
             - test-built-app-lts
 
