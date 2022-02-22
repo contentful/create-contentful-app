@@ -6,10 +6,7 @@ const { isString, isPlainObject, has } = require('lodash');
 
 const { throwValidationException, selectFromList } = require('../utils');
 const { cacheEnvVars } = require('../../utils/cache-credential');
-const {
-  ORG_ID_ENV_KEY,
-  APP_DEF_ENV_KEY,
-} = require('../../utils/constants');
+const { ORG_ID_ENV_KEY, APP_DEF_ENV_KEY } = require('../../utils/constants');
 
 async function fetchOrganizations(client) {
   try {
@@ -64,7 +61,11 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   const client = createClient({ accessToken });
   const organizations = await fetchOrganizations(client);
 
-  const selectedOrg = await selectFromList(organizations, 'Select an organization for your app:', ORG_ID_ENV_KEY);
+  const selectedOrg = await selectFromList(
+    organizations,
+    'Select an organization for your app:',
+    ORG_ID_ENV_KEY
+  );
   const organizationId = selectedOrg.value;
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
@@ -89,7 +90,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
     const organization = await client.getOrganization(organizationId);
     const createdAppDefinition = await organization.createAppDefinition(body);
     await cacheEnvVars({
-      [APP_DEF_ENV_KEY]: createdAppDefinition.sys.id
+      [APP_DEF_ENV_KEY]: createdAppDefinition.sys.id,
     });
 
     console.log(`
@@ -111,7 +112,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
   } catch (err) {
     console.log(`
   Something went wrong while creating the app definition.
-  Run ${chalk.cyan('`npx @contentful/create-contentful-app create-definition`')} to try again.
+  Run ${chalk.cyan('`npx @contentful/app-scripts create-app-definition`')} to try again.
 
   ${err.message}
     `);
