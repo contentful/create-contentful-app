@@ -14,7 +14,8 @@
     "lint": "lerna run lint",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
     "publish": "lerna publish from-git --yes --no-verify-access",
-    "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
+    "version:canary": "npm run version -- --conventional-prerelease",
+    "publish:canary": "npm run publish -- --canary",
     "pre-commit": "lerna run pre-commit",
     "commit-msg": "lerna run commit-msg",
     "build": "lerna run build"
