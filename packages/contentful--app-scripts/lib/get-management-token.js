@@ -5,20 +5,17 @@ const open = require('open');
 const inquirer = require('inquirer');
 const { cacheEnvVars } = require('../utils/cache-credential');
 const { createClient } = require('contentful-management');
-const {
-  ACCESS_TOKEN_ENV_KEY
-} = require('../utils/constants');
+const { ACCESS_TOKEN_ENV_KEY } = require('../utils/constants');
 
 const checkTokenValidity = async (accessToken) => {
   try {
     const client = createClient({ accessToken });
     await client.getCurrentUser();
     return true;
-
-  } catch(err) {
+  } catch (err) {
     return false;
   }
-}
+};
 
 async function getManagementToken() {
   const redirectUrl = 'https://www.contentful.com/developers/cli-oauth-page/';
@@ -57,7 +54,7 @@ async function getManagementToken() {
     },
   ]);
 
-  await cacheEnvVars({[ACCESS_TOKEN_ENV_KEY]: mgmtToken});
+  await cacheEnvVars({ [ACCESS_TOKEN_ENV_KEY]: mgmtToken });
 
   return mgmtToken;
 }

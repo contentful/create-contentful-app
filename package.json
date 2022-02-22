@@ -9,9 +9,10 @@
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna link && lerna exec npm install",
     "test": "lerna run test",
     "lint": "lerna run lint",
+    "build": "lerna run build",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
     "publish": "lerna publish from-git --yes --no-verify-access",
     "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
@@ -37,7 +38,7 @@
     "mocha": "^9.0.0",
     "prettier": "2.5.1",
     "proxyquire": "^2.1.3",
-    "simple-git": "3.2.4",
+    "simple-git": "3.2.6",
     "sinon": "^13.0.0",
     "typescript": "^4.2.4"
   },

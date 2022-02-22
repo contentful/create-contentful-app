@@ -25,10 +25,10 @@ describe('getManagementToken', () => {
           return {
             async getOrganizations() {
               throw new Error();
-            }
-          }
-        }
-      }
+            },
+          };
+        },
+      },
     }));
   });
 
