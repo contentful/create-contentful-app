@@ -9,6 +9,11 @@ install-deps: &install-deps
     name: Install Dependencies
     command: npm ci && npm run bootstrap
 
+build: &build
+  run:
+    name: Build
+    command: npm run build
+
 executors:
   node-container-lts:
     docker:
@@ -62,7 +67,8 @@ commands:
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
       - run: git config --global user.name "whydah-gally"
-      - run: npm ci && npm run bootstrap
+      - *install-deps
+      - *build
 
 jobs:
   dependency-check:
