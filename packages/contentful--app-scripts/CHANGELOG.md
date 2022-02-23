@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-alpha.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@0.16.0-alpha.0...@contentful/app-scripts@0.16.0-alpha.1) (2022-02-23)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
+
+
+
+
 # [0.16.0-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@0.15.0...@contentful/app-scripts@0.16.0-alpha.0) (2022-02-22)
 
 
