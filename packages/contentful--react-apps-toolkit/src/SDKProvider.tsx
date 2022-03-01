@@ -16,7 +16,7 @@ export const SDKProvider: FC<SDKProviderProps> = (props) => {
   }, []);
 
   if (!sdk) {
-    return props.loading ?? <Spinner />;
+    return props.loading ? <Spinner /> : null;
   }
 
   return <SDKContext.Provider value={{ sdk }}>{props.children}</SDKContext.Provider>;
