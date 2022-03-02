@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useRef } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { init, KnownSDK } from '@contentful/app-sdk';
 
 export const SDKContext = React.createContext<{ sdk: KnownSDK | null }>({ sdk: null });
