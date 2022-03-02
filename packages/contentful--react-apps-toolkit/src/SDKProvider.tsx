@@ -9,8 +9,7 @@ interface SDKProviderProps {
 
 /**
  * The Component providing the AppSdk, the useSDK hook can only be used within this Provider
- * @param props
- * @constructor
+ * @param props.loading an optional loading element that gets rendered while initializing the app
  */
 export const SDKProvider: FC<SDKProviderProps> = (props) => {
   const [sdk, setSDK] = React.useState<KnownSDK | undefined>();
