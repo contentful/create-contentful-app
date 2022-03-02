@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import { SDKContext } from './SDKProvider';
 
 /**
- * A react hook providing the AppSdk.
- *  - The type of sdk varies depending on the location where it is used.
- *  - As it is depending on the context providing the sdk, the hook can only be used within the SDKProvider
+ * A react hook returning the App SDK.
+ *  - The type of SDK varies depending on the location where it is used.
+ *  - As it is depending on the context providing the SDK, the hook can only be used within the SDKProvider
  */
 export function useSDK<SDK extends KnownSDK = KnownSDK>(): SDK {
   const { sdk } = useContext(SDKContext);
