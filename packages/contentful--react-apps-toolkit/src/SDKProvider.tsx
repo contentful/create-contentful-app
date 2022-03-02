@@ -1,6 +1,5 @@
 import React, { FC, ReactElement } from 'react';
 import { init, KnownSDK } from '@contentful/app-sdk';
-import { Spinner } from '@contentful/f36-components';
 
 export const SDKContext = React.createContext<{ sdk: KnownSDK | null }>({ sdk: null });
 
@@ -23,9 +22,6 @@ export const SDKProvider: FC<SDKProviderProps> = (props) => {
   if (!sdk) {
     if (props.loading) {
       return props.loading;
-    }
-    if (Spinner) {
-      return <Spinner />;
     }
     return null;
   }

@@ -31,7 +31,7 @@
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": ">=4.3.5",
+    "@contentful/app-sdk": ">=4.0.0",
     "react": ">=16.8.0"
   },
   "devDependencies": {
@@ -45,8 +45,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "optionalDependencies": {
-    "@contentful/f36-components": "^4.0.35"
   }
 }
