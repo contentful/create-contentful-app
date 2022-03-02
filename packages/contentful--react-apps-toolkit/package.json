@@ -46,6 +46,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.3.5"
+    "@contentful/app-sdk": "^4.0.0"
   }
 }
