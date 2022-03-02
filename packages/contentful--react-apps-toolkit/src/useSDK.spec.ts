@@ -1,18 +1,13 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { useSDK } from './index';
-import ShallowRenderer from 'react-test-renderer/shallow';
-import React from 'react';
 
-let realUseContext: any;
-let useContextMock: any;
-// Setup mock
-beforeEach(() => {
-  realUseContext = React.useContext;
-  useContextMock = React.useContext = jest.fn().mockReturnValue({ sdk: 'mocked-sdk' });
-});
-// Cleanup mock
-afterEach(() => {
-  React.useContext = realUseContext;
+let mockedSdk: string | undefined = 'mocked-sdk';
+
+jest.mock('react', () => {
+  return {
+    ...jest.requireActual('react'),
+    useContext: () => ({ sdk: mockedSdk }),
+  };
 });
 
 jest.mock('./SDKProvider', () => ({
@@ -26,7 +21,7 @@ describe('useSDK', () => {
   });
 
   test('should throw when the sdk is not in context', () => {
-    useContextMock = React.useContext = jest.fn().mockReturnValue({ sdk: undefined });
+    mockedSdk = undefined;
     const { result } = renderHook(() => useSDK());
 
     expect(() => {
