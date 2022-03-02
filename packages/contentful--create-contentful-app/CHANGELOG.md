@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.1.0-alpha.1...@contentful/create-contentful-app@1.1.0-alpha.2) (2022-03-02)
+
+
+### Bug Fixes
+
+* update --help ([#911](https://github.com/contentful/create-contentful-app/issues/911)) ([c432f7c](https://github.com/contentful/create-contentful-app/commit/c432f7c61a222b95cea6998fdf05e4474ec70173))
+
+
+
+
+
 # [1.1.0-alpha.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.1.0-alpha.0...@contentful/create-contentful-app@1.1.0-alpha.1) (2022-02-23)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
