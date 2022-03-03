@@ -1,6 +1,6 @@
 import { createClient, PlainClientAPI } from "contentful-management";
 import { useEffect, useState } from "react";
-import { useSDK } from "./index";
+import { useSDK } from "./useSDK";
 
 /**
  * A react hook returning the plain client CMA.
@@ -13,10 +13,6 @@ export function useCMAClient(): PlainClientAPI | undefined {
   const [cma, setCMA] = useState<PlainClientAPI | undefined>(undefined);
 
   useEffect(() => {
-    // Do we need this if? useSDK will either throw an error when not wrapped in the provider, or be defined.
-    // if (!sdk) {
-    //   return;
-    // }
 
     const client = createClient(
       { apiAdapter: sdk.cmaAdapter },

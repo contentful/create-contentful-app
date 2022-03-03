@@ -1,9 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useCMAClient } from './index';
+import { useCMAClient } from './useCMAClient';
 
 const mockedCma: string | undefined = "mocked-cma";
 
-// Parameters needed for function to run (wouldn't need these if mock implementation was working)
 const mockedSdk = {
   cmaAdapter: "placholder",
   ids: {
@@ -12,12 +11,11 @@ const mockedSdk = {
   }
 }
 
-jest.mock('./index', () => ({
-  ...jest.requireActual('./index'),
+jest.mock('./useSDK', () => ({
+  ...jest.requireActual('./useSDK'),
   useSDK: () => mockedSdk
 }));
 
-// Throws "Cannot use import statement outside a module" when removed
 jest.mock('./SDKProvider', () => ({
   SDKContext: {},
 }));
@@ -25,7 +23,7 @@ jest.mock('./SDKProvider', () => ({
 jest.mock('contentful-management', () => {
   return {
     ...jest.requireActual('contentful-management'),
-    createClient: () => mockedCma //calls the original function when I use mock implementation
+    createClient: () => mockedCma
   }
 })
 
