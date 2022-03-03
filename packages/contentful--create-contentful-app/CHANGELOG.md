@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@0.15.4...@contentful/create-contentful-app@0.15.5) (2022-03-02)
+
+
+### Bug Fixes
+
+* [] use template version from package.json ([8db1034](https://github.com/contentful/create-contentful-app/commit/8db1034f31c27b89e97ab200e593236ad72c148d))
+
+
+
+
+
+## [0.15.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@0.15.3...@contentful/create-contentful-app@0.15.4) (2022-03-01)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 8.1.3 to 8.2.0 ([1cb927b](https://github.com/contentful/create-contentful-app/commit/1cb927b58fe0d795e6ec89bc2e79787823cbfb2f))
+
+
+
+
+
 ## [0.15.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@0.15.2...@contentful/create-contentful-app@0.15.3) (2022-02-24)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
