@@ -21,8 +21,8 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
 
 Now kick it off by running
 
-    ${success(`cd ${folder}`)}
-    ${success(`npm start`)}
+    ${code(`cd ${folder}`)}
+    ${code(`npm start`)}
   `);
 }
 
@@ -111,7 +111,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
 (async function main() {
   program
-    .name(`npx ${success('create-contentful-app')}`)
+    .name(`npx ${code('create-contentful-app')}`)
     .helpOption(true)
     .description(
       [
