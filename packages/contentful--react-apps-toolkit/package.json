@@ -44,5 +44,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@contentful/app-sdk": "^4.0.0"
   }
 }
