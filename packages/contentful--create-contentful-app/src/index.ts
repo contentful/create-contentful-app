@@ -19,7 +19,7 @@ function successMessage(folder: string) {
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
 
-We suggest that you begin by running:
+Now kick it off by running
 
     ${success(`cd ${folder}`)}
     ${success(`npm start`)}
@@ -119,25 +119,25 @@ async function initProject(appName: string, options: CLIOptions) {
         '',
         code('  create-contentful-app my-app'),
         '',
-        'or you can specify your own template',
+        'or specify your own template',
         '',
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
-        `Contentful official templates are hosted at ${highlight(
+        `Official Contentful templates are hosted at ${highlight(
           'https://github.com/contentful/apps/tree/master/examples'
         )}.`,
       ].join('\n')
     )
     .argument('[app-name]', 'app name')
-    .option('--npm', 'use NPM')
+    .option('--npm', 'use npm')
     .option('--yarn', 'use Yarn')
     .option('--javascript, -js', 'use default JavaScript template')
     .option('--typescript, -ts', 'use default TypeScript template')
     .option(
       '-s, --source <url>',
       [
-        `Provide a template by its source repository`,
-        `Format: URL (HTTPS and SSH) and ${code('vendor:user/repo')} (e.g., ${code(
+        `provide a template by its source repository.`,
+        `format: URL (HTTPS or SSH) or ${code('vendor:user/repo')} (e.g., ${code(
           'github:user/repo'
         )})`,
       ].join('\n')
