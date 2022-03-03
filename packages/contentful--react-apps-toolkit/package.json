@@ -46,6 +46,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.0.0"
+    "@contentful/app-sdk": "^4.0.0",
+    "contentful-management": "^8.2.0",
+    "react": "^17.0.2"
   }
 }
