@@ -10,7 +10,7 @@
     "directory": "packages/contentful--create-contentful-app"
   },
   "engines": {
-    "node": ">=14.14.0",
+    "node": ">=14.15.0",
     "npm": ">=6"
   },
   "main": "lib/index.js",
