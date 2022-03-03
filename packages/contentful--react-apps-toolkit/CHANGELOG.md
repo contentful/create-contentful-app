@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.2.0...@contentful/react-apps-toolkit@0.2.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* **deps:** bump @contentful/app-sdk from 4.0.0 to 4.3.5 ([4698249](https://github.com/contentful/create-contentful-app/commit/4698249ee278ecf9097660da78bd187cb09a911e))
+
+
+
+
+
 # [0.2.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.1.2...@contentful/react-apps-toolkit@0.2.0) (2022-03-03)
 
 
