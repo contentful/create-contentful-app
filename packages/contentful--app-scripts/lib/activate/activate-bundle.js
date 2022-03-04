@@ -47,23 +47,15 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
     definition.name
   )} in ${chalk.bold(organization.name)}.
 
-  Bundle Id: ${chalk.yellow(bundleId)}
-  `);
-
+  Bundle Id: ${chalk.yellow(bundleId)}`);
   console.log(`
-  ${chalk.bold('❇️ ')} Ready to share your app with the world? ${chalk.bold('❇️')}
+  ----------------------------
 
-   Submit it to the Developer Showcase:
+  Ready to share your app with the world? Submit it to the Developer Showcase (${chalk.cyan(
+    'https://ctfl.io/dev-showcase'
+  )}) or our Marketplace (${chalk.cyan('https://ctfl.io/submit-app')}).
 
-    ${chalk.cyan('https://www.contentful.com/developers/showcase/ ')}
-
-   or our Marketplace:
-
-    ${chalk.cyan(
-      'https://www.contentful.com/developers/docs/extensibility/app-framework/publishing-an-app/'
-    )}
-
-  `);
+ `);
 }
 
 module.exports = {
