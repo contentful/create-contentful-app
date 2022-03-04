@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.3.0...@contentful/react-apps-toolkit@0.4.0) (2022-03-04)
+
+
+### Features
+
+* [EXT-3491] add useCMAClient hook ([#917](https://github.com/contentful/create-contentful-app/issues/917)) ([2c53ddf](https://github.com/contentful/create-contentful-app/commit/2c53ddf2a2ffd341fadd8aa59425b8f1b07b6d7b))
+
+
+
+
+
 # [0.3.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.2.1...@contentful/react-apps-toolkit@0.3.0) (2022-03-04)
 
 
