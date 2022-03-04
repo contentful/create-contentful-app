@@ -7,6 +7,7 @@ This project makes it easy to bootstrap [Contentful Apps](https://www.contentful
 - Node.js v14.15 or v16
 - NPM v6
 
+
 # Quick Overview
 
 To start developing your app:
