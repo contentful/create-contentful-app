@@ -12,7 +12,7 @@ export function useSDK<SDK extends KnownSDK = KnownSDK>(): SDK {
 
   if (!sdk) {
     throw new Error(
-      'SDKContext not found. Make sure the useSDK hook is used inside the SDKProvider'
+      'SDKContext not found. Make sure this hook is used inside the SDKProvider'
     );
   }
 
