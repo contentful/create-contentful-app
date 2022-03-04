@@ -16,13 +16,13 @@ export function highlight(str: string) {
 }
 
 export function choice(str: string) {
-  return chalk.greenBright(str);
-}
-
-export function success(str: string) {
   return chalk.cyan(str);
 }
 
+export function success(str: string) {
+  return chalk.greenBright(str);
+}
+
 export function code(str: string) {
-  return chalk.dim(str);
+  return chalk.bold(str);
 }
