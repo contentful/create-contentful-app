@@ -1,6 +1,6 @@
-import { createClient, PlainClientAPI } from "contentful-management";
-import { useEffect, useState } from "react";
-import { useSDK } from "./useSDK";
+import { createClient, PlainClientAPI } from 'contentful-management';
+import { useMemo } from 'react';
+import { useSDK } from './useSDK';
 
 /**
  * A react hook returning the plain client CMA.
@@ -10,22 +10,18 @@ import { useSDK } from "./useSDK";
 
 export function useCMA(): PlainClientAPI | undefined {
   const sdk = useSDK();
-  const [cma, setCMA] = useState<PlainClientAPI | undefined>(undefined);
 
-  useEffect(() => {
-
-    const client = createClient(
+  const cma = useMemo(() => {
+    return createClient(
       { apiAdapter: sdk.cmaAdapter },
       {
-        type: "plain",
+        type: 'plain',
         defaults: {
           environmentId: sdk.ids.environment,
           spaceId: sdk.ids.space,
         },
       }
     );
-
-    setCMA(client);
   }, [sdk]);
 
   return cma;

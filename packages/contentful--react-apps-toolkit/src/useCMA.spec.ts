@@ -1,19 +1,19 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useCMA } from './useCMA';
 
-const mockedCma: string | undefined = "mocked-cma";
+const mockedCma: string | undefined = 'mocked-cma';
 
 const mockedSdk = {
-  cmaAdapter: "placholder",
+  cmaAdapter: 'placholder',
   ids: {
-    environment: "placeholder",
-    space: "placeholder"
-  }
-}
+    environment: 'placeholder',
+    space: 'placeholder',
+  },
+};
 
 jest.mock('./useSDK', () => ({
   ...jest.requireActual('./useSDK'),
-  useSDK: () => mockedSdk
+  useSDK: () => mockedSdk,
 }));
 
 jest.mock('./SDKProvider', () => ({
@@ -23,15 +23,14 @@ jest.mock('./SDKProvider', () => ({
 jest.mock('contentful-management', () => {
   return {
     ...jest.requireActual('contentful-management'),
-    createClient: () => mockedCma
-  }
-})
+    createClient: () => mockedCma,
+  };
+});
 
 describe('useCMA', () => {
   test('should return cma client', () => {
-
     const { result } = renderHook(() => useCMA());
 
     expect(result.current).toBe(mockedCma);
-  })
-})
+  });
+});
