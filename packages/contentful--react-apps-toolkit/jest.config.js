@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'jest-environment-jsdom',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.t(s|sx)$': 'ts-jest',
   },
-  testRegex: '^.+\\.spec\\.ts$'
+  testRegex: '^.+\\.spec\\.t(s|sx)$',
 };
