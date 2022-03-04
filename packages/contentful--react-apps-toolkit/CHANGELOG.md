@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.2.1...@contentful/react-apps-toolkit@0.3.0) (2022-03-04)
+
+
+### Features
+
+* [] add timeout and console warn ([#919](https://github.com/contentful/create-contentful-app/issues/919)) ([9afcad6](https://github.com/contentful/create-contentful-app/commit/9afcad6f26ae7f0023942a8fa2110096f6cb3fd5))
+
+
+
+
+
 ## [0.2.1](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.2.0...@contentful/react-apps-toolkit@0.2.1) (2022-03-03)
 
 
