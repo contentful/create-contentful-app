@@ -117,14 +117,14 @@ async function initProject(appName: string, options: CLIOptions) {
       [
         'Bootstrap your app inside a new folder `my-app`',
         '',
-        code('  create-contentful-app init my-app'),
+        code('  create-contentful-app my-app'),
         '',
         'or you can specify your own template',
         '',
-        code('  create-contentful-app init my-app --templateSource "github:user/repo"'),
+        code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
         `Contentful official templates are hosted at ${highlight(
-          'https://github.com/contentful/apps/tree/master/templates'
+          'https://github.com/contentful/apps/tree/master/examples'
         )}.`,
       ].join('\n')
     )
