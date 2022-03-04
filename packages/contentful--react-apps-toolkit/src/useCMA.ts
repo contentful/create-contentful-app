@@ -3,11 +3,9 @@ import { useMemo } from 'react';
 import { useSDK } from './useSDK';
 
 /**
- * A react hook returning the plain client CMA.
- *  - Depends on Apps SDK.
- *  - Must be called in the SDKProvider component (./SDKProvider). If called outside the provider, will throw error. useSDK hook called on line 12 handles error.
+ * React hook returning a CMA plain client instance.
+ * Must be used in the `SDKProvider` component. Will throw error, if called outside of `SDKProvider`.
  */
-
 export function useCMA(): PlainClientAPI | undefined {
   const sdk = useSDK();
 
