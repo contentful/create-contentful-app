@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.1.0-alpha.4...@contentful/create-contentful-app@1.1.0-alpha.5) (2022-03-07)
+
+
+### Bug Fixes
+
+* [EXT-3565] update node support ([#910](https://github.com/contentful/create-contentful-app/issues/910)) ([c4fbcc5](https://github.com/contentful/create-contentful-app/commit/c4fbcc52b6fad486b37b4120f13402fcdc4cc537))
+
+
+
+
+
 # [1.1.0-alpha.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.1.0-alpha.3...@contentful/create-contentful-app@1.1.0-alpha.4) (2022-03-04)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
