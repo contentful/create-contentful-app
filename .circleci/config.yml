@@ -15,14 +15,14 @@ build: &build
     command: npm run build
 
 executors:
-  node-container-lts:
+  node-container-14:
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:14.15.0
         environment: *base-env
 
-  node-container-latest:
+  node-container-16:
     docker:
-      - image: cimg/node:current
+      - image: cimg/node:16.14.0
         environment: *base-env
 
 commands:
@@ -81,22 +81,22 @@ jobs:
       - run: npm run publish:canary
 
   lint-and-test-lts:
-    executor: node-container-lts
+    executor: node-container-14
     steps:
       - lint-and-test
 
   lint-and-test-latest:
-    executor: node-container-latest
+    executor: node-container-16
     steps:
       - lint-and-test
 
   test-built-app-lts:
-    executor: node-container-lts
+    executor: node-container-14
     steps:
       - test-built-app
 
   test-built-app-latest:
-    executor: node-container-latest
+    executor: node-container-16
     steps:
       - test-built-app
 
@@ -116,7 +116,6 @@ workflows:
               only: master
           requires:
             - test-built-app-lts
-
 
       - release-canary:
           filters:
