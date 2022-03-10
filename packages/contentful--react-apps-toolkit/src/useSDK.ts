@@ -11,9 +11,7 @@ export function useSDK<SDK extends KnownSDK = KnownSDK>(): SDK {
   const { sdk } = useContext(SDKContext);
 
   if (!sdk) {
-    throw new Error(
-      'SDKContext not found. Make sure the useSDK hook is used inside the SDKProvider'
-    );
+    throw new Error('SDKContext not found. Make sure this hook is used inside the SDKProvider');
   }
 
   return sdk as SDK;
