@@ -1,3 +1,4 @@
+import { EntryFieldAPI, KnownSDK } from '@contentful/app-sdk';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSDK } from './useSDK';
 
@@ -20,29 +21,7 @@ export function useFieldValue<Value = unknown>(
   locale?: string
 ): UseFieldValueReturnValue<Value> {
   const sdk = useSDK();
-  const entryFieldApi = useMemo(() => {
-    if (!('entry' in sdk)) {
-      throw new Error(
-        '`useFieldValue` can only be used in field, sidebar or entry editor location.'
-      );
-    }
-
-    const fieldIdWithDefault = fieldId ?? ('field' in sdk ? sdk.field.id : undefined);
-
-    if (!fieldIdWithDefault) {
-      throw new Error(
-        'Missing `fieldId`. The `fieldId` can only be omitted when your app is renderd in field location.'
-      );
-    }
-    const field = sdk.entry.fields[fieldIdWithDefault];
-    if (!field) {
-      throw new Error(
-        `Invalid \`fieldId\`. The current entry does not have a field "${fieldIdWithDefault}".`
-      );
-    }
-
-    return field;
-  }, [sdk, fieldId]);
+  const entryFieldApi = useMemo(() => getEntryFieldApi(sdk, fieldId), [sdk, fieldId]);
 
   const localeWithDefault = locale ?? sdk.locales.default;
   const [value, setValue] = useState(entryFieldApi.getValue(localeWithDefault));
@@ -61,4 +40,27 @@ export function useFieldValue<Value = unknown>(
   );
 
   return [value, updateValue];
+}
+
+function getEntryFieldApi(sdk: KnownSDK, fieldId: string | undefined): EntryFieldAPI {
+  if (!('entry' in sdk)) {
+    throw new Error('`useFieldValue` can only be used in field, sidebar or entry editor location.');
+  }
+
+  const fieldIdWithDefault = fieldId ?? ('field' in sdk ? sdk.field.id : undefined);
+
+  if (!fieldIdWithDefault) {
+    throw new Error(
+      'Missing `fieldId`. The `fieldId` can only be omitted when your app is renderd in field location.'
+    );
+  }
+
+  const field = sdk.entry.fields[fieldIdWithDefault];
+  if (!field) {
+    throw new Error(
+      `Invalid \`fieldId\`. The current entry does not have a field "${fieldIdWithDefault}".`
+    );
+  }
+
+  return field;
 }
