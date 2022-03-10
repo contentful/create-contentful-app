@@ -49,7 +49,7 @@ describe('useFieldValue', () => {
       expect(() => {
         expect(result.current).not.toBe(undefined);
       }).toThrowErrorMatchingInlineSnapshot(
-        `"\`useFieldValue\` can only be used in field, sidebar or entry editor location"`
+        `"\`useFieldValue\` can only be used in field, sidebar or entry editor location."`
       );
     });
 

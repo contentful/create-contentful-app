@@ -23,7 +23,7 @@ export function useFieldValue<Value = unknown>(
   const entryFieldApi = useMemo(() => {
     if (!('entry' in sdk)) {
       throw new Error(
-        '`useFieldValue` can only be used in field, sidebar or entry editor location'
+        '`useFieldValue` can only be used in field, sidebar or entry editor location.'
       );
     }
 
