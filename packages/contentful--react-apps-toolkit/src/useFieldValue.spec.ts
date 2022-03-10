@@ -1,10 +1,5 @@
-import {
-  FieldExtensionSDK,
-  KnownSDK,
-  PageExtensionSDK,
-  SidebarExtensionSDK,
-} from '@contentful/app-sdk';
-import { act, renderHook, RenderHookResult, RenderResult } from '@testing-library/react-hooks';
+import { PageExtensionSDK } from '@contentful/app-sdk';
+import { act, renderHook, RenderResult } from '@testing-library/react-hooks';
 import { useFieldValue, UseFieldValueReturnValue } from './useFieldValue';
 import { useSDK } from './useSDK';
 
@@ -74,7 +69,7 @@ describe('useFieldValue', () => {
       // @ts-expect-error
       useSDKMock.mockImplementation(() => mockSDK);
 
-      const { result } = renderHook(() => useFieldValue({ fieldId: 'unknownFieldId' }));
+      const { result } = renderHook(() => useFieldValue('unknownFieldId'));
 
       expect(() => {
         expect(result.current).not.toBe(undefined);
@@ -119,11 +114,7 @@ describe('useFieldValue', () => {
     beforeEach(() => {
       // @ts-expect-error
       useSDKMock.mockImplementation(() => mockSDK);
-      result = renderHook(() =>
-        useFieldValue({
-          fieldId: 'otherFieldId',
-        })
-      ).result;
+      result = renderHook(() => useFieldValue('otherFieldId')).result;
     });
 
     it('returns initial value', () => {
@@ -155,11 +146,7 @@ describe('useFieldValue', () => {
     beforeEach(() => {
       // @ts-expect-error
       useSDKMock.mockImplementation(() => mockSDK);
-      result = renderHook(() =>
-        useFieldValue({
-          locale: 'locale',
-        })
-      ).result;
+      result = renderHook(() => useFieldValue('fieldId', 'locale')).result;
     });
 
     it('returns initial value', () => {

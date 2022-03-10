@@ -1,22 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSDK } from './useSDK';
 
-/**
- * Options to specify which value of the current entry should be read and updated.
- */
-export interface UseFieldValueOptions {
-  /**
-   * Id of the field to read and update.
-   * Can be omitted when app is rendered in field location. When omitted, the field the app is rendered in is used.
-   */
-  fieldId?: string;
-  /**
-   * Locale to read and update.
-   * When omitted, default locale is used.
-   */
-  locale?: string;
-}
-
 export type UseFieldValueReturnValue<Value = unknown> = [
   value: Value,
   setValue: (newValue: Value) => Promise<void>
@@ -27,13 +11,14 @@ export type UseFieldValueReturnValue<Value = unknown> = [
  * Must be wrapped by SDKProvider.
  * Can only be used when app is rendered in field, sidebar or entry editor location.
  *
- * @param {UseFieldValueOptions} options Options to specify which value of the current entry should be read and updated.
+ * @param {string=} fieldId Id of the field to read and update. Can be omitted when app is rendered in field location.
+ * @param {string=} locale Locale to read and update. When omitted, default locale is used.
  * @returns {UseFieldValueReturnValue} Field value, function to update it
  */
-export function useFieldValue<Value = unknown>({
-  fieldId,
-  locale,
-}: UseFieldValueOptions = {}): UseFieldValueReturnValue<Value> {
+export function useFieldValue<Value = unknown>(
+  fieldId?: string,
+  locale?: string
+): UseFieldValueReturnValue<Value> {
   const sdk = useSDK();
   const entryFieldApi = useMemo(() => {
     if (!('entry' in sdk)) {
