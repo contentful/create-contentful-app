@@ -7,6 +7,9 @@ const mockSDK = {
   field: {
     id: 'fieldId',
   },
+  locales: {
+    default: 'defaultLocale',
+  },
   entry: {
     fields: {
       fieldId: {
@@ -79,7 +82,7 @@ describe('useFieldValue', () => {
     });
   });
 
-  describe('with no options', () => {
+  describe('with no params', () => {
     let result: RenderResult<UseFieldValueReturnValue>;
 
     beforeEach(() => {
@@ -89,21 +92,23 @@ describe('useFieldValue', () => {
     });
 
     it('returns initial value', () => {
-      expect(result.current[0]).toBe('fieldId undefined value');
+      expect(result.current[0]).toBe('fieldId defaultLocale value');
     });
 
     it('updates value', async () => {
       await act(() => result.current[1]('new value'));
       expect(result.current[0]).toBe('new value');
-      expect(mockSDK.entry.fields['fieldId'].setValue).toHaveBeenCalledWith('new value', undefined);
+      expect(mockSDK.entry.fields['fieldId'].setValue).toHaveBeenCalledWith(
+        'new value',
+        'defaultLocale'
+      );
     });
 
     it('updates value when `onValueChanged` is called', () => {
       const calls = mockSDK.entry.fields.fieldId.onValueChanged.mock.calls;
-      expect(calls).toHaveLength(1);
-      expect(typeof calls[0][0]).toBe('function');
+      expect(calls[0][0]).toBe('defaultLocale');
 
-      act(() => calls[0][0]('new value'));
+      act(() => calls[0][1]('new value'));
       expect(result.current[0]).toBe('new value');
     });
   });
@@ -118,7 +123,7 @@ describe('useFieldValue', () => {
     });
 
     it('returns initial value', () => {
-      expect(result.current[0]).toBe('otherFieldId undefined value');
+      expect(result.current[0]).toBe('otherFieldId defaultLocale value');
     });
 
     it('updates value', async () => {
@@ -126,16 +131,15 @@ describe('useFieldValue', () => {
       expect(result.current[0]).toBe('new value');
       expect(mockSDK.entry.fields['otherFieldId'].setValue).toHaveBeenCalledWith(
         'new value',
-        undefined
+        'defaultLocale'
       );
     });
 
     it('updates value when `onValueChanged` is called', () => {
       const calls = mockSDK.entry.fields.otherFieldId.onValueChanged.mock.calls;
-      expect(calls).toHaveLength(1);
-      expect(typeof calls[0][0]).toBe('function');
+      expect(calls[0][0]).toBe('defaultLocale');
 
-      act(() => calls[0][0]('new value'));
+      act(() => calls[0][1]('new value'));
       expect(result.current[0]).toBe('new value');
     });
   });
@@ -161,7 +165,6 @@ describe('useFieldValue', () => {
 
     it('updates value when `onValueChanged` is called', () => {
       const calls = mockSDK.entry.fields.fieldId.onValueChanged.mock.calls;
-      expect(calls).toHaveLength(1);
       expect(calls[0][0]).toBe('locale');
 
       act(() => calls[0][1]('new value'));

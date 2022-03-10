@@ -44,22 +44,20 @@ export function useFieldValue<Value = unknown>(
     return field;
   }, [sdk, fieldId]);
 
-  const [value, setValue] = useState(entryFieldApi.getValue(locale));
+  const localeWithDefault = locale ?? sdk.locales.default;
+  const [value, setValue] = useState(entryFieldApi.getValue(localeWithDefault));
 
-  useEffect(() => {
-    if (locale) {
-      return entryFieldApi.onValueChanged(locale, setValue);
-    } else {
-      return entryFieldApi.onValueChanged(setValue);
-    }
-  }, [entryFieldApi, locale]);
+  useEffect(
+    () => entryFieldApi.onValueChanged(localeWithDefault, setValue),
+    [entryFieldApi, localeWithDefault]
+  );
 
   const updateValue = useCallback(
     async (newValue: Value) => {
       setValue(newValue);
-      await entryFieldApi.setValue(newValue, locale);
+      await entryFieldApi.setValue(newValue, localeWithDefault);
     },
-    [entryFieldApi, locale]
+    [entryFieldApi, localeWithDefault]
   );
 
   return [value, updateValue];
