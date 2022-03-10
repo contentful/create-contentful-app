@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.4.2...@contentful/react-apps-toolkit@0.5.0) (2022-03-10)
+
+
+### Features
+
+* useFieldValue [EXT-3492] ([#923](https://github.com/contentful/create-contentful-app/issues/923)) ([3f1c25f](https://github.com/contentful/create-contentful-app/commit/3f1c25fca2b6458e2bd393efccdcedcb679f5754))
+
+
+
+
+
 ## [0.4.2](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.4.1...@contentful/react-apps-toolkit@0.4.2) (2022-03-10)
 
 **Note:** Version bump only for package @contentful/react-apps-toolkit
