@@ -22,10 +22,10 @@ The following hooks and utilities are exported from the package:
 
 ### `useSDK`
 
-This hook returns the appSDK. You can inject it anywhere in your Contentful app.
+This hook returns the App SDK.
 
-The only requirement for using it is that the component that uses it is wrapped within the `SDKProvider`, which ideally should be
-located in the core of your application (e.g. `index.tsx`). If it is not, the hook will throw an error.
+The only requirement for using it is that the component that uses it is wrapped within the `SDKProvider`.
+If it is not, the hook will throw an error.
 
 Here is an example of how you can use it:
 
