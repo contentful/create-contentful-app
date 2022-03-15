@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.0...@contentful/react-apps-toolkit@0.5.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 8.2.0 to 8.2.1 ([de00667](https://github.com/contentful/create-contentful-app/commit/de00667daaeb01730a86261ca959d274d8ed44a8))
+
+
+
+
+
 # [0.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.4.2...@contentful/react-apps-toolkit@0.5.0) (2022-03-10)
 
 
