@@ -142,7 +142,10 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
-    .option('-e, --example <example-name>', 'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples')
+    .option(
+      '-e, --example <example-name>',
+      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
+    )
     .action(initProject);
   await program.parseAsync();
 })();
