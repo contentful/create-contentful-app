@@ -57,7 +57,7 @@ These flags are mutually exclusive. If no flag is provided, the TypeScript templ
 
 `--help`
 
-Display help
+Shows all available CLI options
 
 ```
 Usage: npx create-contentful-app [options] [app-name]
@@ -83,5 +83,5 @@ Options:
   -e, --example <example-name>  bootstrap an example app from https://github.com/contentful/apps/tree/master/examples
   -s, --source <url>            provide a template by its source repository.
                                 format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
-  -h, --help                    display help for command
+  -h, --help                    shows all available CLI options
 ```

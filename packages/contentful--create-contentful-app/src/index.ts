@@ -112,7 +112,7 @@ async function initProject(appName: string, options: CLIOptions) {
 (async function main() {
   program
     .name(`npx ${code('create-contentful-app')}`)
-    .helpOption(true)
+    .helpOption(true, 'shows all available CLI options')
     .description(
       [
         'Bootstrap your app inside a new folder `my-app`',
