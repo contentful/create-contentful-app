@@ -34,7 +34,9 @@ npm init contentful-app <app-name>
 yarn create contentful-app <app-name>
 ```
 
-## Package Manager
+## CLI Options
+
+### Package Manager
 
 `--npm` & `--yarn`
 
@@ -42,7 +44,7 @@ Use npm or Yarn to manage dependencies. If omitted, defaults to the manager used
 
 Both flags are mutually exclusive.
 
-## Template
+### Template
 
 Select between predefined and custom templates:
 
@@ -53,7 +55,7 @@ Select between predefined and custom templates:
 
 These flags are mutually exclusive. If no flag is provided, the TypeScript template is used.
 
-## Help
+### Help
 
 `--help`
 
