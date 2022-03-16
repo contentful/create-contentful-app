@@ -48,8 +48,8 @@ Both flags are mutually exclusive.
 
 Select between predefined and custom templates:
 
-- `-js, --javascript`: Use default JavaScript template
-- `-ts, --typescript`: Use default TypeScript template
+- `-ts, --typescript`: Use TypeScript template (default)
+- `-js, --javascript`: Use JavaScript template
 - `-e, --example <example-name>`: Select a predefined template from https://github.com/contentful/apps/tree/master/examples
 - `-s, --source <url>`: Use a custom template. Format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
 

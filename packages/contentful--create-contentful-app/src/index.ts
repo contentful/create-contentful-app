@@ -131,8 +131,8 @@ async function initProject(appName: string, options: CLIOptions) {
     .argument('[app-name]', 'app name')
     .option('--npm', 'use npm')
     .option('--yarn', 'use Yarn')
-    .option('-js, --javascript', 'use default JavaScript template')
-    .option('-ts, --typescript', 'use default TypeScript template')
+    .option('-ts, --typescript', 'use TypeScript template (default)')
+    .option('-js, --javascript', 'use JavaScript template')
     .option(
       '-e, --example <example-name>',
       'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
