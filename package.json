@@ -17,22 +17,19 @@
     "publish": "lerna publish from-git --yes --no-verify-access",
     "publish:canary": "lerna publish from-git --canary --yes --no-verify-access",
     "pre-commit": "lerna run pre-commit",
-    "commit-msg": "lerna run commit-msg"
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.0.0",
-    "@commitlint/config-conventional": "16.2.1",
     "@octokit/rest": "18.12.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "babel-eslint": "10.1.0",
-    "commitizen": "^4.0.3",
     "cz-customizable": "6.3.0",
     "eslint": "8.11.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-node": "11.1.0",
     "fs-extra": "^10.0.0",
-    "husky": "^4.1.0",
+    "husky": "^7.0.0",
     "lerna": "^4.0.0",
     "lint-staged": "12.3.6",
     "mocha": "^9.0.0",
@@ -42,17 +39,11 @@
     "sinon": "^13.0.0",
     "typescript": "^4.2.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit",
-      "commit-msg": "npm run pre-commit"
-    }
-  },
   "dependencies": {
+    "@contenful/react-apps-toolkit": "file:packages/contentful--react-apps-toolkit",
     "@contentful/app-scripts": "file:packages/contentful--app-scripts",
     "@contentful/cra-template-create-contentful-app": "file:packages/contentful--cra-template-create-contentful-app",
     "@contentful/create-contentful-app": "file:packages/contentful--create-contentful-app",
-    "create-contentful-app": "file:packages/create-contentful-app",
-    "@contenful/react-apps-toolkit": "file:packages/contentful--react-apps-toolkit"
+    "create-contentful-app": "file:packages/create-contentful-app"
   }
 }
