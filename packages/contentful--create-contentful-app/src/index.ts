@@ -21,7 +21,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
 
 Now kick it off by running
 
-    ${code(`cd ${folder}`)}
+    ${code(`cd ${tildify(folder)}`)}
     ${code(`npm start`)}
   `);
 }
@@ -99,7 +99,7 @@ async function initProject(appName: string, options: CLIOptions) {
     if (normalizedOptions.yarn || detectManager() === 'yarn') {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
-      await exec('npm', ['install'], { cwd: fullAppFolder });
+      await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
 
     successMessage(fullAppFolder);
@@ -142,7 +142,10 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
-    .option('-e, --example <example-name>', 'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples')
+    .option(
+      '-e, --example <example-name>',
+      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
+    )
     .action(initProject);
   await program.parseAsync();
 })();
