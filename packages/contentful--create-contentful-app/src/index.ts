@@ -131,8 +131,12 @@ async function initProject(appName: string, options: CLIOptions) {
     .argument('[app-name]', 'app name')
     .option('--npm', 'use npm')
     .option('--yarn', 'use Yarn')
-    .option('--javascript, -js', 'use default JavaScript template')
-    .option('--typescript, -ts', 'use default TypeScript template')
+    .option('-js, --javascript', 'use default JavaScript template')
+    .option('-ts, --typescript', 'use default TypeScript template')
+    .option(
+      '-e, --example <example-name>',
+      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
+    )
     .option(
       '-s, --source <url>',
       [
@@ -141,10 +145,6 @@ async function initProject(appName: string, options: CLIOptions) {
           'github:user/repo'
         )})`,
       ].join('\n')
-    )
-    .option(
-      '-e, --example <example-name>',
-      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
     )
     .action(initProject);
   await program.parseAsync();
