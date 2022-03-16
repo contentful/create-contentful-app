@@ -50,10 +50,6 @@
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
   "files": [
     "lib"
   ],
