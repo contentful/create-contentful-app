@@ -99,7 +99,7 @@ async function initProject(appName: string, options: CLIOptions) {
     if (normalizedOptions.yarn || detectManager() === 'yarn') {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
-      await exec('npm', ['install'], { cwd: fullAppFolder });
+      await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
 
     successMessage(fullAppFolder);
