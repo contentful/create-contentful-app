@@ -21,7 +21,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
 
 Now kick it off by running
 
-    ${code(`cd ${folder}`)}
+    ${code(`cd ${tildify(folder)}`)}
     ${code(`npm start`)}
   `);
 }
