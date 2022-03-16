@@ -7,7 +7,7 @@ This project makes easy to perform some recurrent operations in [Contentful's Ap
 Locally:
 
 ```shell
-npm i --save @contentful/app-scripts
+npm i @contentful/app-scripts
 ```
 
 Globally:
@@ -28,14 +28,12 @@ $ contentful-app-scripts create-app-definition
 
 Otherwise
 ```
-$ npx --no-install @contentful/app-scripts create-app-definition
+$ npx @contentful/app-scripts create-app-definition
 ```
 
 ### 👨‍💻 Programmatic
 
 ```javascript
-// my-script.js
-
 const { createAppDefinition } = require('@contentful/app-scripts')
 const { myCustomLogic } = require('./my-custom-logic')
 
