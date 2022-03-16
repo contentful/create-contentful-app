@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.1.0-alpha.5...@contentful/create-contentful-app@1.1.0-alpha.6) (2022-03-16)
+
+
+### Bug Fixes
+
+* hide audit and funding messages during npm install ([34fe846](https://github.com/contentful/create-contentful-app/commit/34fe846b36def006a9d3f4175738997cd198c30f))
+* tildify folder name ([bd51334](https://github.com/contentful/create-contentful-app/commit/bd513346aa691f3ae48b2792168fd835d71e8b27))
+
+
+
+
+
 # [1.1.0-alpha.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.1.0-alpha.4...@contentful/create-contentful-app@1.1.0-alpha.5) (2022-03-07)
 
 
