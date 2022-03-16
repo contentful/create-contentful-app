@@ -18,7 +18,26 @@ yarn add @contentful/react-apps-toolkit
 
 ## Available features
 
-The following hooks and utilities are exported from the package: Nothing
+The following hooks and utilities are exported from the package:
+
+### `useSDK`
+
+This hook returns the App SDK.
+
+The only requirement for using it is that the component that uses it is wrapped within the `SDKProvider`.
+If it is not, the hook will throw an error.
+
+Here is an example of how you can use it:
+
+```tsx
+function App() {
+  const sdk = useSDK<FieldExtensionSDK>();
+
+  return <>App Id: {sdk.ids.app}</>
+}
+
+```
+
 
 #### SDKProvider
 
