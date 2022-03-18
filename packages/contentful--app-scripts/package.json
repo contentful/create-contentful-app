@@ -29,8 +29,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./lib/**/*.test.js ./lib/*.test.js ./utils/**/*.test.js",
     "test:watch": "npm t -- --watch",
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "pre-commit": "lint-staged"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"

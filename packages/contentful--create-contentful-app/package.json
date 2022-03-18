@@ -27,8 +27,7 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./lib",
     "lint:fix": "npm run lint -- --fix",
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "@contentful/app-scripts": "file:../contentful--app-scripts",
