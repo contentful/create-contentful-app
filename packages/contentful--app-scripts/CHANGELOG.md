@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-alpha.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@0.16.0-alpha.1...@contentful/app-scripts@0.16.0-alpha.2) (2022-03-21)
+
+
+### Bug Fixes
+
+* update dependancies ([#940](https://github.com/contentful/create-contentful-app/issues/940)) ([983ee07](https://github.com/contentful/create-contentful-app/commit/983ee078d9a3920306f69b745ed49b69e907e5fc))
+
+
+
+
+
 # [0.16.0-alpha.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@0.16.0-alpha.0...@contentful/app-scripts@0.16.0-alpha.1) (2022-02-23)
 
 **Note:** Version bump only for package @contentful/app-scripts
