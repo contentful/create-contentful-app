@@ -38,7 +38,7 @@ yarn create contentful-app <app-name>
 
 ### Package Manager
 
-`--npm` & `--yarn`
+`--npm` or `--yarn`
 
 Use npm or Yarn to manage dependencies. If omitted, defaults to the manager used to run `create-contentful-app`.
 
