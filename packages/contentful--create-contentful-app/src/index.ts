@@ -112,7 +112,7 @@ async function initProject(appName: string, options: CLIOptions) {
 (async function main() {
   program
     .name(`npx ${code('create-contentful-app')}`)
-    .helpOption(true)
+    .helpOption(true, 'shows all available CLI options')
     .description(
       [
         'Bootstrap your app inside a new folder `my-app`',
@@ -131,8 +131,12 @@ async function initProject(appName: string, options: CLIOptions) {
     .argument('[app-name]', 'app name')
     .option('--npm', 'use npm')
     .option('--yarn', 'use Yarn')
-    .option('--javascript, -js', 'use default JavaScript template')
-    .option('--typescript, -ts', 'use default TypeScript template')
+    .option('-ts, --typescript', 'use TypeScript template (default)')
+    .option('-js, --javascript', 'use JavaScript template')
+    .option(
+      '-e, --example <example-name>',
+      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
+    )
     .option(
       '-s, --source <url>',
       [
@@ -141,10 +145,6 @@ async function initProject(appName: string, options: CLIOptions) {
           'github:user/repo'
         )})`,
       ].join('\n')
-    )
-    .option(
-      '-e, --example <example-name>',
-      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
     )
     .action(initProject);
   await program.parseAsync();

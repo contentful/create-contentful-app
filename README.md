@@ -1,22 +1,20 @@
 # Create Contentful App
 
-This project makes it easy to bootstrap [Contentful Apps](https://www.contentful.com/developers/docs/extensibility/app-framework/) with [React](https://reactjs.org/) and [Forma 36](https://f36.contentful.com/) (Contentful's design system).
+This repository includes multiple npm packages to improve the development experience when writing [Contentful Apps](https://www.contentful.com/developers/docs/extensibility/app-framework/).
 
-## Requirements
+### Packages
 
-Node.js, NPM latest LTS
+### `create-contentful-app`
 
-## Quick Overview
+A CLI to easily bootstrap Contentful apps
 
-To start developing your app:
+[More information](packages/contentful--create-contentful-app/README.md)
 
-```
-npx @contentful/create-contentful-app my-first-app
-cd my-first-app
-npm start
-```
+### `@contentful/app-scripts`
 
-[Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.
+A CLI to perform recurrent operations for Contentful's App Framework.
+
+[More information](packages/contentful--app-scripts/README.md)
 
 ## Development
 
