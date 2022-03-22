@@ -59,7 +59,7 @@ These flags are mutually exclusive. If no flag is provided, the TypeScript templ
 
 `--help`
 
-Shows all available CLI options
+Shows all available CLI options:
 
 ```
 Usage: npx create-contentful-app [options] [app-name]
