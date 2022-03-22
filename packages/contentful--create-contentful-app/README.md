@@ -21,7 +21,7 @@ npx create-contentful-app my-first-app
 
 ## Bootstrap
 
-You can run `create-contentful-app` using one of the bollowing commands:
+You can run `create-contentful-app` using one of the following commands:
 
 ```bash
 # npx
