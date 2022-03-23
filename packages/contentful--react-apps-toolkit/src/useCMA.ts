@@ -6,7 +6,7 @@ import { useSDK } from './useSDK';
  * React hook returning a CMA plain client instance.
  * Must be used in the `SDKProvider` component. Will throw error, if called outside of `SDKProvider`.
  */
-export function useCMA(): PlainClientAPI | undefined {
+export function useCMA(): PlainClientAPI {
   const sdk = useSDK();
 
   const cma = useMemo(() => {
