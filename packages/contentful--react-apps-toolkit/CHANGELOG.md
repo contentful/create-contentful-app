@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.6](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.5...@contentful/react-apps-toolkit@0.5.6) (2022-03-23)
+
+
+### Bug Fixes
+
+* `useCMA()` return value ([#949](https://github.com/contentful/create-contentful-app/issues/949)) ([17cecf2](https://github.com/contentful/create-contentful-app/commit/17cecf259c6061d64794afef5d04686b558a2235))
+
+
+
+
+
 ## [0.5.5](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.4...@contentful/react-apps-toolkit@0.5.5) (2022-03-23)
 
 **Note:** Version bump only for package @contentful/react-apps-toolkit
