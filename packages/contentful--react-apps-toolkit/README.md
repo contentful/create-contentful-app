@@ -38,14 +38,29 @@ function App() {
 
 ```
 
+### `useCMA`
+
+Returns an initialized client for the Contentful Management API, which can immediately be used to communicate with the rest of your Contentful space. [Contentful Management API docs](https://www.contentful.com/developers/docs/references/content-management-api/).
+
+
+```tsx
+function App() {
+  const cma = useCMA();
+
+  useEffect(() => {
+    cma.entry.get({ entryId: "2VO9yOaeSyAFA19e649SxG" }).then((entry) => {
+      console.log(entry);
+    });
+  }, []);
+
+  return <>Hello world!</>
+}
+
+```
 
 #### SDKProvider
 
 Wrapper component, which makes the Apps SDK available to children via React Context. To use any of the hooks contained in this package, an application must be wrapped in the SDK provider, as all hooks depend on the Apps SDK.
-
-#### useCMA
-
-Returns an initialized client for the Contentful Management API, which can immediately be used to communicate with the rest of your Contentful space. [Contentful Management API docs](https://www.contentful.com/developers/docs/references/content-management-api/).
 
 ### Resources
 
