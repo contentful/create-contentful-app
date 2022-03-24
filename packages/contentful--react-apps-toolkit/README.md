@@ -30,6 +30,8 @@ If it is not, the hook will throw an error.
 Here is an example of how you can use it:
 
 ```tsx
+import { useSDK } from '@contentful/react-apps-toolkit'
+
 function App() {
   const sdk = useSDK<FieldExtensionSDK>();
 
@@ -40,15 +42,17 @@ function App() {
 
 ### `useCMA`
 
-Returns an initialized client for the Contentful Management API, which can immediately be used to communicate with the rest of your Contentful space. [Contentful Management API docs](https://www.contentful.com/developers/docs/references/content-management-api/).
+Returns an initialized [plain client](https://github.com/contentful/contentful-management.js/#alternative-plain-api) for the Contentful Management API, which can immediately be used to communicate with the rest of your Contentful space. [Contentful Management API docs](https://www.contentful.com/developers/docs/references/content-management-api/).
 
 
 ```tsx
+import { useCMA } from '@contentful/react-apps-toolkit'
+
 function App() {
   const cma = useCMA();
 
   useEffect(() => {
-    cma.entry.get({ entryId: "2VO9yOaeSyAFA19e649SxG" }).then((entry) => {
+    cma.entry.get({ entryId: '2VO9yOaeSyAFA19e649SxG' }).then((entry) => {
       console.log(entry);
     });
   }, []);
