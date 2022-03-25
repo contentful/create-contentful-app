@@ -3,8 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSDK } from './useSDK';
 
 export type UseFieldValueReturnValue<Value = unknown> = [
-  value: Value,
-  setValue: (newValue: Value) => Promise<void>
+  value: Value | undefined,
+  setValue: (newValue: Value | undefined) => Promise<void>
 ];
 
 /**
@@ -32,7 +32,7 @@ export function useFieldValue<Value = unknown>(
   );
 
   const updateValue = useCallback(
-    async (newValue: Value) => {
+    async (newValue: Value | undefined) => {
       setValue(newValue);
       await entryFieldApi.setValue(newValue, localeWithDefault);
     },
