@@ -4,9 +4,9 @@ This library is still in development and should not be used in production.
 
 # React Toolkit for Contentful Apps
 
-These hooks offer a simple way to bring frequently needed functionality into your react based [Contentful apps](/developers/docs/extensibility/app-framework/).
+React Hooks for the App Framework offer a simple way to bring frequently needed functionality into your react based [Contentful apps](/developers/docs/extensibility/app-framework/).
 
-They can be used in apps created by [`create-contentful-app`](https://github.com/contentful/create-contentful-app), as well as any other React app using Contentful's [App SDK](https://github.com/contentful/ui-extensions-sdk).
+They can be used in apps created with [`create-contentful-app`](https://github.com/contentful/create-contentful-app), as well as any other React app using Contentful's [App SDK](https://github.com/contentful/ui-extensions-sdk).
 
 ## Installation
 
@@ -46,7 +46,7 @@ function App() {
 
 ### useSDK
 
-`useSDK` returns an instace of the Contentful [App SDK](https://www.npmjs.com/package/@contentful/app-sdk).
+`useSDK` returns an instance of the Contentful [App SDK](https://www.npmjs.com/package/@contentful/app-sdk).
 
 It must be wrapped it within the `SDKProvider`, otherwise, it will throw an error.
 
@@ -90,10 +90,6 @@ function ComponentUsingCMA() {
   };
 
   useEffect(() => {
-    if (!cma) {
-      return;
-    }
-
     const fetchedEntries = await fetchEntries();
     setEntries(fetchedEntries);
   }, [cma]);
