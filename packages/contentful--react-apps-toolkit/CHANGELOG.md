@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.10](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.9...@contentful/react-apps-toolkit@0.5.10) (2022-03-29)
+
+
+### Bug Fixes
+
+* set `sideEffects` to `false` ([#959](https://github.com/contentful/create-contentful-app/issues/959)) ([8893254](https://github.com/contentful/create-contentful-app/commit/8893254c8644986289506ba910216de5c8c66b7c))
+
+
+
+
+
 ## [0.5.9](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.8...@contentful/react-apps-toolkit@0.5.9) (2022-03-25)
 
 
