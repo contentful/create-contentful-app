@@ -6,6 +6,7 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "main": "dist/index.js",
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/contentful/create-contentful-app.git",
