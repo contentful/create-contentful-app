@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.11](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.10...@contentful/react-apps-toolkit@0.5.11) (2022-04-05)
+
+
+### Bug Fixes
+
+* use `environmentAlias` in useCMA ([#978](https://github.com/contentful/create-contentful-app/issues/978)) ([4f538fd](https://github.com/contentful/create-contentful-app/commit/4f538fdc544fd7f4f0d946df9930331775fc832c))
+
+
+
+
+
 ## [0.5.10](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.5.9...@contentful/react-apps-toolkit@0.5.10) (2022-03-29)
 
 
