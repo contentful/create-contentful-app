@@ -1,4 +1,4 @@
-import { PageExtensionSDK } from '@contentful/app-sdk';
+import { PageExtensionSDK, SerializedJSONValue } from '@contentful/app-sdk';
 import { act, renderHook, RenderResult } from '@testing-library/react-hooks';
 import { useFieldValue, UseFieldValueReturnValue } from './useFieldValue';
 import { useSDK } from './useSDK';
@@ -36,7 +36,12 @@ const useSDKMock = useSDK as jest.MockedFn<typeof useSDK>;
 beforeEach(() => {
   jest.resetAllMocks();
   mockSDK.entry.fields.fieldId.onValueChanged.mockImplementation(() => () => {});
+  mockSDK.entry.fields.fieldId.setValue.mockImplementation(() => Promise.resolve('return value'));
+
   mockSDK.entry.fields.otherFieldId.onValueChanged.mockImplementation(() => () => {});
+  mockSDK.entry.fields.otherFieldId.setValue.mockImplementation(() =>
+    Promise.resolve('other return value')
+  );
 });
 
 describe('useFieldValue', () => {
@@ -96,7 +101,9 @@ describe('useFieldValue', () => {
     });
 
     it('updates value', async () => {
-      await act(() => result.current[1]('new value'));
+      await act(async () => {
+        await result.current[1]('new value');
+      });
       expect(result.current[0]).toBe('new value');
       expect(mockSDK.entry.fields['fieldId'].setValue).toHaveBeenCalledWith(
         'new value',
@@ -110,6 +117,15 @@ describe('useFieldValue', () => {
 
       act(() => calls[0][1]('new value'));
       expect(result.current[0]).toBe('new value');
+    });
+
+    it('returns the updated value', async () => {
+      let returnedValue: SerializedJSONValue | undefined;
+      await act(async () => {
+        returnedValue = await result.current[1]('new value');
+      });
+
+      expect(returnedValue).toBe('return value');
     });
   });
 
@@ -127,7 +143,9 @@ describe('useFieldValue', () => {
     });
 
     it('updates value', async () => {
-      await act(() => result.current[1]('new value'));
+      await act(async () => {
+        await result.current[1]('new value');
+      });
       expect(result.current[0]).toBe('new value');
       expect(mockSDK.entry.fields['otherFieldId'].setValue).toHaveBeenCalledWith(
         'new value',
@@ -158,7 +176,9 @@ describe('useFieldValue', () => {
     });
 
     it('updates value', async () => {
-      await act(() => result.current[1]('new value'));
+      await act(async () => {
+        await result.current[1]('new value');
+      });
       expect(result.current[0]).toBe('new value');
       expect(mockSDK.entry.fields['fieldId'].setValue).toHaveBeenCalledWith('new value', 'locale');
     });
