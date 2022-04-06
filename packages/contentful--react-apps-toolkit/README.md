@@ -6,7 +6,7 @@ This library is still in development and should not be used in production.
 
 React Hooks for the App Framework offer a simple way to bring frequently needed functionality into your react based [Contentful apps](/developers/docs/extensibility/app-framework/).
 
-They can be used in apps created with [`create-contentful-app`](https://github.com/contentful/create-contentful-app), as well as any other React app using Contentful's [App SDK](https://github.com/contentful/ui-extensions-sdk).
+They can be used in apps created with [`create-contentful-app`](https://www.npmjs.com/package/@contentful/create-contentful-app), as well as any other React app using Contentful's [App SDK](https://www.npmjs.com/package/@contentful/app-sdk).
 
 ## Installation
 
@@ -22,7 +22,7 @@ The following hooks and utilities are exported from the package:
 
 ### SDKProvider
 
-The `SDKProvider` is a wrapper component, which automatically makes the Contentful [App SDK](https://github.com/contentful/ui-extensions-sdk) available to any child components using React Context. To use any of the hooks contained in this package, they must be wrapped in the `<SDKProvider>`, because all of the hooks depend on the App SDK.
+The `SDKProvider` is a wrapper component, which automatically makes the Contentful [App SDK](https://www.npmjs.com/package/@contentful/app-sdk) available to any child components using React Context. To use any of the hooks contained in this package, they must be wrapped in the `<SDKProvider>`, because all of the hooks depend on the App SDK.
 
 Usage:
 
@@ -72,7 +72,7 @@ function App() {
 
 ### useCMA
 
-`useCMA` returns an initialized [client for the Contentful Management API](https://github.com/contentful/contentful-management.js#alternative-plain-api). This can be used immediately to communicate with the environment the app is rendered in. [Contentful Management API docs](/developers/docs/references/content-management-api/).
+`useCMA` returns an initialized [client for the Contentful Management API](https://www.npmjs.com/package/contentful-management). This can be used immediately to communicate with the environment the app is rendered in. [Contentful Management API docs](/developers/docs/references/content-management-api/).
 
 **Note**: The CMA client instance returned by this hook is automatically scoped to the contentful space and environment in which it is called.
 
@@ -85,13 +85,8 @@ function ComponentUsingCMA() {
   const cma = useCMA();
   const [entries, setEntries] = useState();
 
-  const fetchEntries = async () => {
-    const fetchedEntries = await cma.entries.getMany();
-  };
-
   useEffect(() => {
-    const fetchedEntries = await fetchEntries();
-    setEntries(fetchedEntries);
+    cma.entries.getMany().then(setEntries);
   }, [cma]);
 
   return <>{entries?.length}</>;
