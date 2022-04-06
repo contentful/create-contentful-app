@@ -62,6 +62,24 @@ function App() {
 
 ```
 
+### `useFieldValue`
+
+Returns a tuple including the value and an update method for an entry field - similar to React's builtin `useState(...)`. The value automatically updates when the user or another app changes the the field.
+
+```ts
+import { useFieldValue } from '@contentful/react-apps-toolkit'
+
+function App() {
+  const [value, setValue] = useFieldValue(
+    'fieldId', // can be omitted in field location, defaults to the current field
+    'en-US' // can be omitted, defaults to the default locale
+  );
+
+  return <input value={value} onChange={e => setValue(e.target.value)} />
+}
+
+```
+
 #### SDKProvider
 
 Wrapper component, which makes the Apps SDK available to children via React Context. To use any of the hooks contained in this package, an application must be wrapped in the SDK provider, as all hooks depend on the Apps SDK.
