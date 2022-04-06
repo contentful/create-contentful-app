@@ -1,10 +1,10 @@
-import { EntryFieldAPI, KnownSDK } from '@contentful/app-sdk';
+import { EntryFieldAPI, KnownSDK, SerializedJSONValue } from '@contentful/app-sdk';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSDK } from './useSDK';
 
 export type UseFieldValueReturnValue<Value = unknown> = [
   value: Value | undefined,
-  setValue: (newValue: Value | undefined) => Promise<void>
+  setValue: (newValue: Value | undefined) => Promise<SerializedJSONValue | undefined>
 ];
 
 /**
@@ -34,7 +34,7 @@ export function useFieldValue<Value = unknown>(
   const updateValue = useCallback(
     async (newValue: Value | undefined) => {
       setValue(newValue);
-      await entryFieldApi.setValue(newValue, localeWithDefault);
+      return await entryFieldApi.setValue(newValue, localeWithDefault);
     },
     [entryFieldApi, localeWithDefault]
   );
