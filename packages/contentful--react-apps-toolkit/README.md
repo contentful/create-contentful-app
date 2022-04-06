@@ -1,7 +1,3 @@
-# In development
-
-This library is still in development and should not be used in production.
-
 # React Toolkit for Contentful Apps
 
 React Hooks for the App Framework offer a simple way to bring frequently needed functionality into your react based [Contentful apps](/developers/docs/extensibility/app-framework/).
