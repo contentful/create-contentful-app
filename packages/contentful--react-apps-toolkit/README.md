@@ -55,7 +55,7 @@ function App() {
     cma.entry.get({ entryId: '2VO9yOaeSyAFA19e649SxG' }).then((entry) => {
       console.log(entry);
     });
-  }, []);
+  }, [cma]);
 
   return <>Hello world!</>
 }
