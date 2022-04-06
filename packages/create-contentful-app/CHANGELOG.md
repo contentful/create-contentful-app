@@ -11,6 +11,110 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+## [0.15.12](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.11...create-contentful-app@0.15.12) (2022-03-25)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.11](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.10...create-contentful-app@0.15.11) (2022-03-25)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.10](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.9...create-contentful-app@0.15.10) (2022-03-18)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.9](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.8...create-contentful-app@0.15.9) (2022-03-18)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.8](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.7...create-contentful-app@0.15.8) (2022-03-17)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.7](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.6...create-contentful-app@0.15.7) (2022-03-15)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.6](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.5...create-contentful-app@0.15.6) (2022-03-09)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.5](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.4...create-contentful-app@0.15.5) (2022-03-02)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.4](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.3...create-contentful-app@0.15.4) (2022-03-01)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.3](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.2...create-contentful-app@0.15.3) (2022-02-24)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.2](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.1...create-contentful-app@0.15.2) (2022-02-23)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+## [0.15.1](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@0.15.0...create-contentful-app@0.15.1) (2022-02-22)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
+# 0.15.0 (2022-02-22)
+
+**Note:** Version bump only for package create-contentful-app
+
+
+
+
+
 # [1.1.0-alpha.8](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.1.0-alpha.7...create-contentful-app@1.1.0-alpha.8) (2022-03-22)
 
 **Note:** Version bump only for package create-contentful-app

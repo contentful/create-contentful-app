@@ -32,7 +32,6 @@
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
     "build": "tsc"
   },
   "dependencies": {
