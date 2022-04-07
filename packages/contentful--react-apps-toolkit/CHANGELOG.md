@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.6.1...@contentful/react-apps-toolkit@0.7.0) (2022-04-07)
+
+
+### Features
+
+* React Apps Toolkit v1 ([#982](https://github.com/contentful/create-contentful-app/issues/982)) ([3b484f9](https://github.com/contentful/create-contentful-app/commit/3b484f9f64cb4ea63db4ce2714d637972c2b4353))
+
+
+### BREAKING CHANGES
+
+* React Apps Toolkit v1
+
+**React Hooks for building apps faster**
+
+React is the most popular framework when it comes to writing Contentful apps and with the new React Apps Toolkit, we provide multiple new React hooks that abstract the most common use cases. That way, you have to write less boilerplate code and can focus on the core functionality of your Contentful app.  Combined with Contentful’s open source Forma 36 design library it allows developers to seamlessly integrate into Contentful so that you can build editorial apps faster with less manual work. To learn more about the new React Apps Toolkit, check out the [package on npm](https://www.npmjs.com/package/@contentful/react-apps-toolkit).
+
+**Usage:**
+
+```tsx
+ReactDOM.render(
+  // wrap the app with the SDK Provider, so the new hooks can be used
+  <SDKProvider>
+    <App />
+  </SDKProvider>,
+  document.getElementById(‘root’)
+);
+
+function App() {
+  // returns an instance of the App SDK
+  const sdk = useSDK();
+  
+  // returns an initialized plain CMA client
+  const cma = useCMA();
+
+  // returns the current state of a field and an update method
+  const [value, setValue] = useFieldValue();
+
+  // …
+}
+```
+
+
+
+
+
 ## [0.6.1](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@0.6.0...@contentful/react-apps-toolkit@0.6.1) (2022-04-07)
 
 **Note:** Version bump only for package @contentful/react-apps-toolkit
