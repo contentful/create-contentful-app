@@ -1,7 +1,11 @@
 {
   "name": "create-contentful-app",
-  "version": "0.15.12",
+  "version": "1.2.0",
   "description": "A template for building Contentful Apps",
+  "keywords": [
+    "contentful",
+    "create-contentful-app"
+  ],
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
@@ -13,6 +17,7 @@
     "node": ">=14",
     "npm": ">=6"
   },
+  "type": "module",
   "main": "index.js",
   "lint-staged": {
     "*.js": [
@@ -37,6 +42,7 @@
     "access": "public"
   },
   "scripts": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "build": "echo \"Nothing to build\""
   }
 }
