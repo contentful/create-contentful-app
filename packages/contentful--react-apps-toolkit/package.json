@@ -1,6 +1,6 @@
 {
   "name": "@contentful/react-apps-toolkit",
-  "version": "1.0.1-alpha.0",
+  "version": "1.0.1",
   "description": "Toolkit for building a Contentful app in React",
   "keywords": [],
   "author": "Contentful GmbH",
