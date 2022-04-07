@@ -1,8 +1,8 @@
 export type CLIOptions = Partial<{
   npm: boolean;
   yarn: boolean;
-  Js: boolean;
-  Ts: boolean;
+  javascript: boolean;
+  typescript: boolean;
   source: string;
   example: string;
 }>

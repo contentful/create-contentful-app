@@ -4,7 +4,7 @@ import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
 import { CLIOptions } from './types';
 
-const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'Js', 'Ts'] as const;
+const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'javascript', 'typescript'] as const;
 
 export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
@@ -54,34 +54,37 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
 
   let fallbackOption = '--typescript';
 
-  const currentMutuallyExclusiveOptions = MUTUALLY_EXCLUSIVE_OPTIONS
-    .filter((option) => normalizedOptions[option]);
+  const currentMutuallyExclusiveOptions = MUTUALLY_EXCLUSIVE_OPTIONS.filter(
+    (option) => normalizedOptions[option]
+  );
 
   if (normalizedOptions.source) {
     fallbackOption = '--source';
     delete normalizedOptions.example;
-    delete normalizedOptions.Ts;
-    delete normalizedOptions.Js;
+    delete normalizedOptions.typescript;
+    delete normalizedOptions.javascript;
   }
 
   if (normalizedOptions.example) {
     fallbackOption = '--example';
-    delete normalizedOptions.Ts;
-    delete normalizedOptions.Js;
+    delete normalizedOptions.typescript;
+    delete normalizedOptions.javascript;
   }
 
-  if (normalizedOptions.Ts) {
+  if (normalizedOptions.typescript) {
     fallbackOption = '--typescript';
-    delete normalizedOptions.Js;
+    delete normalizedOptions.javascript;
   }
 
-  if (!normalizedOptions.Js) {
-    normalizedOptions.Ts = true;
+  if (!normalizedOptions.javascript) {
+    normalizedOptions.typescript = true;
   }
 
   if (currentMutuallyExclusiveOptions.length > 1) {
     warn(
-      `Options ${highlight('--source')}, ${highlight('--example')}, ${highlight('--typescript')} and ${highlight('--javascript')} are mutually exclusive, using ${choice(fallbackOption)}.`
+      `Options ${highlight('--source')}, ${highlight('--example')}, ${highlight(
+        '--typescript'
+      )} and ${highlight('--javascript')} are mutually exclusive, using ${choice(fallbackOption)}.`
     );
   }
 
