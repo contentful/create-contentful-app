@@ -1,7 +1,7 @@
-import React, { FC, ReactElement, useRef } from 'react';
 import { init, KnownSDK } from '@contentful/app-sdk';
+import { createContext, FC, ReactElement, useEffect, useState } from 'react';
 
-export const SDKContext = React.createContext<{ sdk: KnownSDK | null }>({ sdk: null });
+export const SDKContext = createContext<{ sdk: KnownSDK | null }>({ sdk: null });
 
 interface SDKProviderProps {
   loading?: ReactElement;
@@ -14,9 +14,9 @@ const DELAY_TIMEOUT = 4 * 1000;
  * @param props.loading an optional loading element that gets rendered while initializing the app
  */
 export const SDKProvider: FC<SDKProviderProps> = (props) => {
-  const [sdk, setSDK] = React.useState<KnownSDK | undefined>();
+  const [sdk, setSDK] = useState<KnownSDK | undefined>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timeout = window.setTimeout(() => {
       console.warn(
         "Your app is taking longer than expected to initialize. If you think this is an error with Contentful's App SDK, let us know: https://github.com/contentful/ui-extensions-sdk/issues"
