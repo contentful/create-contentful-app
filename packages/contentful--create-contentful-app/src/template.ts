@@ -18,7 +18,7 @@ function makeContentfulExampleSource(options: CLIOptions) {
     return EXAMPLES_PATH + options.example;
   }
 
-  if (options.Js) {
+  if (options.javascript) {
     return EXAMPLES_PATH + ContentfulExample.Javascript;
   }
 
