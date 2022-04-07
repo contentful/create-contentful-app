@@ -72,42 +72,35 @@ commands:
 
 jobs:
   release:
-    docker:
-      - image: cimg/node:lts
+    executor: node-container-16
     steps:
       - prepare-release
       - run: npm run version
       - run: npm run publish
 
   release-canary:
-    docker:
-      - image: cimg/node:lts
+    executor: node-container-16
     steps:
       - prepare-release
       - run: npm run version:canary
       - run: npm run publish:canary
 
-  lint-and-test-lts:
+  lint-and-test-14:
     executor: node-container-14
     steps:
       - lint-and-test
 
-  lint-and-test-latest:
+  lint-and-test-16:
     executor: node-container-16
     steps:
       - lint-and-test
 
-  build:
-    executor: node-container-latest
-    steps:
-      - build
-
-  test-built-app-lts:
+  test-built-app-14:
     executor: node-container-14
     steps:
       - test-built-app
 
-  test-built-app-latest:
+  test-built-app-16:
     executor: node-container-16
     steps:
       - test-built-app
@@ -117,30 +110,29 @@ workflows:
 
   test:
     jobs:
-      - lint-and-test-lts
-      - test-built-app-lts:
+      - lint-and-test-14
+      - test-built-app-14:
           requires:
-            - lint-and-test-lts
-      - build
+            - lint-and-test-14
+
+      - lint-and-test-16
+      - test-built-app-16:
+          requires:
+            - lint-and-test-16
 
       - release:
           filters:
             branches:
               only: master
           requires:
-            - test-built-app-lts
-            - build
+            - test-built-app-14
+            - test-built-app-16
 
       - release-canary:
           filters:
             branches:
               only: canary
           requires:
-            - test-built-app-lts
-            - build
-
-      - lint-and-test-latest
-      - test-built-app-latest:
-          requires:
-            - lint-and-test-latest
+            - test-built-app-14
+            - test-built-app-16
 
