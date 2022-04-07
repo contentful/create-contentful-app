@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-alpha.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@0.15.8...@contentful/app-scripts@0.16.0-alpha.3) (2022-04-07)
+
+
+### Bug Fixes
+
+* change `create-definition` to `create-app-definition` ([#893](https://github.com/contentful/create-contentful-app/issues/893)) ([c11f3ec](https://github.com/contentful/create-contentful-app/commit/c11f3ecc7d10443a9a49261bb95811257f21880d))
+* update dependancies ([#940](https://github.com/contentful/create-contentful-app/issues/940)) ([983ee07](https://github.com/contentful/create-contentful-app/commit/983ee078d9a3920306f69b745ed49b69e907e5fc))
+
+
+### Features
+
+* EXT-3461 support custom templates ([#868](https://github.com/contentful/create-contentful-app/issues/868)) ([c21a7d5](https://github.com/contentful/create-contentful-app/commit/c21a7d52a29ccc871a04d4ea4bedf9d46f41ddcb))
+
+
+
+
+
 
 ## [0.15.8](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@0.15.7...@contentful/app-scripts@0.15.8) (2022-03-25)
 
