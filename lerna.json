@@ -5,8 +5,14 @@
   "command": {
     "publish": {
       "ignoreChanges": [
+        ".*",
         "*.md",
-        "package-lock.json"
+        "*.spec.*",
+        "*.test.*",
+        "jest.config.js",
+        "package-lock.json",
+        "tsconfig.json",
+        "docs"
       ],
       "message": "chore(release): release [skip ci]"
     }
