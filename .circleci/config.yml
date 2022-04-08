@@ -120,13 +120,13 @@ workflows:
           requires:
             - lint-and-test-16
 
-      # - release:
-      #     filters:
-      #       branches:
-      #         only: master
-      #     requires:
-      #       - test-built-app-14
-      #       - test-built-app-16
+      - release:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test-built-app-14
+            - test-built-app-16
 
       - release-canary:
           filters:
