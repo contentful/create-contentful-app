@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.2.0...@contentful/create-contentful-app@1.2.1) (2022-04-08)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 9.0.0 to 9.1.0 ([7892c70](https://github.com/contentful/create-contentful-app/commit/7892c70425c3d6f2ca6daad4336b0d063a267391))
+* **deps:** bump inquirer from 8.2.0 to 8.2.2 ([36d9489](https://github.com/contentful/create-contentful-app/commit/36d9489fec1f806d56dd09afdc5aac643861204b))
+* **deps:** bump validate-npm-package-name from 3.0.0 to 4.0.0 ([87f4669](https://github.com/contentful/create-contentful-app/commit/87f4669e2ce6aee69934cc2f4f6f4bf858134b9c))
+
+
+
+
+
 # 1.2.0 (2022-04-07)
 
 **Improved create-contentful-app tooling for the App Framework**
