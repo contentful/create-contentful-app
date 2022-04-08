@@ -5,7 +5,8 @@
   "command": {
     "publish": {
       "ignoreChanges": [
-        "*.md"
+        "*.md",
+        "package-lock.json"
       ],
       "message": "chore(release): release [skip ci]"
     }
