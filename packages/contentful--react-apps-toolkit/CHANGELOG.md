@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.0.2...@contentful/react-apps-toolkit@1.0.3) (2022-04-19)
+
+
+### Bug Fixes
+
+* **deps:** bump @contentful/app-sdk from 4.3.5 to 4.3.7 ([1a0bd7a](https://github.com/contentful/create-contentful-app/commit/1a0bd7a9434479dfe766e1cfcc1709509f09a272))
+* **deps:** bump contentful-management from 9.0.0 to 9.1.2 ([5f5f446](https://github.com/contentful/create-contentful-app/commit/5f5f4466ade2ef8054b0ca1f9849a9e78421125a))
+* **deps:** bump contentful-management from 9.1.2 to 9.2.1 ([eb0451c](https://github.com/contentful/create-contentful-app/commit/eb0451c39431c2782b57f0e40f63b8f218039d7e))
+* **deps:** bump contentful-management from 9.2.1 to 9.3.0 ([8c11578](https://github.com/contentful/create-contentful-app/commit/8c1157829b1e34691c9ec0b4d8c31e9dedb3f76e))
+* update types to support React 18 ([#1001](https://github.com/contentful/create-contentful-app/issues/1001)) ([cc1ffc9](https://github.com/contentful/create-contentful-app/commit/cc1ffc9c66e352ffc1cc721415e7deb22c668118))
+
+
+
+
+
 ## [1.0.2](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.0.1...@contentful/react-apps-toolkit@1.0.2) (2022-04-11)
 
 
