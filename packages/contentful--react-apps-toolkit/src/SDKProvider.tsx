@@ -1,5 +1,5 @@
 import { init, KnownSDK } from '@contentful/app-sdk';
-import { createContext, FC, ReactElement, useEffect, useState } from 'react';
+import { createContext, FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react';
 
 export const SDKContext = createContext<{ sdk: KnownSDK | null }>({ sdk: null });
 
@@ -13,7 +13,7 @@ const DELAY_TIMEOUT = 4 * 1000;
  * The Component providing the AppSdk, the useSDK hook can only be used within this Provider
  * @param props.loading an optional loading element that gets rendered while initializing the app
  */
-export const SDKProvider: FC<SDKProviderProps> = (props) => {
+export const SDKProvider: FC<PropsWithChildren<SDKProviderProps>> = (props) => {
   const [sdk, setSDK] = useState<KnownSDK | undefined>();
 
   useEffect(() => {
