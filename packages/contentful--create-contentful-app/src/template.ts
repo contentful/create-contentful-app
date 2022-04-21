@@ -41,20 +41,21 @@ async function clone(source: string, destination: string) {
   try {
     await d.clone(destination);
   } catch (e: any) {
-    let message = e.message ?? 'Unknown error';
+    // We know that this error suggests that the user try a 'force' option that
+    // exists only in degit - so we want to hide that instruction.
     if (e.code === 'DEST_NOT_EMPTY') {
-      message = 'Destination directory is not empty.';
+      throw new Error('Destination directory is not empty.');
     }
-    throw new Error(message);
+
+    console.error(e);
+    throw new Error(e.message);
   }
 }
 
 function validate(destination: string): void {
   const packageJSONLocation = `${destination}/package.json`;
   if (!existsSync(packageJSONLocation)) {
-    throw new Error(
-      `Invalid template: missing "${packageJSONLocation}".`
-    );
+    throw new Error(`Invalid template: missing "${packageJSONLocation}".`);
   }
 
   let packageJSON;
