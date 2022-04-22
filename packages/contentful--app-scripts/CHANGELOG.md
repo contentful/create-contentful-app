@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.0.1...@contentful/app-scripts@1.0.2) (2022-04-22)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 9.1.0 to 9.2.0 ([5e31c44](https://github.com/contentful/create-contentful-app/commit/5e31c443d8020a2fffe8675f5410d31ae82c7c57))
+* **deps:** bump contentful-management from 9.0.0 to 9.1.2 ([5f5f446](https://github.com/contentful/create-contentful-app/commit/5f5f4466ade2ef8054b0ca1f9849a9e78421125a))
+* **deps:** bump contentful-management from 9.1.2 to 9.2.1 ([eb0451c](https://github.com/contentful/create-contentful-app/commit/eb0451c39431c2782b57f0e40f63b8f218039d7e))
+* **deps:** bump contentful-management from 9.2.1 to 9.3.0 ([8c11578](https://github.com/contentful/create-contentful-app/commit/8c1157829b1e34691c9ec0b4d8c31e9dedb3f76e))
+* **deps:** bump contentful-management from 9.3.0 to 9.4.0 ([c969790](https://github.com/contentful/create-contentful-app/commit/c969790ae95e1083936a7c017eb63b6dc53155c4))
+* **deps:** bump contentful-management from 9.4.0 to 10.0.0 ([4a85368](https://github.com/contentful/create-contentful-app/commit/4a85368735c8d46f3ef1976805e56121ac40df63))
+
+
+
+
+
 ## [1.0.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.0.0...@contentful/app-scripts@1.0.1) (2022-04-08)
 
 
