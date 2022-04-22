@@ -42,6 +42,10 @@ async function clone(source: string, destination: string) {
     await d.clone(destination);
   } catch (e: any) {
     if (e.code === 'DEST_NOT_EMPTY') {
+      // In this case, we know that degit will suggest users
+      // provide a 'force' flag - this is a flag for degit though
+      // and not CCA. So we swallow the details of this error
+      // to avoid confusing people.
       throw new Error('Destination directory is not empty.');
     }
     throw e
