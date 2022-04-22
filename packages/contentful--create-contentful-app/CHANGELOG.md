@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.2.2...@contentful/create-contentful-app@1.3.0) (2022-04-22)
+
+
+### Features
+
+* [] log full degit errors ([da6a451](https://github.com/contentful/create-contentful-app/commit/da6a4512b30e8bbcfc07ab7f94e98616acadd7c0))
+* [EXT-3721] log full error details when possible ([c0eaaf4](https://github.com/contentful/create-contentful-app/commit/c0eaaf444e84c09f99884fb52ce205a82b791bc3))
+
+
+
+
+
 ## [1.2.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.2.1...@contentful/create-contentful-app@1.2.2) (2022-04-22)
 
 
