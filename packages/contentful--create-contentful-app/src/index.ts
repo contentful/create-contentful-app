@@ -104,7 +104,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     successMessage(fullAppFolder);
   } catch (err) {
-    error(`Failed to create ${appName}`, String(err));
+    error(`Failed to create ${appName}`, err instanceof Error ? err : String(err));
     process.exit(1);
   }
 }

@@ -4,11 +4,16 @@ export function warn(message: string): void {
   console.log(`${chalk.yellow('Warning:')} ${message}`);
 }
 
-export function error(message: string, error: string): void {
-  console.log(`${chalk.red('Error:')} ${message}
+export function error(message: string, error: string | Error): void {
+  if (error instanceof Error) {
+    console.log(`${chalk.red('Error:')} ${message}\n`);
+    console.log(error);
+  } else {
+    console.log(`${chalk.red('Error:')} ${message}
 
   ${error.startsWith('Error: ') ? error.substring(7) : error}
 `);
+  }
 }
 
 export function highlight(str: string) {
