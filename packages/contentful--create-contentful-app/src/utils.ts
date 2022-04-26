@@ -8,7 +8,7 @@ const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'javascript', 'typescri
 
 export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
-    const process = spawn(command, args, { stdio: 'inherit', ...options });
+    const process = spawn(command, args, { stdio: 'inherit', shell: true, ...options });
     process.on('exit', (exitCode) => {
       if (exitCode === 0) {
         resolve();
