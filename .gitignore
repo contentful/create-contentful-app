@@ -22,3 +22,5 @@ dist
 # editors
 .idea
 .vscode
+.parcel-cache
+.history

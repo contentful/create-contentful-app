@@ -15,14 +15,14 @@ build: &build
     command: npm run build
 
 executors:
-  node-container-lts:
+  node-container-14:
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:14.15.0
         environment: *base-env
 
-  node-container-latest:
+  node-container-16:
     docker:
-      - image: cimg/node:current
+      - image: cimg/node:16.14.0
         environment: *base-env
 
 commands:
@@ -30,6 +30,7 @@ commands:
     steps:
       - checkout
       - *install-deps
+      - *build
       - run:
           name: Run Linter
           command: npm run lint
@@ -41,16 +42,15 @@ commands:
     steps:
       - checkout
       - *install-deps
+      - *build
       - run:
           name: Run Tests
-          environment:
-            USE_LINKED_TEMPLATE: 1
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" test
             cd test
             npm t
   build:
@@ -71,133 +71,68 @@ commands:
       - *build
 
 jobs:
-  dependency-check:
-    executor: node-container-lts
-    steps:
-      - checkout
-      - *install-deps
-      - run:
-          name: Merge Pull Request
-          command: node ./scripts/dependency-check/merge-pull-request.js
-      - run:
-          name: Create Dependency Check sandbox
-          command: mkdir -p ./dependency-check
-      - run:
-          name: Create Package JSON
-          command: node ./scripts/dependency-check/create-manifest-from-template
-      - run:
-          name: Install packages
-          working_directory: ./dependency-check
-          command: npm install
-      - run:
-          name: Check Outdated
-          working_directory: ./dependency-check
-          command: (npm outdated --json || true) > ./outdated.json
-      - run:
-          name: Create new template
-          command: node ./scripts/dependency-check/create-template-from-outdated
-      - run:
-          name: Run Tests and Produce Reports
-          environment:
-            USE_LINKED_TEMPLATE: 1
-          command: |
-            FORMER_CWD="$(pwd)"
-            PROJECT=test-$(date +%s)
-            mkdir "/tmp/${PROJECT}"
-            cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" init test
-            cd test
-            (npm t || true) 1>"${FORMER_CWD}/dependency-check/test-report" 2>&1
-      - run:
-          name: Create Pull Request
-          command: node ./scripts/dependency-check/create-pull-request
-      - run:
-          name: Cleanup
-          command: rm -rf ./dependency-check
-
   release:
-    docker:
-      - image: cimg/node:lts
+    executor: node-container-16
     steps:
       - prepare-release
       - run: npm run version
       - run: npm run publish
 
   release-canary:
-    docker:
-      - image: cimg/node:lts
+    executor: node-container-16
     steps:
       - prepare-release
+      - run: npm run version:canary
       - run: npm run publish:canary
 
-  lint-and-test-lts:
-    executor: node-container-lts
+  lint-and-test-14:
+    executor: node-container-14
     steps:
       - lint-and-test
 
-  lint-and-test-latest:
-    executor: node-container-latest
+  lint-and-test-16:
+    executor: node-container-16
     steps:
       - lint-and-test
 
-  build:
-    executor: node-container-latest
-    steps:
-      - build
-
-  test-built-app-lts:
-    executor: node-container-lts
+  test-built-app-14:
+    executor: node-container-14
     steps:
       - test-built-app
 
-  test-built-app-latest:
-    executor: node-container-latest
+  test-built-app-16:
+    executor: node-container-16
     steps:
       - test-built-app
 
 workflows:
   version: 2
 
-  scheduled-dependency-check:
-    triggers:
-      - schedule:
-          # Run each day at midnight
-          cron: '0 0 * * *'
-          filters:
-            branches:
-              only:
-                - master
-                - canary
-    jobs:
-      - dependency-check
-
   test:
     jobs:
-      - lint-and-test-lts
-      - test-built-app-lts:
+      - lint-and-test-14
+      - test-built-app-14:
           requires:
-            - lint-and-test-lts
-      - build
+            - lint-and-test-14
+
+      - lint-and-test-16
+      - test-built-app-16:
+          requires:
+            - lint-and-test-16
 
       - release:
           filters:
             branches:
               only: master
           requires:
-            - test-built-app-lts
-            - build
-
+            - test-built-app-14
+            - test-built-app-16
 
       - release-canary:
           filters:
             branches:
               only: canary
           requires:
-            - test-built-app-lts
-            - build
-
-      - lint-and-test-latest
-      - test-built-app-latest:
-          requires:
-            - lint-and-test-latest
+            - test-built-app-14
+            - test-built-app-16
 

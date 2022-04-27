@@ -1,7 +1,11 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "0.15.5",
+  "version": "1.3.0",
   "description": "A template for building Contentful Apps",
+  "keywords": [
+    "contentful",
+    "create-contentful-app"
+  ],
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
@@ -10,7 +14,7 @@
     "directory": "packages/contentful--create-contentful-app"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14.15.0",
     "npm": ">=6"
   },
   "main": "lib/index.js",
@@ -25,34 +29,39 @@
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
-    "lint": "eslint ./lib",
+    "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "build": "tsc"
   },
   "dependencies": {
     "@contentful/app-scripts": "file:../contentful--app-scripts",
-    "@contentful/cra-template-create-contentful-app": "file:../contentful--cra-template-create-contentful-app",
     "chalk": "^4.1.0",
-    "contentful-management": "^8.0.0",
-    "create-react-app": "^5.0.0",
-    "cross-spawn": "^7.0.3",
-    "inquirer": "^8.0.0",
-    "open": "^8.0.1",
-    "tildify": "^2.0.0"
+    "commander": "^9.0.0",
+    "degit": "2.8.4",
+    "inquirer": "^8.2.1",
+    "rimraf": "^3.0.2",
+    "tildify": "^2.0.0",
+    "validate-npm-package-name": "^4.0.0"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
   "files": [
     "lib"
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/chalk": "^2.2.0",
+    "@types/degit": "^2.8.3",
+    "@types/inquirer": "^8.2.0",
+    "@types/node": "^14.14.31",
+    "@types/rimraf": "^3.0.2",
+    "@types/tildify": "^2.0.2",
+    "@types/validate-npm-package-name": "^3.0.3"
   }
 }

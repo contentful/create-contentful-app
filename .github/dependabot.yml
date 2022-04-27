@@ -8,13 +8,9 @@ updates:
     reviewers:
       - 'contentful/team-extensibility'
     ignore:
-      - dependency-name: husky
+      - dependency-name: "@types/node"
         versions:
-          - '>=5.0.0'
-      - dependency-name: contentful-management
-        versions:
-          - 7.15.2
-          - 7.16.0
+          - ">=15.0.0"
     commit-message:
       prefix: fix
       prefix-development: chore
