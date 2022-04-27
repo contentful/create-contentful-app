@@ -6,7 +6,7 @@ const { createClient } = require('contentful-management');
 async function activateBundle({ accessToken, organization, definition, bundleId }) {
   const activationSpinner = ora('Activating your bundle').start();
   const plainClient = createClient({ accessToken }, { type: 'plain' });
-  const defaultLocations = [{location: 'dialog'}];
+  const defaultLocations = [{ location: 'dialog' }];
 
   const currentDefinition = await plainClient.appDefinition.get({
     appDefinitionId: definition.value,
@@ -44,12 +44,18 @@ async function activateBundle({ accessToken, organization, definition, bundleId 
 
   console.log(`
   ${chalk.cyan('Success!')} Your app bundle was activated for ${chalk.cyan(
-      definition.name
-    )} in ${chalk.bold(organization.name)}.
+    definition.name
+  )} in ${chalk.bold(organization.name)}.
 
-  Bundle Id: ${chalk.yellow(bundleId)}
-  `
-  );
+  Bundle Id: ${chalk.yellow(bundleId)}`);
+  console.log(`
+  ----------------------------
+
+  Ready to share your app with the world? Submit it to the Developer Showcase (${chalk.cyan(
+    'https://ctfl.io/dev-showcase'
+  )}) or our Marketplace (${chalk.cyan('https://ctfl.io/submit-app')}).
+
+ `);
 }
 
 module.exports = {
