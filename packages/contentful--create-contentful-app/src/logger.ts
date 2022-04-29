@@ -4,15 +4,19 @@ export function warn(message: string): void {
   console.log(`${chalk.yellow('Warning:')} ${message}`);
 }
 
-export function error(message: string, error: string | Error): void {
-  if (error instanceof Error) {
-    console.log(`${chalk.red('Error:')} ${message}\n`);
+export function error(message: string, error: unknown): void {
+  console.log(`${chalk.red('Error:')} ${message}`);
+  if (error === undefined) {
+    return;
+  } else if (error instanceof Error) {
+    console.log();
     console.log(error);
   } else {
-    console.log(`${chalk.red('Error:')} ${message}
-
-  ${error.startsWith('Error: ') ? error.substring(7) : error}
-`);
+    const strigifiedError = String(error);
+    console.log();
+    console.log(
+      `${strigifiedError.startsWith('Error: ') ? strigifiedError.substring(7) : strigifiedError}`
+    );
   }
 }
 
