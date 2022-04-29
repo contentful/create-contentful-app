@@ -50,5 +50,6 @@
   "dependencies": {
     "@contentful/app-sdk": "^4.0.0",
     "contentful-management": ">=7.30.0"
-  }
+  },
+  "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
 }
