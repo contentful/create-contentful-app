@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.4...@contentful/create-contentful-app@1.3.5) (2022-05-10)
+
+
+### Bug Fixes
+
+* remove app-sdk check ([#1053](https://github.com/contentful/create-contentful-app/issues/1053)) ([22ff682](https://github.com/contentful/create-contentful-app/commit/22ff68287ae5ca60428b2382908146dd12c688e4))
+
+
+
+
+
 ## [1.3.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.3...@contentful/create-contentful-app@1.3.4) (2022-05-02)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
