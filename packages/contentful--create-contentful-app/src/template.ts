@@ -10,7 +10,7 @@ import { rmIfExists } from './utils';
 const EXAMPLES_PATH = 'contentful/apps/examples/';
 
 function isContentfulTemplate(url: string) {
-  return Object.values(ContentfulExample).some(t => url.includes(EXAMPLES_PATH + t));
+  return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
 }
 
 function makeContentfulExampleSource(options: CLIOptions) {
@@ -48,27 +48,20 @@ async function clone(source: string, destination: string) {
       // to avoid confusing people.
       throw new Error('Destination directory is not empty.');
     }
-    throw e
+    throw e;
   }
 }
 
 function validate(destination: string): void {
   const packageJSONLocation = `${destination}/package.json`;
   if (!existsSync(packageJSONLocation)) {
-    throw new Error(
-      `Invalid template: missing "${packageJSONLocation}".`
-    );
+    throw new Error(`Invalid template: missing "${packageJSONLocation}".`);
   }
 
-  let packageJSON;
   try {
-    packageJSON = JSON.parse(readFileSync(packageJSONLocation, 'utf-8'));
+    JSON.parse(readFileSync(packageJSONLocation, 'utf-8'));
   } catch (e) {
     throw new Error(`Invalid template: invalid "${packageJSONLocation}".`);
-  }
-
-  if (!Object.keys(packageJSON.dependencies).includes('@contentful/app-sdk')) {
-    throw new Error(`Invalid template: missing "@contentful/app-sdk" in "${packageJSONLocation}".`);
   }
 }
 
