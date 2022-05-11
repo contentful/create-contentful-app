@@ -78,6 +78,8 @@ describe('cleanUpBundles', () => {
     await clock.tickAsync(150);
     // Here the next ones also have called
     assert.strictEqual(clientMock.appBundle.delete.callCount, 4); // 2 before + 2 new
+
+    clock.restore();
   });
   it('slow call will occupy slot until finished', async () => {
     const clock = useFakeTimers();
@@ -94,5 +96,7 @@ describe('cleanUpBundles', () => {
     assert.strictEqual(clientMock.appBundle.delete.callCount, 3); // 2 before + 1 new  (1 still in flight and occupies slot)
     await clock.tickAsync(100);
     assert.strictEqual(clientMock.appBundle.delete.callCount, 5); // 3 before + 2 new  (slot is free again)
+
+    clock.restore();
   });
 });
