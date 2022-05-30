@@ -30,7 +30,7 @@
     "fs-extra": "^10.0.0",
     "husky": "^8.0.1",
     "lerna": "^5.0.0",
-    "lint-staged": "12.4.2",
+    "lint-staged": "12.4.3",
     "mocha": "^10.0.0",
     "prettier": "2.6.2",
     "proxyquire": "^2.1.3",
