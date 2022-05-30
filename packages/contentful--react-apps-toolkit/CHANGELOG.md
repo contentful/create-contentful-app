@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.0.5...@contentful/react-apps-toolkit@1.1.0) (2022-05-30)
+
+
+### Bug Fixes
+
+* **deps:** bump @contentful/app-sdk from 4.3.7 to 4.4.0 ([9bbd648](https://github.com/contentful/create-contentful-app/commit/9bbd648ad016e23c434a171bd3e59f1514569e6b))
+* **deps:** bump @contentful/app-sdk from 4.4.0 to 4.4.1 ([829b26d](https://github.com/contentful/create-contentful-app/commit/829b26dc0805b4a89a94353e7421964c744fdd4e))
+* **deps:** bump @contentful/app-sdk from 4.4.1 to 4.5.0 ([c9a94bd](https://github.com/contentful/create-contentful-app/commit/c9a94bd6441c7bac8f9a296c3fee5af4145ed818))
+* **deps:** bump contentful-management from 10.2.0 to 10.3.0 ([a068f4e](https://github.com/contentful/create-contentful-app/commit/a068f4ee67e4b7a242692e8f755b35e057b32909))
+* **deps:** bump contentful-management from 10.3.0 to 10.3.1 ([df39e1e](https://github.com/contentful/create-contentful-app/commit/df39e1e29c92c8a69aa1e989065d866f55628eb2))
+* **deps:** bump contentful-management from 10.3.1 to 10.4.0 ([51837a2](https://github.com/contentful/create-contentful-app/commit/51837a2a999c04cfce0f38497ef62fc27bb70584))
+* **deps:** bump contentful-management from 10.4.0 to 10.5.0 ([adef0fc](https://github.com/contentful/create-contentful-app/commit/adef0fc3b762ac2be7913dabcf8a221d829d36f6))
+* **deps:** bump contentful-management from 10.5.0 to 10.6.0 ([84a5de4](https://github.com/contentful/create-contentful-app/commit/84a5de4341946062a5611a06b02d523b5aa997ea))
+
+
+### Features
+
+* set organization default for CMA ([#1075](https://github.com/contentful/create-contentful-app/issues/1075)) ([a12eb24](https://github.com/contentful/create-contentful-app/commit/a12eb240323137fb997c4a8a4316ad1a063c924b))
+
+
+
+
+
 ## [1.0.5](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.0.4...@contentful/react-apps-toolkit@1.0.5) (2022-05-02)
 
 **Note:** Version bump only for package @contentful/react-apps-toolkit
