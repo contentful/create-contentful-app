@@ -17,6 +17,7 @@ export function useCMA(): PlainClientAPI {
         defaults: {
           environmentId: sdk.ids.environmentAlias ?? sdk.ids.environment,
           spaceId: sdk.ids.space,
+          organizationId: sdk.ids.organization,
         },
       }
     );
