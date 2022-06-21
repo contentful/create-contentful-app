@@ -1,0 +1,82 @@
+{
+  "name": "create-contentful-app",
+  "version": "1.2.8",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "create-contentful-app",
+      "version": "1.2.8",
+      "license": "MIT",
+      "dependencies": {
+        "@contentful/create-contentful-app": "1.3.5"
+      },
+      "bin": {
+        "create-contentful-app": "index.js"
+      },
+      "engines": {
+        "node": ">=14",
+        "npm": ">=6"
+      }
+    },
+    "../contentful--create-contentful-app": {
+      "name": "@contentful/create-contentful-app",
+      "version": "1.3.5",
+      "license": "MIT",
+      "dependencies": {
+        "@contentful/app-scripts": "1.1.2",
+        "chalk": "4.1.0",
+        "commander": "9.0.0",
+        "degit": "2.8.4",
+        "inquirer": "8.2.1",
+        "rimraf": "3.0.2",
+        "tildify": "2.0.0",
+        "validate-npm-package-name": "4.0.0"
+      },
+      "bin": {
+        "create-contentful-app": "lib/index.js"
+      },
+      "devDependencies": {
+        "@tsconfig/node16": "1.0.2",
+        "@types/chalk": "2.2.0",
+        "@types/degit": "2.8.3",
+        "@types/inquirer": "8.2.0",
+        "@types/node": "14.14.31",
+        "@types/rimraf": "3.0.2",
+        "@types/tildify": "2.0.2",
+        "@types/validate-npm-package-name": "3.0.3"
+      },
+      "engines": {
+        "node": ">=14.15.0",
+        "npm": ">=6"
+      }
+    },
+    "node_modules/@contentful/create-contentful-app": {
+      "resolved": "../contentful--create-contentful-app",
+      "link": true
+    }
+  },
+  "dependencies": {
+    "@contentful/create-contentful-app": {
+      "version": "file:../contentful--create-contentful-app",
+      "requires": {
+        "@contentful/app-scripts": "1.1.2",
+        "@tsconfig/node16": "1.0.2",
+        "@types/chalk": "2.2.0",
+        "@types/degit": "2.8.3",
+        "@types/inquirer": "8.2.0",
+        "@types/node": "14.14.31",
+        "@types/rimraf": "3.0.2",
+        "@types/tildify": "2.0.2",
+        "@types/validate-npm-package-name": "3.0.3",
+        "chalk": "4.1.0",
+        "commander": "9.0.0",
+        "degit": "2.8.4",
+        "inquirer": "8.2.1",
+        "rimraf": "3.0.2",
+        "tildify": "2.0.0",
+        "validate-npm-package-name": "4.0.0"
+      }
+    }
+  }
+}
