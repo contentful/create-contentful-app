@@ -82,7 +82,7 @@ function ComponentUsingCMA() {
   const [entries, setEntries] = useState();
 
   useEffect(() => {
-    cma.entries.getMany().then(setEntries);
+    cma.entry.getMany().then((data) => setEntries(data.items));
   }, [cma]);
 
   return <>{entries?.length}</>;
