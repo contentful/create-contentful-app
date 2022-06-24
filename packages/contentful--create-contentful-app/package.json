@@ -39,7 +39,7 @@
     "chalk": "^4.1.0",
     "commander": "^9.0.0",
     "degit": "2.8.4",
-    "inquirer": "^8.2.1",
+    "inquirer": "^9.0.0",
     "rimraf": "^3.0.2",
     "tildify": "^2.0.0",
     "validate-npm-package-name": "^4.0.0"
