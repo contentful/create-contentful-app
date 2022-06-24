@@ -127,7 +127,7 @@ function App() {
 
 ### useAutoResizer
 
-`useAutoResizer` listens for DOM changes and updates the component's height when the size changes.
+`useAutoResizer` listens for DOM changes and updates the app's height when the size changes.
 
 Usage:
 
