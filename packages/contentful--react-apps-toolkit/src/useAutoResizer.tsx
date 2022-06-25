@@ -11,8 +11,10 @@ import { useSDK } from './useSDK';
  * Starts/stops the auto resizer when the component is mounted/unmounted.
  * Must be wrapped by SDKProvider.
  * Can only be used when app is rendered in field, sidebar or dialog locations.
+ * @param {Object} params - Options to be passed to auto resizer
+ * @param {Boolean} params.absoluteElements - Defines if auto resizer should consider absolute elements
  */
-export function useAutoResizer(props: Parameters<WindowAPI['startAutoResizer']>): void {
+export function useAutoResizer(...params: Parameters<WindowAPI['startAutoResizer']>): void {
   const sdk = useSDK<DialogExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK>();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export function useAutoResizer(props: Parameters<WindowAPI['startAutoResizer']>)
       );
     }
 
-    sdk.window.startAutoResizer(...props);
+    sdk.window.startAutoResizer(...params);
     return sdk.window.stopAutoResizer;
   }, [sdk.window]);
 }

@@ -39,4 +39,13 @@ describe('useAutoResizer', () => {
     expect(mockSDK.window.startAutoResizer).toBeCalledTimes(1);
     expect(mockSDK.window.stopAutoResizer).toBeCalledTimes(1);
   });
+
+  it('should accept sdk.window.startAutoResizer parameters', () => {
+    const params = { absoluteElements: true };
+
+    const hook = renderHook(() => useAutoResizer(params));
+
+    expect(mockSDK.window.startAutoResizer).toHaveBeenCalledWith(params);
+    hook.unmount();
+  });
 });
