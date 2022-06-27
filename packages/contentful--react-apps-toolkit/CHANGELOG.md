@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.0...@contentful/react-apps-toolkit@1.2.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* add missing export for `useAutoResizer()` ([#1113](https://github.com/contentful/create-contentful-app/issues/1113)) ([bfec1dd](https://github.com/contentful/create-contentful-app/commit/bfec1ddc0c53b7d126893e282d7c06ecc43ebc7e))
+
+
+
+
+
 # [1.2.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.1.0...@contentful/react-apps-toolkit@1.2.0) (2022-06-27)
 
 
