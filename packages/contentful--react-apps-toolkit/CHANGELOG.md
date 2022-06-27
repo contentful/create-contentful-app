@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.1.0...@contentful/react-apps-toolkit@1.2.0) (2022-06-27)
+
+
+### Bug Fixes
+
+* **deps:** bump @contentful/app-sdk from 4.5.0 to 4.6.0 ([836ac78](https://github.com/contentful/create-contentful-app/commit/836ac780cd520904f5f3a984c63c8ed4b254ca9a))
+* **deps:** bump @contentful/app-sdk from 4.6.0 to 4.8.0 ([afd6d0d](https://github.com/contentful/create-contentful-app/commit/afd6d0d8b821b34386b819e3227d63ecb123dcff))
+* **deps:** bump contentful-management from 10.6.0 to 10.6.2 ([8b9b89d](https://github.com/contentful/create-contentful-app/commit/8b9b89dc1c060f079b8a2b318333491bc36e5175))
+* **deps:** bump contentful-management from 10.6.2 to 10.6.3 ([b21430a](https://github.com/contentful/create-contentful-app/commit/b21430ac3bad7e7bda65617e9afdf2f1a318f05d))
+
+
+### Features
+
+* add useAutoResizer() hook ([#1096](https://github.com/contentful/create-contentful-app/issues/1096)) ([6451cd7](https://github.com/contentful/create-contentful-app/commit/6451cd74114b4549a97b568c7579b549d5f10ed3))
+
+
+
+
+
 # [1.1.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.0.5...@contentful/react-apps-toolkit@1.1.0) (2022-05-30)
 
 
