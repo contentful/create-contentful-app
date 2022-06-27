@@ -125,6 +125,30 @@ function App() {
 }
 ```
 
+### useAutoResizer
+
+`useAutoResizer` listens for DOM changes and updates the app's height when the size changes.
+
+Usage:
+
+```tsx
+import { SDKProvider, useAutoResizer } from '@contentful/react-apps-toolkit';
+
+function ComponentUsingAutoResizer() {
+  useAutoResizer();
+
+  return <div>Component will be auto-resized</div>;
+}
+
+function App() {
+  return (
+    <SDKProvider>
+      <ComponentUsingAutoResizer />
+    </SDKProvider>
+  );
+}
+```
+
 ### Resources
 
 - [create-contentful-app](https://www.npmjs.com/package/create-contentful-app): A starter that makes it easy to bootstrap apps for Contentful.
