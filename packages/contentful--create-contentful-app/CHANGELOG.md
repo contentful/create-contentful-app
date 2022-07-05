@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.5...@contentful/create-contentful-app@1.3.6) (2022-06-23)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 9.2.0 to 9.3.0 ([6884036](https://github.com/contentful/create-contentful-app/commit/688403604f7d329e19eba5718984099b71c003b7))
+
+
+
+
+
 ## [1.3.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.4...@contentful/create-contentful-app@1.3.5) (2022-05-10)
 
 
