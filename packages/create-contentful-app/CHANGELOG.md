@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.10](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.2.9...create-contentful-app@1.2.10) (2022-07-06)
+
+
+### Bug Fixes
+
+* pin dependencies ([#1108](https://github.com/contentful/create-contentful-app/issues/1108)) ([8ed1b2e](https://github.com/contentful/create-contentful-app/commit/8ed1b2ec9c94760439c9284a6c2f6a2b6950ab38))
+
+
+
+
+
 ## [1.2.9](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.2.8...create-contentful-app@1.2.9) (2022-06-23)
 
 **Note:** Version bump only for package create-contentful-app

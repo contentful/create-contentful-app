@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.2...@contentful/app-scripts@1.1.3) (2022-07-06)
+
+
+### Bug Fixes
+
+* **deps:** bump commander from 9.2.0 to 9.3.0 ([6884036](https://github.com/contentful/create-contentful-app/commit/688403604f7d329e19eba5718984099b71c003b7))
+* **deps:** bump contentful-management from 10.2.0 to 10.3.0 ([a068f4e](https://github.com/contentful/create-contentful-app/commit/a068f4ee67e4b7a242692e8f755b35e057b32909))
+* **deps:** bump contentful-management from 10.3.0 to 10.3.1 ([df39e1e](https://github.com/contentful/create-contentful-app/commit/df39e1e29c92c8a69aa1e989065d866f55628eb2))
+* **deps:** bump contentful-management from 10.3.1 to 10.4.0 ([51837a2](https://github.com/contentful/create-contentful-app/commit/51837a2a999c04cfce0f38497ef62fc27bb70584))
+* **deps:** bump contentful-management from 10.4.0 to 10.5.0 ([adef0fc](https://github.com/contentful/create-contentful-app/commit/adef0fc3b762ac2be7913dabcf8a221d829d36f6))
+* **deps:** bump contentful-management from 10.5.0 to 10.6.0 ([84a5de4](https://github.com/contentful/create-contentful-app/commit/84a5de4341946062a5611a06b02d523b5aa997ea))
+* **deps:** bump contentful-management from 10.6.0 to 10.6.2 ([8b9b89d](https://github.com/contentful/create-contentful-app/commit/8b9b89dc1c060f079b8a2b318333491bc36e5175))
+* **deps:** bump contentful-management from 10.6.2 to 10.6.3 ([b21430a](https://github.com/contentful/create-contentful-app/commit/b21430ac3bad7e7bda65617e9afdf2f1a318f05d))
+* **deps:** bump dotenv from 16.0.0 to 16.0.1 ([e1b7d02](https://github.com/contentful/create-contentful-app/commit/e1b7d02baaa814935ac57933bf9a40dc1a6506c3))
+* pin dependencies ([#1108](https://github.com/contentful/create-contentful-app/issues/1108)) ([8ed1b2e](https://github.com/contentful/create-contentful-app/commit/8ed1b2ec9c94760439c9284a6c2f6a2b6950ab38))
+
+
+
+
+
 ## [1.1.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.1...@contentful/app-scripts@1.1.2) (2022-05-02)
 
 **Note:** Version bump only for package @contentful/app-scripts
