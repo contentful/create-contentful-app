@@ -36,13 +36,13 @@
   },
   "dependencies": {
     "@contentful/app-scripts": "1.1.2",
-    "chalk": "^4.1.0",
-    "commander": "^9.0.0",
+    "chalk": "4.1.0",
+    "commander": "9.0.0",
     "degit": "2.8.4",
-    "inquirer": "^8.2.1",
-    "rimraf": "^3.0.2",
-    "tildify": "^2.0.0",
-    "validate-npm-package-name": "^4.0.0"
+    "inquirer": "8.2.1",
+    "rimraf": "3.0.2",
+    "tildify": "2.0.0",
+    "validate-npm-package-name": "4.0.0"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -55,14 +55,14 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node16": "^1.0.2",
-    "@types/chalk": "^2.2.0",
-    "@types/degit": "^2.8.3",
-    "@types/inquirer": "^8.2.0",
-    "@types/node": "^14.14.31",
-    "@types/rimraf": "^3.0.2",
-    "@types/tildify": "^2.0.2",
-    "@types/validate-npm-package-name": "^4.0.0"
+    "@tsconfig/node16": "1.0.2",
+    "@types/chalk": "2.2.0",
+    "@types/degit": "2.8.3",
+    "@types/inquirer": "8.2.0",
+    "@types/node": "14.14.31",
+    "@types/rimraf": "3.0.2",
+    "@types/tildify": "2.0.2",
+    "@types/validate-npm-package-name": "4.0.0"
   },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
 }
