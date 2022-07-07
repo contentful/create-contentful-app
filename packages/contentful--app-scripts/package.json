@@ -48,7 +48,7 @@
     "access": "public"
   },
   "dependencies": {
-    "adm-zip": "0.5.5",
+    "adm-zip": "0.5.9",
     "bottleneck": "2.19.5",
     "chalk": "4.1.0",
     "commander": "9.0.0",
