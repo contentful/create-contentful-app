@@ -55,7 +55,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node16": "1.0.2",
+    "@tsconfig/node16": "1.0.3",
     "@types/chalk": "2.2.0",
     "@types/degit": "2.8.3",
     "@types/inquirer": "8.2.1",
