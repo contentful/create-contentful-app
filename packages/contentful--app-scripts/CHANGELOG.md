@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.11](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.10...@contentful/app-scripts@1.1.11) (2022-07-07)
+
+
+### Bug Fixes
+
+* update shrinkwraps ([#1135](https://github.com/contentful/create-contentful-app/issues/1135)) ([deb7eb1](https://github.com/contentful/create-contentful-app/commit/deb7eb1a30a96ed27c2490bcf753f51a53670c1c))
+
+
+
+
+
 ## [1.1.10](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.9...@contentful/app-scripts@1.1.10) (2022-07-07)
 
 

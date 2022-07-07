@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.20](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.2.19...create-contentful-app@1.2.20) (2022-07-07)
+
+
+### Bug Fixes
+
+* update shrinkwraps ([#1135](https://github.com/contentful/create-contentful-app/issues/1135)) ([deb7eb1](https://github.com/contentful/create-contentful-app/commit/deb7eb1a30a96ed27c2490bcf753f51a53670c1c))
+
+
+
+
+
 ## [1.2.19](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.2.18...create-contentful-app@1.2.19) (2022-07-07)
 
 **Note:** Version bump only for package create-contentful-app
