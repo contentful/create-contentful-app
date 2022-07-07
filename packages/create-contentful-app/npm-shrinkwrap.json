@@ -1,15 +1,15 @@
 {
   "name": "create-contentful-app",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "create-contentful-app",
-      "version": "1.2.11",
+      "version": "1.2.12",
       "license": "MIT",
       "dependencies": {
-        "@contentful/create-contentful-app": "1.3.8"
+        "@contentful/create-contentful-app": "1.3.9"
       },
       "bin": {
         "create-contentful-app": "index.js"
@@ -89,12 +89,12 @@
       }
     },
     "node_modules/@contentful/create-contentful-app": {
-      "version": "1.3.8",
-      "resolved": "https://registry.npmjs.org/@contentful/create-contentful-app/-/create-contentful-app-1.3.8.tgz",
-      "integrity": "sha512-HvXwRB/sFsN7iFL0NJPt+9WVqqYjew196vj1emDQychAU7GEPVIUgQoHXANZusrc/4Om/3sdmzZYWsxZ2xuQdg==",
+      "version": "1.3.9",
+      "resolved": "https://registry.npmjs.org/@contentful/create-contentful-app/-/create-contentful-app-1.3.9.tgz",
+      "integrity": "sha512-3KS/KQiXKOuEMXG57suXaOB5LuWZhCaRgRZucmnHp1kqdd1vp7jE85lfIUZAGm54YbInLM7CqAeYjxG75Gpsew==",
       "hasShrinkwrap": true,
       "dependencies": {
-        "@contentful/app-scripts": "1.1.4",
+        "@contentful/app-scripts": "1.1.5",
         "chalk": "4.1.0",
         "commander": "9.0.0",
         "degit": "2.8.4",
@@ -1279,11 +1279,11 @@
       "extraneous": true
     },
     "@contentful/create-contentful-app": {
-      "version": "1.3.8",
-      "resolved": "https://registry.npmjs.org/@contentful/create-contentful-app/-/create-contentful-app-1.3.8.tgz",
-      "integrity": "sha512-HvXwRB/sFsN7iFL0NJPt+9WVqqYjew196vj1emDQychAU7GEPVIUgQoHXANZusrc/4Om/3sdmzZYWsxZ2xuQdg==",
+      "version": "1.3.9",
+      "resolved": "https://registry.npmjs.org/@contentful/create-contentful-app/-/create-contentful-app-1.3.9.tgz",
+      "integrity": "sha512-3KS/KQiXKOuEMXG57suXaOB5LuWZhCaRgRZucmnHp1kqdd1vp7jE85lfIUZAGm54YbInLM7CqAeYjxG75Gpsew==",
       "requires": {
-        "@contentful/app-scripts": "1.1.4",
+        "@contentful/app-scripts": "1.1.5",
         "chalk": "4.1.0",
         "commander": "9.0.0",
         "degit": "2.8.4",
