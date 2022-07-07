@@ -58,7 +58,7 @@
     "inquirer": "8.0.0",
     "lodash": "4.17.21",
     "open": "8.0.5",
-    "ora": "5.4.0"
+    "ora": "5.4.1"
   },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
 }
