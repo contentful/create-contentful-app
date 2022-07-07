@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.6...@contentful/app-scripts@1.1.7) (2022-07-07)
+
+
+### Bug Fixes
+
+* **deps:** bump inquirer and @types/inquirer ([eef2275](https://github.com/contentful/create-contentful-app/commit/eef22754a05c524d2be88c6d7d43b50b3b7c7e0b))
+
+
+
+
+
+## [1.1.6](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.5...@contentful/app-scripts@1.1.6) (2022-07-07)
+
+
+### Bug Fixes
+
+* **deps:** bump ora from 5.4.0 to 5.4.1 ([a81dcf2](https://github.com/contentful/create-contentful-app/commit/a81dcf23734ce18e6e38906e1cf39ed7aff77e5a))
+
+
+
+
+
 ## [1.1.5](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.4...@contentful/app-scripts@1.1.5) (2022-07-07)
 
 
