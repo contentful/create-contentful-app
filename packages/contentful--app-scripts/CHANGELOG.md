@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.10](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.9...@contentful/app-scripts@1.1.10) (2022-07-07)
+
+
+### Bug Fixes
+
+* **deps:** bump dotenv from 16.0.0 to 16.0.1 ([af09d48](https://github.com/contentful/create-contentful-app/commit/af09d48eecabc626376127dce7a42002004d7e74))
+
+
+
+
+
+## [1.1.9](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.8...@contentful/app-scripts@1.1.9) (2022-07-07)
+
+
+### Bug Fixes
+
+* **deps:** bump contentful-management from 10.7.0 to 10.8.0 ([07682f8](https://github.com/contentful/create-contentful-app/commit/07682f8f2d866818983f67a48a73cd7cc0734973))
+
+
+
+
+
+## [1.1.8](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.7...@contentful/app-scripts@1.1.8) (2022-07-07)
+
+
+### Bug Fixes
+
+* **deps:** bump ignore from 5.1.8 to 5.2.0 ([5f9ae90](https://github.com/contentful/create-contentful-app/commit/5f9ae9047e60c2c6e542c9bade6b7630e7a3e28e))
+
+
+
+
+
 ## [1.1.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.6...@contentful/app-scripts@1.1.7) (2022-07-07)
 
 
