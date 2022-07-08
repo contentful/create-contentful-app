@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.19](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.18...@contentful/create-contentful-app@1.3.19) (2022-07-08)
+
+
+### Bug Fixes
+
+* **deps:** bump chalk from 4.1.0 to 4.1.2 ([dfaf860](https://github.com/contentful/create-contentful-app/commit/dfaf860bb05915d3fcd885f6f766c6e48729a570))
+
+
+
+
+
 ## [1.3.18](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.17...@contentful/create-contentful-app@1.3.18) (2022-07-07)
 
 

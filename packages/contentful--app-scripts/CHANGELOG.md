@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.12](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.11...@contentful/app-scripts@1.1.12) (2022-07-08)
+
+
+### Bug Fixes
+
+* **deps:** bump chalk from 4.1.0 to 4.1.2 ([dfaf860](https://github.com/contentful/create-contentful-app/commit/dfaf860bb05915d3fcd885f6f766c6e48729a570))
+* remove shrinkwraps ([#1137](https://github.com/contentful/create-contentful-app/issues/1137)) ([f0a7cbb](https://github.com/contentful/create-contentful-app/commit/f0a7cbb0376438268bf7fac600d1c4dd51d89fe3))
+
+
+
+
+
 ## [1.1.11](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.10...@contentful/app-scripts@1.1.11) (2022-07-07)
 
 
