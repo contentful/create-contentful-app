@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.3...@contentful/react-apps-toolkit@1.2.4) (2022-07-08)
+
+**Note:** Version bump only for package @contentful/react-apps-toolkit
+
+
+
+
+
 ## [1.2.3](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.2...@contentful/react-apps-toolkit@1.2.3) (2022-07-08)
 
 
