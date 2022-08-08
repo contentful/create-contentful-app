@@ -55,7 +55,7 @@ Select between predefined and custom templates:
 
 These flags are mutually exclusive. If no flag is provided, the TypeScript template is used.
 
-Some of the supported template presets are:
+Some popular templates are:
 
 | Template                                                                                                     | CLI Command                                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- |
