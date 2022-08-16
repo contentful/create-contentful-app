@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.5](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.4...@contentful/react-apps-toolkit@1.2.5) (2022-08-16)
+
+
+### Bug Fixes
+
+* **deps:** bump @contentful/app-sdk from 4.10.0 to 4.11.0 ([8436bf8](https://github.com/contentful/create-contentful-app/commit/8436bf8e938db9ff58e713b9234693e8f39f63c8))
+* **deps:** bump @contentful/app-sdk from 4.11.0 to 4.11.1 ([8cf0313](https://github.com/contentful/create-contentful-app/commit/8cf0313f0e3c6aee179fbae33108c9606d6a10db))
+* **deps:** bump @contentful/app-sdk from 4.11.1 to 4.12.0 ([2402bee](https://github.com/contentful/create-contentful-app/commit/2402beef530a4ed2072ca21e7279ae3cce79422d))
+* **deps:** bump @contentful/app-sdk from 4.8.1 to 4.9.0 ([0e8cd58](https://github.com/contentful/create-contentful-app/commit/0e8cd58fefc7f33d890ff73911cca775cf738ae1))
+* **deps:** bump @contentful/app-sdk from 4.9.0 to 4.10.0 ([8773eca](https://github.com/contentful/create-contentful-app/commit/8773eca472b860bc990ca79f91f7d6b1cade18e8))
+* **deps:** bump contentful-management from 10.10.0 to 10.11.0 ([819691f](https://github.com/contentful/create-contentful-app/commit/819691f5295b6693c028285cce42685e9f487fe6))
+* **deps:** bump contentful-management from 10.11.0 to 10.12.0 ([264275c](https://github.com/contentful/create-contentful-app/commit/264275c250076a1ebb8b002df6a0798c72d09684))
+* **deps:** bump contentful-management from 10.8.0 to 10.9.1 ([4bfa52a](https://github.com/contentful/create-contentful-app/commit/4bfa52af8d709d825b153f3fc7dbd8861f90faa0))
+* **deps:** bump contentful-management from 10.9.1 to 10.10.0 ([8a46e53](https://github.com/contentful/create-contentful-app/commit/8a46e53bcc6c53985a08ca93fca10420547a3554))
+
+
+
+
+
 ## [1.2.4](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.3...@contentful/react-apps-toolkit@1.2.4) (2022-07-08)
 
 **Note:** Version bump only for package @contentful/react-apps-toolkit
