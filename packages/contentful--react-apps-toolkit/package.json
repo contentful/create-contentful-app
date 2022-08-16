@@ -31,9 +31,11 @@
     "pre-commit": "lint-staged"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "@contentful/app-sdk": ">=4.0.0"
   },
   "devDependencies": {
+    "@contentful/app-sdk": ">=4.0.0",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "8.0.1",
     "@types/jest": "27.4.0",
@@ -48,7 +50,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.0.0",
     "contentful-management": ">=7.30.0"
   },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
