@@ -1,6 +1,6 @@
 # `@contentful/app-scripts`
 
-This project makes easy to perform some recurrent operations in [Contentful's App Framework](https://www.contentful.com/developers/docs/extensibility/app-framework/).
+This project makes it easier to perform some recurrent operations in [Contentful's App Framework](https://www.contentful.com/developers/docs/extensibility/app-framework/).
 
 ## 📥 Installation
 
