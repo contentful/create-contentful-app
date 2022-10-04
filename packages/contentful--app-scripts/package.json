@@ -51,7 +51,7 @@
     "adm-zip": "0.5.9",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
-    "commander": "9.4.0",
+    "commander": "9.4.1",
     "contentful-management": "10.15.1",
     "dotenv": "16.0.2",
     "ignore": "5.2.0",
