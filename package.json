@@ -29,7 +29,7 @@
     "eslint-plugin-node": "11.1.0",
     "fs-extra": "10.1.0",
     "husky": "8.0.1",
-    "lerna": "5.5.4",
+    "lerna": "5.6.1",
     "lint-staged": "13.0.3",
     "mocha": "10.0.0",
     "prettier": "2.7.1",
