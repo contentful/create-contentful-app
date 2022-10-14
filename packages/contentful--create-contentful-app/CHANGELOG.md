@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.47](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.46...@contentful/create-contentful-app@1.3.47) (2022-10-14)
+
+### Bug Fixes
+
+- **deps:** bump validate-npm-package-name from 4.0.0 to 5.0.0 ([c8f2489](https://github.com/contentful/create-contentful-app/commit/c8f248972abd92db1230db6b139695df482cc133))
+
 ## [1.3.46](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.45...@contentful/create-contentful-app@1.3.46) (2022-10-13)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
