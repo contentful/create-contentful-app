@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.33](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.32...@contentful/app-scripts@1.1.33) (2022-10-24)
+
+### Bug Fixes
+
+- **deps:** bump inquirer from 8.2.4 to 8.2.5 ([f824482](https://github.com/contentful/create-contentful-app/commit/f8244825a1e28ebf81245f6899b0df4a67fd44aa))
+
 ## [1.1.32](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.31...@contentful/app-scripts@1.1.32) (2022-10-21)
 
 ### Bug Fixes
