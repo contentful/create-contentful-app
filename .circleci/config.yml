@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  vault: contentful/vault@1
+
 environment: &base-env
   NPM_CONFIG_PROGRESS: 'false'
   NPM_CONFIG_LOGLEVEL: warn
@@ -29,6 +32,8 @@ commands:
   lint-and-test:
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: "npm-read"
       - *install-deps
       - *build
       - run:
@@ -41,6 +46,8 @@ commands:
   test-built-app:
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: "npm-read"
       - *install-deps
       - *build
       - run:
@@ -56,6 +63,8 @@ commands:
   build:
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: "npm-read"
       - *install-deps
       - run:
           name: Run build
@@ -64,6 +73,8 @@ commands:
   prepare-release:
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: "npm-read"
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
       - run: git config --global user.name "whydah-gally"
@@ -75,6 +86,8 @@ jobs:
     executor: node-container-16
     steps:
       - prepare-release
+      - vault/get-secrets:
+          template-preset: 'semantic-release'
       - run: npm run version
       - run: npm run publish
 
@@ -82,6 +95,8 @@ jobs:
     executor: node-container-16
     steps:
       - prepare-release
+      - vault/get-secrets:
+          template-preset: 'semantic-release'
       - run: npm run version:canary
       - run: npm run publish:canary
 
@@ -110,17 +125,27 @@ workflows:
 
   test:
     jobs:
-      - lint-and-test-14
+      - lint-and-test-14:
+          context:
+            - vault
       - test-built-app-14:
+          context:
+            - vault
           requires:
             - lint-and-test-14
 
-      - lint-and-test-16
+      - lint-and-test-16:
+          context:
+            - vault
       - test-built-app-16:
+          context:
+            - vault
           requires:
             - lint-and-test-16
 
       - release:
+          context:
+            - vault
           filters:
             branches:
               only: master
@@ -129,6 +154,8 @@ workflows:
             - test-built-app-16
 
       - release-canary:
+          context:
+            - vault
           filters:
             branches:
               only: canary
