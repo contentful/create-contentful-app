@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.35](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.34...@contentful/app-scripts@1.1.35) (2022-11-03)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.19.0 to 10.19.1 ([dea36bd](https://github.com/contentful/create-contentful-app/commit/dea36bd021d42fc3a85bc73b3cfafd739e672cfe))
+
 ## [1.1.34](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.33...@contentful/app-scripts@1.1.34) (2022-10-26)
 
 ### Bug Fixes
