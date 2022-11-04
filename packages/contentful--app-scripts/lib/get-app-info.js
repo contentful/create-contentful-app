@@ -4,9 +4,9 @@ const { createClient } = require('contentful-management');
 const { getManagementToken } = require('./get-management-token');
 
 const getAppInfo = async (options) => {
-  const accessToken = options.token || (await getManagementToken());
-
-  const client = createClient({ accessToken });
+  const { host } = options;
+  const accessToken = options.token || (await getManagementToken(host));
+  const client = createClient({ accessToken, host });
 
   const organization = options.organizationId
     ? await getOrganizationById(client, options.organizationId)

@@ -30,7 +30,13 @@ const scheduleBundleDeletion = async (bundlesToDelete, client, settings) => {
 
 async function cleanUpBundles(settings) {
   let bundles, definition;
-  const client = createClient({ accessToken: settings.accessToken }, { type: 'plain' });
+  const client = createClient(
+    {
+      host: settings.host,
+      accessToken: settings.accessToken,
+    },
+    { type: 'plain' }
+  );
   const bundlesSpinner = ora(`Fetching all bundles...`).start();
   try {
     bundles = await client.appBundle.getMany({
