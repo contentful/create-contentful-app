@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.38...@contentful/app-scripts@1.2.0) (2022-11-14)
+
+### Features
+
+- add host argument for bundle cleanup ([#1255](https://github.com/contentful/create-contentful-app/issues/1255)) ([d9e4770](https://github.com/contentful/create-contentful-app/commit/d9e477002d7253d3c8db73d2ec75509839146120))
+
 ## [1.1.38](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.1.37...@contentful/app-scripts@1.1.38) (2022-11-14)
 
 ### Bug Fixes
