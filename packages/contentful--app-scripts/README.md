@@ -16,17 +16,18 @@ Globally:
 npm i -g @contentful/app-scripts
 ```
 
-
 ## ⚙️ Usage
 
 ### 💻 CLI
 
 When installed
+
 ```
 $ contentful-app-scripts create-app-definition
 ```
 
 Otherwise
+
 ```
 $ npx @contentful/app-scripts create-app-definition
 ```
@@ -34,14 +35,12 @@ $ npx @contentful/app-scripts create-app-definition
 ### 👨‍💻 Programmatic
 
 ```javascript
-const { createAppDefinition } = require('@contentful/app-scripts')
-const { myCustomLogic } = require('./my-custom-logic')
-
-(async function main() {
+const { createAppDefinition } = require('@contentful/app-scripts');
+const { myCustomLogic } = require('./my-custom-logic')(async function main() {
   myCustomLogic();
 
-  await createAppDefinition.interactive()
-})()
+  await createAppDefinition.interactive();
+})();
 ```
 
 ## 📜 API
@@ -107,17 +106,16 @@ When passing the `--ci` argument the command will fail when the required variabl
 
 **Options:**
 
-| Argument                 | Description                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bundle-dir`           | The directory of your build folder (e.g.: `./build`)                                                                                           |
-| `--organization-id`      | The ID of your organisation                                                                                                                    |
-| `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
-| `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
-| `--skip-activation`      | (optional) Boolean flag to skip the automatic activation of the `AppBundle`                                                                    |
-| `--comment`              | (optional) A comment which will be associated with the created `AppBundle`. Can be used to differentiate bundles.                               |
+| Argument            | Description                                                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--bundle-dir`      | The directory of your build folder (e.g.: `./build`)                                                                                       |
+| `--organization-id` | The ID of your organisation                                                                                                                |
+| `--definition-id`   | The ID of the app to which to add the bundle                                                                                               |
+| `--token`           | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens) |
+| `--skip-activation` | (optional) Boolean flag to skip the automatic activation of the `AppBundle`                                                                |
+| `--comment`         | (optional) A comment which will be associated with the created `AppBundle`. Can be used to differentiate bundles.                          |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
-
 
 ### Activate an AppBundle
 
@@ -150,12 +148,12 @@ When passing the `--ci` argument adding all variables as arguments is required
 
 **Options:**
 
-| Argument                 | Description                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bundle-id`            | The ID of the AppBundle you want to activate                                                                                                   |
-| `--organization-id`      | The ID of your organisation                                                                                                                    |
-| `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
-| `--token`                | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)     |
+| Argument            | Description                                                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--bundle-id`       | The ID of the AppBundle you want to activate                                                                                               |
+| `--organization-id` | The ID of your organisation                                                                                                                |
+| `--definition-id`   | The ID of the app to which to add the bundle                                                                                               |
+| `--token`           | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens) |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
@@ -176,7 +174,6 @@ You can also execute this command without the argument if the environment variab
 > ```shell
 > $ CONTENTFUL_APP_DEF_ID=some-definition-id npx --no-install @contentful/app-scripts open-settings
 > ```
-
 
 ### Clean up bundles
 
@@ -211,11 +208,12 @@ When passing the `--ci` argument adding all variables as arguments is required
 
 **Options:**
 
-| Argument                 | Description                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bundle-id`            | The ID of the AppBundle you want to activate                                                                                                   |
-| `--organization-id`      | The ID of your organisation                                                                                                                    |
-| `--definition-id`        | The ID of the app to which to add the bundle                                                                                                   |
-| `--keep`                 | Optional, the amount of bundles to keep                                                                                                        |
+| Argument            | Description                                  |
+| ------------------- | -------------------------------------------- |
+| `--bundle-id`       | The ID of the AppBundle you want to activate |
+| `--organization-id` | The ID of your organisation                  |
+| `--definition-id`   | The ID of the app to which to add the bundle |
+| `--keep`            | Optional, the amount of bundles to keep      |
+| `--host`            | Optional, the Contentful CMA-endpoint to use |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.

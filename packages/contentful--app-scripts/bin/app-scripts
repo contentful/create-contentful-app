@@ -3,25 +3,22 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const {createAppDefinition, upload, activate, cleanup, open} = require('../')
-
+const { createAppDefinition, upload, activate, cleanup, open } = require('../');
 
 async function runCommand(command, options) {
-  const {ci} = program.opts()
+  const { ci } = program.opts();
   return ci ? await command.nonInteractive(options) : await command.interactive(options);
 }
 
 (async function main() {
-  program
-    .version(version)
-    .option('--ci', 'Execute in non-interactive mode', false)
+  program.version(version).option('--ci', 'Execute in non-interactive mode', false);
 
   program
     .command('create-app-definition')
     .description('Create a new AppDefinition for an App')
     .action(async (options) => {
       await runCommand(createAppDefinition, options);
-    })
+    });
 
   program
     .command('upload')
@@ -34,7 +31,7 @@ async function runCommand(command, options) {
     .option('--skip-activation', 'A Boolean flag to skip automatic activation')
     .action(async (options) => {
       await runCommand(upload, options);
-    })
+    });
 
   program
     .command('activate')
@@ -45,7 +42,7 @@ async function runCommand(command, options) {
     .option('--token [accessToken]', 'Your content management access token')
     .action(async (options) => {
       await runCommand(activate, options);
-    })
+    });
 
   program
     .command('open-settings')
@@ -53,7 +50,7 @@ async function runCommand(command, options) {
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .action(async (options) => {
       await runCommand(open, options);
-    })
+    });
 
   program
     .command('bundle-cleanup')
@@ -62,13 +59,14 @@ async function runCommand(command, options) {
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--keep [keepAmount]', 'The amount of bundles that should remain')
+    .option('--host [host]', 'Contentful CMA-endpoint to use')
     .action(async (options) => {
       await runCommand(cleanup, options);
-    })
+    });
 
   await program.parseAsync(process.argv);
-})().catch(e => {
+})().catch((e) => {
   console.error(e);
   // eslint-disable-next-line no-process-exit
   process.exit(1);
-})
+});
