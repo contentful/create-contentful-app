@@ -2,17 +2,14 @@ version: 2.1
 orbs:
   vault: contentful/vault@1
   nx: nrwl/nx@1.6.1
-environment:
-  &a1
+environment: &base-env
   NPM_CONFIG_PROGRESS: "false"
   NPM_CONFIG_LOGLEVEL: warn
-install-deps:
-  &a2
+install-deps: &install-deps
   run:
     name: Install Dependencies
     command: npm ci && npm run bootstrap
-build:
-  &a3
+build: &build
   run:
     name: Build
     command: npm run build
@@ -20,19 +17,19 @@ executors:
   node-container-14:
     docker:
       - image: cimg/node:14.15.0
-        environment: *a1
+        environment: *base-env
   node-container-16:
     docker:
       - image: cimg/node:16.14.0
-        environment: *a1
+        environment: *base-env
 commands:
   lint-and-test:
     steps:
       - checkout
       - vault/get-secrets:
           template-preset: npm-read
-      - *a2
-      - *a3
+      - *install-deps
+      - *build
       - run:
           name: Run Linter
           command: npm run lint
@@ -44,30 +41,24 @@ commands:
       - checkout
       - vault/get-secrets:
           template-preset: npm-read
-      - *a2
-      - *a3
+      - *install-deps
+      - *build
       - run:
           name: Run Tests
-          command: >
+          command: |
             FORMER_CWD="$(pwd)"
-
             PROJECT=test-$(date +%s)
-
             mkdir "/tmp/${PROJECT}"
-
             cd "/tmp/${PROJECT}"
-
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" test
-
             cd test
-
             npm t
   build:
     steps:
       - checkout
       - vault/get-secrets:
           template-preset: npm-read
-      - *a2
+      - *install-deps
       - run:
           name: Run build
           command: npm run build
@@ -80,8 +71,8 @@ commands:
       - run: git config --global user.email
           "tech-accounts+gh+whydah-gally@contentful.com"
       - run: git config --global user.name "whydah-gally"
-      - *a2
-      - *a3
+      - *install-deps
+      - *build
   nx_set_shas:
     steps:
       - nx/set-shas:
