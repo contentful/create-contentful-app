@@ -1,128 +1,127 @@
 version: 2.1
-
 orbs:
   vault: contentful/vault@1
-
-environment: &base-env
-  NPM_CONFIG_PROGRESS: 'false'
+  nx: nrwl/nx@1.6.1
+environment:
+  &a1
+  NPM_CONFIG_PROGRESS: "false"
   NPM_CONFIG_LOGLEVEL: warn
-
-install-deps: &install-deps
+install-deps:
+  &a2
   run:
     name: Install Dependencies
     command: npm ci && npm run bootstrap
-
-build: &build
+build:
+  &a3
   run:
     name: Build
     command: npm run build
-
 executors:
   node-container-14:
     docker:
       - image: cimg/node:14.15.0
-        environment: *base-env
-
+        environment: *a1
   node-container-16:
     docker:
       - image: cimg/node:16.14.0
-        environment: *base-env
-
+        environment: *a1
 commands:
   lint-and-test:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "npm-read"
-      - *install-deps
-      - *build
+          template-preset: npm-read
+      - *a2
+      - *a3
       - run:
           name: Run Linter
           command: npm run lint
       - run:
           name: Run Tests
           command: npm run test
-
   test-built-app:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "npm-read"
-      - *install-deps
-      - *build
+          template-preset: npm-read
+      - *a2
+      - *a3
       - run:
           name: Run Tests
-          command: |
+          command: >
             FORMER_CWD="$(pwd)"
+
             PROJECT=test-$(date +%s)
+
             mkdir "/tmp/${PROJECT}"
+
             cd "/tmp/${PROJECT}"
+
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" test
+
             cd test
+
             npm t
   build:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "npm-read"
-      - *install-deps
+          template-preset: npm-read
+      - *a2
       - run:
           name: Run build
           command: npm run build
-
   prepare-release:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "npm-read"
+          template-preset: npm-read
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
+      - run: git config --global user.email
+          "tech-accounts+gh+whydah-gally@contentful.com"
       - run: git config --global user.name "whydah-gally"
-      - *install-deps
-      - *build
-
+      - *a2
+      - *a3
+  nx_set_shas:
+    steps:
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
 jobs:
   release:
     executor: node-container-16
     steps:
       - prepare-release
       - vault/get-secrets:
-          template-preset: 'semantic-release'
+          template-preset: semantic-release
       - run: npm run version
       - run: npm run publish
-
   release-canary:
     executor: node-container-16
     steps:
       - prepare-release
       - vault/get-secrets:
-          template-preset: 'semantic-release'
+          template-preset: semantic-release
       - run: npm run version:canary
       - run: npm run publish:canary
-
   lint-and-test-14:
     executor: node-container-14
     steps:
       - lint-and-test
-
   lint-and-test-16:
     executor: node-container-16
     steps:
       - lint-and-test
-
   test-built-app-14:
     executor: node-container-14
     steps:
       - test-built-app
-
   test-built-app-16:
     executor: node-container-16
     steps:
       - test-built-app
-
 workflows:
   version: 2
-
   test:
     jobs:
       - lint-and-test-14:
@@ -133,7 +132,6 @@ workflows:
             - vault
           requires:
             - lint-and-test-14
-
       - lint-and-test-16:
           context:
             - vault
@@ -142,7 +140,6 @@ workflows:
             - vault
           requires:
             - lint-and-test-16
-
       - release:
           context:
             - vault
@@ -152,7 +149,6 @@ workflows:
           requires:
             - test-built-app-14
             - test-built-app-16
-
       - release-canary:
           context:
             - vault
