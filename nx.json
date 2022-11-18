@@ -4,23 +4,15 @@
       "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
-          "dist",
           "build",
           "test",
-          "lint",
-          "test:ci",
-          "tsc"
+          "lint"
         ]
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ]
-    },
-    "dev": {
       "dependsOn": [
         "^build"
       ]
