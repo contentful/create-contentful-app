@@ -87,6 +87,11 @@ async function cleanUpBundles(settings) {
       return;
     }
     bundlesToDelete = await getAppBundles(amountToDelete);
+    bundlesToDelete = bundlesToDelete
+      .sort((a, b) => {
+        return new Date(b.sys.updatedAt) - new Date(a.sys.updatedAt);
+      })
+      .reverse();
 
     definition = await client.appDefinition.get({
       appDefinitionId: settings.definition.value,

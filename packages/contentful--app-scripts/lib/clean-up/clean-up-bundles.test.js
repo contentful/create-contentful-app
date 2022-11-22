@@ -87,6 +87,7 @@ describe('cleanUpBundles', () => {
   it('slow call will occupy slot until finished', async () => {
     const clock = useFakeTimers();
     mockedBundles.unshift({ sys: { id: 'slow' } });
+    mockedBundles = mockedBundles.reverse();
     clientMock.appBundle.delete = stub().callsFake(
       ({ appBundleId }) => new Promise((r) => setTimeout(r, appBundleId === 'slow' ? 200 : 100))
     );
