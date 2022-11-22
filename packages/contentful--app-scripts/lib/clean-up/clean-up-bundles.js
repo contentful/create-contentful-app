@@ -58,10 +58,10 @@ async function cleanUpBundles(settings) {
       throw new Error('Requested amount of bundles to fetch must be greater than 0');
     }
     const getBundles = async (limit, skip) => {
-      const result = await fetchAppBundles(limit);
+      const result = await fetchAppBundles(limit, skip);
       const currLength = skip + result.items.length;
 
-      if (currLength <= requestedAmount && result.total > currLength) {
+      if (result.total > currLength) {
         return [...result.items, ...(await getBundles(result.items.length, currLength))];
       } else {
         return result.items;
@@ -69,12 +69,7 @@ async function cleanUpBundles(settings) {
     };
 
     const all = await getBundles(DEFAULT_BUNDLES_TO_FETCH, 0);
-    return all
-      .sort((a, b) => {
-        return new Date(b.sys.updatedAt) - new Date(a.sys.updatedAt);
-      })
-      .reverse()
-      .slice(0, requestedAmount);
+    return all.reverse().slice(0, requestedAmount);
   };
 
   const getAppBundleCount = async () => {
