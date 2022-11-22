@@ -69,8 +69,12 @@ async function cleanUpBundles(settings) {
     };
 
     const all = await getBundles(DEFAULT_BUNDLES_TO_FETCH, 0);
-
-    return all.slice(0, requestedAmount);
+    return all
+      .sort((a, b) => {
+        return new Date(b.sys.updatedAt) - new Date(a.sys.updatedAt);
+      })
+      .reverse()
+      .slice(0, requestedAmount);
   };
 
   const getAppBundleCount = async () => {
@@ -87,12 +91,6 @@ async function cleanUpBundles(settings) {
       return;
     }
     bundlesToDelete = await getAppBundles(amountToDelete);
-    bundlesToDelete = bundlesToDelete
-      .sort((a, b) => {
-        return new Date(b.sys.updatedAt) - new Date(a.sys.updatedAt);
-      })
-      .reverse();
-
     definition = await client.appDefinition.get({
       appDefinitionId: settings.definition.value,
       organizationId: settings.organization.value,
