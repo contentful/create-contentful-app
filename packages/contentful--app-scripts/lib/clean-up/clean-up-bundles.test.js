@@ -31,7 +31,10 @@ describe('cleanUpBundles', () => {
     deleteMock = stub();
     clientMock = {
       appBundle: {
-        getMany: () => ({ items: mockedBundles }),
+        getMany: () => ({
+          total: mockedBundles.length,
+          items: mockedBundles,
+        }),
         delete: deleteMock,
       },
       appDefinition: {
