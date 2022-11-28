@@ -1,4 +1,4 @@
-const { stub, match, useFakeTimers } = require('sinon');
+const { stub, spy, match, useFakeTimers } = require('sinon');
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 
@@ -14,8 +14,8 @@ const bundlesFixture = [
   { sys: { id: 'test-8' } },
 ];
 
-describe('cleanUpBundles', () => {
-  let subject, clientMock, deleteMock;
+describe.only('cleanUpBundles', () => {
+  let subject, clientMock, deleteMock, createClientArgs;
   let mockedBundles = bundlesFixture;
 
   beforeEach(() => {
@@ -44,7 +44,10 @@ describe('cleanUpBundles', () => {
     };
     ({ cleanUpBundles: subject } = proxyquire('./clean-up-bundles', {
       'contentful-management': {
-        createClient: () => clientMock,
+        createClient: (...args) => {
+          createClientArgs = args;
+          return clientMock;
+        },
       },
       '../../utils/constants': {
         MAX_CONCURRENT_DELETION_CALLS: 2,
@@ -102,5 +105,14 @@ describe('cleanUpBundles', () => {
     assert.strictEqual(clientMock.appBundle.delete.callCount, 5); // 3 before + 2 new  (slot is free again)
 
     clock.restore();
+  });
+  it('supports custom defined host domain', async () => {
+    await subject({ ...mockedSettings, host: 'jane.doe.com' });
+    assert.strictEqual(createClientArgs[0].host, 'jane.doe.com');
+  });
+  it('queries more than 100 bundles', async () => {
+    spy(clientMock.appBundle, 'getMany');
+    await subject(mockedSettings);
+    assert(clientMock.appBundle.getMany.calledWith(match({ query: { limit: 1000 } })));
   });
 });
