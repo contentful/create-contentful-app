@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.6](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.5...@contentful/app-scripts@1.2.6) (2022-11-28)
+
+### Bug Fixes
+
+- **deps:** bump ignore from 5.2.0 to 5.2.1 ([09f8d97](https://github.com/contentful/create-contentful-app/commit/09f8d97ecf447aef4bbb8367df59446d165ac85a))
+
 ## [1.2.5](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.4...@contentful/app-scripts@1.2.5) (2022-11-24)
 
 ### Bug Fixes
