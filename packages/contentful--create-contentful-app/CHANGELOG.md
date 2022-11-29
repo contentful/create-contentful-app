@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.65](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.64...@contentful/create-contentful-app@1.3.65) (2022-11-29)
+
+### Bug Fixes
+
+- get the correct amount of bundles to delete when using cleanup-b… ([#1277](https://github.com/contentful/create-contentful-app/issues/1277)) ([816d00a](https://github.com/contentful/create-contentful-app/commit/816d00af90f4233e182d3f06dd7d862438a9aa62))
+
 ## [1.3.64](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.63...@contentful/create-contentful-app@1.3.64) (2022-11-28)
 
 **Note:** Version bump only for package @contentful/create-contentful-app

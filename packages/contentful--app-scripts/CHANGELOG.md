@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.6...@contentful/app-scripts@1.2.7) (2022-11-29)
+
+### Bug Fixes
+
+- get the correct amount of bundles to delete when using cleanup-b… ([#1277](https://github.com/contentful/create-contentful-app/issues/1277)) ([816d00a](https://github.com/contentful/create-contentful-app/commit/816d00af90f4233e182d3f06dd7d862438a9aa62))
+
 ## [1.2.6](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.5...@contentful/app-scripts@1.2.6) (2022-11-28)
 
 ### Bug Fixes
