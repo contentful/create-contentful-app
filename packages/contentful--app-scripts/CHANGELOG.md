@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.8](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.7...@contentful/app-scripts@1.2.8) (2022-11-30)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.21.4 to 10.21.5 ([84b4a69](https://github.com/contentful/create-contentful-app/commit/84b4a693c3e0b25ff684331947f8d8671c524e88))
+
+## [1.2.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.6...@contentful/app-scripts@1.2.7) (2022-11-29)
+
+### Bug Fixes
+
+- get the correct amount of bundles to delete when using cleanup-b… ([#1277](https://github.com/contentful/create-contentful-app/issues/1277)) ([816d00a](https://github.com/contentful/create-contentful-app/commit/816d00af90f4233e182d3f06dd7d862438a9aa62))
+
+## [1.2.6](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.5...@contentful/app-scripts@1.2.6) (2022-11-28)
+
+### Bug Fixes
+
+- **deps:** bump ignore from 5.2.0 to 5.2.1 ([09f8d97](https://github.com/contentful/create-contentful-app/commit/09f8d97ecf447aef4bbb8367df59446d165ac85a))
+
+## [1.2.5](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.4...@contentful/app-scripts@1.2.5) (2022-11-24)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.21.3 to 10.21.4 ([6702008](https://github.com/contentful/create-contentful-app/commit/67020088ae1f534ac6ccfad4ae21f70126870e35))
+
+## [1.2.4](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.3...@contentful/app-scripts@1.2.4) (2022-11-23)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.21.2 to 10.21.3 ([f20c7c8](https://github.com/contentful/create-contentful-app/commit/f20c7c8cf81d585a4f1811a42474a3109eb75830))
+
 ## [1.2.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.2...@contentful/app-scripts@1.2.3) (2022-11-22)
 
 ### Bug Fixes
