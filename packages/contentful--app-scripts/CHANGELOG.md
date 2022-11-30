@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.8...@contentful/app-scripts@1.3.0) (2022-11-30)
+
+### Features
+
+- add home to create definition ([#1278](https://github.com/contentful/create-contentful-app/issues/1278)) ([9701120](https://github.com/contentful/create-contentful-app/commit/97011202e716590038dd4df1e600517f08a2af24))
+
 ## [1.2.8](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.2.7...@contentful/app-scripts@1.2.8) (2022-11-30)
 
 ### Bug Fixes
