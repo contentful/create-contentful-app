@@ -26,6 +26,7 @@ NOTE: This will create an app definition in your Contentful organization.
         { name: 'Entry editor (entry-editor)', value: 'entry-editor' },
         { name: 'Entry sidebar (entry-sidebar) ', value: 'entry-sidebar' },
         { name: 'Page (page) ', value: 'page' },
+        { name: 'Home (home) ', value: 'home' },
       ],
     },
     {
