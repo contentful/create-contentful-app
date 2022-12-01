@@ -1,4 +1,4 @@
-import { createClient, PlainClientAPI } from 'contentful-management';
+import { createClient, PlainClientAPI, PlainClientAPIWithAdapter } from 'contentful-management';
 import { useMemo } from 'react';
 import { useSDK } from './useSDK';
 
@@ -6,7 +6,7 @@ import { useSDK } from './useSDK';
  * React hook returning a CMA plain client instance.
  * Must be used in the `SDKProvider` component. Will throw error, if called outside of `SDKProvider`.
  */
-export function useCMA(): PlainClientAPI {
+export function useCMA(): PlainClientAPIWithAdapter {
   const sdk = useSDK();
 
   const cma = useMemo(() => {
