@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   vault: contentful/vault@1
+  nx: nrwl/nx@1.6.1
 
 environment: &base-env
   NPM_CONFIG_PROGRESS: 'false'
@@ -85,6 +86,12 @@ commands:
       - run: git config --global user.name "whydah-gally"
       - *install-deps
       - *build
+
+  nx_set_shas:
+    steps:
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
 
 jobs:
   release:

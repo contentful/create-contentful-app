@@ -19,6 +19,7 @@ async function getCleanUpSettingsArgs(options) {
     return {
       ...appInfo,
       keep: options.keep !== undefined ? +options.keep : DEFAULT_BUNDLES_TO_KEEP,
+      host: options.host,
     };
   } catch (err) {
     console.log(`

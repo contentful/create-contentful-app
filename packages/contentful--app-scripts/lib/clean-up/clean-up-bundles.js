@@ -1,7 +1,10 @@
 const chalk = require('chalk');
 const ora = require('ora');
 const Bottleneck = require('bottleneck');
-const { MAX_CONCURRENT_DELETION_CALLS } = require('../../utils/constants');
+const {
+  MAX_CONCURRENT_DELETION_CALLS,
+  DEFAULT_BUNDLES_TO_FETCH,
+} = require('../../utils/constants');
 const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
@@ -29,7 +32,8 @@ const scheduleBundleDeletion = async (bundlesToDelete, client, settings) => {
 };
 
 async function cleanUpBundles(settings) {
-  let bundles, definition;
+  let bundlesToDelete, definition;
+
   const client = createClient(
     {
       host: settings.host,
@@ -37,12 +41,51 @@ async function cleanUpBundles(settings) {
     },
     { type: 'plain' }
   );
-  const bundlesSpinner = ora(`Fetching all bundles...`).start();
-  try {
-    bundles = await client.appBundle.getMany({
+
+  const fetchAppBundles = async (limit = DEFAULT_BUNDLES_TO_FETCH, skip = 0) => {
+    return await client.appBundle.getMany({
       appDefinitionId: settings.definition.value,
       organizationId: settings.organization.value,
+      query: {
+        limit,
+        skip,
+      },
     });
+  };
+
+  const getAppBundles = async (requestedAmount = DEFAULT_BUNDLES_TO_FETCH) => {
+    if (requestedAmount < 1) {
+      throw new Error('Requested amount of bundles to fetch must be greater than 0');
+    }
+    const getBundles = async (limit, skip) => {
+      const result = await fetchAppBundles(limit, skip);
+      const currLength = skip + result.items.length;
+
+      if (result.total > currLength) {
+        return [...result.items, ...(await getBundles(result.items.length, currLength))];
+      } else {
+        return result.items;
+      }
+    };
+
+    const all = await getBundles(DEFAULT_BUNDLES_TO_FETCH, 0);
+    return all.reverse().slice(0, requestedAmount);
+  };
+
+  const getAppBundleCount = async () => {
+    return await fetchAppBundles(1, 0);
+  };
+
+  const bundlesSpinner = ora(`Fetching all bundles...`).start();
+  try {
+    const { total } = await getAppBundleCount();
+    const amountToDelete = total - settings.keep;
+    if (amountToDelete < 1) {
+      console.log(`${chalk.yellow('Warning:')} There is nothing to delete`);
+      bundlesSpinner.stop();
+      return;
+    }
+    bundlesToDelete = await getAppBundles(amountToDelete);
     definition = await client.appDefinition.get({
       appDefinitionId: settings.definition.value,
       organizationId: settings.organization.value,
@@ -52,8 +95,6 @@ async function cleanUpBundles(settings) {
   }
 
   bundlesSpinner.stop();
-
-  let bundlesToDelete = bundles.items.slice(settings.keep);
 
   if (definition.bundle) {
     bundlesToDelete = bundlesToDelete.filter(

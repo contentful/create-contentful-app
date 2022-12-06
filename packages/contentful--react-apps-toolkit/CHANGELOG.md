@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.10](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.9...@contentful/react-apps-toolkit@1.2.10) (2022-11-29)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.20.1 to 10.21.0 ([c11f58e](https://github.com/contentful/create-contentful-app/commit/c11f58e1078b97722f827744550bab1e7447d3b3))
+- **deps:** bump contentful-management from 10.21.0 to 10.21.1 ([ac9d57d](https://github.com/contentful/create-contentful-app/commit/ac9d57d4923dc6cb078e1055fb1837bf90778724))
+- **deps:** bump contentful-management from 10.21.1 to 10.21.2 ([43abe03](https://github.com/contentful/create-contentful-app/commit/43abe0317575dfd8c0440af4fac432342262de55))
+- **deps:** bump contentful-management from 10.21.2 to 10.21.3 ([f20c7c8](https://github.com/contentful/create-contentful-app/commit/f20c7c8cf81d585a4f1811a42474a3109eb75830))
+- **deps:** bump contentful-management from 10.21.3 to 10.21.4 ([6702008](https://github.com/contentful/create-contentful-app/commit/67020088ae1f534ac6ccfad4ae21f70126870e35))
+- get the correct amount of bundles to delete when using cleanup-b… ([#1277](https://github.com/contentful/create-contentful-app/issues/1277)) ([816d00a](https://github.com/contentful/create-contentful-app/commit/816d00af90f4233e182d3f06dd7d862438a9aa62))
+
 ## [1.2.9](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.8...@contentful/react-apps-toolkit@1.2.9) (2022-11-16)
 
 ### Bug Fixes
