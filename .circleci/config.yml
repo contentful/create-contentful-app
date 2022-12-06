@@ -29,6 +29,11 @@ executors:
       - image: cimg/node:16.14.0
         environment: *base-env
 
+  node-container-18:
+    docker:
+      - image: cimg/node:18.12.0
+        environment: *base-env
+
 commands:
   lint-and-test:
     steps:
@@ -117,6 +122,11 @@ jobs:
     steps:
       - lint-and-test
 
+  lint-and-test-18:
+    executor: node-container-18
+    steps:
+      - lint-and-test
+
   test-built-app-14:
     executor: node-container-14
     steps:
@@ -124,6 +134,11 @@ jobs:
 
   test-built-app-16:
     executor: node-container-16
+    steps:
+      - test-built-app
+
+  test-built-app-18:
+    executor: node-container-18
     steps:
       - test-built-app
 
@@ -150,6 +165,15 @@ workflows:
           requires:
             - lint-and-test-16
 
+      - lint-and-test-18:
+          context:
+            - vault
+      - test-built-app-18:
+          context:
+            - vault
+          requires:
+            - lint-and-test-18
+
       - release:
           context:
             - vault
@@ -159,6 +183,7 @@ workflows:
           requires:
             - test-built-app-14
             - test-built-app-16
+            - test-built-app-18
 
       - release-canary:
           context:
@@ -169,4 +194,5 @@ workflows:
           requires:
             - test-built-app-14
             - test-built-app-16
+            - test-built-app-18
 
