@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.3.1...@contentful/app-scripts@1.4.0) (2022-12-07)
+
+### Features
+
+- add setting of UserAgentApplication for createAppUpload ([#1301](https://github.com/contentful/create-contentful-app/issues/1301)) ([3662b13](https://github.com/contentful/create-contentful-app/commit/3662b13ee1b5712d381377dc81b6603ffb42d1b6))
+
 ## [1.3.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.3.0...@contentful/app-scripts@1.3.1) (2022-12-05)
 
 ### Bug Fixes
