@@ -12,6 +12,7 @@ import { cloneTemplateIn } from './template';
 import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
+import chalk from 'chalk';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -99,13 +100,13 @@ async function initProject(appName: string, options: CLIOptions) {
 
     updatePackageName(fullAppFolder);
 
-    wrapInBlanks(highlight('---- Installing the dependencies for your app...'))
-    if (normalizedOptions.yarn || detectManager() === 'yarn') {
+    const useYarn = normalizedOptions.yarn || detectManager() === 'yarn'
+
+    wrapInBlanks(highlight(`---- Installing the dependencies for your app (Using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
+    if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
-      wrapInBlanks(highlight('Using yarn as package manager'))
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
-      wrapInBlanks(highlight('Using npm as package manager'))
     }
 
     successMessage(fullAppFolder);
