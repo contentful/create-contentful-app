@@ -4,8 +4,11 @@ const { validateBundle } = require('./validate-bundle');
 const { showCreationError } = require('../utils');
 const { createClient } = require('contentful-management');
 
-async function createAppBundleFromFile(orgId, token, zip) {
-  const client = await createClient({ accessToken: token });
+async function createAppBundleFromFile(orgId, token, zip, userAgentApplication) {
+  const client = await createClient({
+    accessToken: token,
+    application: userAgentApplication ? userAgentApplication : 'contentful.app-scripts',
+  });
   const org = await client.getOrganization(orgId);
   return await org.createAppUpload(zip);
 }
@@ -24,7 +27,8 @@ async function createAppUpload(settings) {
     appUpload = await createAppBundleFromFile(
       settings.organization.value,
       settings.accessToken,
-      zipFile
+      zipFile,
+      settings.userAgentApplication
     );
   } catch (err) {
     showCreationError('app bundle', err.message);

@@ -21,6 +21,7 @@ async function getUploadSettingsArgs(options) {
       bundleDirectory: options.bundleDir,
       skipActivation: options.skipActivation,
       comment: options.comment,
+      userAgentApplication: options.userAgentApplication,
     };
   } catch (err) {
     console.log(`
