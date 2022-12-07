@@ -4,8 +4,49 @@ import degit from 'degit';
 import rimraf from 'rimraf';
 
 import { CLIOptions, ContentfulExample } from './types';
-import { highlight, warn } from './logger';
+import { highlight, success, warn, wrapInBlanks } from './logger';
 import { rmIfExists } from './utils';
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+
+
+async function promptExampleSelection(): Promise<string> {
+  let template = 'typescript'
+  const { starter } = await inquirer.prompt([
+    {
+      name: 'starter',
+      message: 'Do you want to start from an example template or use the empty template?',
+      type: 'list',
+      choices: ['empty', 'template'],
+      default: 'empty',
+    },
+  ]);
+  if (starter === "empty") {
+    const { language } = await inquirer.prompt([
+      {
+        name: 'language',
+        message: 'Do you prefer Typescript or Javascript',
+        type: 'list',
+        choices: ['javascript', 'typescript'],
+        default: 'typescript',
+      },
+    ]);
+  template = language
+  } else {
+      // get from examples
+      const availableTemplates = ['vue', 'vite']
+      const { example } = await inquirer.prompt([
+        {
+          name: 'template',
+          message: 'Select a template',
+          type: 'list',
+          choices: availableTemplates,
+        },
+      ]);
+      template = example
+  }
+ return  selectTemplate(template)
+}
 
 const EXAMPLES_PATH = 'contentful/apps/examples/';
 
@@ -13,20 +54,31 @@ function isContentfulTemplate(url: string) {
   return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
 }
 
-function makeContentfulExampleSource(options: CLIOptions) {
+function selectTemplate(template: string) {
+  wrapInBlanks(highlight(`---- Cloning the ${chalk.cyan(template)} template...`))
+  return EXAMPLES_PATH + template
+}
+
+async function makeContentfulExampleSource(options: CLIOptions): Promise<string> {
+  
   if (options.example) {
-    return EXAMPLES_PATH + options.example;
+    return selectTemplate(options.example)
   }
 
   if (options.javascript) {
-    return EXAMPLES_PATH + ContentfulExample.Javascript;
+    return selectTemplate(ContentfulExample.Javascript)
+    
   }
 
-  return EXAMPLES_PATH + ContentfulExample.Typescript;
+  if (options.typescript) {
+    return selectTemplate(ContentfulExample.Typescript)
+  }
+
+  return await promptExampleSelection()
 }
 
-function getTemplateSource(options: CLIOptions) {
-  const source = options.source ?? makeContentfulExampleSource(options);
+async function getTemplateSource(options: CLIOptions) {
+  const source = options.source ?? await makeContentfulExampleSource(options);
 
   if (options.source && !isContentfulTemplate(source)) {
     warn(`Template at ${highlight(source)} is not an official Contentful app template!`);
@@ -71,9 +123,11 @@ function cleanUp(destination: string) {
 }
 
 export async function cloneTemplateIn(destination: string, options: CLIOptions) {
-  const source = getTemplateSource(options);
+  const source = await getTemplateSource(options);
 
+  
   await clone(source, destination);
+  console.log(success('Done!'))
 
   try {
     validate(destination);

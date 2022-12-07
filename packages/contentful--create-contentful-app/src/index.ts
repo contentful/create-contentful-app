@@ -11,11 +11,12 @@ import tildify from 'tildify';
 import { cloneTemplateIn } from './template';
 import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
-import { code, error, highlight, success, warn } from './logger';
+import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
 function successMessage(folder: string) {
+  wrapInBlanks(highlight('---- Next Steps'))
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
 
@@ -88,18 +89,23 @@ async function initProject(appName: string, options: CLIOptions) {
 
   try {
     appName = await validateAppName(appName);
+
     const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
+    
     await cloneTemplateIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);
 
+    wrapInBlanks(highlight('---- Installing the dependencies for your app...'))
     if (normalizedOptions.yarn || detectManager() === 'yarn') {
       await exec('yarn', [], { cwd: fullAppFolder });
+      wrapInBlanks(highlight('Using yarn as package manager'))
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
+      wrapInBlanks(highlight('Using npm as package manager'))
     }
 
     successMessage(fullAppFolder);

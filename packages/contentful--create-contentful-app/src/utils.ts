@@ -76,9 +76,9 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.javascript;
   }
 
-  if (!normalizedOptions.javascript) {
-    normalizedOptions.typescript = true;
-  }
+  // if (!normalizedOptions.javascript) {
+  //   normalizedOptions.typescript = true;
+  // }
 
   if (currentMutuallyExclusiveOptions.length > 1) {
     warn(
