@@ -16,7 +16,7 @@ export function error(message: string, error: unknown): void {
     console.log();
     console.log(
       `${strigifiedError.startsWith('Error: ') ? strigifiedError.substring(7) : strigifiedError}`
-    );``
+    );
   }
 }
 

@@ -12,6 +12,8 @@ import chalk from 'chalk';
 
 async function promptExampleSelection(): Promise<string> {
   let template = 'typescript'
+
+  // ask user whether to start with an empty template or use an example template
   const { starter } = await inquirer.prompt([
     {
       name: 'starter',
@@ -21,6 +23,8 @@ async function promptExampleSelection(): Promise<string> {
       default: 'empty',
     },
   ]);
+
+  // if the user chose to use an empty template, ask which language they prefer
   if (starter === "empty") {
     const { language } = await inquirer.prompt([
       {
@@ -31,21 +35,26 @@ async function promptExampleSelection(): Promise<string> {
         default: 'typescript',
       },
     ]);
-  template = language
+    template = language
   } else {
-      // get from examples
-      const availableTemplates = ['vue', 'vite']
-      const { example } = await inquirer.prompt([
-        {
-          name: 'template',
-          message: 'Select a template',
-          type: 'list',
-          choices: availableTemplates,
-        },
-      ]);
-      template = example
+    // get available templates from examples
+    const availableTemplates = ['vue', 'vite']
+
+    // ask user to select a template from the available examples
+    const { example } = await inquirer.prompt([
+      {
+        name: 'template',
+        message: 'Select a template',
+        type: 'list',
+        choices: availableTemplates,
+      },
+    ]);
+
+    template = example
   }
- return  selectTemplate(template)
+
+  // return the selected template
+  return selectTemplate(template)
 }
 
 const EXAMPLES_PATH = 'contentful/apps/examples/';
