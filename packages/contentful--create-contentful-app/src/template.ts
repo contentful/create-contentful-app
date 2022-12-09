@@ -6,10 +6,22 @@ import rimraf from 'rimraf';
 import { CLIOptions, ContentfulExample } from './types';
 import { highlight, success, warn, wrapInBlanks } from './logger';
 import { rmIfExists } from './utils';
+// @ts-expect-error no types available
+import fetch from 'node-fetch';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 
+async function getGithubFolderNames(username: string, repo: string, path: string) {
+  const url = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
 
+  const response = await fetch(url);
+  const contents: any = await response.json();
+
+  return contents.filter((content: any) => content.type === "dir")
+  .map((content: any) => content.name);
+}
+  
+  
 async function promptExampleSelection(): Promise<string> {
   let template = 'typescript'
 
@@ -38,12 +50,12 @@ async function promptExampleSelection(): Promise<string> {
     template = language
   } else {
     // get available templates from examples
-    const availableTemplates = ['vue', 'vite']
-
+    const availableTemplates = await getGithubFolderNames("contentful", "apps", "examples")
+    
     // ask user to select a template from the available examples
     const { example } = await inquirer.prompt([
       {
-        name: 'template',
+        name: 'example',
         message: 'Select a template',
         type: 'list',
         choices: availableTemplates,

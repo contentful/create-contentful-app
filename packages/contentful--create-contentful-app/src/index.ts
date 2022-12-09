@@ -17,11 +17,12 @@ import chalk from 'chalk';
 const DEFAULT_APP_NAME = 'contentful-app';
 
 function successMessage(folder: string) {
-  wrapInBlanks(highlight('---- Next Steps'))
   console.log(`
-${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
-
-Now kick it off by running
+${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`)
+  
+  wrapInBlanks(highlight('---- Next Steps'))
+  
+  console.log(`Now kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
     ${code(`npm start`)}
