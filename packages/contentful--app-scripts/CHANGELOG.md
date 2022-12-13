@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.4.0...@contentful/app-scripts@1.4.1) (2022-12-13)
+
+### Bug Fixes
+
+- move userAgentApplication ([#1314](https://github.com/contentful/create-contentful-app/issues/1314)) ([b66d956](https://github.com/contentful/create-contentful-app/commit/b66d9567fff1f4a5aaf6e5317936cfb5ca0d44c6))
+
 # [1.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.3.1...@contentful/app-scripts@1.4.0) (2022-12-07)
 
 ### Features
