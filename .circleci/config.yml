@@ -63,7 +63,7 @@ commands:
             PROJECT=test-$(date +%s)
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" test
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js --typescript" test
             cd test
             npm t
   build:
