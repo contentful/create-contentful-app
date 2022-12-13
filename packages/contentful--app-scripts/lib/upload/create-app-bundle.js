@@ -7,7 +7,12 @@ const { createAppUpload } = require('./create-app-upload');
 
 async function createAppBundleFromUpload(settings, appUploadId) {
   const clientSpinner = ora('Verifying your upload...').start();
-  const client = createClient({ accessToken: settings.accessToken });
+  const client = createClient({
+    accessToken: settings.accessToken,
+    application: settings.userAgentApplication
+      ? settings.userAgentApplication
+      : 'contentful.app-scripts',
+  });
   const organization = await client.getOrganization(settings.organization.value);
   const appDefinition = await organization.getAppDefinition(settings.definition.value);
   clientSpinner.stop();
@@ -31,18 +36,16 @@ async function createAppBundleFromSettings(settings) {
   try {
     appUpload = await createAppUpload(settings);
     console.log(`
-  ${chalk.yellow(
-    'Done!'
-  )} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
-    appUpload.sys.id
-  )}) has been created.`);
+  ${chalk.yellow('Done!')} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
+      appUpload.sys.id
+    )}) has been created.`);
   } catch (err) {
     showCreationError('app upload', err.message);
   }
 
   if (!appUpload) return;
 
-  console.log("")
+  console.log('');
   console.log(`  ----------------------------`);
   const appBundle = await createAppBundleFromUpload(settings, appUpload.sys.id);
 
