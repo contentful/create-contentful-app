@@ -74,8 +74,7 @@ NOTE: This will create an app definition in your Contentful organization.
     },
   ]);
 
-  // Add app-config & dialog automatically
-  appDefinitionSettings.locations = ['app-config', 'dialog', ...appDefinitionSettings.locations];
+  appDefinitionSettings.locations = ['dialog', ...appDefinitionSettings.locations];
 
   return appDefinitionSettings;
 }
