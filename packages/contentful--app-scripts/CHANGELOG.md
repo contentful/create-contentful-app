@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.4.2...@contentful/app-scripts@1.5.0) (2022-12-14)
+
+### Features
+
+- add config location to create-definition script ([#1303](https://github.com/contentful/create-contentful-app/issues/1303)) ([a6278a8](https://github.com/contentful/create-contentful-app/commit/a6278a818185b7ed0f5727afc3047f41e7bd0260))
+
 ## [1.4.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.4.1...@contentful/app-scripts@1.4.2) (2022-12-13)
 
 ### Bug Fixes
