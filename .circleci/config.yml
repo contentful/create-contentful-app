@@ -38,8 +38,6 @@ commands:
   lint-and-test:
     steps:
       - checkout
-      - vault/get-secrets:
-          template-preset: "npm-read"
       - *install-deps
       - *build
       - run:
@@ -52,8 +50,6 @@ commands:
   test-built-app:
     steps:
       - checkout
-      - vault/get-secrets:
-          template-preset: "npm-read"
       - *install-deps
       - *build
       - run:
@@ -69,8 +65,6 @@ commands:
   build:
     steps:
       - checkout
-      - vault/get-secrets:
-          template-preset: "npm-read"
       - *install-deps
       - run:
           name: Run build
@@ -80,7 +74,7 @@ commands:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "npm-read"
+          template-preset: "semantic-release"
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
       - run: git config --global user.name "whydah-gally"
@@ -98,8 +92,6 @@ jobs:
     executor: node-container-16
     steps:
       - prepare-release
-      - vault/get-secrets:
-          template-preset: 'semantic-release'
       - run: npm run version
       - run: npm run publish
 
@@ -107,8 +99,6 @@ jobs:
     executor: node-container-16
     steps:
       - prepare-release
-      - vault/get-secrets:
-          template-preset: 'semantic-release'
       - run: npm run version:canary
       - run: npm run publish:canary
 
