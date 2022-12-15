@@ -6,10 +6,15 @@ import rimraf from 'rimraf';
 import { CLIOptions, ContentfulExample } from './types';
 import { highlight, success, warn, wrapInBlanks } from './logger';
 import { rmIfExists } from './utils';
-// @ts-expect-error no types available
 import fetch from 'node-fetch';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
+
+const EXAMPLES_PATH = 'contentful/apps/examples/';
+
+function isContentfulTemplate(url: string) {
+  return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
+}
 
 async function getGithubFolderNames(username: string, repo: string, path: string) {
   const url = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
@@ -67,12 +72,6 @@ async function promptExampleSelection(): Promise<string> {
 
   // return the selected template
   return selectTemplate(template)
-}
-
-const EXAMPLES_PATH = 'contentful/apps/examples/';
-
-function isContentfulTemplate(url: string) {
-  return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
 }
 
 function selectTemplate(template: string) {
