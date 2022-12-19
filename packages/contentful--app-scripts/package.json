@@ -54,7 +54,7 @@
     "commander": "9.4.1",
     "contentful-management": "10.24.1",
     "dotenv": "16.0.3",
-    "ignore": "5.2.1",
+    "ignore": "5.2.2",
     "inquirer": "8.2.5",
     "lodash": "4.17.21",
     "open": "8.4.0",
