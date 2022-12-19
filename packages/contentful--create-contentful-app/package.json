@@ -59,7 +59,7 @@
     "@types/chalk": "2.2.0",
     "@types/degit": "2.8.3",
     "@types/inquirer": "8.2.1",
-    "@types/node": "14.18.34",
+    "@types/node": "14.18.35",
     "@types/rimraf": "3.0.2",
     "@types/tildify": "2.0.2",
     "@types/validate-npm-package-name": "4.0.0"
