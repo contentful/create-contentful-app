@@ -30,7 +30,7 @@ async function getGithubFolderNames(username: string, repo: string, path: string
 async function promptExampleSelection(): Promise<string> {
   let template = 'typescript'
 
-  // ask user whether to start with an empty template or use an example template
+  // ask user whether to start with a blank template or use an example template
   const { starter } = await inquirer.prompt([
     {
       name: 'starter',
@@ -41,8 +41,8 @@ async function promptExampleSelection(): Promise<string> {
     },
   ]);
 
-  // if the user chose to use an empty template, ask which language they prefer
-  if (starter === "empty") {
+  // if the user chose to use an blank template, ask which language they prefer
+  if (starter === "blank") {
     const { language } = await inquirer.prompt([
       {
         name: 'language',
