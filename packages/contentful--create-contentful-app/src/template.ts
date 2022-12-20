@@ -34,10 +34,10 @@ async function promptExampleSelection(): Promise<string> {
   const { starter } = await inquirer.prompt([
     {
       name: 'starter',
-      message: 'Do you want to start from an example template or use the empty template?',
+      message: 'Do you want to start with an example template or use one of the blank templates?',
       type: 'list',
-      choices: ['empty', 'template'],
-      default: 'empty',
+      choices: ['blank', 'example'],
+      default: 'blank',
     },
   ]);
 
@@ -48,7 +48,7 @@ async function promptExampleSelection(): Promise<string> {
         name: 'language',
         message: 'Do you prefer Typescript or Javascript',
         type: 'list',
-        choices: ['javascript', 'typescript'],
+        choices: ['typescript', 'javascript'],
         default: 'typescript',
       },
     ]);
