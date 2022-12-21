@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.79...@contentful/create-contentful-app@1.4.0) (2022-12-21)
+
+### Features
+
+- [EXT-4147] make cca more interactive by default ([#1310](https://github.com/contentful/create-contentful-app/issues/1310)) ([95de390](https://github.com/contentful/create-contentful-app/commit/95de390ed3da5e583fedff548b180b88c9fea80c))
+
 ## [1.3.79](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.3.78...@contentful/create-contentful-app@1.3.79) (2022-12-21)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
