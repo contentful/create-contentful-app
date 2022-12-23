@@ -34,7 +34,7 @@ async function promptExampleSelection(): Promise<string> {
   const { starter } = await inquirer.prompt([
     {
       name: 'starter',
-      message: 'Do you want to start with an example template or use one of the blank templates?',
+      message: 'Do you want to start with an example or use one of our blank templates?',
       type: 'list',
       choices: ['blank', 'example'],
       default: 'blank',
