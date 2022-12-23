@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.5](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.4...@contentful/app-scripts@1.5.5) (2022-12-21)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.24.1 to 10.25.0 ([83de439](https://github.com/contentful/create-contentful-app/commit/83de439abdb7b1a73ab1dad214f35f4eeb099114))
+
+## [1.5.4](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.3...@contentful/app-scripts@1.5.4) (2022-12-20)
+
+### Bug Fixes
+
+- **deps:** bump ignore from 5.2.2 to 5.2.4 ([e4f35d9](https://github.com/contentful/create-contentful-app/commit/e4f35d981cbe09454520c7b296d3124bf7d8a877))
+
+## [1.5.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.2...@contentful/app-scripts@1.5.3) (2022-12-19)
+
+### Bug Fixes
+
+- **deps:** bump ignore from 5.2.1 to 5.2.2 ([5d82e6f](https://github.com/contentful/create-contentful-app/commit/5d82e6f37f5b385f624ffe383d18a8c3ee624ea5))
+
+## [1.5.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.1...@contentful/app-scripts@1.5.2) (2022-12-16)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.24.0 to 10.24.1 ([872fa3f](https://github.com/contentful/create-contentful-app/commit/872fa3f4e21888e72282c78277a038f25cb8afd1))
+
+## [1.5.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.0...@contentful/app-scripts@1.5.1) (2022-12-14)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.23.0 to 10.24.0 ([3fbfa78](https://github.com/contentful/create-contentful-app/commit/3fbfa787327fa61c50a4b36e85ac39f69b8c5668))
+
+# [1.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.4.2...@contentful/app-scripts@1.5.0) (2022-12-14)
+
+### Features
+
+- add config location to create-definition script ([#1303](https://github.com/contentful/create-contentful-app/issues/1303)) ([a6278a8](https://github.com/contentful/create-contentful-app/commit/a6278a818185b7ed0f5727afc3047f41e7bd0260))
+
+## [1.4.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.4.1...@contentful/app-scripts@1.4.2) (2022-12-13)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.21.6 to 10.23.0 ([a680864](https://github.com/contentful/create-contentful-app/commit/a6808641eca32b983b72eedb3062d1d992446e56))
+
+## [1.4.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.4.0...@contentful/app-scripts@1.4.1) (2022-12-13)
+
+### Bug Fixes
+
+- move userAgentApplication ([#1314](https://github.com/contentful/create-contentful-app/issues/1314)) ([b66d956](https://github.com/contentful/create-contentful-app/commit/b66d9567fff1f4a5aaf6e5317936cfb5ca0d44c6))
+
+# [1.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.3.1...@contentful/app-scripts@1.4.0) (2022-12-07)
+
+### Features
+
+- add setting of UserAgentApplication for createAppUpload ([#1301](https://github.com/contentful/create-contentful-app/issues/1301)) ([3662b13](https://github.com/contentful/create-contentful-app/commit/3662b13ee1b5712d381377dc81b6603ffb42d1b6))
+
 ## [1.3.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.3.0...@contentful/app-scripts@1.3.1) (2022-12-05)
 
 ### Bug Fixes

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.13](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.12...@contentful/react-apps-toolkit@1.2.13) (2022-12-08)
+
+**Note:** Version bump only for package @contentful/react-apps-toolkit
+
+## [1.2.12](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.11...@contentful/react-apps-toolkit@1.2.12) (2022-12-06)
+
+**Note:** Version bump only for package @contentful/react-apps-toolkit
+
+## [1.2.11](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.10...@contentful/react-apps-toolkit@1.2.11) (2022-12-06)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.21.4 to 10.21.5 ([84b4a69](https://github.com/contentful/create-contentful-app/commit/84b4a693c3e0b25ff684331947f8d8671c524e88))
+- **deps:** bump contentful-management from 10.21.5 to 10.21.6 ([dd3e1c0](https://github.com/contentful/create-contentful-app/commit/dd3e1c0da1970ee180b9433b96f57d00d8bff951))
+
 ## [1.2.10](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.9...@contentful/react-apps-toolkit@1.2.10) (2022-11-29)
 
 ### Bug Fixes

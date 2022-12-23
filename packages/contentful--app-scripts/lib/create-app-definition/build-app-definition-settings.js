@@ -22,9 +22,10 @@ NOTE: This will create an app definition in your Contentful organization.
       message: `Select where your app can be rendered:`,
       type: 'checkbox',
       choices: [
+        { name: 'App configuration screen (app-config) ', value: 'app-config' },
         { name: 'Entry field (entry-field) ', value: 'entry-field' },
-        { name: 'Entry editor (entry-editor)', value: 'entry-editor' },
         { name: 'Entry sidebar (entry-sidebar) ', value: 'entry-sidebar' },
+        { name: 'Entry editor (entry-editor)', value: 'entry-editor' },
         { name: 'Page (page) ', value: 'page' },
         { name: 'Home (home) ', value: 'home' },
       ],
@@ -73,8 +74,7 @@ NOTE: This will create an app definition in your Contentful organization.
     },
   ]);
 
-  // Add app-config & dialog automatically
-  appDefinitionSettings.locations = ['app-config', 'dialog', ...appDefinitionSettings.locations];
+  appDefinitionSettings.locations = ['dialog', ...appDefinitionSettings.locations];
 
   return appDefinitionSettings;
 }

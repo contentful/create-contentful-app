@@ -11,15 +11,18 @@ import tildify from 'tildify';
 import { cloneTemplateIn } from './template';
 import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
-import { code, error, highlight, success, warn } from './logger';
+import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
+import chalk from 'chalk';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
 function successMessage(folder: string) {
   console.log(`
-${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.
-
-Now kick it off by running
+${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`)
+  
+  wrapInBlanks(highlight('---- Next Steps'))
+  
+  console.log(`Now kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
     ${code(`npm start`)}
@@ -88,15 +91,20 @@ async function initProject(appName: string, options: CLIOptions) {
 
   try {
     appName = await validateAppName(appName);
+
     const fullAppFolder = resolve(process.cwd(), appName);
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
+    
     await cloneTemplateIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);
 
-    if (normalizedOptions.yarn || detectManager() === 'yarn') {
+    const useYarn = normalizedOptions.yarn || detectManager() === 'yarn'
+
+    wrapInBlanks(highlight(`---- Installing the dependencies for your app (Using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
+    if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });

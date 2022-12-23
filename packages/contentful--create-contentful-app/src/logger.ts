@@ -20,6 +20,12 @@ export function error(message: string, error: unknown): void {
   }
 }
 
+export function wrapInBlanks(message: string | chalk.Chalk) {
+  console.log(' ')
+  console.log(message)
+  console.log(' ')
+}
+
 export function highlight(str: string) {
   return chalk.bold(str);
 }
