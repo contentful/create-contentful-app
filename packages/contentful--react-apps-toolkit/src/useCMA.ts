@@ -1,13 +1,23 @@
-import { createClient } from 'contentful-management';
-import { CMAClient } from '@contentful/app-sdk';
+import { createClient, PlainClientAPI } from 'contentful-management';
+// @ts-ignore
+import type { CMAClient } from '@contentful/app-sdk';
 import { useMemo } from 'react';
 import { useSDK } from './useSDK';
+
+// `CMAClient` is only available from App SDK v4.14.0, but we want to keep compatible with old versions
+// If `CMAClient` is available, `useCMA` should return `CMAClient`
+// If `CMAClient` is not available, `useCMA` should return `PlainClientAPI`
+// Source: https://stackoverflow.com/a/61625831/17270873
+// This can be removed once we bump the peer dependency to a later version
+type UseCMAReturnValue = (CMAClient extends never ? true : false) extends false
+  ? CMAClient
+  : PlainClientAPI;
 
 /**
  * React hook returning a CMA plain client instance.
  * Must be used in the `SDKProvider` component. Will throw error, if called outside of `SDKProvider`.
  */
-export function useCMA() {
+export function useCMA(): UseCMAReturnValue {
   const sdk = useSDK();
 
   const cma = useMemo(() => {
@@ -21,7 +31,7 @@ export function useCMA() {
           organizationId: sdk.ids.organization,
         },
       }
-    ) as CMAClient;
+    );
   }, [sdk]);
 
   return cma;
