@@ -16,7 +16,7 @@ import chalk from 'chalk';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
-function successMessage(folder: string) {
+function successMessage(folder: string, useYarn: boolean) {
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`)
 
@@ -25,7 +25,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
   console.log(`Now kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
-    ${code(`npm start`)}
+    ${code(`${useYarn ? 'yarn' : 'npm'} start`)}
   `);
 }
 
@@ -110,7 +110,7 @@ async function initProject(appName: string, options: CLIOptions) {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
 
-    successMessage(fullAppFolder);
+    successMessage(fullAppFolder, useYarn);
   } catch (err) {
     error(`Failed to create ${appName}`, err);
     process.exit(1);
