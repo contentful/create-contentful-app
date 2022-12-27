@@ -19,9 +19,9 @@ const DEFAULT_APP_NAME = 'contentful-app';
 function successMessage(folder: string) {
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`)
-  
+
   wrapInBlanks(highlight('---- Next Steps'))
-  
+
   console.log(`Now kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
@@ -96,14 +96,14 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    
+
     await cloneTemplateIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);
 
     const useYarn = normalizedOptions.yarn || detectManager() === 'yarn'
 
-    wrapInBlanks(highlight(`---- Installing the dependencies for your app (Using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
+    wrapInBlanks(highlight(`---- Installing the dependencies for your app (using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
     if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
