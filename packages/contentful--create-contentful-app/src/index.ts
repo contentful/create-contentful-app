@@ -13,6 +13,7 @@ import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
+import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -22,7 +23,16 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
 
   wrapInBlanks(highlight('---- Next Steps'))
 
-  console.log(`Now kick it off by running
+  console.log(`Now create an app definition for your app by running
+
+    ${code(`cd ${tildify(folder)}`)}
+    ${code(useYarn ? 'yarn create-app-definition' : 'npm run create-app-definition')}
+
+    or you can create it manually in web app:
+    ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
+  `);
+
+  console.log(`Or kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
     ${code(`${useYarn ? 'yarn' : 'npm'} start`)}
@@ -131,9 +141,7 @@ async function initProject(appName: string, options: CLIOptions) {
         '',
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
-        `Official Contentful templates are hosted at ${highlight(
-          'https://github.com/contentful/apps/tree/master/examples'
-        )}.`,
+        `Official Contentful templates are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
       ].join('\n')
     )
     .argument('[app-name]', 'app name')
@@ -143,7 +151,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('-js, --javascript', 'use JavaScript template')
     .option(
       '-e, --example <example-name>',
-      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
+      `bootstrap an example app from ${EXAMPLES_REPO_URL}`
     )
     .option(
       '-s, --source <url>',
