@@ -32,7 +32,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
     ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
   `);
 
-  console.log(`Or kick it off by running
+  console.log(`Then kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
     ${code(`${useYarn ? 'yarn' : 'npm'} start`)}
