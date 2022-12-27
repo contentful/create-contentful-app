@@ -106,7 +106,6 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-
     await cloneTemplateIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);

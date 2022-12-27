@@ -94,7 +94,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
     });
 
     console.log(`
-  ${chalk.cyan('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(
+  ${chalk.greenBright('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(
       selectedOrg.name
     )}.
 
@@ -102,11 +102,12 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
         ${chalk.underline(`https://app.contentful.com/deeplink?link=org`)}`)}
 
   ${chalk.bold('Next steps:')}
-    1. To develop, run ${chalk.cyan('`npm start`')} inside your app folder and open:
+    1. Run your app with ${chalk.cyan('`npm start`')} inside of your app folder.
+    2. Install this app definition to one of your spaces by opening:
         ${chalk.underline(
           `https://app.contentful.com/deeplink?link=apps&id=${createdAppDefinition.sys.id}`
         )}
-    2. To learn how to build your first Contentful app, visit:
+    3. To learn how to build your first Contentful app, visit:
         ${chalk.underline(`https://ctfl.io/app-tutorial`)}
       `);
   } catch (err) {
