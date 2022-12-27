@@ -107,7 +107,7 @@ async function createAppDefinition(accessToken, appDefinitionSettings = { locati
         ${chalk.underline(
           `https://app.contentful.com/deeplink?link=apps&id=${createdAppDefinition.sys.id}`
         )}
-    3. To learn how to build your first Contentful app, visit:
+    3. Learn how to build your first Contentful app:
         ${chalk.underline(`https://ctfl.io/app-tutorial`)}
       `);
   } catch (err) {
