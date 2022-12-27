@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.14](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.13...@contentful/react-apps-toolkit@1.2.14) (2022-12-23)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.21.6 to 10.23.0 ([a680864](https://github.com/contentful/create-contentful-app/commit/a6808641eca32b983b72eedb3062d1d992446e56))
+- **deps:** bump contentful-management from 10.23.0 to 10.24.0 ([3fbfa78](https://github.com/contentful/create-contentful-app/commit/3fbfa787327fa61c50a4b36e85ac39f69b8c5668))
+- **deps:** bump contentful-management from 10.24.0 to 10.24.1 ([872fa3f](https://github.com/contentful/create-contentful-app/commit/872fa3f4e21888e72282c78277a038f25cb8afd1))
+- **deps:** bump contentful-management from 10.24.1 to 10.25.0 ([83de439](https://github.com/contentful/create-contentful-app/commit/83de439abdb7b1a73ab1dad214f35f4eeb099114))
+- improve return type of useCMA ([#1294](https://github.com/contentful/create-contentful-app/issues/1294)) ([3dcc01c](https://github.com/contentful/create-contentful-app/commit/3dcc01c47f53c9026a6abdcbc0e7d74f182931e7))
+
 ## [1.2.13](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.12...@contentful/react-apps-toolkit@1.2.13) (2022-12-08)
 
 **Note:** Version bump only for package @contentful/react-apps-toolkit
