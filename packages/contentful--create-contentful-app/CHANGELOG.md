@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.4...@contentful/create-contentful-app@1.5.0) (2022-12-27)
+
+### Features
+
+- [EXT-4148] Suggest to create an app definition ([#1344](https://github.com/contentful/create-contentful-app/issues/1344)) ([406f883](https://github.com/contentful/create-contentful-app/commit/406f8831c1ca7141405510ca5dabaecec31fa3aa))
+
 ## [1.4.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.3...@contentful/create-contentful-app@1.4.4) (2022-12-27)
 
 ### Bug Fixes
