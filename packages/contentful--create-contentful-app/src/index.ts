@@ -13,19 +13,29 @@ import { detectManager, exec, normalizeOptions } from './utils';
 import { CLIOptions } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
+import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
-function successMessage(folder: string) {
+function successMessage(folder: string, useYarn: boolean) {
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`)
-  
+
   wrapInBlanks(highlight('---- Next Steps'))
-  
-  console.log(`Now kick it off by running
+
+  console.log(`Now create an app definition for your app by running
 
     ${code(`cd ${tildify(folder)}`)}
-    ${code(`npm start`)}
+    ${code(useYarn ? 'yarn create-app-definition' : 'npm run create-app-definition')}
+
+    or you can create it manually in web app:
+    ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
+  `);
+
+  console.log(`Then kick it off by running
+
+    ${code(`cd ${tildify(folder)}`)}
+    ${code(`${useYarn ? 'yarn' : 'npm'} start`)}
   `);
 }
 
@@ -96,21 +106,20 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    
     await cloneTemplateIn(fullAppFolder, normalizedOptions);
 
     updatePackageName(fullAppFolder);
 
     const useYarn = normalizedOptions.yarn || detectManager() === 'yarn'
 
-    wrapInBlanks(highlight(`---- Installing the dependencies for your app (Using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
+    wrapInBlanks(highlight(`---- Installing the dependencies for your app (using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
     if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
 
-    successMessage(fullAppFolder);
+    successMessage(fullAppFolder, useYarn);
   } catch (err) {
     error(`Failed to create ${appName}`, err);
     process.exit(1);
@@ -131,9 +140,7 @@ async function initProject(appName: string, options: CLIOptions) {
         '',
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
-        `Official Contentful templates are hosted at ${highlight(
-          'https://github.com/contentful/apps/tree/master/examples'
-        )}.`,
+        `Official Contentful templates are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
       ].join('\n')
     )
     .argument('[app-name]', 'app name')
@@ -143,7 +150,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('-js, --javascript', 'use JavaScript template')
     .option(
       '-e, --example <example-name>',
-      'bootstrap an example app from https://github.com/contentful/apps/tree/master/examples'
+      `bootstrap an example app from ${EXAMPLES_REPO_URL}`
     )
     .option(
       '-s, --source <url>',

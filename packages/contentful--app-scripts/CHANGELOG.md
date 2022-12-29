@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.6...@contentful/app-scripts@1.6.0) (2022-12-27)
+
+### Features
+
+- [EXT-4148] Suggest to create an app definition ([#1344](https://github.com/contentful/create-contentful-app/issues/1344)) ([406f883](https://github.com/contentful/create-contentful-app/commit/406f8831c1ca7141405510ca5dabaecec31fa3aa))
+
 ## [1.5.6](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.5...@contentful/app-scripts@1.5.6) (2022-12-26)
 
 ### Bug Fixes

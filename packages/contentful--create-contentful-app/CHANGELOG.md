@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.4...@contentful/create-contentful-app@1.5.0) (2022-12-27)
+
+### Features
+
+- [EXT-4148] Suggest to create an app definition ([#1344](https://github.com/contentful/create-contentful-app/issues/1344)) ([406f883](https://github.com/contentful/create-contentful-app/commit/406f8831c1ca7141405510ca5dabaecec31fa3aa))
+
+## [1.4.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.3...@contentful/create-contentful-app@1.4.4) (2022-12-27)
+
+### Bug Fixes
+
+- recommend right command in success message ([#1343](https://github.com/contentful/create-contentful-app/issues/1343)) ([85c250b](https://github.com/contentful/create-contentful-app/commit/85c250b3fe21f8ce251c0d096c8981bd330a5043))
+
+## [1.4.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.2...@contentful/create-contentful-app@1.4.3) (2022-12-27)
+
+**Note:** Version bump only for package @contentful/create-contentful-app
+
+## [1.4.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.1...@contentful/create-contentful-app@1.4.2) (2022-12-27)
+
+### Bug Fixes
+
+- improve capitalization ([#1335](https://github.com/contentful/create-contentful-app/issues/1335)) ([2d3c9c7](https://github.com/contentful/create-contentful-app/commit/2d3c9c795d9905705d40185b4e782d0153ef5a99))
+
 ## [1.4.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.0...@contentful/create-contentful-app@1.4.1) (2022-12-26)
 
 **Note:** Version bump only for package @contentful/create-contentful-app

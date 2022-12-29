@@ -22,12 +22,12 @@ NOTE: This will create an app definition in your Contentful organization.
       message: `Select where your app can be rendered:`,
       type: 'checkbox',
       choices: [
-        { name: 'App configuration screen (app-config) ', value: 'app-config' },
-        { name: 'Entry field (entry-field) ', value: 'entry-field' },
-        { name: 'Entry sidebar (entry-sidebar) ', value: 'entry-sidebar' },
-        { name: 'Entry editor (entry-editor)', value: 'entry-editor' },
-        { name: 'Page (page) ', value: 'page' },
-        { name: 'Home (home) ', value: 'home' },
+        { name: 'App configuration screen ', value: 'app-config' },
+        { name: 'Entry field', value: 'entry-field' },
+        { name: 'Entry sidebar', value: 'entry-sidebar' },
+        { name: 'Entry editor', value: 'entry-editor' },
+        { name: 'Page', value: 'page' },
+        { name: 'Home', value: 'home' },
       ],
     },
     {
