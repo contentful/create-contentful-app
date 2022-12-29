@@ -16,6 +16,12 @@ A CLI to perform recurrent operations for Contentful's App Framework.
 
 [More information](packages/contentful--app-scripts/README.md)
 
+### `@contentful/react-apps-toolkit`
+
+Toolkit for building a Contentful app in React.
+
+[More information](packages/contentful--react-apps-toolkit/README.md)
+
 ## Development
 
 ### Publishing
