@@ -28,7 +28,7 @@
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-node": "11.1.0",
     "fs-extra": "11.1.0",
-    "husky": "8.0.2",
+    "husky": "8.0.3",
     "lerna": "6.3.0",
     "lint-staged": "13.1.0",
     "mocha": "10.2.0",
