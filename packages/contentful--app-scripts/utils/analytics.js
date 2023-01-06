@@ -1,0 +1,28 @@
+const Analytics = require('analytics-node');
+
+// Public write key scoped to data source
+const SEGMENT_WRITE_KEY = 'define me';
+
+/**
+ *
+ * @param {object} properties tracking properties
+ * @param {string} properties.command triggered command e.g create-app-definition, upload, etc.
+ * @param {boolean} properties.ci value if --ci flag has been set
+ * @returns
+ */
+function track(properties) {
+  if (process.env.DISABLE_ANALYTICS) {
+    return;
+  }
+
+  const client = new Analytics(SEGMENT_WRITE_KEY);
+
+  try {
+    client.track({ event: 'app-cli-app-scripts', properties, timestamp: new Date() });
+    // eslint-disable-next-line no-empty
+  } catch (e) {
+    // we want to ignore any error from the tracking service to not block the cli
+  }
+}
+
+module.exports = { track };

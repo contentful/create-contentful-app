@@ -1,35 +1,25 @@
 import Analytics from 'analytics-node';
 
-interface Properties {
-  name: string;
-  manager: 'yarn' | 'npm';
+// Public write key scoped to data source
+const SEGMENT_WRITE_KEY = 'define me'
+
+interface CCAEventProperties {
+  template?: string; // can be example, source or JS or TS
+  manager: 'npm' | 'yarn';
+  interactive: boolean;
 }
 
-class AnalyticsClient {
-  private client: Analytics
-
-  constructor() {
-    this.client = new Analytics(process.env.SEGMENT_WRITE_KEY);
+export function track(properties: CCAEventProperties) {
+  if (process.env.DISABLE_ANALYTICS) {
+    return;
   }
 
-  track(properties: Properties) {
-    if (process.env.DISABLE_ANALYTICS) {
-      return;
-    }
+  const client = new Analytics(SEGMENT_WRITE_KEY);
 
-    const segmentEvent: Parameters<Analytics['track']>[0] = {
-      event: 'cli_create_app',
-      properties,
-    };
-
-    try {
-      this.client.track(segmentEvent);
-    } catch (e) {
-      console.error(e);
-    }
+  try {
+    client.track({event: 'app-cli-cca-creation', properties, timestamp: new Date() });
+    // eslint-disable-next-line no-empty
+  } catch (e) {
+    // we just want to ignore an error from the tracking service
   }
 }
-
-const client = new AnalyticsClient();
-
-export default client;
