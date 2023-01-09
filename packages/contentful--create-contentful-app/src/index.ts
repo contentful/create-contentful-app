@@ -126,9 +126,6 @@ async function initProject(appName: string, options: CLIOptions) {
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
-
-    
-
     successMessage(fullAppFolder, useYarn);
   } catch (err) {
     error(`Failed to create ${appName}`, err);

@@ -2,7 +2,6 @@
 import fetch from 'node-fetch';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { track } from './analytics';
 import { CLIOptions, ContentfulExample } from './types';
 import { highlight, warn, wrapInBlanks } from './logger';
 
@@ -12,11 +11,13 @@ function isContentfulTemplate(url: string) {
   return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
 }
 
-async function getGithubFolderNames(username: string, repo: string, path: string) {
-  const url = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
+const CONTENTFUL_APPS_EXAMPLE_FOLDER = "https://api.github.com/repos/contentful/apps/contents/examples";
 
-  const response = await fetch(url);
-  const contents: any = await response.json();
+async function getGithubFolderNames() {
+  
+
+  const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);
+  const contents = await response.json();
 
   return contents
     .filter((content: any) => content.type === 'dir')
@@ -56,7 +57,7 @@ async function promptExampleSelection(): Promise<string> {
     template = language;
   } else {
     // get available templates from examples
-    const availableTemplates = await getGithubFolderNames('contentful', 'apps', 'examples');
+    const availableTemplates = await getGithubFolderNames();
 
     // ask user to select a template from the available examples
     const { example } = await inquirer.prompt([
