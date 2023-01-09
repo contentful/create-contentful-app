@@ -1,7 +1,7 @@
 import Analytics from 'analytics-node';
 
 // Public write key scoped to data source
-const SEGMENT_WRITE_KEY = 'rU9puFk7E1NlAkD0UXCdy6tEFHXc2OyN'
+const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm'
 
 interface CCAEventProperties {
   template?: string; // can be example, source or JS or TS

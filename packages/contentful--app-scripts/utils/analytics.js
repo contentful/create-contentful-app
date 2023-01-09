@@ -1,7 +1,7 @@
 const Analytics = require('analytics-node');
 
 // Public write key scoped to data source
-const SEGMENT_WRITE_KEY = 'define me';
+const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
 
 /**
  *
