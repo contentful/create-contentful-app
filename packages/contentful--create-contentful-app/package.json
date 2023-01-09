@@ -37,7 +37,7 @@
   "dependencies": {
     "@contentful/app-scripts": "1.6.0",
     "chalk": "4.1.2",
-    "commander": "9.4.1",
+    "commander": "9.5.0",
     "degit": "2.8.4",
     "inquirer": "8.2.5",
     "node-fetch": "2.6.7",
