@@ -14,6 +14,8 @@ import { CLIOptions } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
+import { getTemplateSource } from './getTemplateSource';
+import { track } from './analytics';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -99,6 +101,8 @@ async function validateAppName(appName: string): Promise<string> {
 async function initProject(appName: string, options: CLIOptions) {
   const normalizedOptions = normalizeOptions(options);
 
+  console.log({normalizedOptions})
+
   try {
     appName = await validateAppName(appName);
 
@@ -106,7 +110,13 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    await cloneTemplateIn(fullAppFolder, normalizedOptions);
+    const isInteractive = !normalizedOptions.example && !normalizedOptions.source && !normalizedOptions.javascript && !normalizedOptions.typescript
+
+    const templateSource = await getTemplateSource(options)
+
+    track({ template: templateSource, manager: normalizedOptions.npm ? 'npm' : 'yarn', interactive: isInteractive})
+
+    await cloneTemplateIn(fullAppFolder, templateSource);
 
     updatePackageName(fullAppFolder);
 
@@ -118,6 +128,8 @@ async function initProject(appName: string, options: CLIOptions) {
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
+
+    
 
     successMessage(fullAppFolder, useYarn);
   } catch (err) {

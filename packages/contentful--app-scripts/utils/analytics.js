@@ -18,10 +18,15 @@ function track(properties) {
   const client = new Analytics(SEGMENT_WRITE_KEY);
 
   try {
-    client.track({ event: 'app-cli-app-scripts', properties, timestamp: new Date() });
+    client.track({
+      event: 'app-cli-app-scripts',
+      properties,
+      anonymousId: 'anonymous',
+      timestamp: new Date(),
+    });
     // eslint-disable-next-line no-empty
   } catch (e) {
-    // we want to ignore any error from the tracking service to not block the cli
+    // ignore any error, to not block the call
   }
 }
 
