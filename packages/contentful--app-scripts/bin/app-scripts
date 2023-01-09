@@ -3,7 +3,7 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const { createAppDefinition, upload, activate, cleanup, open } = require('../');
+const { createAppDefinition, upload, activate, cleanup, open, track } = require('../');
 
 async function runCommand(command, options) {
   const { ci } = program.opts();
@@ -63,6 +63,10 @@ async function runCommand(command, options) {
     .action(async (options) => {
       await runCommand(cleanup, options);
     });
+
+  program.hook('preAction', (thisCommand) => {
+    track({ command: thisCommand.args[0], ci: thisCommand._optionValues.ci })
+  })
 
   await program.parseAsync(process.argv);
 })().catch((e) => {

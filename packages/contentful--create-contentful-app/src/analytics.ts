@@ -21,7 +21,7 @@ export function track(properties: CCAEventProperties) {
       event: 'app-cli-cca-creation',
       properties,
       timestamp: new Date(),
-      anonymousId: 'anonymous' 
+      anonymousId: Date.now() // generate a random id 
     });
     // eslint-disable-next-line no-empty
   } catch (e) {

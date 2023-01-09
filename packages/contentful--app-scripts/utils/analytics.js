@@ -21,7 +21,7 @@ function track(properties) {
     client.track({
       event: 'app-cli-app-scripts',
       properties,
-      anonymousId: 'anonymous',
+      anonymousId: Date.now(), // generate a random id
       timestamp: new Date(),
     });
     // eslint-disable-next-line no-empty
@@ -30,4 +30,4 @@ function track(properties) {
   }
 }
 
-module.exports = { track };
+module.exports = track;
