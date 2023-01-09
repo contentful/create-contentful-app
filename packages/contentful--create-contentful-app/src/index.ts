@@ -101,8 +101,6 @@ async function validateAppName(appName: string): Promise<string> {
 async function initProject(appName: string, options: CLIOptions) {
   const normalizedOptions = normalizeOptions(options);
 
-  console.log({normalizedOptions})
-
   try {
     appName = await validateAppName(appName);
 
