@@ -103,6 +103,8 @@ Options:
 
 We gather CLI tools depersonalized usage data in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
 
-```
-DISABLE_ANALYTICS=true npx create-contentful-app
-```
+> **Example**
+>
+> ```
+> DISABLE_ANALYTICS=true npx create-contentful-app
+> ```
