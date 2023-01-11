@@ -101,7 +101,7 @@ Options:
 
 ### Tracking
 
-We gather CLI tools depersonalized usage data in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
+We gather depersonalized usage data of our CLI tools in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
 
 > **Example**
 >
