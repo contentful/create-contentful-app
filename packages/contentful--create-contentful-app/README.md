@@ -98,3 +98,11 @@ Options:
                                 format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
   -h, --help                    shows all available CLI options
 ```
+
+### Tracking
+
+We gather CLI tools depersonalized usage data in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
+
+```
+DISABLE_ANALYTICS=true npx create-contentful-app
+```
