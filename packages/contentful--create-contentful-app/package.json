@@ -41,7 +41,7 @@
     "degit": "2.8.4",
     "inquirer": "8.2.5",
     "node-fetch": "2.6.7",
-    "rimraf": "4.0.4",
+    "rimraf": "4.0.7",
     "tildify": "2.0.0",
     "validate-npm-package-name": "5.0.0"
   },
