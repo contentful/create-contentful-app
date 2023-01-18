@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@contentful/app-scripts": "1.6.0",
+    "analytics-node": "^6.2.0",
     "chalk": "4.1.2",
     "commander": "9.5.0",
     "degit": "2.8.4",
@@ -57,6 +58,7 @@
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.3",
+    "@types/analytics-node": "^3.1.9",
     "@types/chalk": "2.2.0",
     "@types/degit": "2.8.3",
     "@types/inquirer": "8.2.1",

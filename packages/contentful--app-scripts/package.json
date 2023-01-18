@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "adm-zip": "0.5.9",
+    "analytics-node": "^6.2.0",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
     "commander": "9.5.0",
