@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.6.0...@contentful/app-scripts@1.7.0) (2023-01-18)
+
+### Bug Fixes
+
+- **deps:** bump commander from 9.4.1 to 9.5.0 ([d1086f6](https://github.com/contentful/create-contentful-app/commit/d1086f65b2927b6be735c87e86697240a908e518))
+
+### Features
+
+- [EXT-4167][EXT-4168][EXT-4169] Create app analytics client and use it in CCA ([#1356](https://github.com/contentful/create-contentful-app/issues/1356)) ([9cae44c](https://github.com/contentful/create-contentful-app/commit/9cae44c2775f0942434fbfdd9b1cff55a6479ccc))
+
 # [1.6.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.5.6...@contentful/app-scripts@1.6.0) (2022-12-27)
 
 ### Features

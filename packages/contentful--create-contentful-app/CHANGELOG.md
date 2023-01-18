@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.5.0...@contentful/create-contentful-app@1.6.0) (2023-01-18)
+
+### Bug Fixes
+
+- **deps:** bump commander from 9.4.1 to 9.5.0 ([d1086f6](https://github.com/contentful/create-contentful-app/commit/d1086f65b2927b6be735c87e86697240a908e518))
+- **deps:** bump rimraf from 3.0.2 to 4.0.4 ([8516761](https://github.com/contentful/create-contentful-app/commit/8516761bcb2c274357936ad9ac8775f06c472254))
+- **deps:** bump rimraf from 4.0.4 to 4.0.7 ([5fd175e](https://github.com/contentful/create-contentful-app/commit/5fd175e263d88e5bc5443260156f675689ccb8b3))
+- **deps:** bump rimraf from 4.0.7 to 4.1.0 ([40e2ea5](https://github.com/contentful/create-contentful-app/commit/40e2ea5b06d91fac479419ea717b568223b61e59))
+- **deps:** bump rimraf from 4.1.0 to 4.1.1 ([40576ff](https://github.com/contentful/create-contentful-app/commit/40576ff7c89f4ee6ae2440f2b692e633941127e6))
+
+### Features
+
+- [EXT-4167][EXT-4168][EXT-4169] Create app analytics client and use it in CCA ([#1356](https://github.com/contentful/create-contentful-app/issues/1356)) ([9cae44c](https://github.com/contentful/create-contentful-app/commit/9cae44c2775f0942434fbfdd9b1cff55a6479ccc))
+
 # [1.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.4.4...@contentful/create-contentful-app@1.5.0) (2022-12-27)
 
 ### Features
