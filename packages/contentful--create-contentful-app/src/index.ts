@@ -147,7 +147,7 @@ async function initProject(appName: string, options: CLIOptions) {
         '',
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
-        `Official Contentful templates are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
+        `Official Contentful templates and examples are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
       ].join('\n')
     )
     .argument('[app-name]', 'app name')
@@ -158,6 +158,10 @@ async function initProject(appName: string, options: CLIOptions) {
     .option(
       '-e, --example <example-name>',
       `bootstrap an example app from ${EXAMPLES_REPO_URL}`
+    )
+    .option(
+      '-t, --template <template-name>',
+      `bootstrap an app with existing template`
     )
     .option(
       '-s, --source <url>',

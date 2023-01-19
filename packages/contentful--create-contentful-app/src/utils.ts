@@ -4,7 +4,13 @@ import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
 import { CLIOptions } from './types';
 
-const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'javascript', 'typescript'] as const;
+const MUTUALLY_EXCLUSIVE_OPTIONS = [
+  'source',
+  'example',
+  'template',
+  'typescript',
+  'javascript',
+] as const;
 
 export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
@@ -61,12 +67,20 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   if (normalizedOptions.source) {
     fallbackOption = '--source';
     delete normalizedOptions.example;
+    delete normalizedOptions.template;
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
   }
 
   if (normalizedOptions.example) {
     fallbackOption = '--example';
+    delete normalizedOptions.template;
+    delete normalizedOptions.typescript;
+    delete normalizedOptions.javascript;
+  }
+
+  if (normalizedOptions.template) {
+    fallbackOption = '--template';
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
   }
@@ -77,11 +91,13 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   }
 
   if (currentMutuallyExclusiveOptions.length > 1) {
-    warn(
-      `Options ${highlight('--source')}, ${highlight('--example')}, ${highlight(
-        '--typescript'
-      )} and ${highlight('--javascript')} are mutually exclusive, using ${choice(fallbackOption)}.`
-    );
+    const paramsString = `Options ${currentMutuallyExclusiveOptions
+      .slice(0, -1)
+      .map((option) => highlight(`--${option}`))
+      .join(', ')} and ${highlight(
+      `--${currentMutuallyExclusiveOptions.slice(-1)}`
+    )} are mutually exclusive, using ${choice(fallbackOption)}.`;
+    warn(paramsString);
   }
 
   return normalizedOptions;
