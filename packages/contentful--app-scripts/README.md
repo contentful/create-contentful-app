@@ -217,3 +217,13 @@ When passing the `--ci` argument adding all variables as arguments is required
 | `--host`            | Optional, the Contentful CMA-endpoint to use |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
+
+### Tracking
+
+We gather depersonalized usage data of our CLI tools in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
+
+> **Example**
+>
+> ```
+> DISABLE_ANALYTICS=true npx create-contentful-app
+> ```
