@@ -3,6 +3,7 @@ const upload = require('./upload');
 const activate = require('./activate');
 const cleanup = require('./clean-up');
 const open = require('./open');
+const track = require('../utils/analytics');
 
 module.exports = {
   createAppDefinition,
@@ -10,4 +11,5 @@ module.exports = {
   activate,
   cleanup,
   open,
+  track,
 };
