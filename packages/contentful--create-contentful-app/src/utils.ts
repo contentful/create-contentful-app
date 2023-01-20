@@ -4,13 +4,7 @@ import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
 import { CLIOptions } from './types';
 
-const MUTUALLY_EXCLUSIVE_OPTIONS = [
-  'source',
-  'example',
-  'template',
-  'typescript',
-  'javascript',
-] as const;
+const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'typescript', 'javascript'] as const;
 
 export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
@@ -67,20 +61,12 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   if (normalizedOptions.source) {
     fallbackOption = '--source';
     delete normalizedOptions.example;
-    delete normalizedOptions.template;
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
   }
 
   if (normalizedOptions.example) {
     fallbackOption = '--example';
-    delete normalizedOptions.template;
-    delete normalizedOptions.typescript;
-    delete normalizedOptions.javascript;
-  }
-
-  if (normalizedOptions.template) {
-    fallbackOption = '--template';
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
   }

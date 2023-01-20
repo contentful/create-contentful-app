@@ -84,10 +84,6 @@ function selectTemplate(template: string) {
 }
 
 async function makeContentfulExampleSource(options: CLIOptions): Promise<string> {
-  if (options.template) {
-    return selectTemplate(options.template);
-  }
-
   if (options.example) {
     return selectTemplate(options.example);
   }

@@ -160,10 +160,6 @@ async function initProject(appName: string, options: CLIOptions) {
       `bootstrap an example app from ${EXAMPLES_REPO_URL}`
     )
     .option(
-      '-t, --template <template-name>',
-      `bootstrap an app with existing template`
-    )
-    .option(
       '-s, --source <url>',
       [
         `provide a template by its source repository.`,
