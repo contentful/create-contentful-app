@@ -49,9 +49,9 @@ async function promptExampleSelection(): Promise<string> {
         choices: [
           { name: 'TypeScript', value: 'typescript' },
           { name: 'JavaScript', value: 'javascript' },
-          { name: 'Vue', value: 'vue' },
-          { name: 'Vite + React', value: 'vite-react' },
           { name: 'Next.js', value: 'nextjs' },
+          { name: 'React + Vite', value: 'vite-react' },
+          { name: 'Vue', value: 'vue' },
         ],
         default: 'typescript',
       },
