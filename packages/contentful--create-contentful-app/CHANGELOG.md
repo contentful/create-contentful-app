@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.6.0...@contentful/create-contentful-app@1.6.1) (2023-01-20)
+
+### Bug Fixes
+
+- swallow segment errors ([#1378](https://github.com/contentful/create-contentful-app/issues/1378)) ([e8064f9](https://github.com/contentful/create-contentful-app/commit/e8064f95cebedd26449e68d24db83d42f8296602))
+
 # [1.6.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.5.0...@contentful/create-contentful-app@1.6.0) (2023-01-18)
 
 ### Bug Fixes
