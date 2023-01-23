@@ -1,55 +1,57 @@
-
 import fetch from 'node-fetch';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { CLIOptions, ContentfulExample } from './types';
 import { highlight, warn, wrapInBlanks } from './logger';
+import { TEMPLATES } from './constants';
 
+const CONTENTFUL_APPS_EXAMPLE_FOLDER =
+  'https://api.github.com/repos/contentful/apps/contents/examples';
 const EXAMPLES_PATH = 'contentful/apps/examples/';
 
 function isContentfulTemplate(url: string) {
   return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
 }
 
-const CONTENTFUL_APPS_EXAMPLE_FOLDER = "https://api.github.com/repos/contentful/apps/contents/examples";
-
 async function getGithubFolderNames() {
-  
-
   const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);
   const contents = await response.json();
 
   return contents
-    .filter((content: any) => content.type === 'dir')
+    .filter((content: any) => content.type === 'dir' && !TEMPLATES.includes(content.name))
     .map((content: any) => content.name);
 }
-
-
 
 async function promptExampleSelection(): Promise<string> {
   let template = 'typescript';
 
-  // ask user whether to start with a blank template or use an example template
+  // ask user whether to start with a blank template or use an example
   const { starter } = await inquirer.prompt([
     {
       name: 'starter',
       message: 'Do you want to start with a blank template or use one of our examples?',
       type: 'list',
-      choices: ['blank', 'example'],
-      default: 'blank',
+      choices: [
+        { name: 'Template', value: 'template' },
+        { name: 'Example', value: 'example' },
+      ],
+      default: 'template',
     },
   ]);
 
-  // if the user chose to use an blank template, ask which language they prefer
-  if (starter === 'blank') {
+  // if the user chose to use a template, ask which language they prefer
+  if (starter === 'template') {
     const { language } = await inquirer.prompt([
       {
         name: 'language',
-        message: 'Do you prefer TypeScript or JavaScript',
+        message: 'Pick a template',
         type: 'list',
         choices: [
           { name: 'TypeScript', value: 'typescript' },
           { name: 'JavaScript', value: 'javascript' },
+          { name: 'Next.js', value: 'nextjs' },
+          { name: 'React + Vite', value: 'vite-react' },
+          { name: 'Vue', value: 'vue' },
         ],
         default: 'typescript',
       },
@@ -80,7 +82,6 @@ function selectTemplate(template: string) {
   wrapInBlanks(highlight(`---- Cloning the ${chalk.cyan(template)} template...`));
   return EXAMPLES_PATH + template;
 }
-
 
 async function makeContentfulExampleSource(options: CLIOptions): Promise<string> {
   if (options.example) {

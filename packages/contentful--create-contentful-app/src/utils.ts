@@ -4,7 +4,7 @@ import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
 import { CLIOptions } from './types';
 
-const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'javascript', 'typescript'] as const;
+const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'typescript', 'javascript'] as const;
 
 export function exec(command: string, args: string[], options: SpawnOptionsWithoutStdio) {
   return new Promise<void>((resolve, reject) => {
@@ -77,11 +77,10 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   }
 
   if (currentMutuallyExclusiveOptions.length > 1) {
-    warn(
-      `Options ${highlight('--source')}, ${highlight('--example')}, ${highlight(
-        '--typescript'
-      )} and ${highlight('--javascript')} are mutually exclusive, using ${choice(fallbackOption)}.`
+    const paramsString = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' }).format(
+      currentMutuallyExclusiveOptions.map((option) => highlight(`--${option}`))
     );
+    warn(`Options ${paramsString} are mutually exclusive, using ${choice(fallbackOption)}.`);
   }
 
   return normalizedOptions;
