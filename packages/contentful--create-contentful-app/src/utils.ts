@@ -77,13 +77,10 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   }
 
   if (currentMutuallyExclusiveOptions.length > 1) {
-    const paramsString = `Options ${currentMutuallyExclusiveOptions
-      .slice(0, -1)
-      .map((option) => highlight(`--${option}`))
-      .join(', ')} and ${highlight(
-      `--${currentMutuallyExclusiveOptions.slice(-1)}`
-    )} are mutually exclusive, using ${choice(fallbackOption)}.`;
-    warn(paramsString);
+    const paramsString = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' }).format(
+      currentMutuallyExclusiveOptions.map((option) => highlight(`--${option}`))
+    );
+    warn(`Options ${paramsString} are mutually exclusive, using ${choice(fallbackOption)}.`);
   }
 
   return normalizedOptions;
