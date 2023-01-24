@@ -15,9 +15,12 @@ function track(properties) {
     return;
   }
 
-  const client = new Analytics(SEGMENT_WRITE_KEY);
-
   try {
+    const client = new Analytics(SEGMENT_WRITE_KEY, {
+      errorHandler: () => {
+        // noop
+      },
+    });
     client.track({
       event: 'app-cli-app-scripts',
       properties,
