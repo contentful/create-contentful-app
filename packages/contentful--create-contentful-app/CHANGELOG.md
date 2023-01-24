@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.7.1...@contentful/create-contentful-app@1.7.2) (2023-01-24)
+
+### Bug Fixes
+
+- **deps:** bump rimraf from 4.1.1 to 4.1.2 ([c35d5ee](https://github.com/contentful/create-contentful-app/commit/c35d5ee1452110e111f792572ed36e26bf8c265e))
+
 ## [1.7.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.7.0...@contentful/create-contentful-app@1.7.1) (2023-01-23)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
