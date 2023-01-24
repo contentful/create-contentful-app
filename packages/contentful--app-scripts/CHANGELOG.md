@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.7.1...@contentful/app-scripts@1.7.2) (2023-01-24)
+
+### Bug Fixes
+
+- add noop error handler to app-scripts ([#1385](https://github.com/contentful/create-contentful-app/issues/1385)) ([87cbc43](https://github.com/contentful/create-contentful-app/commit/87cbc43b4bd44cdffb724820cafb05fc5c87764a))
+
 ## [1.7.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.7.0...@contentful/app-scripts@1.7.1) (2023-01-23)
 
 ### Bug Fixes
