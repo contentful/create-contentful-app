@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -42,7 +42,7 @@
     "degit": "2.8.4",
     "inquirer": "8.2.5",
     "node-fetch": "2.6.7",
-    "rimraf": "4.1.1",
+    "rimraf": "4.1.2",
     "tildify": "2.0.0",
     "validate-npm-package-name": "5.0.0"
   },
