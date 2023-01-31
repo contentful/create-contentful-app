@@ -52,7 +52,7 @@
     "analytics-node": "^6.2.0",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
-    "commander": "9.5.0",
+    "commander": "10.0.0",
     "contentful-management": "10.27.2",
     "dotenv": "16.0.3",
     "ignore": "5.2.4",
