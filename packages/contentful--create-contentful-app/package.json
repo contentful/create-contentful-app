@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "1.7.11",
+  "version": "1.7.12",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -35,7 +35,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@contentful/app-scripts": "1.7.10",
+    "@contentful/app-scripts": "1.7.11",
     "analytics-node": "^6.2.0",
     "chalk": "4.1.2",
     "commander": "10.0.0",
