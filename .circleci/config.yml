@@ -76,8 +76,8 @@ commands:
       - vault/get-secrets:
           template-preset: "semantic-release"
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run: git config --global user.email "tech-accounts+gh+whydah-gally@contentful.com"
-      - run: git config --global user.name "whydah-gally"
+      - run: git config --global user.email "${GIT_AUTHOR_EMAIL}"
+      - run: git config --global user.name "${GIT_AUTHOR_NAME}"
       - *install-deps
       - *build
 
