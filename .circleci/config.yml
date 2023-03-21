@@ -122,8 +122,6 @@ jobs:
       - test-built-app
 
 workflows:
-  version: 2
-
   test:
     jobs:
       - lint-and-test-14:
