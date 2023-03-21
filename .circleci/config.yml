@@ -62,13 +62,6 @@ commands:
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" --typescript test
             cd test
             npm t
-  build:
-    steps:
-      - checkout
-      - *install-deps
-      - run:
-          name: Run build
-          command: npm run build
 
   prepare-release:
     steps:
@@ -80,12 +73,6 @@ commands:
       - run: git config --global user.name "${GIT_AUTHOR_NAME}"
       - *install-deps
       - *build
-
-  nx_set_shas:
-    steps:
-      - nx/set-shas:
-          error-on-no-successful-workflow: true
-          main-branch-name: master
 
 jobs:
   release:
