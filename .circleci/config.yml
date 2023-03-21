@@ -8,16 +8,6 @@ environment: &base-env
   NPM_CONFIG_PROGRESS: 'false'
   NPM_CONFIG_LOGLEVEL: warn
 
-install-deps: &install-deps
-  run:
-    name: Install Dependencies
-    command: npm ci && npm run bootstrap
-
-build: &build
-  run:
-    name: Build
-    command: npm run build
-
 executors:
   node-container-14:
     docker:
@@ -35,11 +25,23 @@ executors:
         environment: *base-env
 
 commands:
+  install-deps:
+    steps:
+      - run:
+          name: Install Dependencies
+          command: npm ci && npm run bootstrap
+
+  build:
+    steps:
+      - run:
+          name: Build
+          command: npm run build
+
   lint-and-test:
     steps:
       - checkout
-      - *install-deps
-      - *build
+      - install-deps
+      - build
       - run:
           name: Run Linter
           command: npm run lint
@@ -50,8 +52,8 @@ commands:
   test-built-app:
     steps:
       - checkout
-      - *install-deps
-      - *build
+      - install-deps
+      - build
       - run:
           name: Run Tests
           command: |
@@ -67,12 +69,12 @@ commands:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "semantic-release"
+          template-preset: 'semantic-release'
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run: git config --global user.email "${GIT_AUTHOR_EMAIL}"
       - run: git config --global user.name "${GIT_AUTHOR_NAME}"
-      - *install-deps
-      - *build
+      - install-deps
+      - build
 
 jobs:
   release:
@@ -172,4 +174,3 @@ workflows:
             - test-built-app-14
             - test-built-app-16
             - test-built-app-18
-
