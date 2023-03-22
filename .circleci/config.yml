@@ -69,11 +69,8 @@ commands:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: 'semantic-release'
+          template-preset: 'semantic-release-ecosystem'
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run: export GH_TOKEN=${GITHUB_TOKEN}
-      - run: git config --global user.email "${GIT_AUTHOR_EMAIL}"
-      - run: git config --global user.name "${GIT_AUTHOR_NAME}"
       - install-deps
       - build
 
