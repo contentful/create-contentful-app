@@ -41,7 +41,7 @@
     "commander": "10.0.0",
     "degit": "2.8.4",
     "inquirer": "8.2.5",
-    "node-fetch": "2.6.7",
+    "node-fetch": "3.3.1",
     "rimraf": "4.1.2",
     "tildify": "2.0.0",
     "validate-npm-package-name": "5.0.0"
