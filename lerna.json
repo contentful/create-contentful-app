@@ -10,6 +10,7 @@
         "*.spec.*",
         "*.test.*",
         "jest.config.js",
+        "package.json",
         "package-lock.json",
         "tsconfig.json",
         "docs"
