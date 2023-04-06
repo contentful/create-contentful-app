@@ -59,9 +59,16 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
   }
 };
 
+const throwManifestValidationError = () => {
+  console.log(`${chalk.red('Manifest Error:')} Invalid JSON.`);
+
+  throw new Error('Invalid JSON in manifest file.');
+};
+
 module.exports = {
   throwValidationException,
   throwError,
   selectFromList,
   showCreationError,
+  throwManifestValidationError,
 };
