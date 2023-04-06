@@ -1,9 +1,6 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ],
+  "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
@@ -13,5 +10,5 @@
     "skipLibCheck": true,
     "outDir": "./lib",
     "typeRoots": ["./typings", "./node_modules/@types"]
-  },
+  }
 }

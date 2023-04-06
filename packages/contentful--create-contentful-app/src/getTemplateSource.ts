@@ -3,15 +3,11 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { CLIOptions, ContentfulExample } from './types';
 import { highlight, warn, wrapInBlanks } from './logger';
-import { TEMPLATES } from './constants';
+import { EXAMPLES_PATH, TEMPLATES } from './constants';
+import { isContentfulTemplate } from './utils';
 
 const CONTENTFUL_APPS_EXAMPLE_FOLDER =
   'https://api.github.com/repos/contentful/apps/contents/examples';
-const EXAMPLES_PATH = 'contentful/apps/examples/';
-
-function isContentfulTemplate(url: string) {
-  return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
-}
 
 async function getGithubFolderNames() {
   const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);

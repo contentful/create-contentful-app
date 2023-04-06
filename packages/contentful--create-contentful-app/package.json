@@ -32,7 +32,8 @@
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "pre-commit": "lint-staged",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "npm run build && node lib/index.js"
   },
   "dependencies": {
     "@contentful/app-scripts": "1.7.16",
