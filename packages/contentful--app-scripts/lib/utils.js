@@ -65,14 +65,8 @@ const showAppManifestFound = (path) => {
   console.log(`  ----------------------------`);
 };
 
-const showManifestValidationError = () => {
-  console.log('----------------------------');
-  console.warn(
-    `${chalk.red(
-      'Warning:'
-    )} Invalid JSON in manifest file. App actions will not be applied!`
-  );
-  console.log('----------------------------');
+const showManifestValidationError = (path) => {
+  console.warn(`${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(path)}.`);
 };
 
 module.exports = {

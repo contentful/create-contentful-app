@@ -23,8 +23,9 @@ function getActionsManifest() {
 
     return manifest.actions;
   } catch {
-    showManifestValidationError();
-    return;
+    showManifestValidationError(DEFAULT_MANIFEST_PATH);
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
   }
 }
 
