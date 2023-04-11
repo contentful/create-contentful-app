@@ -3,25 +3,28 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const { getAppInfo } = require('../get-app-info');
-const { throwManifestValidationError } = require('../utils');
+const { showManifestValidationError, showAppManifestFound } = require('../utils');
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
 function getActionsManifest() {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
-  if (!isManifestExists) return undefined;
+  if (!isManifestExists) {
+    return;
+  }
 
   try {
     const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
 
     if (!Array.isArray(manifest.actions) || manifest.actions.length === 0) {
-      return undefined;
+      return;
     }
 
     return manifest.actions;
   } catch {
-    throwManifestValidationError();
+    showManifestValidationError();
+    return;
   }
 }
 
@@ -44,6 +47,10 @@ async function buildAppUploadSettings(options) {
   }
 
   const appUploadSettings = await inquirer.prompt(prompts);
+
+  if (actionsManifest) {
+    showAppManifestFound(DEFAULT_MANIFEST_PATH);
+  }
 
   const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically

@@ -59,10 +59,20 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
   }
 };
 
-const throwManifestValidationError = () => {
-  console.log(`${chalk.red('Manifest Error:')} Invalid JSON.`);
+const showAppManifestFound = (path) => {
+  console.log(`  ----------------------------`);
+  console.log(`  App manifest found in ${chalk.bold(path)}. Applying...`);
+  console.log(`  ----------------------------`);
+};
 
-  throw new Error('Invalid JSON in manifest file.');
+const showManifestValidationError = () => {
+  console.log('----------------------------');
+  console.warn(
+    `${chalk.red(
+      'Warning:'
+    )} Invalid JSON in manifest file. App actions will not be applied!`
+  );
+  console.log('----------------------------');
 };
 
 module.exports = {
@@ -70,5 +80,6 @@ module.exports = {
   throwError,
   selectFromList,
   showCreationError,
-  throwManifestValidationError,
+  showAppManifestFound,
+  showManifestValidationError,
 };
