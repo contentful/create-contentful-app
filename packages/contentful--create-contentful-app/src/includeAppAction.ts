@@ -31,10 +31,12 @@ function cloneAppAction(templateIsTypescript: boolean, destination: string) {
   // modify package.json with build commands
   const packageJsonLocation = `${destination}/package.json`;
   const packageJsonExists = existsSync(packageJsonLocation);
+
   if (!packageJsonExists) {
     console.error('Failed to add app action build commands.');
     return;
   }
+
   const packageJson = JSON.parse(readFileSync(packageJsonLocation, { encoding: 'utf-8' }));
   const updatedPackageJson = {
     ...packageJson,
@@ -46,6 +48,8 @@ function cloneAppAction(templateIsTypescript: boolean, destination: string) {
     },
   };
   writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson));
+
+  return;
 }
 
 type PromptIncludeAppAction = ({
@@ -73,5 +77,8 @@ export const promptIncludeAppAction: PromptIncludeAppAction = async ({
   if (includeAppAction) {
     const templateIsTypescript = templateSource.includes('typescript');
     cloneAppAction(templateIsTypescript, fullAppFolder);
+    return;
   }
+
+  return;
 };
