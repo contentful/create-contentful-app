@@ -1,12 +1,12 @@
 {
-  "outDir": "build/actions",
   "actions": [
     {
-      "id": "example-action",
       "name": "Example App Action",
-      "category": "ExampleAction.v1.0",
+      "category": "Custom",
       "description": "This is an example to help you learn how hosted app actions work.",
-      "path": "actions/example-action.ts"
+      "type": "function",
+      "path": "actions/example-action.js",
+      "parameters": []
     }
   ]
 }
