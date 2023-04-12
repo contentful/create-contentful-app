@@ -40,9 +40,9 @@ function cloneAppAction(templateIsTypescript: boolean, destination: string) {
     ...packageJson,
     scripts: {
       ...packageJson.scripts,
-      'clean-actions': '-rm rf build/actions',
-      'build-actions': 'build command',
-      build: `${packageJson.scripts.build} && build-actions`,
+      'clean-actions': '-rimraf build/actions',
+      // 'build-actions': 'build command',
+      // build: `${packageJson.scripts.build} && build-actions`,
     },
   };
   writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson));
