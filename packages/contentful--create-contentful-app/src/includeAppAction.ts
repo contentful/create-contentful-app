@@ -1,5 +1,33 @@
 import inquirer from 'inquirer';
-import { cloneTemplateIn } from './template';
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { resolve } from 'path';
+
+function cloneAppAction(templateIsTypescript: boolean, destination: string) {
+  const actionPath = resolve(
+    templateIsTypescript
+      ? 'src/app-actions/typescript/index.ts'
+      : 'src/app-actions/javascript/index.js'
+  );
+
+  const manifestPath = resolve(
+    templateIsTypescript
+      ? 'src/app-actions/typescript/manifest.json'
+      : 'src/app-actions/javascript/manifest.json'
+  );
+
+  // write the action
+  const appAction = readFileSync(actionPath, { encoding: 'utf-8' }).toString();
+  const appActionDirectoryPath = `${destination}/actions`;
+  mkdirSync(appActionDirectoryPath);
+  writeFileSync(
+    `${appActionDirectoryPath}/example${templateIsTypescript ? '.ts' : '.js'}`,
+    appAction
+  );
+
+  // write the manifest
+  const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
+  writeFileSync(`${destination}/contentful-manifest.json`, JSON.stringify(manifest));
+}
 
 type PromptIncludeAppAction = ({
   fullAppFolder,
@@ -22,13 +50,9 @@ export const promptIncludeAppAction: PromptIncludeAppAction = async ({
     },
   ]);
 
-  const isTypescript = templateSource.includes('typescript');
-
-  // resolve action path here
-  const actionPath = '';
-
   // put app action into the template
   if (includeAppAction) {
-    cloneTemplateIn(`${fullAppFolder}/actions`, actionPath);
+    const templateIsTypescript = templateSource.includes('typescript');
+    cloneAppAction(templateIsTypescript, fullAppFolder);
   }
 };
