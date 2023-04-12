@@ -2,6 +2,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 const { getAppInfo } = require('../get-app-info');
 const { validateArguments } = require('../validate-arguments');
+const { getActionsManifest, showAppManifestFound } = require('../utils');
 
 const requiredOptions = {
   definitionId: '--definition-id',
@@ -12,6 +13,11 @@ const requiredOptions = {
 
 async function getUploadSettingsArgs(options) {
   const validateSpinner = ora('Validating your input...').start();
+  const actionsManifest = getActionsManifest();
+
+  if (actionsManifest) {
+    showAppManifestFound();
+  }
 
   try {
     validateArguments(requiredOptions, options, 'upload');
@@ -22,6 +28,7 @@ async function getUploadSettingsArgs(options) {
       skipActivation: options.skipActivation,
       comment: options.comment,
       userAgentApplication: options.userAgentApplication,
+      actions: actionsManifest,
     };
   } catch (err) {
     console.log(`

@@ -1,33 +1,8 @@
 // @ts-check
 
 const inquirer = require('inquirer');
-const fs = require('fs');
 const { getAppInfo } = require('../get-app-info');
-const { showManifestValidationError, showAppManifestFound } = require('../utils');
-
-const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
-
-function getActionsManifest() {
-  const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
-
-  if (!isManifestExists) {
-    return;
-  }
-
-  try {
-    const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
-
-    if (!Array.isArray(manifest.actions) || manifest.actions.length === 0) {
-      return;
-    }
-
-    return manifest.actions.map((action) => ({ parameters: [], ...action }));
-  } catch {
-    showManifestValidationError(DEFAULT_MANIFEST_PATH);
-    // eslint-disable-next-line no-process-exit
-    process.exit(1);
-  }
-}
+const { showAppManifestFound, getActionsManifest } = require('../utils');
 
 async function buildAppUploadSettings(options) {
   const actionsManifest = getActionsManifest();
@@ -50,7 +25,7 @@ async function buildAppUploadSettings(options) {
   const appUploadSettings = await inquirer.prompt(prompts);
 
   if (actionsManifest) {
-    showAppManifestFound(DEFAULT_MANIFEST_PATH);
+    showAppManifestFound();
   }
 
   const appInfo = await getAppInfo(options);
