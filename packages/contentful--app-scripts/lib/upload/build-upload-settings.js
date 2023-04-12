@@ -21,7 +21,7 @@ function getActionsManifest() {
       return;
     }
 
-    return manifest.actions;
+    return manifest.actions.map((action) => ({ parameters: [], ...action }));
   } catch {
     showManifestValidationError(DEFAULT_MANIFEST_PATH);
     // eslint-disable-next-line no-process-exit
