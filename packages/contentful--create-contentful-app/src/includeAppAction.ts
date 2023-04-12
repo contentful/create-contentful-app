@@ -26,7 +26,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
 
   // write the manifest
   const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
-  writeFileSync(`${destination}/contentful-manifest.json`, JSON.stringify(manifest));
+  writeFileSync(`${destination}/contentful-app-manifest.json`, JSON.stringify(manifest));
 
   // modify package.json with build commands
   const packageJsonLocation = `${destination}/package.json`;
