@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
 function cloneAppAction(templateIsTypescript: boolean, destination: string) {
@@ -27,6 +27,25 @@ function cloneAppAction(templateIsTypescript: boolean, destination: string) {
   // write the manifest
   const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
   writeFileSync(`${destination}/contentful-manifest.json`, JSON.stringify(manifest));
+
+  // modify package.json with build commands
+  const packageJsonLocation = `${destination}/package.json`;
+  const packageJsonExists = existsSync(packageJsonLocation);
+  if (!packageJsonExists) {
+    console.error('Failed to add app action build commands.');
+    return;
+  }
+  const packageJson = JSON.parse(readFileSync(packageJsonLocation, { encoding: 'utf-8' }));
+  const updatedPackageJson = {
+    ...packageJson,
+    scripts: {
+      ...packageJson.scripts,
+      'clean-actions': '-rm rf build/actions',
+      'build-actions': 'build command',
+      build: `${packageJson.scripts.build} && build-actions`,
+    },
+  };
+  writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson));
 }
 
 type PromptIncludeAppAction = ({
