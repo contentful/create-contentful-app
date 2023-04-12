@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
-function cloneAppAction(templateIsTypescript: boolean, destination: string) {
+export function cloneAppAction(templateIsTypescript: boolean, destination: string) {
   const actionPath = resolve(
     templateIsTypescript
       ? 'src/app-actions/typescript/index.ts'
@@ -77,8 +77,5 @@ export const promptIncludeAppAction: PromptIncludeAppAction = async ({
   if (includeAppAction) {
     const templateIsTypescript = templateSource.includes('typescript');
     cloneAppAction(templateIsTypescript, fullAppFolder);
-    return;
   }
-
-  return;
 };

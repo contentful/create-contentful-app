@@ -71,6 +71,7 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     fallbackOption = '--example';
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
+    delete normalizedOptions.action;
   }
 
   if (normalizedOptions.typescript) {

@@ -16,7 +16,7 @@ import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
-import { promptIncludeAppAction } from './includeAppAction';
+import { promptIncludeAppAction, cloneAppAction } from './includeAppAction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -125,8 +125,12 @@ async function initProject(appName: string, options: CLIOptions) {
 
     await cloneTemplateIn(fullAppFolder, templateSource);
 
-    if (isContentfulTemplate(templateSource)) {
+    if (isInteractive && isContentfulTemplate(templateSource)) {
       await promptIncludeAppAction({ fullAppFolder, templateSource });
+    }
+
+    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
+      cloneAppAction(!!normalizedOptions.typescript, fullAppFolder);
     }
 
     updatePackageName(fullAppFolder);
