@@ -1,5 +1,3 @@
-// import type { APIGatewayEvent, Context } from 'aws-lambda';
-
 exports.handler = async (event: any) => {
   console.debug(`Event: ${JSON.stringify(event, null, 2)}`);
 
