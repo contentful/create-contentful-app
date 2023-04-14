@@ -11,8 +11,8 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
 
   const manifestPath = resolve(
     templateIsTypescript
-      ? 'src/app-actions/typescript/manifest.json'
-      : 'src/app-actions/javascript/manifest.json'
+      ? 'src/app-actions/typescript/contentful-app-manifest.json'
+      : 'src/app-actions/javascript/contentful-app-manifest.json'
   );
 
   // write the action
@@ -28,7 +28,14 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
   const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
   writeFileSync(`${destination}/contentful-app-manifest.json`, JSON.stringify(manifest));
 
-  // modify package.json with build commands
+  // write the build file if necessary
+  if (!templateIsTypescript) {
+    const buildFilePath = 'src/app-actions/javascript/build-actions.js';
+    const buildFile = readFileSync(buildFilePath, { encoding: 'utf-8' }).toString();
+    writeFileSync(`${destination}/build-actions.js`, buildFile);
+  }
+
+  // modify package.json build commands
   const packageJsonLocation = `${destination}/package.json`;
   const packageJsonExists = existsSync(packageJsonLocation);
 
@@ -42,14 +49,13 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
     ...packageJson,
     scripts: {
       ...packageJson.scripts,
-      'clean-actions': '-rimraf build/actions',
-      // 'build-actions': 'build command',
-      // build: `${packageJson.scripts.build} && build-actions`,
+      'build-actions': `${
+        templateIsTypescript ? 'tsc actions/*.ts --outDir build/actions' : 'node build-actions.js'
+      }`,
+      build: `${packageJson.scripts.build} && build-actions`,
     },
   };
   writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson));
-
-  return;
 }
 
 type PromptIncludeAppAction = ({

@@ -5,7 +5,7 @@
       "category": "Custom",
       "description": "This is an example to help you learn how hosted app actions work.",
       "type": "function",
-      "path": "actions/example-action.js",
+      "path": "actions/example.js",
       "parameters": []
     }
   ]

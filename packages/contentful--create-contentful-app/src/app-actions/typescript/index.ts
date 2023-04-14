@@ -1,7 +1,5 @@
-exports.handler = async (event: any) => {
-  console.debug(`Event: ${JSON.stringify(event, null, 2)}`);
-
-  const { parameters } = event;
+exports.handler = async (payload: any) => {
+  const { parameters } = payload;
 
   const response = {
     message: `Hello from your hosted app action. I recieved the following message as a paramater: ${JSON.stringify(
