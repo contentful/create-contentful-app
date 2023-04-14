@@ -1,4 +1,6 @@
-exports.handler = async (payload: any) => {
+import { CreateAppActionCallProps } from 'contentful-management';
+
+exports.handler = async (payload: CreateAppActionCallProps) => {
   const { parameters } = payload;
 
   const response = {
