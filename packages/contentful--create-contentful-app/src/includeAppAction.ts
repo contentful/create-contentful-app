@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import { CONTENTFUL_APP_MANIFEST } from './constants';
 
 export function cloneAppAction(templateIsTypescript: boolean, destination: string) {
   const actionPath = resolve(
@@ -11,8 +12,8 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
 
   const manifestPath = resolve(
     templateIsTypescript
-      ? 'src/app-actions/typescript/contentful-app-manifest.json'
-      : 'src/app-actions/javascript/contentful-app-manifest.json'
+      ? `src/app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
+      : `src/app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`
   );
 
   // write the action
@@ -26,7 +27,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
 
   // write the manifest
   const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
-  writeFileSync(`${destination}/contentful-app-manifest.json`, JSON.stringify(manifest));
+  writeFileSync(`${destination}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(manifest));
 
   // write the build file if necessary
   if (!templateIsTypescript) {
