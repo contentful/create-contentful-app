@@ -84,15 +84,11 @@ function getActionsManifest() {
 
     return manifest.actions.map((action) => ({ parameters: [], ...action })); // adding required parameters
   } catch {
-    showManifestValidationError();
+    console.warn(`${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 }
-
-const showManifestValidationError = () => {
-  console.warn(`${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
-};
 
 module.exports = {
   throwValidationException,
@@ -100,5 +96,4 @@ module.exports = {
   selectFromList,
   showCreationError,
   getActionsManifest,
-  showManifestValidationError,
 };
