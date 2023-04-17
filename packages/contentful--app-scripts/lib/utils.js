@@ -76,21 +76,19 @@ function getActionsManifest() {
       return;
     }
 
-    return manifest.actions.map((action) => ({ parameters: [], ...action }));
+    console.log('');
+    console.log(`  ----------------------------
+  App actions manifest found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
+  ----------------------------`);
+    console.log('');
+
+    return manifest.actions.map((action) => ({ parameters: [], ...action })); // adding required parameters
   } catch {
     showManifestValidationError();
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 }
-
-const showAppManifestFound = () => {
-  console.log('');
-  console.log(`  ----------------------------
-  App manifest found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
-  ----------------------------`);
-  console.log('');
-};
 
 const showManifestValidationError = () => {
   console.warn(`${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
@@ -102,6 +100,5 @@ module.exports = {
   selectFromList,
   showCreationError,
   getActionsManifest,
-  showAppManifestFound,
   showManifestValidationError,
 };

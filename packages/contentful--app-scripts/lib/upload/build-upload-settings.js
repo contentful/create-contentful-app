@@ -2,7 +2,7 @@
 
 const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
-const { showAppManifestFound, getActionsManifest } = require('../utils');
+const { getActionsManifest } = require('../utils');
 
 async function buildAppUploadSettings(options) {
   const actionsManifest = getActionsManifest();
@@ -23,10 +23,6 @@ async function buildAppUploadSettings(options) {
   }
 
   const appUploadSettings = await inquirer.prompt(prompts);
-
-  if (actionsManifest) {
-    showAppManifestFound();
-  }
 
   const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically
