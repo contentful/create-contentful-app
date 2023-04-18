@@ -1,13 +1,7 @@
 const fs = require('fs');
-const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = fs;
+const { readdirSync, readFileSync, writeFileSync, mkdirSync } = fs;
 
 const buildActions = () => {
-  const buildFolderExists = existsSync('build');
-
-  if (!buildFolderExists) {
-    mkdirSync('build');
-  }
-
   const actionsFiles = readdirSync('actions', {
     encoding: 'utf-8',
   });
@@ -18,7 +12,7 @@ const buildActions = () => {
     }).toString();
   });
 
-  mkdirSync('build/actions');
+  mkdirSync('build/actions', { recursive: true });
 
   actionsFiles.map((fileName, index) => {
     return writeFileSync(`build/actions/${fileName}`, actions[index]);

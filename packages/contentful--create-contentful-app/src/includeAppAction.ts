@@ -67,7 +67,7 @@ type PromptIncludeAppAction = ({
   templateSource: string;
 }) => void;
 
-export const promptIncludeAppAction: PromptIncludeAppAction = async ({
+export const promptIncludeActionInTemplate: PromptIncludeAppAction = async ({
   fullAppFolder,
   templateSource,
 }) => {
