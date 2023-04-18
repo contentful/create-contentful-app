@@ -56,7 +56,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
       build: `${packageJson.scripts.build} && npm run build-actions`,
     },
   };
-  writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson));
+  writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson, null, '  '));
 }
 
 type PromptIncludeAppAction = ({
