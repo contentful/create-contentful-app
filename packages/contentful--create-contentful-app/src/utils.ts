@@ -39,7 +39,6 @@ export function detectManager() {
 
 export function normalizeOptions(options: CLIOptions): CLIOptions {
   const normalizedOptions: CLIOptions = { ...options };
-  console.log(JSON.stringify(normalizedOptions));
 
   if (normalizedOptions.npm && normalizedOptions.yarn) {
     warn(
