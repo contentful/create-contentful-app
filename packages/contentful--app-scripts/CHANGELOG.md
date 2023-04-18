@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.7.16...@contentful/app-scripts@1.8.0) (2023-04-18)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.31.3 to 10.31.4 ([#1467](https://github.com/contentful/create-contentful-app/issues/1467)) ([4f9b744](https://github.com/contentful/create-contentful-app/commit/4f9b744742462d1445a9afaa4f84c678f43195a5))
+- **deps:** bump contentful-management from 10.31.4 to 10.31.5 ([#1469](https://github.com/contentful/create-contentful-app/issues/1469)) ([33e154f](https://github.com/contentful/create-contentful-app/commit/33e154f6e75927f1e248fd8676eac6c554a95d80))
+- **deps:** bump contentful-management from 10.31.5 to 10.31.6 ([#1477](https://github.com/contentful/create-contentful-app/issues/1477)) ([57398a2](https://github.com/contentful/create-contentful-app/commit/57398a210593de00607ba645f980970f01704b34))
+- **deps:** bump contentful-management from 10.31.6 to 10.32.0 ([#1480](https://github.com/contentful/create-contentful-app/issues/1480)) ([cbbefe5](https://github.com/contentful/create-contentful-app/commit/cbbefe5f045f6379e87f6d224e033efb617c280b))
+
+### Features
+
+- [EXT-4404] Check for app actions in manifest and send them on bundle upload ([#1475](https://github.com/contentful/create-contentful-app/issues/1475)) ([a0a15c4](https://github.com/contentful/create-contentful-app/commit/a0a15c4a031c564813bb8383398bf2f2e7db406a))
+
 ## [1.7.16](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.7.15...@contentful/app-scripts@1.7.16) (2023-03-27)
 
 ### Bug Fixes
