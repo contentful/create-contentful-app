@@ -76,13 +76,13 @@ It only runs in interactive mode.
 ### Upload a bundle to an App Definition
 
 Allows you to upload a build directory and create a new AppBundle that is bound to an [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/).
-It runs in interactive or non-interactive mode
+It runs in interactive or non-interactive mode.
 
-**Note:** The command will automatically activate the bundle. To skip the activation you can pass the `--skip-activation` argument in interactive and non-interactive mode and then manually [activate](#activate-an-appBundle) it
+**Note:** The command will automatically activate the bundle. To skip the activation you can pass the `--skip-activation` argument in interactive and non-interactive mode and then manually [activate](#activate-an-appBundle) it.
 
 #### Interactive mode:
 
-In the interactive mode, the CLI will ask for all required options
+In the interactive mode, the CLI will ask for all required options.
 
 > **Example**
 >
@@ -124,7 +124,7 @@ When activated the app will serve the newly activated AppBundle.
 
 #### Interactive mode:
 
-In the interactive mode, the CLI will ask for all required options
+In the interactive mode, the CLI will ask for all required options.
 
 > **Example**
 >
@@ -134,7 +134,7 @@ In the interactive mode, the CLI will ask for all required options
 
 #### Non-interactive mode:
 
-When passing the `--ci` argument adding all variables as arguments is required
+When passing the `--ci` argument adding all variables as arguments is required.
 
 > **Example**
 >
@@ -182,7 +182,7 @@ You can adjust the amount you want to keep by passing `--keep <amount>` to the a
 
 #### Interactive mode:
 
-In the interactive mode, the CLI will ask for all required options
+In the interactive mode, the CLI will ask for all required options.
 
 > **Example**
 >
