@@ -23,6 +23,7 @@ async function createAppBundleFromUpload(settings, appUploadId) {
     appBundle = await appDefinition.createAppBundle({
       appUploadId,
       comment: settings.comment && settings.comment.length > 0 ? settings.comment : undefined,
+      actions: settings.actions,
     });
   } catch (err) {
     showCreationError('app upload', err.message);
