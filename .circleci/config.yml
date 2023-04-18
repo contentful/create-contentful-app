@@ -71,7 +71,7 @@ commands:
       - vault/get-secrets:
           template-preset: 'semantic-release-ecosystem'
       - vault/configure-lerna
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrca
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - install-deps
       - build
 
