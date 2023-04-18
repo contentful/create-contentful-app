@@ -2,8 +2,10 @@
 
 const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
+const { getActionsManifest } = require('../utils');
 
 async function buildAppUploadSettings(options) {
+  const actionsManifest = getActionsManifest();
   const prompts = [];
   if (!options.bundleDir) {
     prompts.push({
@@ -28,6 +30,7 @@ async function buildAppUploadSettings(options) {
     bundleDirectory: options.bundleDir,
     skipActivation: !!options.skipActivation,
     comment: options.comment,
+    actions: actionsManifest,
     ...appUploadSettings,
     ...appInfo,
   };
