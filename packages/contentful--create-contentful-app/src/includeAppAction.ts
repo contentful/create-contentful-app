@@ -53,7 +53,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
       'build-actions': `${
         templateIsTypescript ? 'tsc actions/*.ts --outDir build/actions' : 'node build-actions.js'
       }`,
-      build: `${packageJson.scripts.build} && build-actions`,
+      build: `${packageJson.scripts.build} && npm run build-actions`,
     },
   };
   writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson));
