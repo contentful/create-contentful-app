@@ -34,16 +34,15 @@ ${err.message}
 };
 
 const selectFromList = async (list, message, cachedOptionEnvVar) => {
-  const cachedEnvVar = process.env[cachedOptionEnvVar]
-  const cachedElement = list.find(item => item.value === cachedEnvVar);
+  const cachedEnvVar = process.env[cachedOptionEnvVar];
+  const cachedElement = list.find((item) => item.value === cachedEnvVar);
 
   if (cachedElement) {
     console.log(`
   ${message}
   Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
-    `)
+    `);
     return cachedElement;
-
   } else {
     const { elementId } = await inquirer.prompt([
       {
@@ -55,7 +54,7 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
     ]);
 
     if (cachedOptionEnvVar) {
-      await cacheEnvVars({[cachedOptionEnvVar]: elementId});
+      await cacheEnvVars({ [cachedOptionEnvVar]: elementId });
     }
 
     return list.find((el) => el.value === elementId);
@@ -84,7 +83,11 @@ function getActionsManifest() {
 
     return manifest.actions.map((action) => ({ parameters: [], ...action })); // adding required parameters
   } catch {
-    console.warn(`${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
+    console.log(
+      `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
+        DEFAULT_MANIFEST_PATH
+      )}.`
+    );
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }

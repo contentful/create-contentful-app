@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -52,7 +52,7 @@
     "analytics-node": "^6.2.0",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
-    "commander": "10.0.0",
+    "commander": "10.0.1",
     "contentful-management": "10.32.0",
     "dotenv": "16.0.3",
     "ignore": "5.2.4",
