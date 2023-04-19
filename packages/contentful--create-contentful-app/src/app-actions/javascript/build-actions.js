@@ -21,7 +21,7 @@ const buildActions = () => {
   } catch (e) {
     console.log('Failed to build app actions.');
     console.log(e);
-    return;
+    process.exit(1);
   }
 };
 
