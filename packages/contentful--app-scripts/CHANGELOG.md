@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.8.0...@contentful/app-scripts@1.8.1) (2023-04-19)
+
+### Bug Fixes
+
+- readme punctuation ([#1484](https://github.com/contentful/create-contentful-app/issues/1484)) ([f026e0a](https://github.com/contentful/create-contentful-app/commit/f026e0a8dde7c5011e2d2e1abc2250b579a7510c))
+- remove unecessary logging ([#1485](https://github.com/contentful/create-contentful-app/issues/1485)) ([0dffc9d](https://github.com/contentful/create-contentful-app/commit/0dffc9dfc4fb7267d2f01085b54c556559e332c2))
+
 # [1.8.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.7.16...@contentful/app-scripts@1.8.0) (2023-04-18)
 
 ### Bug Fixes
