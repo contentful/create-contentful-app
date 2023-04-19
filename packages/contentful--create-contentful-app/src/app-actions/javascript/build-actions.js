@@ -19,7 +19,9 @@ const buildActions = () => {
       console.log('App actions successfully built');
     });
   } catch (e) {
+    console.log('Failed to build app actions.');
     console.log(e);
+    return;
   }
 };
 
