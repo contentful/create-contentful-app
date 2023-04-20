@@ -7,7 +7,7 @@ import { success, highlight } from './logger';
 
 export async function cloneAppAction(destination: string, templateIsTypescript: boolean) {
   try {
-    console.log(highlight('Cloning hosted app action.'));
+    console.log(highlight('---- Cloning hosted app action.'));
     // Clone the app actions template to the created directory under the folder 'actions'
     const templateSource = join(
       'contentful/apps/examples/hosted-app-action-templates',
@@ -51,8 +51,6 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
       },
     };
     writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson, null, '  '));
-
-    console.log(success('Done!'));
   } catch (e) {
     console.log(e);
     process.exit(1);
