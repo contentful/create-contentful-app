@@ -4,21 +4,17 @@ import { resolve } from 'path';
 import { CONTENTFUL_APP_MANIFEST } from './constants';
 
 export function cloneAppAction(templateIsTypescript: boolean, destination: string) {
-  const actionPath = resolve(
-    templateIsTypescript
-      ? 'src/app-actions/typescript/index.ts'
-      : 'src/app-actions/javascript/index.js'
-  );
+  const actionPath = templateIsTypescript
+    ? '/src/app-actions/typescript/index.ts'
+    : '/src/app-actions/javascript/index.js';
 
-  const manifestPath = resolve(
-    templateIsTypescript
-      ? `src/app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
-      : `src/app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`
-  );
+  const manifestPath = templateIsTypescript
+    ? `/src/app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
+    : `/src/app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`;
 
   // write the action
   const appAction = readFileSync(actionPath, { encoding: 'utf-8' }).toString();
-  const appActionDirectoryPath = `${destination}/actions`;
+  const appActionDirectoryPath = resolve(`${destination}/actions`);
   mkdirSync(appActionDirectoryPath);
   writeFileSync(
     `${appActionDirectoryPath}/example${templateIsTypescript ? '.ts' : '.js'}`,
@@ -27,17 +23,17 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
 
   // write the manifest
   const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
-  writeFileSync(`${destination}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(manifest));
+  writeFileSync(resolve(`${destination}/${CONTENTFUL_APP_MANIFEST}`), JSON.stringify(manifest));
 
   // write the build file if necessary
   if (!templateIsTypescript) {
-    const buildFilePath = 'src/app-actions/javascript/build-actions.js';
+    const buildFilePath = '/src/app-actions/javascript/build-actions.js';
     const buildFile = readFileSync(buildFilePath, { encoding: 'utf-8' }).toString();
-    writeFileSync(`${destination}/build-actions.js`, buildFile);
+    writeFileSync(resolve(`${destination}/build-actions.js`), buildFile);
   }
 
   // modify package.json build commands
-  const packageJsonLocation = `${destination}/package.json`;
+  const packageJsonLocation = resolve(`${destination}/package.json`);
   const packageJsonExists = existsSync(packageJsonLocation);
 
   if (!packageJsonExists) {
