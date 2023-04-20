@@ -189,7 +189,7 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
-    .option('-a, --action', 'include a hosted app action in your app')
+    // .option('-a, --action', 'include a hosted app action in your app')
     .action(initProject);
   await program.parseAsync();
 })();
