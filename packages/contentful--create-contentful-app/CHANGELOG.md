@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.0...@contentful/create-contentful-app@1.8.1) (2023-04-20)
+
+### Bug Fixes
+
+- remove app action prompt in interactive mode ([#1491](https://github.com/contentful/create-contentful-app/issues/1491)) ([4f85fc5](https://github.com/contentful/create-contentful-app/commit/4f85fc582bba6f90388d8dbcd55eda3b2eedd2ca))
+
 # [1.8.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.7.21...@contentful/create-contentful-app@1.8.0) (2023-04-20)
 
 ### Bug Fixes
