@@ -1,62 +1,60 @@
 import inquirer from 'inquirer';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { resolve } from 'path';
+import { readFileSync, writeFileSync, existsSync, renameSync } from 'fs';
+import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST } from './constants';
+import degit from 'degit';
+import { success, highlight } from './logger';
 
-export function cloneAppAction(templateIsTypescript: boolean, destination: string) {
-  const actionPath = resolve(
-    templateIsTypescript
-      ? 'src/app-actions/typescript/index.ts'
-      : 'src/app-actions/javascript/index.js'
-  );
+export async function cloneAppAction(destination: string, templateIsTypescript: boolean) {
+  try {
+    console.log(highlight('---- Cloning hosted app action.'));
+    // Clone the app actions template to the created directory under the folder 'actions'
+    const templateSource = join(
+      'contentful/apps/examples/hosted-app-action-templates',
+      templateIsTypescript ? 'typescript' : 'javascript'
+    );
 
-  const manifestPath = resolve(
-    templateIsTypescript
-      ? `src/app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
-      : `src/app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`
-  );
+    const appActionDirectoryPath = resolve(`${destination}/actions`);
 
-  // write the action
-  const appAction = readFileSync(actionPath, { encoding: 'utf-8' }).toString();
-  const appActionDirectoryPath = `${destination}/actions`;
-  mkdirSync(appActionDirectoryPath);
-  writeFileSync(
-    `${appActionDirectoryPath}/example${templateIsTypescript ? '.ts' : '.js'}`,
-    appAction
-  );
+    const d = await degit(templateSource, { mode: 'tar', cache: false });
+    await d.clone(appActionDirectoryPath);
 
-  // write the manifest
-  const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
-  writeFileSync(`${destination}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(manifest));
+    // move the manifest from the actions folder to the root folder
+    renameSync(
+      `${appActionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
+      `${destination}/${CONTENTFUL_APP_MANIFEST}`
+    );
 
-  // write the build file if necessary
-  if (!templateIsTypescript) {
-    const buildFilePath = 'src/app-actions/javascript/build-actions.js';
-    const buildFile = readFileSync(buildFilePath, { encoding: 'utf-8' }).toString();
-    writeFileSync(`${destination}/build-actions.js`, buildFile);
+    // move the build file from the actions folder to the root folder, if necessary
+    if (!templateIsTypescript) {
+      renameSync(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
+    }
+
+    // modify package.json build commands
+    const packageJsonLocation = resolve(`${destination}/package.json`);
+    const packageJsonExists = existsSync(packageJsonLocation);
+
+    if (!packageJsonExists) {
+      console.error('Failed to add app action build commands.');
+      return;
+    }
+
+    const packageJson = JSON.parse(readFileSync(packageJsonLocation, { encoding: 'utf-8' }));
+    const updatedPackageJson = {
+      ...packageJson,
+      scripts: {
+        ...packageJson.scripts,
+        'build-actions': `${
+          templateIsTypescript ? 'tsc actions/*.ts --outDir build/actions' : 'node build-actions.js'
+        }`,
+        build: `${packageJson.scripts.build} && npm run build-actions`,
+      },
+    };
+    writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson, null, '  '));
+  } catch (e) {
+    console.log(e);
+    process.exit(1);
   }
-
-  // modify package.json build commands
-  const packageJsonLocation = `${destination}/package.json`;
-  const packageJsonExists = existsSync(packageJsonLocation);
-
-  if (!packageJsonExists) {
-    console.error('Failed to add app action build commands.');
-    return;
-  }
-
-  const packageJson = JSON.parse(readFileSync(packageJsonLocation, { encoding: 'utf-8' }));
-  const updatedPackageJson = {
-    ...packageJson,
-    scripts: {
-      ...packageJson.scripts,
-      'build-actions': `${
-        templateIsTypescript ? 'tsc actions/*.ts --outDir build/actions' : 'node build-actions.js'
-      }`,
-      build: `${packageJson.scripts.build} && npm run build-actions`,
-    },
-  };
-  writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson, null, '  '));
 }
 
 type PromptIncludeAppAction = ({
@@ -83,6 +81,6 @@ export const promptIncludeActionInTemplate: PromptIncludeAppAction = async ({
   // put app action into the template
   if (includeAppAction) {
     const templateIsTypescript = templateSource.includes('typescript');
-    cloneAppAction(templateIsTypescript, fullAppFolder);
+    cloneAppAction(fullAppFolder, templateIsTypescript);
   }
 };

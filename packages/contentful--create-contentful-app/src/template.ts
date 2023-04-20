@@ -1,9 +1,7 @@
 import { resolve } from 'path';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import degit from 'degit';
 import rimraf from 'rimraf';
-
-import { CLIOptions } from './types';
 import { success } from './logger';
 import { rmIfExists } from './utils';
 
@@ -33,7 +31,7 @@ function validate(destination: string): void {
   try {
     JSON.parse(readFileSync(packageJSONLocation, 'utf-8'));
   } catch (e) {
-    throw new Error(`Invalid template: invalid "${packageJSONLocation}".`);
+    throw new Error(`Invalid template: invalid ${packageJSONLocation}.`);
   }
 }
 
