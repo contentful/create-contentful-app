@@ -2,9 +2,7 @@ import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import degit from 'degit';
 import rimraf from 'rimraf';
-
-import { CLIOptions } from './types';
-import { success, highlight } from './logger';
+import { success } from './logger';
 import { rmIfExists } from './utils';
 
 async function clone(source: string, destination: string) {

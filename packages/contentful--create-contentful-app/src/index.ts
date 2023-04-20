@@ -16,7 +16,7 @@ import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
-import { promptIncludeActionInTemplate, cloneAppAction } from './includeAppAction';
+import { cloneAppAction } from './includeAppAction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
