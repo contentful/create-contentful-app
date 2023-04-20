@@ -9,21 +9,22 @@ import inquirer from 'inquirer';
 import tildify from 'tildify';
 
 import { cloneTemplateIn } from './template';
-import { detectManager, exec, normalizeOptions } from './utils';
+import { detectManager, exec, normalizeOptions, isContentfulTemplate } from './utils';
 import { CLIOptions } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
+import { promptIncludeActionInTemplate, cloneAppAction } from './includeAppAction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
 function successMessage(folder: string, useYarn: boolean) {
   console.log(`
-${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`)
+${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`);
 
-  wrapInBlanks(highlight('---- Next Steps'))
+  wrapInBlanks(highlight('---- Next Steps'));
 
   console.log(`Now create an app definition for your app by running
 
@@ -108,19 +109,42 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    const isInteractive = !normalizedOptions.example && !normalizedOptions.source && !normalizedOptions.javascript && !normalizedOptions.typescript
+    const isInteractive =
+      !normalizedOptions.example &&
+      !normalizedOptions.source &&
+      !normalizedOptions.javascript &&
+      !normalizedOptions.typescript;
 
-    const templateSource = await getTemplateSource(options)
+    const templateSource = await getTemplateSource(options);
 
-    track({ template: templateSource, manager: normalizedOptions.npm ? 'npm' : 'yarn', interactive: isInteractive})
+    track({
+      template: templateSource,
+      manager: normalizedOptions.npm ? 'npm' : 'yarn',
+      interactive: isInteractive,
+    });
 
     await cloneTemplateIn(fullAppFolder, templateSource);
 
+    // Ask to include a hosted app action if the user has selected a template
+    if (isInteractive && isContentfulTemplate(templateSource)) {
+      await promptIncludeActionInTemplate({ fullAppFolder, templateSource });
+    }
+
+    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
+      cloneAppAction(!!normalizedOptions.typescript, fullAppFolder);
+    }
+
     updatePackageName(fullAppFolder);
 
-    const useYarn = normalizedOptions.yarn || detectManager() === 'yarn'
+    const useYarn = normalizedOptions.yarn || detectManager() === 'yarn';
 
-    wrapInBlanks(highlight(`---- Installing the dependencies for your app (using ${chalk.cyan(useYarn ? 'yarn' : 'npm')})...`))
+    wrapInBlanks(
+      highlight(
+        `---- Installing the dependencies for your app (using ${chalk.cyan(
+          useYarn ? 'yarn' : 'npm'
+        )})...`
+      )
+    );
     if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
     } else {
@@ -155,10 +179,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('--yarn', 'use Yarn')
     .option('-ts, --typescript', 'use TypeScript template (default)')
     .option('-js, --javascript', 'use JavaScript template')
-    .option(
-      '-e, --example <example-name>',
-      `bootstrap an example app from ${EXAMPLES_REPO_URL}`
-    )
+    .option('-e, --example <example-name>', `bootstrap an example app from ${EXAMPLES_REPO_URL}`)
     .option(
       '-s, --source <url>',
       [
@@ -168,6 +189,7 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
+    .option('-a, --action', 'include a hosted app action in your app')
     .action(initProject);
   await program.parseAsync();
 })();

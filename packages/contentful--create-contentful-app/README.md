@@ -96,6 +96,7 @@ Options:
   -e, --example <example-name>  bootstrap an example app from https://github.com/contentful/apps/tree/master/examples
   -s, --source <url>            provide a template by its source repository.
                                 format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
+  -a, --actions                 includes a hosted app action in ts or js template
   -h, --help                    shows all available CLI options
 ```
 

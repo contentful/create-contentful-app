@@ -5,9 +5,10 @@ export type CLIOptions = Partial<{
   typescript: boolean;
   source: string;
   example: string;
-}>
+  action: boolean;
+}>;
 
 export const ContentfulExample = {
   Javascript: 'javascript',
-  Typescript: 'typescript'
+  Typescript: 'typescript',
 };

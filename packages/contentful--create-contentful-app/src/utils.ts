@@ -2,7 +2,8 @@ import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
 import { existsSync, rmSync } from 'fs';
 import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
-import { CLIOptions } from './types';
+import { CLIOptions, ContentfulExample } from './types';
+import { EXAMPLES_PATH } from './constants';
 
 const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'typescript', 'javascript'] as const;
 
@@ -63,12 +64,14 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.example;
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
+    delete normalizedOptions.action;
   }
 
   if (normalizedOptions.example) {
     fallbackOption = '--example';
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
+    delete normalizedOptions.action;
   }
 
   if (normalizedOptions.typescript) {
@@ -84,4 +87,8 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
   }
 
   return normalizedOptions;
+}
+
+export function isContentfulTemplate(url: string) {
+  return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
 }
