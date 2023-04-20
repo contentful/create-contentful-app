@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.1...@contentful/create-contentful-app@1.8.2) (2023-04-20)
+
+### Bug Fixes
+
+- clone app action templates correctly ([#1492](https://github.com/contentful/create-contentful-app/issues/1492)) ([8362f45](https://github.com/contentful/create-contentful-app/commit/8362f453c7f37ba259ce4196018b6538424e4c50))
+
 ## [1.8.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.0...@contentful/create-contentful-app@1.8.1) (2023-04-20)
 
 ### Bug Fixes
