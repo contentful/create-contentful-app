@@ -1,17 +1,18 @@
 import inquirer from 'inquirer';
 import { readFileSync, writeFileSync, existsSync, renameSync } from 'fs';
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST } from './constants';
 import degit from 'degit';
 import { success, highlight } from './logger';
 
-export async function cloneAppAction(templateIsTypescript: boolean, destination: string) {
+export async function cloneAppAction(destination: string, templateIsTypescript: boolean) {
   try {
     console.log(highlight('Cloning hosted app action.'));
     // Clone the app actions template to the created directory under the folder 'actions'
-    const templateSource = `contentful/apps/examples/hosted-app-action-templates/${
+    const templateSource = join(
+      'contentful/apps/examples/hosted-app-action-templates',
       templateIsTypescript ? 'typescript' : 'javascript'
-    }`;
+    );
 
     const appActionDirectoryPath = resolve(`${destination}/actions`);
 
@@ -82,6 +83,6 @@ export const promptIncludeActionInTemplate: PromptIncludeAppAction = async ({
   // put app action into the template
   if (includeAppAction) {
     const templateIsTypescript = templateSource.includes('typescript');
-    cloneAppAction(templateIsTypescript, fullAppFolder);
+    cloneAppAction(fullAppFolder, templateIsTypescript);
   }
 };
