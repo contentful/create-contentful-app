@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.7.21...@contentful/create-contentful-app@1.8.0) (2023-04-20)
+
+### Bug Fixes
+
+- **deps:** bump commander from 10.0.0 to 10.0.1 ([#1486](https://github.com/contentful/create-contentful-app/issues/1486)) ([a76ecfe](https://github.com/contentful/create-contentful-app/commit/a76ecfe64bb7772f22aaa5131413e157fbcb86d1))
+- **deps:** bump rimraf from 4.1.2 to 5.0.0 ([#1487](https://github.com/contentful/create-contentful-app/issues/1487)) ([fac94dc](https://github.com/contentful/create-contentful-app/commit/fac94dc7f66d10f126422cb5410285eb256a34fa))
+
+### Features
+
+- support hosted app actions ([#1473](https://github.com/contentful/create-contentful-app/issues/1473)) ([2ede0e7](https://github.com/contentful/create-contentful-app/commit/2ede0e7863bb4c46256e21a896fa01c86d4a1d38))
+
 ## [1.7.21](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.7.20...@contentful/create-contentful-app@1.7.21) (2023-04-19)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
