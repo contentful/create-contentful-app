@@ -125,7 +125,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     await cloneTemplateIn(fullAppFolder, templateSource);
 
-    // Ask to include a hosted app action if the user has selected a template
+    // For testing -- remove this
     if (isInteractive && isContentfulTemplate(templateSource)) {
       await promptIncludeActionInTemplate({ fullAppFolder, templateSource });
     }
@@ -189,7 +189,7 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
-    .option('-a, --action', 'include a hosted app action in your app')
+    .option('-a, --action', 'include a hosted app action in the ts or js template')
     .action(initProject);
   await program.parseAsync();
 })();

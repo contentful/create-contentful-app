@@ -15,6 +15,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
   cloneTemplateIn(appActionDirectoryPath, templateSource);
 
   // move the manifest from the actions folder to the root folder
+
   renameSync(
     `${appActionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
     `${destination}/${CONTENTFUL_APP_MANIFEST}`
@@ -26,7 +27,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
   }
 
   // modify package.json build commands
-  const packageJsonLocation = `${destination}/package.json`;
+  const packageJsonLocation = resolve(`${destination}/package.json`);
   const packageJsonExists = existsSync(packageJsonLocation);
 
   if (!packageJsonExists) {
