@@ -125,10 +125,10 @@ async function initProject(appName: string, options: CLIOptions) {
 
     await cloneTemplateIn(fullAppFolder, templateSource);
 
-    // Ask to include a hosted app action if the user has selected a template
-    if (isInteractive && isContentfulTemplate(templateSource)) {
-      await promptIncludeActionInTemplate({ fullAppFolder, templateSource });
-    }
+    // // Ask to include a hosted app action if the user has selected a template
+    // if (isInteractive && isContentfulTemplate(templateSource)) {
+    //   await promptIncludeActionInTemplate({ fullAppFolder, templateSource });
+    // }
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
       cloneAppAction(!!normalizedOptions.typescript, fullAppFolder);
@@ -189,7 +189,7 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
-    .option('-a, --action', 'include a hosted app action in your app')
+    // .option('-a, --action', 'include a hosted app action in your app')
     .action(initProject);
   await program.parseAsync();
 })();
