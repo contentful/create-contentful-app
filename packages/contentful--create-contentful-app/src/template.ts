@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import degit from 'degit';
 import rimraf from 'rimraf';
 
