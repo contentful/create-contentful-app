@@ -5,12 +5,12 @@ import { CONTENTFUL_APP_MANIFEST } from './constants';
 
 export function cloneAppAction(templateIsTypescript: boolean, destination: string) {
   const actionPath = templateIsTypescript
-    ? '/src/app-actions/typescript/index.ts'
-    : '/src/app-actions/javascript/index.js';
+    ? './app-actions/typescript/index.ts'
+    : './app-actions/javascript/index.js';
 
   const manifestPath = templateIsTypescript
-    ? `/src/app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
-    : `/src/app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`;
+    ? `./app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
+    : `./app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`;
 
   // write the action
   const appAction = readFileSync(actionPath, { encoding: 'utf-8' }).toString();
@@ -27,7 +27,7 @@ export function cloneAppAction(templateIsTypescript: boolean, destination: strin
 
   // write the build file if necessary
   if (!templateIsTypescript) {
-    const buildFilePath = '/src/app-actions/javascript/build-actions.js';
+    const buildFilePath = './app-actions/javascript/build-actions.js';
     const buildFile = readFileSync(buildFilePath, { encoding: 'utf-8' }).toString();
     writeFileSync(resolve(`${destination}/build-actions.js`), buildFile);
   }
