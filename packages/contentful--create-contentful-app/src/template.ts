@@ -33,7 +33,7 @@ function validate(destination: string): void {
   try {
     JSON.parse(readFileSync(packageJSONLocation, 'utf-8'));
   } catch (e) {
-    throw new Error(`Invalid template: invalid "${packageJSONLocation}".`);
+    throw new Error(`Invalid template: invalid ${packageJSONLocation}.`);
   }
 }
 
@@ -42,15 +42,7 @@ function cleanUp(destination: string) {
   rmIfExists(resolve(destination, 'yarn.lock'));
 }
 
-export async function cloneTemplateIn(
-  destination: string,
-  source: string,
-  initialMessage?: string
-) {
-  if (initialMessage) {
-    console.log(highlight(initialMessage));
-  }
-
+export async function cloneTemplateIn(destination: string, source: string) {
   await clone(source, destination);
   console.log(success('Done!'));
 
