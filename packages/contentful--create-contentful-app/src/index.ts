@@ -125,11 +125,6 @@ async function initProject(appName: string, options: CLIOptions) {
 
     await cloneTemplateIn(fullAppFolder, templateSource);
 
-    // For testing -- remove this
-    if (isInteractive && isContentfulTemplate(templateSource)) {
-      await promptIncludeActionInTemplate({ fullAppFolder, templateSource });
-    }
-
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
       cloneAppAction(!!normalizedOptions.typescript, fullAppFolder);
     }
