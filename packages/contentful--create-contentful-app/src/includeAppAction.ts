@@ -1,39 +1,28 @@
 import inquirer from 'inquirer';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, renameSync } from 'fs';
 import { resolve } from 'path';
 import { CONTENTFUL_APP_MANIFEST } from './constants';
+import { cloneTemplateIn } from './template';
 
 export function cloneAppAction(templateIsTypescript: boolean, destination: string) {
-  const actionPath = resolve(
-    templateIsTypescript
-      ? 'src/app-actions/typescript/index.ts'
-      : 'src/app-actions/javascript/index.js'
+  // Clone the app actions template to the created directory under the folder 'actions'
+  const templateSource = `contentful/apps/examples/hosted-app-actions-templates/${
+    templateIsTypescript ? 'typescript' : 'javascript'
+  }`;
+
+  const appActionDirectoryPath = resolve(`${destination}/actions`);
+
+  cloneTemplateIn(appActionDirectoryPath, templateSource);
+
+  // move the manifest from the actions folder to the root folder
+  renameSync(
+    `${appActionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
+    `${destination}/${CONTENTFUL_APP_MANIFEST}`
   );
 
-  const manifestPath = resolve(
-    templateIsTypescript
-      ? `src/app-actions/typescript/${CONTENTFUL_APP_MANIFEST}`
-      : `src/app-actions/javascript/${CONTENTFUL_APP_MANIFEST}`
-  );
-
-  // write the action
-  const appAction = readFileSync(actionPath, { encoding: 'utf-8' }).toString();
-  const appActionDirectoryPath = `${destination}/actions`;
-  mkdirSync(appActionDirectoryPath);
-  writeFileSync(
-    `${appActionDirectoryPath}/example${templateIsTypescript ? '.ts' : '.js'}`,
-    appAction
-  );
-
-  // write the manifest
-  const manifest = JSON.parse(readFileSync(manifestPath, { encoding: 'utf-8' }));
-  writeFileSync(`${destination}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(manifest));
-
-  // write the build file if necessary
+  // move the build file from the actions folder to the root folder, if necessary
   if (!templateIsTypescript) {
-    const buildFilePath = 'src/app-actions/javascript/build-actions.js';
-    const buildFile = readFileSync(buildFilePath, { encoding: 'utf-8' }).toString();
-    writeFileSync(`${destination}/build-actions.js`, buildFile);
+    renameSync(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
   }
 
   // modify package.json build commands

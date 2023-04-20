@@ -4,7 +4,7 @@ import degit from 'degit';
 import rimraf from 'rimraf';
 
 import { CLIOptions } from './types';
-import { success } from './logger';
+import { success, highlight } from './logger';
 import { rmIfExists } from './utils';
 
 async function clone(source: string, destination: string) {
@@ -42,7 +42,15 @@ function cleanUp(destination: string) {
   rmIfExists(resolve(destination, 'yarn.lock'));
 }
 
-export async function cloneTemplateIn(destination: string, source: string) {
+export async function cloneTemplateIn(
+  destination: string,
+  source: string,
+  initialMessage?: string
+) {
+  if (initialMessage) {
+    console.log(highlight(initialMessage));
+  }
+
   await clone(source, destination);
   console.log(success('Done!'));
 
