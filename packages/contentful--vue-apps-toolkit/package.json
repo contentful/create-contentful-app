@@ -4,6 +4,7 @@
   "description": "A set of Vue functions for your Contentful app",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf dist && tsc",
     "test": "test"
   },
   "author": "",
