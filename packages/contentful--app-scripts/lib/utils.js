@@ -20,8 +20,14 @@ const validateIpAddress = (ipAddress) => {
 };
 
 const removeProtocolFromUrl = (url) => {
-  const { hostname } = new URL(url);
-  return hostname;
+  try {
+    const prefixedUrl = /^(\d{1,3}\.){3}\d{1,3}(:\d{1,5})?$/.test(url) ? `http://${url}` : url;
+    const { host } = new URL(prefixedUrl);
+    return host;
+  } catch (e) {
+    //swallow error here to throw more suitable error in getActionsManifest function
+    return;
+  }
 };
 
 const showCreationError = (subject, message) => {
