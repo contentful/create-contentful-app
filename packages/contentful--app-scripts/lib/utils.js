@@ -121,7 +121,7 @@ function getActionsManifest() {
         allowedNetworks:
           validAllowedNetworks.length > 0
             ? validAllowedNetworks
-            : ['api.contentful.com', '127.0.0.1'],
+            : ['api.contentful.com', 'upload.contentful.com', '127.0.0.1'],
       };
     });
 
