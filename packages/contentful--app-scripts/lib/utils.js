@@ -2,6 +2,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const { cacheEnvVars } = require('../utils/cache-credential');
+const { URL } = require('url');
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -11,6 +12,16 @@ const throwValidationException = (subject, message, details) => {
   details && console.log(`${chalk.dim(details)}`);
 
   throw new TypeError(message);
+};
+
+const validateIpAddress = (ipAddress) => {
+  const ipRegex = /^((?:[0-9]{1,3}\.){3}[0-9]{1,3}|(?:[a-z0-9-]+\.)+[a-z]{2,})(?::([0-9]{1,5}))?$/i;
+  return ipRegex.test(ipAddress);
+};
+
+const removeProtocolFromUrl = (url) => {
+  const { hostname } = new URL(url);
+  return hostname;
 };
 
 const showCreationError = (subject, message) => {
@@ -81,7 +92,34 @@ function getActionsManifest() {
   ----------------------------`);
     console.log('');
 
-    return manifest.actions.map((action) => ({ parameters: [], ...action })); // adding required parameters
+    const actions = manifest.actions.map((action) => {
+      const allowedNetworks = Array.isArray(action.allowedNetworks) ? action.allowedNetworks : [];
+
+      const validAllowedNetworks = allowedNetworks
+        .map(removeProtocolFromUrl)
+        .filter(validateIpAddress);
+
+      if (validAllowedNetworks.length !== allowedNetworks.length) {
+        console.log(
+          `${chalk.red(
+            'Error:'
+          )} Invalid IP address found in the allowedNetworks array for action "${action.name}".`
+        );
+        // eslint-disable-next-line no-process-exit
+        process.exit(1);
+      }
+
+      return {
+        parameters: [],
+        ...action,
+        allowedNetworks:
+          validAllowedNetworks.length > 0
+            ? validAllowedNetworks
+            : ['api.contentful.com', '127.0.0.1'],
+      };
+    });
+
+    return actions;
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
