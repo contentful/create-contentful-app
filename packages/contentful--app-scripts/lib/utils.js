@@ -24,16 +24,12 @@ const removeProtocolFromUrl = (url) => {
   try {
     const hasProtocol = /^https?:\/\//.test(url);
 
-    const isIPv6 = /^\[?[a-fA-F0-9:]+\]?$/.test(url);
+    const isIPv6 = /^(\[[a-fA-F0-9:]+\])|(([a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4})$/.test(url);
 
     let prefixedUrl = isIPv6 ? (url.match(/^\[.+\]$/) ? url : `[${url}]`) : url;
 
     if (!hasProtocol) {
-      if (!isIPv6) {
-        prefixedUrl = `http://${prefixedUrl}`;
-      } else {
-        prefixedUrl = `http://${prefixedUrl}`;
-      }
+      prefixedUrl = `http://${prefixedUrl}/`;
     }
 
     const { host } = new URL(prefixedUrl);

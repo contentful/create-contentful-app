@@ -44,4 +44,19 @@ describe('removeProtocolFromUrl', () => {
     const result = removeProtocolFromUrl('not a url');
     assert.strictEqual(result, undefined);
   });
+
+  it('returns valid ipv6 address', () => {
+    const result = removeProtocolFromUrl('2001:0db8:85a3:0000:0000:8a2e:0370:7334');
+    assert.strictEqual(result, '[2001:db8:85a3::8a2e:370:7334]');
+  });
+
+  it('returns valid domain', () => {
+    const result = removeProtocolFromUrl('example.com');
+    assert.strictEqual(result, 'example.com');
+  });
+
+  it('returns valid domain with port', () => {
+    const result = removeProtocolFromUrl('example.com:40');
+    assert.strictEqual(result, 'example.com:40');
+  });
 });
