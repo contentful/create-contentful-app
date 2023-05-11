@@ -29,7 +29,7 @@ const removeProtocolFromUrl = (url) => {
     let prefixedUrl = isIPv6 ? (url.match(/^\[.+\]$/) ? url : `[${url}]`) : url;
 
     if (!hasProtocol) {
-      prefixedUrl = `http://${prefixedUrl}/`;
+      prefixedUrl = `http://${prefixedUrl}`;
     }
 
     const { host } = new URL(prefixedUrl);
