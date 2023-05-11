@@ -14,7 +14,7 @@ const throwValidationException = (subject, message, details) => {
   throw new TypeError(message);
 };
 
-const validateIpAddress = (ipAddress) => {
+const isValidIpAddress = (ipAddress) => {
   const ipRegex = /^((?:[0-9]{1,3}\.){3}[0-9]{1,3}|(?:[a-z0-9-]+\.)+[a-z]{2,})(?::([0-9]{1,5}))?$/i;
   return ipRegex.test(ipAddress);
 };
@@ -99,15 +99,13 @@ function getActionsManifest() {
     console.log('');
 
     const actions = manifest.actions.map((action) => {
-      const allowedNetworks = Array.isArray(action.allowedNetworks)
-        ? [...action.allowedNetworks, 'api.contentful.com', 'upload.contentful.com', '127.0.0.1']
-        : ['api.contentful.com', 'upload.contentful.com', '127.0.0.1'];
+      const allowedNetworks = Array.isArray(action.allowedNetworks) ? action.allowedNetworks : [];
 
-      const validAllowedNetworks = allowedNetworks
+      const hasInvalidNetworks = allowedNetworks
         .map(removeProtocolFromUrl)
-        .filter(validateIpAddress);
+        .some((netWork) => !isValidIpAddress(netWork));
 
-      if (validAllowedNetworks.length !== allowedNetworks.length) {
+      if (Array.isArray(hasInvalidNetworks) && hasInvalidNetworks.length > 0) {
         console.log(
           `${chalk.red(
             'Error:'
@@ -120,7 +118,7 @@ function getActionsManifest() {
       return {
         parameters: [],
         ...action,
-        allowedNetworks: validAllowedNetworks,
+        allowedNetworks: allowedNetworks,
       };
     });
 
