@@ -99,7 +99,9 @@ function getActionsManifest() {
     console.log('');
 
     const actions = manifest.actions.map((action) => {
-      const allowedNetworks = Array.isArray(action.allowedNetworks) ? action.allowedNetworks : [];
+      const allowedNetworks = Array.isArray(action.allowedNetworks)
+        ? [...action.allowedNetworks, 'api.contentful.com', 'upload.contentful.com', '127.0.0.1']
+        : ['api.contentful.com', 'upload.contentful.com', '127.0.0.1'];
 
       const validAllowedNetworks = allowedNetworks
         .map(removeProtocolFromUrl)
@@ -118,10 +120,7 @@ function getActionsManifest() {
       return {
         parameters: [],
         ...action,
-        allowedNetworks:
-          validAllowedNetworks.length > 0
-            ? validAllowedNetworks
-            : ['api.contentful.com', 'upload.contentful.com', '127.0.0.1'],
+        allowedNetworks: validAllowedNetworks,
       };
     });
 
