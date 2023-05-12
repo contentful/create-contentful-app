@@ -32,6 +32,11 @@ describe('isValidIpAddress', () => {
     const result = isValidIpAddress('not an ip address');
     assert.strictEqual(result, false);
   });
+
+  it('returns true for an valid ipv6 address with port', () => {
+    const result = isValidIpAddress('[2001:0db8:85a3:0000:0000:8a2e:0370:7334]:443');
+    assert.strictEqual(result, true);
+  });
 });
 
 describe('removeProtocolFromUrl', () => {
