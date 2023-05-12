@@ -128,7 +128,7 @@ function getActionsManifest() {
       return {
         parameters: [],
         ...action,
-        allowedNetworks: allowedNetworks,
+        allowedNetworks,
       };
     });
 
