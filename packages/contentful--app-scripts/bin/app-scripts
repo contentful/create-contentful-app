@@ -65,7 +65,7 @@ async function runCommand(command, options) {
     });
 
   program.hook('preAction', (thisCommand) => {
-    track({ command: thisCommand.args[0], ci: thisCommand._optionValues.ci })
+    track({ command: thisCommand.args[0], ci: `${thisCommand._optionValues.ci}` })
   })
 
   await program.parseAsync(process.argv);
