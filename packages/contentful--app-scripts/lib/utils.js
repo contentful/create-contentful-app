@@ -115,7 +115,7 @@ function getActionsManifest() {
         .map(removeProtocolFromUrl)
         .some((netWork) => !isValidIpAddress(netWork));
 
-      if (Array.isArray(hasInvalidNetworks) && hasInvalidNetworks.length > 0) {
+      if (hasInvalidNetworks) {
         console.log(
           `${chalk.red(
             'Error:'
@@ -128,7 +128,7 @@ function getActionsManifest() {
       return {
         parameters: [],
         ...action,
-        allowedNetworks,
+        allowedNetworks: allowedNetworks.map(removeProtocolFromUrl),
       };
     });
 
