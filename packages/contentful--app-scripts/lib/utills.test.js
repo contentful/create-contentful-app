@@ -9,7 +9,7 @@ describe('isValidIpAddress', () => {
   });
 
   it('returns true for a valid domain', () => {
-    const result = isValidIpAddress('http://google.com');
+    const result = isValidIpAddress('google.com');
     assert.strictEqual(result, true);
   });
 
@@ -19,7 +19,7 @@ describe('isValidIpAddress', () => {
   });
 
   it('returns true for a valid domain with port', () => {
-    const result = isValidIpAddress('http://google.com:4000');
+    const result = isValidIpAddress('google.com:4000');
     assert.strictEqual(result, true);
   });
 
