@@ -137,6 +137,6 @@ module.exports = {
   selectFromList,
   showCreationError,
   getActionsManifest,
-  isValidIpAddress: isValidNetwork,
-  removeProtocolFromUrl: stripProtocol,
+  isValidNetwork,
+  stripProtocol,
 };
