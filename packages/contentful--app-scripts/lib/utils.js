@@ -2,7 +2,6 @@ const fs = require('fs');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const { cacheEnvVars } = require('../utils/cache-credential');
-const { URL } = require('url');
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -22,20 +21,13 @@ const isValidNetwork = (address) => {
 
 const removeProtocolFromUrl = (url) => {
   try {
-    const hasProtocol = /^https?:\/\//.test(url);
+    const protocolRemovedUrl = url.replace(/^https?:\/\//, '');
 
-    const isIPv6 = /^(\[[a-fA-F0-9:]+\])|(([a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4})$/.test(url);
-
-    let prefixedUrl = isIPv6 ? (url.match(/^\[.+\]$/) ? url : `[${url}]`) : url;
-
-    if (!hasProtocol) {
-      prefixedUrl = `http://${prefixedUrl}`;
-    }
-
-    const { host } = new URL(prefixedUrl);
+    const host = protocolRemovedUrl.split('/')[0];
 
     return host;
   } catch (e) {
+    console.log(e);
     return;
   }
 };

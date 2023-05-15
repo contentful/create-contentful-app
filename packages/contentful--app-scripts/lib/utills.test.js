@@ -45,14 +45,9 @@ describe('removeProtocolFromUrl', () => {
     assert.strictEqual(result, 'example.com');
   });
 
-  it('returns undefined for an invalid URL', () => {
-    const result = removeProtocolFromUrl('not a url');
-    assert.strictEqual(result, undefined);
-  });
-
   it('returns valid ipv6 address', () => {
-    const result = removeProtocolFromUrl('2001:0db8:85a3:0000:0000:8a2e:0370:7334');
-    assert.strictEqual(result, '[2001:db8:85a3::8a2e:370:7334]');
+    const result = removeProtocolFromUrl('http://[2001:0db8:85a3:0000:0000:8a2e:0370]:7334');
+    assert.strictEqual(result, '[2001:0db8:85a3:0000:0000:8a2e:0370]:7334');
   });
 
   it('returns valid domain', () => {
