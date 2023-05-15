@@ -19,17 +19,10 @@ const isValidNetwork = (address) => {
   return addressRegex.test(address);
 };
 
-const removeProtocolFromUrl = (url) => {
-  try {
-    const protocolRemovedUrl = url.replace(/^https?:\/\//, '');
+const stripProtocol = (url) => {
+  const protocolRemovedUrl = url.replace(/^https?:\/\//, '');
 
-    const host = protocolRemovedUrl.split('/')[0];
-
-    return host;
-  } catch (e) {
-    console.log(e);
-    return;
-  }
+  return protocolRemovedUrl.split('/')[0];
 };
 
 const showCreationError = (subject, message) => {
@@ -101,17 +94,19 @@ function getActionsManifest() {
     console.log('');
 
     const actions = manifest.actions.map((action) => {
-      const allowedNetworks = Array.isArray(action.allowedNetworks) ? action.allowedNetworks : [];
+      const allowedNetworks = Array.isArray(action.allowedNetworks)
+        ? allowedNetworks.map(stripProtocol)
+        : [];
 
-      const hasInvalidNetworks = allowedNetworks
-        .map(removeProtocolFromUrl)
-        .some((netWork) => !isValidNetwork(netWork));
+      const hasInvalidNetwork = allowedNetworks.find((netWork) => !isValidNetwork(netWork));
 
-      if (hasInvalidNetworks) {
+      if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
             'Error:'
-          )} Invalid IP address found in the allowedNetworks array for action "${action.name}".`
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowedNetworks array for action "${
+            action.name
+          }".`
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -120,7 +115,7 @@ function getActionsManifest() {
       return {
         parameters: [],
         ...action,
-        allowedNetworks: allowedNetworks.map(removeProtocolFromUrl),
+        allowedNetworks,
       };
     });
 
@@ -143,5 +138,5 @@ module.exports = {
   showCreationError,
   getActionsManifest,
   isValidIpAddress: isValidNetwork,
-  removeProtocolFromUrl,
+  removeProtocolFromUrl: stripProtocol,
 };
