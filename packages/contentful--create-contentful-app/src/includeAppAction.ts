@@ -44,9 +44,7 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
       ...packageJson,
       scripts: {
         ...packageJson.scripts,
-        'build-actions': `${
-          templateIsTypescript ? 'tsc actions/*.ts --outDir build/actions' : 'node build-actions.js'
-        }`,
+        'build-actions': 'node build-actions.js',
         build: `${packageJson.scripts.build} && npm run build-actions`,
       },
     };
