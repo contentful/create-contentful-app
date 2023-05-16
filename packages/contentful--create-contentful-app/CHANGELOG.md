@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.3...@contentful/create-contentful-app@1.8.4) (2023-05-16)
+
+### Bug Fixes
+
+- build script for hosted actions ([9a9e1fd](https://github.com/contentful/create-contentful-app/commit/9a9e1fdfd792d4fd8f7b4f66698ff630ec12eece))
+
 ## [1.8.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.2...@contentful/create-contentful-app@1.8.3) (2023-05-12)
 
 ### Bug Fixes
