@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.8.1...@contentful/app-scripts@1.8.2) (2023-05-12)
+
+### Bug Fixes
+
+- **deps:** bump commander from 10.0.0 to 10.0.1 ([#1486](https://github.com/contentful/create-contentful-app/issues/1486)) ([a76ecfe](https://github.com/contentful/create-contentful-app/commit/a76ecfe64bb7772f22aaa5131413e157fbcb86d1))
+- **deps:** bump contentful-management from 10.32.0 to 10.33.0 ([#1505](https://github.com/contentful/create-contentful-app/issues/1505)) ([9c18498](https://github.com/contentful/create-contentful-app/commit/9c18498109402dea967a71ccbd1b61ef04e0e723))
+- **deps:** bump contentful-management from 10.33.0 to 10.34.0 ([#1507](https://github.com/contentful/create-contentful-app/issues/1507)) ([ae5fdca](https://github.com/contentful/create-contentful-app/commit/ae5fdca5581581602851cd62af0fa56e651f2dad))
+- **deps:** bump contentful-management from 10.34.0 to 10.34.1 ([#1510](https://github.com/contentful/create-contentful-app/issues/1510)) ([b0caa70](https://github.com/contentful/create-contentful-app/commit/b0caa705d22d8b05ba19b3888413945e8da28d0b))
+- **deps:** bump contentful-management from 10.34.1 to 10.35.2 ([#1516](https://github.com/contentful/create-contentful-app/issues/1516)) ([3b7153e](https://github.com/contentful/create-contentful-app/commit/3b7153e2a2867d1129cae6a2088f2ed0feba309d))
+- **deps:** bump contentful-management from 10.35.2 to 10.35.3 ([#1522](https://github.com/contentful/create-contentful-app/issues/1522)) ([192d7bd](https://github.com/contentful/create-contentful-app/commit/192d7bd77bd64129a58528e340a839d554ee52de))
+- parse boolean to string ([#1524](https://github.com/contentful/create-contentful-app/issues/1524)) ([93928b0](https://github.com/contentful/create-contentful-app/commit/93928b0094636cb290e1b9f95745c85aa558039e))
+
 ## [1.8.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.8.0...@contentful/app-scripts@1.8.1) (2023-04-19)
 
 ### Bug Fixes
