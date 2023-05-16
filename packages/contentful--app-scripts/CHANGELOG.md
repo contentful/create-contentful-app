@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.8.2...@contentful/app-scripts@1.9.0) (2023-05-16)
+
+### Bug Fixes
+
+- added upload.contentful.com as a default in allowNetworks ([d903c87](https://github.com/contentful/create-contentful-app/commit/d903c875a0afae02f19d973c53efe6ddf486674b))
+- changed the function name ([af20705](https://github.com/contentful/create-contentful-app/commit/af2070528d41b7e378c5ee9ef022285b290ecaf7))
+- default values fixed ([f2377a6](https://github.com/contentful/create-contentful-app/commit/f2377a6d332aa8599f05eb1f8ee6fa5b614877b4))
+- invalid ip address conditions and sending ip/domains after removing protocol ([e2f1122](https://github.com/contentful/create-contentful-app/commit/e2f11226aac1294f9db0a2d70324f67ecf475049))
+- isValidIpAddress function handling ipv6 and test cases included ([de6f78a](https://github.com/contentful/create-contentful-app/commit/de6f78a281e7072e20206934b7dc467511a60678))
+- modified removeProtocolFromUrl function ([487fd3e](https://github.com/contentful/create-contentful-app/commit/487fd3ef17863f168a2a5749f3a985dee25807c6))
+- removeProtocolFromUrl function for handling ipv6 address ([f89b7c4](https://github.com/contentful/create-contentful-app/commit/f89b7c43fe42d74cef9eb898b5d31ed112bb1cb9))
+- removeProtocolFromUrl function to return error proeprly ([b6bc02d](https://github.com/contentful/create-contentful-app/commit/b6bc02d45b5aa4b6803b5f0214ed79890a1e6994))
+- revert unwanted changes ([880baf7](https://github.com/contentful/create-contentful-app/commit/880baf787037cb9d8310994ac697321165b7fed8))
+
+### Features
+
+- allowNetworks property added in actions manifest ([c8aa0b4](https://github.com/contentful/create-contentful-app/commit/c8aa0b4e31173fb2de1099bdedf22cb741ed087e))
+
 ## [1.8.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.8.1...@contentful/app-scripts@1.8.2) (2023-05-12)
 
 ### Bug Fixes
