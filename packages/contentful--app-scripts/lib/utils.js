@@ -13,6 +13,18 @@ const throwValidationException = (subject, message, details) => {
   throw new TypeError(message);
 };
 
+const isValidNetwork = (address) => {
+  const addressRegex =
+    /^(?:localhost|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}|(?:\d{1,3}\.){3}\d{1,3}|(\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}))(?::\d{1,5})?$/;
+  return addressRegex.test(address);
+};
+
+const stripProtocol = (url) => {
+  const protocolRemovedUrl = url.replace(/^https?:\/\//, '');
+
+  return protocolRemovedUrl.split('/')[0];
+};
+
 const showCreationError = (subject, message) => {
   console.log(`
     ${chalk.red('Creation error:')}
@@ -81,7 +93,33 @@ function getActionsManifest() {
   ----------------------------`);
     console.log('');
 
-    return manifest.actions.map((action) => ({ parameters: [], ...action })); // adding required parameters
+    const actions = manifest.actions.map((action) => {
+      const allowedNetworks = Array.isArray(action.allowedNetworks)
+        ? allowedNetworks.map(stripProtocol)
+        : [];
+
+      const hasInvalidNetwork = allowedNetworks.find((netWork) => !isValidNetwork(netWork));
+
+      if (hasInvalidNetwork) {
+        console.log(
+          `${chalk.red(
+            'Error:'
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowedNetworks array for action "${
+            action.name
+          }".`
+        );
+        // eslint-disable-next-line no-process-exit
+        process.exit(1);
+      }
+
+      return {
+        parameters: [],
+        ...action,
+        allowedNetworks,
+      };
+    });
+
+    return actions;
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
@@ -99,4 +137,6 @@ module.exports = {
   selectFromList,
   showCreationError,
   getActionsManifest,
+  isValidNetwork,
+  stripProtocol,
 };
