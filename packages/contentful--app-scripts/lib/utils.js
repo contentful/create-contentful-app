@@ -113,11 +113,11 @@ function getActionsManifest() {
 
       // EntryFile is not used but we do want to strip it from action
       // eslint-disable-next-line no-unused-vars
-      const { entryFile: _, ...rest } = action;
+      const { entryFile: _, ...actionWithoutEntryFile } = action;
 
       return {
         parameters: [],
-        ...rest,
+        ...actionWithoutEntryFile,
         allowedNetworks,
       };
     });
