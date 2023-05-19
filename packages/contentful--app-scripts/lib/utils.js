@@ -15,7 +15,7 @@ const throwValidationException = (subject, message, details) => {
 
 const isValidNetwork = (address) => {
   const addressRegex =
-    /^(?:localhost|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}|(?:\d{1,3}\.){3}\d{1,3}|(\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}))(?::\d{1,5})?$/;
+    /^(?:localhost|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}))(?::\d{1,5})?$/;
   return addressRegex.test(address);
 };
 
@@ -94,17 +94,16 @@ function getActionsManifest() {
     console.log('');
 
     const actions = manifest.actions.map((action) => {
-      const allowedNetworks = Array.isArray(action.allowedNetworks)
-        ? allowedNetworks.map(stripProtocol)
+      const allowNetworks = Array.isArray(action.allowNetworks)
+        ? action.allowNetworks.map(stripProtocol)
         : [];
 
-      const hasInvalidNetwork = allowedNetworks.find((netWork) => !isValidNetwork(netWork));
-
+      const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
             'Error:'
-          )} Invalid IP address ${hasInvalidNetwork} found in the allowedNetworks array for action "${
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for action "${
             action.name
           }".`
         );
@@ -112,10 +111,14 @@ function getActionsManifest() {
         process.exit(1);
       }
 
+      // EntryFile is not used but we do want to strip it from action
+      // eslint-disable-next-line no-unused-vars
+      const { entryFile: _, ...actionWithoutEntryFile } = action;
+
       return {
         parameters: [],
-        ...action,
-        allowedNetworks,
+        ...actionWithoutEntryFile,
+        allowNetworks,
       };
     });
 

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.9.0...@contentful/app-scripts@1.9.1) (2023-05-19)
+
+**Note:** Version bump only for package @contentful/app-scripts
+
 # [1.9.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.8.2...@contentful/app-scripts@1.9.0) (2023-05-16)
 
 ### Bug Fixes

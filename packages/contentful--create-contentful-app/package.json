@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -35,14 +35,14 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@contentful/app-scripts": "1.9.0",
+    "@contentful/app-scripts": "1.9.1",
     "analytics-node": "^6.2.0",
     "chalk": "4.1.2",
     "commander": "10.0.1",
     "degit": "2.8.4",
     "inquirer": "8.2.5",
     "node-fetch": "2.6.7",
-    "rimraf": "5.0.0",
+    "rimraf": "5.0.1",
     "tildify": "2.0.0",
     "validate-npm-package-name": "5.0.0"
   },
