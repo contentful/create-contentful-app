@@ -3,9 +3,9 @@ const chalk = require('chalk');
 const { throwError } = require('../utils');
 const { createClient } = require('contentful-management');
 
-async function activateBundle({ accessToken, organization, definition, bundleId }) {
+async function activateBundle({ accessToken, organization, definition, bundleId, host }) {
   const activationSpinner = ora('Activating your bundle').start();
-  const plainClient = createClient({ accessToken }, { type: 'plain' });
+  const plainClient = createClient({ accessToken, host }, { type: 'plain' });
   const defaultLocations = [{ location: 'dialog' }];
 
   const currentDefinition = await plainClient.appDefinition.get({

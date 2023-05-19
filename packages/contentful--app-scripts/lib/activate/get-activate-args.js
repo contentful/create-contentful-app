@@ -20,6 +20,7 @@ async function getActivateSettingsArgs(options) {
       ...appInfo,
       bundleId: options.bundleId,
       comment: options.comment,
+      host: options.host,
     };
   } catch (err) {
     console.log(`

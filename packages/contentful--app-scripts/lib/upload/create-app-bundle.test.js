@@ -10,7 +10,8 @@ const mockedSettings = {
 };
 
 describe('createAppBundleFromUpload', () => {
-  let createAppBundleFromUpload, clientMock;
+  // eslint-disable-next-line no-unused-vars
+  let createAppBundleFromUpload, clientMock, createClientArgs;
 
   beforeEach(() => {
     stub(console, 'log');
@@ -32,7 +33,8 @@ describe('createAppBundleFromUpload', () => {
 
     ({ createAppBundleFromUpload } = proxyquire('./create-app-bundle', {
       'contentful-management': {
-        createClient: () => {
+        createClient: (...args) => {
+          createClientArgs = args;
           return clientMock;
         },
       },
@@ -52,10 +54,14 @@ describe('createAppBundleFromUpload', () => {
 
     assert(console.log.calledWith(match(/Creation error:/)));
   });
+  it('supports custom defined host domain creating appbundle from upload', async () => {
+    await createAppBundleFromUpload({ ...mockedSettings, host: 'jane.doe.com' });
+    assert.strictEqual(createClientArgs[0].host, 'jane.doe.com');
+  });
 });
 
 describe('createAppBundleFromSettings', () => {
-  let createAppBundleFromSettings, clientMock, uploadMock;
+  let createAppBundleFromSettings, clientMock, uploadMock, createClientArgs;
 
   beforeEach(() => {
     stub(console, 'log');
@@ -79,7 +85,8 @@ describe('createAppBundleFromSettings', () => {
 
     ({ createAppBundleFromSettings } = proxyquire('./create-app-bundle', {
       'contentful-management': {
-        createClient: () => {
+        createClient: (...args) => {
+          createClientArgs = args;
           return clientMock;
         },
       },
@@ -95,5 +102,9 @@ describe('createAppBundleFromSettings', () => {
     uploadMock = stub().rejects(new Error())();
     await createAppBundleFromSettings(mockedSettings);
     assert(console.log.calledWith(match(/Creation error:/)));
+  });
+  it('supports custom defined host domain creating appbundle from settings', async () => {
+    await createAppBundleFromSettings({ ...mockedSettings, host: 'jane.doe.com' });
+    assert.strictEqual(createClientArgs[0].host, 'jane.doe.com');
   });
 });

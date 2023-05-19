@@ -14,16 +14,18 @@ const requiredOptions = {
 async function getUploadSettingsArgs(options) {
   const validateSpinner = ora('Validating your input...').start();
   const actionsManifest = getActionsManifest();
+  const { bundleDir, comment, skipActivation, host, userAgentApplication } = options;
 
   try {
     validateArguments(requiredOptions, options, 'upload');
     const appInfo = await getAppInfo(options);
     return {
       ...appInfo,
-      bundleDirectory: options.bundleDir,
-      skipActivation: options.skipActivation,
-      comment: options.comment,
-      userAgentApplication: options.userAgentApplication,
+      bundleDirectory: bundleDir,
+      skipActivation,
+      comment,
+      host,
+      userAgentApplication,
       actions: actionsManifest,
     };
   } catch (err) {

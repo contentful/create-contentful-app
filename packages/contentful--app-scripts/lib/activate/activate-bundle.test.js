@@ -10,7 +10,8 @@ const mockedSettings = {
 };
 
 describe('activate-bundle', () => {
-  let activateBundle, clientMock, updateStub;
+  // eslint-disable-next-line no-unused-vars
+  let activateBundle, clientMock, updateStub, createClientArgs;
   beforeEach(() => {
     stub(console, 'log');
   });
@@ -23,7 +24,7 @@ describe('activate-bundle', () => {
   const definitionMock = {
     src: 'src',
     bundle: undefined,
-    locations: []
+    locations: [],
   };
 
   beforeEach(() => {
@@ -37,7 +38,8 @@ describe('activate-bundle', () => {
 
     ({ activateBundle } = proxyquire('./activate-bundle', {
       'contentful-management': {
-        createClient: () => {
+        createClient: (...args) => {
+          createClientArgs = args;
           return clientMock;
         },
       },
@@ -59,5 +61,9 @@ describe('activate-bundle', () => {
     updateStub = stub().rejects(new Error());
     await activateBundle(mockedSettings);
     assert.strictEqual(throwErrorStub.called, true);
+  });
+  it('supports custom defined host domain', async () => {
+    await activateBundle({ ...mockedSettings, host: 'jane.doe.com' });
+    assert.strictEqual(createClientArgs[0].host, 'jane.doe.com');
   });
 });
