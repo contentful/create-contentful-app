@@ -80,7 +80,7 @@ describe('getActionsManifest', () => {
     path: 'actions/mock.js',
     entryFile: './actions/mock.ts',
     parameters: [],
-    allowedNetworks: ['127.0.0.1', 'some.domain.tld'],
+    allowNetworks: ['127.0.0.1', 'some.domain.tld'],
   };
   // eslint-disable-next-line no-unused-vars
   const { entryFile: _, ...resultMock } = actionMock;
@@ -135,10 +135,10 @@ describe('getActionsManifest', () => {
     assert.ok(consoleLog.called);
   });
 
-  it('should strip the protocol when a domain has a protocol in allowedNetworks', () => {
+  it('should strip the protocol when a domain has a protocol in allowNetworks', () => {
     const mockAction = {
       ...actionMock,
-      allowedNetworks: ['http://some.domain.tld'],
+      allowNetworks: ['http://some.domain.tld'],
     };
     // eslint-disable-next-line no-unused-vars
     const { entryFile: _, ...resultMock } = mockAction;
@@ -151,7 +151,7 @@ describe('getActionsManifest', () => {
 
     const result = getActionsManifest();
 
-    assert.deepEqual(result, [{ ...resultMock, allowedNetworks: ['some.domain.tld'] }]);
+    assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
     assert.ok(consoleLog.called);
   });
 
@@ -168,7 +168,7 @@ describe('getActionsManifest', () => {
     assert.notDeepEqual(result, [actionMock]);
   });
 
-  it('should exit with error if invalid network is found in allowedNetworks', () => {
+  it('should exit with error if invalid network is found in allowNetworks', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(
       JSON.stringify({
@@ -176,7 +176,7 @@ describe('getActionsManifest', () => {
           {
             name: 'action1',
             entryFile: 'entry1',
-            allowedNetworks: ['412.1.1.1'],
+            allowNetworks: ['412.1.1.1'],
           },
         ],
       })

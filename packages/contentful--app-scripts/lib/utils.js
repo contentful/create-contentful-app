@@ -94,16 +94,16 @@ function getActionsManifest() {
     console.log('');
 
     const actions = manifest.actions.map((action) => {
-      const allowedNetworks = Array.isArray(action.allowedNetworks)
-        ? action.allowedNetworks.map(stripProtocol)
+      const allowNetworks = Array.isArray(action.allowNetworks)
+        ? action.allowNetworks.map(stripProtocol)
         : [];
 
-      const hasInvalidNetwork = allowedNetworks.find((netWork) => !isValidNetwork(netWork));
+      const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
             'Error:'
-          )} Invalid IP address ${hasInvalidNetwork} found in the allowedNetworks array for action "${
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for action "${
             action.name
           }".`
         );
@@ -118,7 +118,7 @@ function getActionsManifest() {
       return {
         parameters: [],
         ...actionWithoutEntryFile,
-        allowedNetworks,
+        allowNetworks,
       };
     });
 
