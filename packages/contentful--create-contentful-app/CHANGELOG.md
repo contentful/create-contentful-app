@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.7](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.6...@contentful/create-contentful-app@1.8.7) (2023-05-19)
+
+### Bug Fixes
+
+- remove condition of moving build script to root only in case of JS template ([642a2d3](https://github.com/contentful/create-contentful-app/commit/642a2d375fce359aba7dc23bb4c540d2ef5f8213))
+
 ## [1.8.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.5...@contentful/create-contentful-app@1.8.6) (2023-05-19)
 
 ### Bug Fixes
