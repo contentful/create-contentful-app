@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
 
 async function buildBundleActivateSettings(options) {
-  let bundleId = options.bundleId;
+  let { bundleId, host } = options;
   if (!bundleId) {
     const prompts = await inquirer.prompt([
       {
@@ -22,6 +22,7 @@ async function buildBundleActivateSettings(options) {
   return {
     ...appInfo,
     bundleId,
+    host,
   };
 }
 
