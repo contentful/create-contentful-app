@@ -29,6 +29,7 @@ async function runCommand(command, options) {
     .option('--token [accessToken]', 'Your content management access token')
     .option('--comment [comment]', 'Optional comment for the created bundle')
     .option('--skip-activation', 'A Boolean flag to skip automatic activation')
+    .option('--host [host]', 'Contentful CMA-endpoint to use')
     .action(async (options) => {
       await runCommand(upload, options);
     });
