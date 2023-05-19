@@ -25,10 +25,8 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
       `${destination}/${CONTENTFUL_APP_MANIFEST}`
     );
 
-    // move the build file from the actions folder to the root folder, if necessary
-    if (!templateIsTypescript) {
-      renameSync(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
-    }
+    // move the build file from the actions folder to the root folder
+    renameSync(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
 
     // modify package.json build commands
     const packageJsonLocation = resolve(`${destination}/package.json`);
