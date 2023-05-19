@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.9.1...@contentful/app-scripts@1.10.0) (2023-05-19)
+
+### Features
+
+- support host flag in more upload and activate commands ([#1535](https://github.com/contentful/create-contentful-app/issues/1535)) ([ce9e7ef](https://github.com/contentful/create-contentful-app/commit/ce9e7ef3a4efaf803de1737830566c7342cc7ad2))
+
 ## [1.9.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.9.0...@contentful/app-scripts@1.9.1) (2023-05-19)
 
 **Note:** Version bump only for package @contentful/app-scripts
