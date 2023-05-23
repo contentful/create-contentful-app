@@ -4,8 +4,8 @@ const { validateBundle } = require('./validate-bundle');
 const { showCreationError } = require('../utils');
 const { createClient } = require('contentful-management');
 
-async function createAppBundleFromFile(orgId, token, zip) {
-  const client = await createClient({ accessToken: token });
+async function createAppBundleFromFile(orgId, token, zip, host = '') {
+  const client = await createClient({ accessToken: token, host, hostUpload: host.replace(/^api/i, 'upload') });
   const org = await client.getOrganization(orgId);
   return await org.createAppUpload(zip);
 }
@@ -24,7 +24,8 @@ async function createAppUpload(settings) {
     appUpload = await createAppBundleFromFile(
       settings.organization.value,
       settings.accessToken,
-      zipFile
+      zipFile,
+      settings.host
     );
   } catch (err) {
     showCreationError('app bundle', err.message);
