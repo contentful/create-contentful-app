@@ -116,7 +116,6 @@ function getActionsManifest() {
       const { entryFile: _, ...actionWithoutEntryFile } = action;
 
       return {
-        parameters: [],
         ...actionWithoutEntryFile,
         allowNetworks,
       };
