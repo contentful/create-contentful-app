@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.10.1...@contentful/app-scripts@1.10.2) (2023-05-23)
+
+### Bug Fixes
+
+- remove params ([c70869e](https://github.com/contentful/create-contentful-app/commit/c70869e1d094c697f190c57cbebb948dfb16d13c))
+
 ## [1.10.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.10.0...@contentful/app-scripts@1.10.1) (2023-05-23)
 
 ### Bug Fixes
