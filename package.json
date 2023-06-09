@@ -4,12 +4,14 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "build": "lerna run build",
