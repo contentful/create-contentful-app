@@ -1,7 +1,5 @@
 {
-  "packages": [
-    "packages/**"
-  ],
+  "packages": ["packages/**"],
   "command": {
     "publish": {
       "ignoreChanges": [
@@ -18,5 +16,6 @@
       "message": "chore(release): release [skip ci]"
     }
   },
-  "version": "independent"
+  "version": "independent",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
