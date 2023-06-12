@@ -13,7 +13,13 @@ type UseCMAReturnValue = (CMAClient extends never ? true : false) extends false
   ? CMAClient
   : PlainClientAPI;
 
-/** @deprecated Use `sdk.cma` instead */
+
+/** 
+ * @deprecated if on App SDK v4.17 or greater, use `sdk.cma` insead
+ * 
+ * React hook returning a CMA plain client instance.
+ * Must be used in the `SDKProvider` component. Will throw error, if called outside of `SDKProvider`.
+ */
 export function useCMA(): UseCMAReturnValue {
   const sdk = useSDK();
 
