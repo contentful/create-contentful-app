@@ -15,7 +15,7 @@ type UseCMAReturnValue = (CMAClient extends never ? true : false) extends false
 
 
 /** 
- * @deprecated if on App SDK v4.17 or greater, use `sdk.cma` insead
+ * @deprecated if on App SDK v4.17 or greater use `sdk.cma` instead.
  * 
  * React hook returning a CMA plain client instance.
  * Must be used in the `SDKProvider` component. Will throw error, if called outside of `SDKProvider`.
