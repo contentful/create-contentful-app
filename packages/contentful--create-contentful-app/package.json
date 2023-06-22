@@ -67,7 +67,7 @@
     "@types/rimraf": "3.0.2",
     "@types/tildify": "2.0.2",
     "@types/validate-npm-package-name": "4.0.0",
-    "contentful-management": "10.36.0"
+    "contentful-management": "10.37.0"
   },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
 }
