@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.16](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.15...@contentful/react-apps-toolkit@1.2.16) (2023-06-22)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.27.2 to 10.27.4 ([e64bebe](https://github.com/contentful/create-contentful-app/commit/e64bebe8327916e3da94626dc03385eac0fbbefd))
+- **deps:** bump contentful-management from 10.27.4 to 10.29.0 ([71ff9a1](https://github.com/contentful/create-contentful-app/commit/71ff9a172275607bbb73b17243d3ce71e6faf48e))
+- **deps:** bump contentful-management from 10.29.0 to 10.29.1 ([2f3e2ec](https://github.com/contentful/create-contentful-app/commit/2f3e2ec59ee4ed3840c549fa02fdc7a93a7a4f83))
+- **deps:** bump contentful-management from 10.29.1 to 10.29.3 ([3254715](https://github.com/contentful/create-contentful-app/commit/3254715f26696f27bbe6a3474025819594e40dc2))
+- **deps:** bump contentful-management from 10.29.3 to 10.29.4 ([b3d8e93](https://github.com/contentful/create-contentful-app/commit/b3d8e9393c063d17cdce227374441965ec7b8667))
+- **deps:** bump contentful-management from 10.29.4 to 10.30.0 ([3afba77](https://github.com/contentful/create-contentful-app/commit/3afba7711016b26feef7762f62e293d81dfccb19))
+- **deps:** bump contentful-management from 10.30.0 to 10.30.1 ([#1445](https://github.com/contentful/create-contentful-app/issues/1445)) ([7d3dc22](https://github.com/contentful/create-contentful-app/commit/7d3dc22f01c2790afa3b708e6a5a3fefb4d524a7))
+- **deps:** bump contentful-management from 10.30.1 to 10.31.0 ([#1452](https://github.com/contentful/create-contentful-app/issues/1452)) ([044e947](https://github.com/contentful/create-contentful-app/commit/044e947504b9dca64900ea99722147b66be6b2f2))
+- **deps:** bump contentful-management from 10.31.0 to 10.31.2 ([#1455](https://github.com/contentful/create-contentful-app/issues/1455)) ([8ae552a](https://github.com/contentful/create-contentful-app/commit/8ae552a021481c6bd7464ca8815de8647d818ddf))
+- **deps:** bump contentful-management from 10.31.2 to 10.31.3 ([#1459](https://github.com/contentful/create-contentful-app/issues/1459)) ([5e98a22](https://github.com/contentful/create-contentful-app/commit/5e98a226224988a58f84fd43873859b7ddf2d695))
+- **deps:** bump contentful-management from 10.31.3 to 10.31.4 ([#1467](https://github.com/contentful/create-contentful-app/issues/1467)) ([4f9b744](https://github.com/contentful/create-contentful-app/commit/4f9b744742462d1445a9afaa4f84c678f43195a5))
+- **deps:** bump contentful-management from 10.31.4 to 10.31.5 ([#1469](https://github.com/contentful/create-contentful-app/issues/1469)) ([33e154f](https://github.com/contentful/create-contentful-app/commit/33e154f6e75927f1e248fd8676eac6c554a95d80))
+- **deps:** bump contentful-management from 10.31.5 to 10.31.6 ([#1477](https://github.com/contentful/create-contentful-app/issues/1477)) ([57398a2](https://github.com/contentful/create-contentful-app/commit/57398a210593de00607ba645f980970f01704b34))
+- **deps:** bump contentful-management from 10.31.6 to 10.32.0 ([#1480](https://github.com/contentful/create-contentful-app/issues/1480)) ([cbbefe5](https://github.com/contentful/create-contentful-app/commit/cbbefe5f045f6379e87f6d224e033efb617c280b))
+- **deps:** bump contentful-management from 10.32.0 to 10.33.0 ([#1505](https://github.com/contentful/create-contentful-app/issues/1505)) ([9c18498](https://github.com/contentful/create-contentful-app/commit/9c18498109402dea967a71ccbd1b61ef04e0e723))
+- **deps:** bump contentful-management from 10.33.0 to 10.34.0 ([#1507](https://github.com/contentful/create-contentful-app/issues/1507)) ([ae5fdca](https://github.com/contentful/create-contentful-app/commit/ae5fdca5581581602851cd62af0fa56e651f2dad))
+- **deps:** bump contentful-management from 10.34.0 to 10.34.1 ([#1510](https://github.com/contentful/create-contentful-app/issues/1510)) ([b0caa70](https://github.com/contentful/create-contentful-app/commit/b0caa705d22d8b05ba19b3888413945e8da28d0b))
+- **deps:** bump contentful-management from 10.34.1 to 10.35.2 ([#1516](https://github.com/contentful/create-contentful-app/issues/1516)) ([3b7153e](https://github.com/contentful/create-contentful-app/commit/3b7153e2a2867d1129cae6a2088f2ed0feba309d))
+- **deps:** bump contentful-management from 10.35.2 to 10.35.3 ([#1522](https://github.com/contentful/create-contentful-app/issues/1522)) ([192d7bd](https://github.com/contentful/create-contentful-app/commit/192d7bd77bd64129a58528e340a839d554ee52de))
+- **deps:** bump contentful-management from 10.35.3 to 10.35.4 ([#1537](https://github.com/contentful/create-contentful-app/issues/1537)) ([a5f20bc](https://github.com/contentful/create-contentful-app/commit/a5f20bcb1a5f5fcae6eadce3e51b0246a679a855))
+- **deps:** bump contentful-management from 10.35.4 to 10.35.6 ([#1550](https://github.com/contentful/create-contentful-app/issues/1550)) ([3855612](https://github.com/contentful/create-contentful-app/commit/38556121356fe4099a5cc71537ecfb9435bee75a))
+- **deps:** bump contentful-management from 10.35.6 to 10.36.0 ([#1557](https://github.com/contentful/create-contentful-app/issues/1557)) ([73c0e01](https://github.com/contentful/create-contentful-app/commit/73c0e01ceaeec1112441e6cfa9c5b409c31601de))
+- **deps:** bump contentful-management from 10.36.0 to 10.37.0 ([#1574](https://github.com/contentful/create-contentful-app/issues/1574)) ([93d6be5](https://github.com/contentful/create-contentful-app/commit/93d6be5a787de2b3b3707a5704b4a5bdeeffb9c9))
+- **useCMA:** deprecate useCMA hook and encourage users to use sdk.cma ([#1558](https://github.com/contentful/create-contentful-app/issues/1558)) ([0eba4ad](https://github.com/contentful/create-contentful-app/commit/0eba4ad4e611bada555e13ec615810bc53d23850))
+
 ## [1.2.15](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.14...@contentful/react-apps-toolkit@1.2.15) (2023-01-31)
 
 ### Bug Fixes
