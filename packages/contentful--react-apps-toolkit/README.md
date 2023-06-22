@@ -67,7 +67,7 @@ function App() {
 ```
 
 ### useCMA
-> :warning: **DEPRECATED** If you are using App SDK v4.17 or greater use `sdk.cma` instead.
+> :warning: **DEPRECATED** If you are using App SDK v4.20 or greater use `sdk.cma` instead.
 
 `useCMA` returns an initialized [client for the Contentful Management API](https://www.npmjs.com/package/contentful-management). This can be used immediately to communicate with the environment the app is rendered in. [Contentful Management API docs](/developers/docs/references/content-management-api/).
 
