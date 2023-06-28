@@ -57,7 +57,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node16": "1.0.4",
+    "@tsconfig/node16": "16.1.0",
     "@types/analytics-node": "^3.1.9",
     "@types/chalk": "2.2.0",
     "@types/degit": "2.8.3",
