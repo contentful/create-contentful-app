@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   vault: contentful/vault@1
-  nx: nrwl/nx@1.6.1
 
 environment: &base-env
   NPM_CONFIG_PROGRESS: 'false'
@@ -29,7 +28,7 @@ commands:
     steps:
       - run:
           name: Install Dependencies
-          command: npm ci && npm run bootstrap
+          command: npm ci
 
   build:
     steps:
