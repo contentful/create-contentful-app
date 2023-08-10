@@ -114,6 +114,7 @@ When passing the `--ci` argument the command will fail when the required variabl
 | `--token`           | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens) |
 | `--skip-activation` | (optional) Boolean flag to skip the automatic activation of the `AppBundle`                                                                |
 | `--comment`         | (optional) A comment which will be associated with the created `AppBundle`. Can be used to differentiate bundles.                          |
+| `--host`            | (optional) Contentful CMA-endpoint to use                                                                                                  |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
@@ -154,6 +155,7 @@ When passing the `--ci` argument adding all variables as arguments is required.
 | `--organization-id` | The ID of your organisation                                                                                                                |
 | `--definition-id`   | The ID of the app to which to add the bundle                                                                                               |
 | `--token`           | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens) |
+| `--host`            | (optional) Contentful CMA-endpoint to use                                                                                                  |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
@@ -213,8 +215,8 @@ When passing the `--ci` argument adding all variables as arguments is required
 | `--bundle-id`       | The ID of the AppBundle you want to activate |
 | `--organization-id` | The ID of your organisation                  |
 | `--definition-id`   | The ID of the app to which to add the bundle |
-| `--keep`            | Optional, the amount of bundles to keep      |
-| `--host`            | Optional, the Contentful CMA-endpoint to use |
+| `--keep`            | (optional) The amount of bundles to keep     |
+| `--host`            | (optional) Contentful CMA-endpoint to use    |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
