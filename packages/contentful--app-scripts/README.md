@@ -114,7 +114,7 @@ When passing the `--ci` argument the command will fail when the required variabl
 | `--token`           | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens) | |
 | `--skip-activation` | (optional) Boolean flag to skip the automatic activation of the `AppBundle`                                                                | `false` |
 | `--comment`         | (optional) A comment which will be associated with the created `AppBundle`. Can be used to differentiate bundles.                          | |
-| `--host`            | (optional) Contentful CMA-endpoint to use                                                                                                  | `api.contentful.com` |
+| `--host`            | (optional) Contentful CMA-endpoint to use                                                                                                  | `upload.contentful.com` |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
@@ -216,7 +216,7 @@ When passing the `--ci` argument adding all variables as arguments is required
 | `--organization-id` | The ID of your organisation                  |                       |
 | `--definition-id`   | The ID of the app to which to add the bundle |                       |
 | `--keep`            | (optional) The amount of bundles to keep     | `50`                    |
-| `--host`            | (optional) Contentful CMA-endpoint to use    | `upload.contentful.com` |
+| `--host`            | (optional) Contentful CMA-endpoint to use    | `api.contentful.com` |
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
