@@ -3,6 +3,7 @@
 const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
 const { getActionsManifest } = require('../utils');
+const { CONTENTFUL_API_HOST } = require('../../utils/constants');
 
 async function buildAppUploadSettings(options) {
   const actionsManifest = getActionsManifest();
@@ -20,6 +21,21 @@ async function buildAppUploadSettings(options) {
       name: 'comment',
       message: `Add a comment to the created bundle:`,
       default: '',
+    });
+  }
+  if (!skipActivation) {
+    prompts.push({
+      type: 'confirm',
+      name: 'skipActivation',
+      message: `Skip bundle activation after upload?`,
+      default: false,
+    });
+  }
+  if (!host) {
+    prompts.push({
+      name: 'host',
+      message: `Contentful CMA endpoint URL:`,
+      default: CONTENTFUL_API_HOST,
     });
   }
 
