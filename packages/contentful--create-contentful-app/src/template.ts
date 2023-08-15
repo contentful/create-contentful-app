@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import degit from 'degit';
-import rimraf from 'rimraf';
+import * as rimraf from 'rimraf';
 import { success } from './logger';
 import { rmIfExists } from './utils';
 
