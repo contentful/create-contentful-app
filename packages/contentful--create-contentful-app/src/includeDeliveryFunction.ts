@@ -49,6 +49,7 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
     }
 
     await mergeJsonIntoFile({
+      source: `${deliveryFunctionDirectoryPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });

@@ -47,6 +47,7 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
     }
 
     await mergeJsonIntoFile({
+      source: `${appActionDirectoryPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });

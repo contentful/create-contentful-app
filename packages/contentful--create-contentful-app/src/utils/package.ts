@@ -1,27 +1,26 @@
-export type BuildCommandOptions = {
-  name: string,
-  command: string,
-}
+import mergeOptions from 'merge-options';
 
-export function getAddBuildCommandFn({name, command}: BuildCommandOptions) {
-  return (packageJson?: Record<string, any>): Record<string, any> => {
-    let buildCommand = packageJson?.scripts?.build ?? ''
-    const triggerCommand = `npm run ${name}`
+export type BuildCommandOptions = {
+  name: string;
+  command: string;
+};
+
+export function getAddBuildCommandFn({ name, command }: BuildCommandOptions) {
+  return (
+    packageJson?: Record<string, any>,
+    additionalProperties?: Record<string, any>,
+  ): Record<string, any> => {
+    let buildCommand = packageJson?.scripts?.build ?? '';
+    const triggerCommand = `npm run ${name}`;
 
     if (buildCommand === '') {
-      buildCommand = triggerCommand
-    } else if (!(new RegExp(`(^|&)\\s*${command}\\s*($|&)`).test(buildCommand))) {
-      buildCommand += `&& ${triggerCommand}`
+      buildCommand = triggerCommand;
+    } else if (!new RegExp(`(^|&)\\s*${command}\\s*($|&)`).test(buildCommand)) {
+      buildCommand += ` && ${triggerCommand}`;
     }
 
-    return {
-      ...packageJson,
-      scripts: {
-        ...packageJson?.scripts,
-        [name]: command,
-        build: buildCommand,
-      }
-    }
-
-  }
+    return mergeOptions(packageJson, additionalProperties, {
+      scripts: { [name]: command, build: buildCommand },
+    });
+  };
 }
