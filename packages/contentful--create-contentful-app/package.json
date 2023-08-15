@@ -41,6 +41,7 @@
     "commander": "11.0.0",
     "degit": "2.8.4",
     "inquirer": "8.2.6",
+    "merge-options": "^3.0.4",
     "node-fetch": "2.6.7",
     "rimraf": "5.0.1",
     "tildify": "2.0.0",

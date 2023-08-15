@@ -1,9 +1,16 @@
 import inquirer from 'inquirer';
-import { readFileSync, writeFileSync, existsSync, renameSync } from 'fs';
+import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST } from './constants';
 import degit from 'degit';
-import { success, highlight } from './logger';
+import { highlight } from './logger';
+import { getAddBuildCommandFn } from './utils/package';
+import { exists, mergeJsonIntoFile } from './utils/file';
+
+const addBuildCommand = getAddBuildCommandFn({
+  name: 'build:actions',
+  command: 'node build-actions.js',
+});
 
 export async function cloneAppAction(destination: string, templateIsTypescript: boolean) {
   try {
@@ -11,7 +18,7 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
     // Clone the app actions template to the created directory under the folder 'actions'
     const templateSource = join(
       'contentful/apps/examples/hosted-app-action-templates',
-      templateIsTypescript ? 'typescript' : 'javascript'
+      templateIsTypescript ? 'typescript' : 'javascript',
     );
 
     const appActionDirectoryPath = resolve(`${destination}/actions`);
@@ -20,33 +27,29 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
     await d.clone(appActionDirectoryPath);
 
     // move the manifest from the actions folder to the root folder
-    renameSync(
-      `${appActionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
-      `${destination}/${CONTENTFUL_APP_MANIFEST}`
-    );
+    await mergeJsonIntoFile({
+      source: `${appActionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
+      destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
+    });
 
     // move the build file from the actions folder to the root folder
-    renameSync(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
+    await rename(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
 
     // modify package.json build commands
     const packageJsonLocation = resolve(`${destination}/package.json`);
-    const packageJsonExists = existsSync(packageJsonLocation);
+    const packageJsonExists = await exists(packageJsonLocation);
 
     if (!packageJsonExists) {
-      console.error('Failed to add app action build commands.');
+      console.error(
+        `Failed to add app action build commands: ${packageJsonLocation} does not exist.`,
+      );
       return;
     }
 
-    const packageJson = JSON.parse(readFileSync(packageJsonLocation, { encoding: 'utf-8' }));
-    const updatedPackageJson = {
-      ...packageJson,
-      scripts: {
-        ...packageJson.scripts,
-        'build-actions': 'node build-actions.js',
-        build: `${packageJson.scripts.build} && npm run build-actions`,
-      },
-    };
-    writeFileSync(packageJsonLocation, JSON.stringify(updatedPackageJson, null, '  '));
+    await mergeJsonIntoFile({
+      destination: packageJsonLocation,
+      mergeFn: addBuildCommand,
+    });
   } catch (e) {
     console.log(e);
     process.exit(1);
