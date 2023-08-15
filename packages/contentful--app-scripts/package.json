@@ -29,7 +29,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha ./lib/**/*.test.js ./lib/*.test.js ./utils/**/*.test.js",
     "test:watch": "npm t -- --watch",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "build": "tsc"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -61,5 +62,9 @@
     "open": "8.4.2",
     "ora": "5.4.1"
   },
-  "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
+  "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42",
+  "devDependencies": {
+    "@tsconfig/node16": "^16.1.0",
+    "@types/inquirer": "8.2.1"
+  }
 }
