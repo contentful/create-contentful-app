@@ -17,6 +17,7 @@ import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants'
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
 import { cloneAppAction } from './includeAppAction';
+import { cloneDeliveryFunction } from './includeDeliveryFunction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -127,6 +128,14 @@ async function initProject(appName: string, options: CLIOptions) {
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
       await cloneAppAction(fullAppFolder, !!normalizedOptions.typescript);
+    }
+
+    if (
+      !isInteractive &&
+      isContentfulTemplate(templateSource) &&
+      normalizedOptions.deliveryFunction
+    ) {
+      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.typescript);
     }
 
     updatePackageName(fullAppFolder);
