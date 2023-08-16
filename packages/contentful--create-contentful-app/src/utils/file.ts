@@ -2,7 +2,9 @@ import mergeOptions from 'merge-options';
 import { readFile, writeFile, access } from 'fs/promises';
 import { resolve } from 'path';
 
-async function getJsonData(path: string | undefined): Promise<Record<string, any> | undefined> {
+export async function getJsonData(
+  path: string | undefined,
+): Promise<Record<string, any> | undefined> {
   if (!path) {
     return undefined;
   }
@@ -23,14 +25,12 @@ export type MergeJsonIntoFileOptions = {
     destinationJson?: Record<string, any>,
     sourceJson?: Record<string, any>,
   ) => Record<string, any>;
-  concatArrays?: boolean;
 };
 
 export async function mergeJsonIntoFile({
   source,
   destination,
-  concatArrays = false,
-  mergeFn = mergeOptions.bind({ concatArrays }),
+  mergeFn = mergeOptions.bind({ concatArrays: false }),
 }: MergeJsonIntoFileOptions): Promise<void> {
   const sourceJson = await getJsonData(source);
   const destinationJson = await getJsonData(destination);
