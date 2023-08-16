@@ -26,7 +26,7 @@ async function buildAppUploadSettings(options) {
   if (skipActivation === undefined) {
     prompts.push({
       type: 'confirm',
-      name: 'skipActivation',
+      name: 'activateBundle',
       message: `Do you want to activate the bundle after upload?`,
       default: true,
     });
@@ -39,13 +39,13 @@ async function buildAppUploadSettings(options) {
     });
   }
 
-  const appUploadSettings = await inquirer.prompt(prompts);
+  const { activateBundle, ...appUploadSettings } = await inquirer.prompt(prompts);
 
   const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically
   return {
     bundleDirectory: bundleDir,
-    skipActivation: !!skipActivation,
+    skipActivation: skipActivation === undefined ? !activateBundle : skipActivation,
     comment,
     host,
     actions: actionsManifest,
