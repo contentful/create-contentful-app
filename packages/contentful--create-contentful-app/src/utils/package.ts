@@ -15,7 +15,7 @@ export function getAddBuildCommandFn({ name, command }: BuildCommandOptions) {
 
     if (buildCommand === '') {
       buildCommand = triggerCommand;
-    } else if (!new RegExp(`(^|&)\\s*${command}\\s*($|&)`).test(buildCommand)) {
+    } else if (!buildCommand.split(/\s*&+\s*/).includes(command)) {
       buildCommand += ` && ${triggerCommand}`;
     }
 
