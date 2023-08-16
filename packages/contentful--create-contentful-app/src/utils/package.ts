@@ -15,11 +15,11 @@ export function getAddBuildCommandFn({ name, command }: BuildCommandOptions) {
 
     if (buildCommand === '') {
       buildCommand = triggerCommand;
-    } else if (!buildCommand.split(/\s*&+\s*/).includes(command)) {
+    } else if (!buildCommand.split(/\s*&+\s*/).includes(triggerCommand)) {
       buildCommand += ` && ${triggerCommand}`;
     }
 
-    return mergeOptions(packageJson, additionalProperties, {
+    return mergeOptions({}, packageJson, additionalProperties, {
       scripts: { [name]: command, build: buildCommand },
     });
   };
