@@ -23,12 +23,12 @@ async function buildAppUploadSettings(options) {
       default: '',
     });
   }
-  if (!skipActivation) {
+  if (skipActivation === undefined) {
     prompts.push({
       type: 'confirm',
       name: 'skipActivation',
-      message: `Skip bundle activation after upload?`,
-      default: false,
+      message: `Do you want to activate the bundle after upload?`,
+      default: true,
     });
   }
   if (!host) {
