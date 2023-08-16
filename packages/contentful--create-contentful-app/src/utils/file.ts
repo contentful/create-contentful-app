@@ -9,7 +9,7 @@ async function getJsonData(path: string | undefined): Promise<Record<string, any
 
   const normalizedPath = resolve(path);
 
-  if (!(await exists(path))) {
+  if (!(await exists(normalizedPath))) {
     return undefined;
   }
 

@@ -54,7 +54,7 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
       mergeFn: addBuildCommand,
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
     process.exit(1);
   }
 }
