@@ -18,7 +18,7 @@ interface FunctionAppAction {
   entryFile?: string;
 }
 
-export const throwValidationException = (subject: string, message: string, details: string) => {
+export const throwValidationException = (subject: string, message?: string, details?: string) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);
   message && console.log(message);
   details && console.log(`${chalk.dim(details)}`);

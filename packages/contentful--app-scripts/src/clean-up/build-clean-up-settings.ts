@@ -4,7 +4,13 @@ import { getAppInfo } from '../get-app-info';
 import { CleanupSettings } from '.';
 
 export async function buildCleanUpSettings(
-  options: Record<string, string | number>,
+  options: {
+    organizationId?: string;
+    definitionId?: string;
+    token?: string;
+    keep?: string;
+    host?: string;
+  }
 ): Promise<CleanupSettings> {
   const { keep, host } = options;
   const prompts = [];
@@ -29,7 +35,7 @@ export async function buildCleanUpSettings(
   const appInfo = await getAppInfo(options);
 
   return {
-    keep: +keep,
+    keep: keep === undefined ? +appCleanUpSettings.keep : +keep,
     host,
     ...appCleanUpSettings,
     ...appInfo,
