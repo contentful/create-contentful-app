@@ -1,9 +1,9 @@
-const dotenv = require('dotenv');
-const fs = require('fs');
-const { EOL } = require('os');
+import dotenv from 'dotenv';
+import fs from 'fs';
+import { EOL } from 'os';
 const ignore = require('ignore')();
-const chalk = require('chalk');
-const { DOTENV_FILE } = require('../constants')
+import chalk from 'chalk';
+import { DOTENV_FILE } from '../constants';
 
 
 const fsPromises = fs.promises;
@@ -12,7 +12,7 @@ const fsConstants = fs.constants;
 // Always export set env vars by default
 dotenv.config();
 
-async function removeOldEnv(envKey) {
+async function removeOldEnv(envKey: string) {
   const envFileData = await fsPromises.readFile(DOTENV_FILE, {encoding: 'utf-8',});
   const envVarsData = dotenv.parse(envFileData);
 
@@ -46,7 +46,7 @@ async function checkFileEnvExists() {
   }
 }
 
-async function cacheEnvVars(envObj) {
+export async function cacheEnvVars(envObj: Record<string, string>) {
   try {
     let envVars = '';
     let envFileExists = await checkFileEnvExists();
@@ -68,14 +68,10 @@ async function cacheEnvVars(envObj) {
     console.log(`
       Saved new Environment variable(s) locally: ${ chalk.cyan(Object.keys(envObj).join(", ")) }.
     `)
-  } catch(err) {
+  } catch(err: any) {
     console.log(`
       ${chalk.red('Couldn\'t save environment variables locally.')}
       ${err.message}
     `)
   }
-}
-
-module.exports = {
-  cacheEnvVars,
 }

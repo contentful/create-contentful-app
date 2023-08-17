@@ -1,4 +1,4 @@
-const Analytics = require('analytics-node');
+import Analytics from 'analytics-node';
 
 // Public write key scoped to data source
 const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
@@ -10,7 +10,7 @@ const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
  * @param {boolean} properties.ci value if --ci flag has been set
  * @returns
  */
-function track(properties) {
+export function track(properties: { command: string; ci: boolean; }) {
   if (process.env.DISABLE_ANALYTICS) {
     return;
   }
@@ -32,5 +32,3 @@ function track(properties) {
     // ignore any error, to not block the call
   }
 }
-
-module.exports = track;
