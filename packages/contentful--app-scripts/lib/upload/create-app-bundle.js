@@ -6,7 +6,7 @@ const { createClient } = require('contentful-management');
 const { createAppUpload } = require('./create-app-upload');
 
 async function createAppBundleFromUpload(settings, appUploadId) {
-  const { accessToken, host, userAgentApplication, comment, actions } = settings;
+  const { accessToken, host, userAgentApplication, comment, actions, deliveryFunctions } = settings;
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({
     accessToken,
@@ -24,6 +24,7 @@ async function createAppBundleFromUpload(settings, appUploadId) {
       appUploadId,
       comment: comment && comment.length > 0 ? comment : undefined,
       actions,
+      deliveryFunctions,
     });
   } catch (err) {
     showCreationError('app upload', err.message);
@@ -38,8 +39,8 @@ async function createAppBundleFromSettings(settings) {
     appUpload = await createAppUpload(settings);
     console.log(`
   ${chalk.yellow('Done!')} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
-      appUpload.sys.id
-    )}) has been created.`);
+    appUpload.sys.id,
+  )}) has been created.`);
   } catch (err) {
     showCreationError('app upload', err.message);
   }
@@ -54,7 +55,7 @@ async function createAppBundleFromSettings(settings) {
 
   console.log(`
   ${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
-    settings.definition.name
+    settings.definition.name,
   )} in ${chalk.bold(settings.organization.name)}.
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}

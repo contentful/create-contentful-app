@@ -89,7 +89,7 @@ function getActionsManifest() {
 
     console.log('');
     console.log(`  ----------------------------
-  App actions manifest found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
+  App actions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
   ----------------------------`);
     console.log('');
 
@@ -102,10 +102,10 @@ function getActionsManifest() {
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
-            'Error:'
+            'Error:',
           )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for action "${
             action.name
-          }".`
+          }".`,
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -125,8 +125,68 @@ function getActionsManifest() {
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
-        DEFAULT_MANIFEST_PATH
-      )}.`
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
+    );
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
+  }
+}
+
+function getDeliveryFunctionsManifest() {
+  const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
+
+  if (!isManifestExists) {
+    return;
+  }
+
+  try {
+    const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
+
+    if (!Array.isArray(manifest.deliveryFunctions) || manifest.deliveryFunctions.length === 0) {
+      return;
+    }
+
+    console.log('');
+    console.log(`  ----------------------------
+  Delivery functions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
+  ----------------------------`);
+    console.log('');
+
+    const deliveryFns = manifest.deliveryFunctions.map((deliveryFn) => {
+      const allowNetworks = Array.isArray(deliveryFn.allowNetworks)
+        ? deliveryFn.allowNetworks.map(stripProtocol)
+        : [];
+
+      const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
+      if (hasInvalidNetwork) {
+        console.log(
+          `${chalk.red(
+            'Error:',
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for delivery function "${
+            deliveryFn.name
+          }".`,
+        );
+        // eslint-disable-next-line no-process-exit
+        process.exit(1);
+      }
+
+      // EntryFile is not used but we want to strip it from delivery functions
+      // eslint-disable-next-line no-unused-vars
+      const { entryFile: _, ...deliveryFnWithoutEntryFile } = deliveryFn;
+
+      return {
+        ...deliveryFnWithoutEntryFile,
+        allowNetworks,
+      };
+    });
+
+    return deliveryFns;
+  } catch {
+    console.log(
+      `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
     );
     // eslint-disable-next-line no-process-exit
     process.exit(1);
@@ -139,6 +199,7 @@ module.exports = {
   selectFromList,
   showCreationError,
   getActionsManifest,
+  getDeliveryFunctionsManifest,
   isValidNetwork,
   stripProtocol,
 };

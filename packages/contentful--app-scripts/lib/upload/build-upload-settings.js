@@ -2,13 +2,15 @@
 
 const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
-const { getActionsManifest } = require('../utils');
+const { getActionsManifest, getDeliveryFunctionsManifest } = require('../utils');
 const { CONTENTFUL_API_HOST } = require('../../utils/constants');
 
 async function buildAppUploadSettings(options) {
   const actionsManifest = getActionsManifest();
+  const deliveryFnManifest = getDeliveryFunctionsManifest();
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
+
   if (!bundleDir) {
     prompts.push({
       name: 'bundleDirectory',
@@ -39,7 +41,7 @@ async function buildAppUploadSettings(options) {
     });
   }
 
-  const { activateBundle, ...appUploadSettings } = await inquirer.prompt(prompts);
+  const { activateBundle, ...appUploadSettings } = await inquirer.prompts(prompts);
 
   const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically
@@ -49,6 +51,7 @@ async function buildAppUploadSettings(options) {
     comment,
     host,
     actions: actionsManifest,
+    deliveryFunctions: deliveryFnManifest,
     ...appUploadSettings,
     ...appInfo,
   };
