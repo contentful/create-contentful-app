@@ -27,13 +27,16 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
     await d.clone(appActionDirectoryPath);
 
     // move the manifest from the actions folder to the root folder
-    await mergeJsonIntoFile({
+    const writeAppManifest = await mergeJsonIntoFile({
       source: `${appActionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
       destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
     });
 
     // move the build file from the actions folder to the root folder
-    await rename(`${appActionDirectoryPath}/build-actions.js`, `${destination}/build-actions.js`);
+    const copyBuildFile = await rename(
+      `${appActionDirectoryPath}/build-actions.js`,
+      `${destination}/build-actions.js`,
+    );
 
     // modify package.json build commands
     const packageJsonLocation = resolve(`${destination}/package.json`);
@@ -46,11 +49,13 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
       return;
     }
 
-    await mergeJsonIntoFile({
+    const writeBuildCommand = await mergeJsonIntoFile({
       source: `${appActionDirectoryPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });
+
+    await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
   } catch (e) {
     console.log(e);
     process.exit(1);

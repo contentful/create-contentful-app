@@ -26,13 +26,13 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
     await d.clone(deliveryFunctionDirectoryPath);
 
     // merge the manifest from the template folder to the root folder
-    await mergeJsonIntoFile({
+    const writeAppManifest = mergeJsonIntoFile({
       source: `${deliveryFunctionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
       destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
     });
 
     // move the build file from the actions folder to the root folder
-    await rename(
+    const copyBuildFile = rename(
       `${deliveryFunctionDirectoryPath}/build-delivery-functions.js`,
       `${destination}/build-delivery-functions.js`,
     );
@@ -48,11 +48,13 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
       return;
     }
 
-    await mergeJsonIntoFile({
+    const writeBuildCommand = mergeJsonIntoFile({
       source: `${deliveryFunctionDirectoryPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });
+
+    await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
   } catch (e) {
     console.error(e);
     process.exit(1);
