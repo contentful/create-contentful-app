@@ -12,11 +12,7 @@ const mockedSettings = {
 } as UploadSettings;
 
 describe('createAppBundleFromUpload', () => {
-  // eslint-disable-next-line no-unused-vars
-  let createAppBundleFromUpload: (
-      settings: UploadSettings,
-      appUploadId: string,
-    ) => Promise<AppBundle | null>,
+  let createAppBundleFromUpload: typeof import('./create-app-bundle').createAppBundleFromUpload,
     clientMock: ClientAPI,
     createClientArgs: any[];
 
@@ -70,7 +66,7 @@ describe('createAppBundleFromUpload', () => {
 });
 
 describe('createAppBundleFromSettings', () => {
-  let createAppBundleFromSettings: (settings: UploadSettings) => Promise<AppBundle | undefined>,
+  let createAppBundleFromSettings: typeof import('./create-app-bundle').createAppBundleFromSettings,
     clientMock: ClientAPI,
     uploadMock: AppUpload,
     createClientArgs: any[];

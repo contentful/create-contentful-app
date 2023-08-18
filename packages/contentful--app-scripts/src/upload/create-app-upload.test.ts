@@ -5,8 +5,7 @@ import { AppUpload, ClientAPI } from 'contentful-management';
 import { UploadSettings } from '.';
 
 describe('createAppUpload', () => {
-  let createAppUpload: (settings: UploadSettings) => Promise<AppUpload | null | undefined>,
-    clientMock: ClientAPI;
+  let createAppUpload: typeof import('./create-app-upload').createAppUpload, clientMock: ClientAPI;
   const uploadMock = { sys: { id: 'test-id' } };
   const mockedSettings = {
     accessToken: 'token',

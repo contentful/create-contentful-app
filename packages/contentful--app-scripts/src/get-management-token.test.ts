@@ -4,7 +4,9 @@ import assert from 'assert';
 
 describe('getManagementToken-js', () => {
   context('getManagementToken', () => {
-    let subject: (host?: string) => Promise<string>, promptMock: SinonStub, openMock: SinonStub;
+    let subject: typeof import('./get-management-token').getManagementToken,
+      promptMock: SinonStub,
+      openMock: SinonStub;
 
     beforeEach(() => {
       stub(console, 'log');

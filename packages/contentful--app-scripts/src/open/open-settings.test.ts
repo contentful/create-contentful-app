@@ -8,7 +8,7 @@ import { OpenSettingsOptions } from '.';
 const TEST_DEF_ID = 'test-def-id';
 
 describe('openSettings', () => {
-  let subject: (options: OpenSettingsOptions) => Promise<void>,
+  let subject: typeof import('./open-settings').openSettings,
     openMock: SinonStub,
     inquirerMock: SinonStub;
   beforeEach(() => {

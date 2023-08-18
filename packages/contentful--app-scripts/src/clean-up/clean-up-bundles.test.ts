@@ -1,4 +1,4 @@
-import Sinon, { stub, spy, match, useFakeTimers, SinonStub } from 'sinon';
+import { stub, spy, match, useFakeTimers, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
 import { PlainClientAPI } from 'contentful-management';
@@ -17,7 +17,7 @@ const bundlesFixture = [
 ];
 
 describe.only('cleanUpBundles', () => {
-  let subject: (settings: CleanupSettings) => Promise<undefined>,
+  let subject: typeof import('./clean-up-bundles').cleanUpBundles,
     clientMock: PlainClientAPI,
     deleteMock: SinonStub,
     createClientArgs: any[];

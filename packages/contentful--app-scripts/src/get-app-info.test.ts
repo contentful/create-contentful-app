@@ -1,9 +1,9 @@
-const { stub } = require('sinon');
-const proxyquire = require('proxyquire');
-const assert = require('assert');
+import { stub } from 'sinon';
+import proxyquire from 'proxyquire';
+import assert from 'assert';
 
 describe('get-app-info', () => {
-  let getAppInfo, stubs;
+  let getAppInfo: typeof import('./get-app-info').getAppInfo, stubs: any;
   const mockedSettings = {
     token: 'token',
     organizationId: 'test-id',

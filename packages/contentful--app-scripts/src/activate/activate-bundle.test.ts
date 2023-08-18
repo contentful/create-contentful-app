@@ -2,16 +2,17 @@ import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
 import { AppDefinitionProps, PlainClientAPI } from 'contentful-management';
+import { ActivateSettings } from '.';
 
 const mockedSettings = {
   accessToken: 'token',
   organization: { value: 'id' },
   definition: { value: 'id' },
   bundleId: 'bundle-id',
-};
+} as ActivateSettings;
 
 describe('activate-bundle', () => {
-  let activateBundle: any,
+  let activateBundle: typeof import('./activate-bundle').activateBundle,
     clientMock: PlainClientAPI,
     updateStub: SinonStub,
     createClientArgs: any[];
