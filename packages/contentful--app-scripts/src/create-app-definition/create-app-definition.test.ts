@@ -1,29 +1,31 @@
-const proxyquire = require('proxyquire');
-const { stub, match } = require('sinon');
-const assert = require('assert');
-const {
-  APP_DEF_ENV_KEY,
-} = require('../../utils/constants');
+import proxyquire from 'proxyquire';
+import { stub, match, SinonStub } from 'sinon';
+import assert from 'assert';
+import { APP_DEF_ENV_KEY } from '../../utils/constants';
+import { ClientAPI } from 'contentful-management';
 
 const organizationId = 'orgId';
 const token = 'token';
 
 describe('createAppDefinition', () => {
-  let subject, clientMock, selectFromListMock, cachedEnvVarsMock;
+  let subject: (accessToken?: string, appDefinitionSettings?: any) => Promise<void>,
+    clientMock: ClientAPI,
+    selectFromListMock: SinonStub,
+    cachedEnvVarsMock: SinonStub;
 
   beforeEach(() => {
     stub(console, 'log');
   });
 
   afterEach(() => {
-    console.log.restore();
+    (console.log as SinonStub).restore();
   });
 
   beforeEach(() => {
     clientMock = {
       getOrganization: stub(),
-      getOrganizations: stub()
-    };
+      getOrganizations: stub(),
+    } as unknown as ClientAPI;
 
     cachedEnvVarsMock = stub().resolves(undefined);
 
@@ -33,14 +35,14 @@ describe('createAppDefinition', () => {
       'contentful-management': {
         createClient: () => {
           return clientMock;
-        }
+        },
       },
       '../../utils/cache-credential': {
-        cacheEnvVars: cachedEnvVarsMock
+        cacheEnvVars: cachedEnvVarsMock,
       },
       '../utils': {
-        selectFromList: selectFromListMock
-      }
+        selectFromList: selectFromListMock,
+      },
     }));
   });
 
@@ -50,16 +52,20 @@ describe('createAppDefinition', () => {
     clientMock.getOrganizations = stub().rejects(new Error());
 
     await assert.rejects(() => subject(token, { locations: [] }));
-    assert(console.log.calledWith(match(/Could not fetch your organizations/)));
+    assert((console.log as SinonStub).calledWith(match(/Could not fetch your organizations/)));
   });
 
   it('throws if unable to create definition', async () => {
-    clientMock.getOrganization = stub().resolves({ createAppDefinition: stub().rejects(new Error()) });
-    clientMock.getOrganizations = stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] });
+    clientMock.getOrganization = stub().resolves({
+      createAppDefinition: stub().rejects(new Error()),
+    });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
     selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await assert.rejects(() => subject(token, { locations: [] }));
-    assert(console.log.calledWith(match(/Something went wrong while creating the app definition/)));
+    assert((console.log as SinonStub).calledWith(match(/Something went wrong while creating the app definition/)));
   });
 
   it('logs success message', async () => {
@@ -69,19 +75,21 @@ describe('createAppDefinition', () => {
     const tutorialLink = 'https://ctfl.io/app-tutorial';
 
     clientMock.getOrganization = stub().resolves({
-      createAppDefinition: stub().resolves({ sys: { id: 'appId' } })
+      createAppDefinition: stub().resolves({ sys: { id: 'appId' } }),
     });
-    clientMock.getOrganizations = stub().resolves({ items: [{ name: 'name', sys: { id: organizationId } }] });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
     selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await assert.doesNotReject(() => subject(token, { locations: [] }));
 
-    const loggedMessage = console.log.getCall(0).args[0];
+    const loggedMessage = (console.log as SinonStub).getCall(0).args[0];
 
     assert(loggedMessage.includes('Success'));
     assert(loggedMessage.includes(orgSettingsLink));
     assert(loggedMessage.includes(appLink));
     assert(loggedMessage.includes(tutorialLink));
-    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], {[APP_DEF_ENV_KEY]: 'appId'});
+    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], { [APP_DEF_ENV_KEY]: 'appId' });
   });
 });
