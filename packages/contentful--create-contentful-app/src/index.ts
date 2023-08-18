@@ -17,6 +17,7 @@ import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants'
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
 import { cloneAppAction } from './includeAppAction';
+import { cloneDeliveryFunction } from './includeDeliveryFunction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -69,18 +70,18 @@ async function validateAppName(appName: string): Promise<string> {
   if (appName === 'create-definition') {
     throw new Error(
       `The ${code('create-definition')} command has been removed from ${code(
-        'create-contentful-app'
+        'create-contentful-app',
       )}.\nTo create a new app definition first run ${code(
-        'npx create-contentful-app'
-      )} and then ${code('npm run create-app-definition')} within the new folder.`
+        'npx create-contentful-app',
+      )} and then ${code('npm run create-app-definition')} within the new folder.`,
     );
   }
 
   if (appName === 'init') {
     warn(
       `The ${code('init')} command has been removed from ${code(
-        'create-contentful-app'
-      )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
+        'create-contentful-app',
+      )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`,
     );
     appName = '';
   }
@@ -92,7 +93,7 @@ async function validateAppName(appName: string): Promise<string> {
 
   if (!validateNPMPackageName(appName).validForNewPackages) {
     throw new Error(
-      `Cannot create an app named "${appName}". Please choose a different name for your app.`
+      `Cannot create an app named "${appName}". Please choose a different name for your app.`,
     );
   }
 
@@ -126,7 +127,15 @@ async function initProject(appName: string, options: CLIOptions) {
     await cloneTemplateIn(fullAppFolder, templateSource);
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
-      cloneAppAction(fullAppFolder, !!normalizedOptions.typescript);
+      await cloneAppAction(fullAppFolder, !!normalizedOptions.typescript);
+    }
+
+    if (
+      !isInteractive &&
+      isContentfulTemplate(templateSource) &&
+      normalizedOptions.deliveryFunction
+    ) {
+      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.typescript);
     }
 
     updatePackageName(fullAppFolder);
@@ -136,9 +145,9 @@ async function initProject(appName: string, options: CLIOptions) {
     wrapInBlanks(
       highlight(
         `---- Installing the dependencies for your app (using ${chalk.cyan(
-          useYarn ? 'yarn' : 'npm'
-        )})...`
-      )
+          useYarn ? 'yarn' : 'npm',
+        )})...`,
+      ),
     );
     if (useYarn) {
       await exec('yarn', [], { cwd: fullAppFolder });
@@ -167,7 +176,7 @@ async function initProject(appName: string, options: CLIOptions) {
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
         `Official Contentful templates and examples are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
-      ].join('\n')
+      ].join('\n'),
     )
     .argument('[app-name]', 'app name')
     .option('--npm', 'use npm')
@@ -180,11 +189,15 @@ async function initProject(appName: string, options: CLIOptions) {
       [
         `provide a template by its source repository.`,
         `format: URL (HTTPS or SSH) or ${code('vendor:user/repo')} (e.g., ${code(
-          'github:user/repo'
+          'github:user/repo',
         )})`,
-      ].join('\n')
+      ].join('\n'),
     )
     .option('-a, --action', 'include a hosted app action in the ts or js template')
+    .option(
+      '-d, --delivery-function',
+      'include a hosted delivery function template (EAP only, contact monet@contentful.com if interested)',
+    )
     .action(initProject);
   await program.parseAsync();
 })();
