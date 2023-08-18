@@ -70,7 +70,7 @@ describe('removeProtocolFromUrl', () => {
 
 describe('getActionsManifest', () => {
   let exitStub: SinonStub, consoleLog: SinonStub;
-  let DEFAULT_MANIFEST_PATH = 'path/to/manifest';
+  const DEFAULT_MANIFEST_PATH = 'path/to/manifest';
 
   const actionMock = {
     name: 'name',
@@ -94,7 +94,7 @@ describe('getActionsManifest', () => {
     red: stub(),
   };
 
-  let { getActionsManifest } = proxyquire('./utils', { fs, chalk });
+  const { getActionsManifest } = proxyquire('./utils', { fs, chalk });
 
   beforeEach(() => {
     exitStub = stub(process, 'exit');

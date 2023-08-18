@@ -5,7 +5,7 @@ import { showCreationError } from '../utils';
 import { createClient } from 'contentful-management';
 import { UploadSettings } from '.';
 
-async function createAppBundleFromFile(orgId: string, token: string, zip: Buffer, host: string = '') {
+async function createAppBundleFromFile(orgId: string, token: string, zip: Buffer, host = '') {
   const client = createClient({ accessToken: token, host, hostUpload: host.replace(/^api/i, 'upload') });
   const org = await client.getOrganization(orgId);
   return await org.createAppUpload(zip);

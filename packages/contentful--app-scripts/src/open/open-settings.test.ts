@@ -3,7 +3,6 @@ import assert from 'assert';
 import { APP_DEF_ENV_KEY } from '../../utils/constants';
 import proxyquire from 'proxyquire';
 import { REDIRECT_URL } from './open-settings';
-import { OpenSettingsOptions } from '.';
 
 const TEST_DEF_ID = 'test-def-id';
 

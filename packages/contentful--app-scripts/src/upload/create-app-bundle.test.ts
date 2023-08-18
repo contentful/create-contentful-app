@@ -1,7 +1,7 @@
 import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
-import { AppBundle, AppUpload, ClientAPI } from 'contentful-management';
+import { AppUpload, ClientAPI } from 'contentful-management';
 import { UploadSettings } from '.';
 
 const bundleMock = { sys: { id: 'mocked_bundle' } };

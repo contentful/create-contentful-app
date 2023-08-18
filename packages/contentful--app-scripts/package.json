@@ -27,7 +27,7 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha ./src/**/*.test.js ./src/*.test.js ./utils/**/*.test.js",
+    "test": "mocha ./src/**/*.test.ts ./src/*.test.ts ./utils/**/*.test.ts",
     "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
     "build": "tsc"

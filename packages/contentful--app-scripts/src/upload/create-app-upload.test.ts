@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { stub, match, SinonStub } from 'sinon';
 import proxyquire from 'proxyquire';
-import { AppUpload, ClientAPI } from 'contentful-management';
+import { ClientAPI } from 'contentful-management';
 import { UploadSettings } from '.';
 
 describe('createAppUpload', () => {

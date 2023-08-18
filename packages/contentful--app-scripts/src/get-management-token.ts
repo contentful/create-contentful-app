@@ -7,7 +7,7 @@ import { cacheEnvVars } from '../utils/cache-credential';
 import { createClient } from 'contentful-management';
 import { ACCESS_TOKEN_ENV_KEY } from '../utils/constants';
 
-const checkTokenValidity = async (accessToken: string = '', host?: string) => {
+const checkTokenValidity = async (accessToken = '', host?: string) => {
   try {
     const client = createClient({ accessToken, host });
     await client.getCurrentUser();
