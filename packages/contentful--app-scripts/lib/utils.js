@@ -35,6 +35,14 @@ const showCreationError = (subject, message) => {
     `);
 };
 
+const logProgress = (message) => {
+  console.log('');
+  console.log(`  ----------------------------
+  ${message}
+  ----------------------------`);
+  console.log('');
+};
+
 const throwError = (err, message) => {
   console.log(`
 ${chalk.red('Error:')} ${message}.
@@ -50,10 +58,8 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
   const cachedElement = list.find((item) => item.value === cachedEnvVar);
 
   if (cachedElement) {
-    console.log(`
-  ${message}
-  Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
-    `);
+    logProgress(`${message}
+      Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})`);
     return cachedElement;
   } else {
     const { elementId } = await inquirer.prompt([
@@ -87,11 +93,7 @@ function getActionsManifest() {
       return;
     }
 
-    console.log('');
-    console.log(`  ----------------------------
-  App actions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
-  ----------------------------`);
-    console.log('');
+    logProgress(`App actions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
 
     const actions = manifest.actions.map((action) => {
       const allowNetworks = Array.isArray(action.allowNetworks)
@@ -147,11 +149,7 @@ function getDeliveryFunctionsManifest() {
       return;
     }
 
-    console.log('');
-    console.log(`  ----------------------------
-  Delivery functions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
-  ----------------------------`);
-    console.log('');
+    logProgress(`Delivery functions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
 
     const deliveryFns = manifest.deliveryFunctions.map((deliveryFn) => {
       const allowNetworks = Array.isArray(deliveryFn.allowNetworks)

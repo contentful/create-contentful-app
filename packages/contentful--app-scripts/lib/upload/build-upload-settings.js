@@ -41,7 +41,7 @@ async function buildAppUploadSettings(options) {
     });
   }
 
-  const { activateBundle, ...appUploadSettings } = await inquirer.prompts(prompts);
+  const { activateBundle, ...appUploadSettings } = await inquirer.prompt(prompts);
 
   const appInfo = await getAppInfo(options);
   // Add app-config & dialog automatically
