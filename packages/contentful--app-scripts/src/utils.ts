@@ -7,10 +7,10 @@ import { Organization } from './organization-api';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
-interface FunctionAppAction {
+export interface FunctionAppAction {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   category: 'Custom';
   type: 'function';
   path: string;
@@ -46,6 +46,8 @@ export const showCreationError = (subject: string, message: string) => {
 
       Message:  ${chalk.red(message)}
     `);
+  // eslint-disable-next-line no-process-exit
+  process.exit(1);
 };
 
 export const throwError = (err: Error, message: string) => {
