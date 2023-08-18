@@ -1,17 +1,9 @@
 import { prompt } from 'inquirer';
 import { DEFAULT_BUNDLES_TO_KEEP, DEFAULT_CONTENTFUL_API_HOST } from '../../utils/constants';
 import { getAppInfo } from '../get-app-info';
-import { CleanupSettings } from '.';
+import { CleanupOptions, CleanupSettings } from '.';
 
-export async function buildCleanUpSettings(
-  options: {
-    organizationId?: string;
-    definitionId?: string;
-    token?: string;
-    keep?: string;
-    host?: string;
-  }
-): Promise<CleanupSettings> {
+export async function buildCleanUpSettings(options: CleanupOptions): Promise<CleanupSettings> {
   const { keep, host } = options;
   const prompts = [];
 

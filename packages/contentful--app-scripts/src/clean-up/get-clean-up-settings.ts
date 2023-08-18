@@ -3,7 +3,7 @@ import ora from 'ora';
 import { DEFAULT_BUNDLES_TO_KEEP } from '../../utils/constants';
 import { validateArguments } from '../validate-arguments';
 import { getAppInfo } from '../get-app-info';
-import { CleanupSettings } from '.';
+import { CleanupOptions, CleanupSettings } from '.';
 
 const requiredOptions = {
   definitionId: '--definition-id',
@@ -11,13 +11,7 @@ const requiredOptions = {
   token: '--token',
 };
 
-export async function getCleanUpSettingsArgs(options: {
-  organizationId?: string;
-  definitionId?: string;
-  token?: string;
-  host?: string;
-  keep?: string;
-}): Promise<CleanupSettings> {
+export async function getCleanUpSettingsArgs(options: CleanupOptions): Promise<CleanupSettings> {
   const validateSpinner = ora('Validating your input...').start();
 
   try {
