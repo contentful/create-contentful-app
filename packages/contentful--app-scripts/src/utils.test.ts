@@ -1,8 +1,8 @@
-const assert = require('assert');
-const { stub } = require('sinon');
-const proxyquire = require('proxyquire');
+import assert from 'assert';
+import { SinonStub, stub } from 'sinon';
+import proxyquire from 'proxyquire';
 
-const { isValidNetwork, stripProtocol } = require('./utils');
+import { isValidNetwork, stripProtocol } from './utils';
 
 describe('isValidIpAddress', () => {
   it('returns true for a valid IP address', () => {
@@ -69,7 +69,7 @@ describe('removeProtocolFromUrl', () => {
 });
 
 describe('getActionsManifest', () => {
-  let fs, exitStub, consoleLog, chalk;
+  let exitStub: SinonStub, consoleLog: SinonStub;
   let DEFAULT_MANIFEST_PATH = 'path/to/manifest';
 
   const actionMock = {
@@ -85,11 +85,11 @@ describe('getActionsManifest', () => {
   // eslint-disable-next-line no-unused-vars
   const { entryFile: _, ...resultMock } = actionMock;
 
-  fs = {
+  const fs = {
     existsSync: stub(),
     readFileSync: stub(),
   };
-  chalk = {
+  const chalk = {
     bold: stub(),
     red: stub(),
   };

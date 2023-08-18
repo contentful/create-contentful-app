@@ -1,8 +1,10 @@
-const { stub, spy, match, useFakeTimers } = require('sinon');
-const assert = require('assert');
-const proxyquire = require('proxyquire');
+import Sinon, { stub, spy, match, useFakeTimers, SinonStub } from 'sinon';
+import assert from 'assert';
+import proxyquire from 'proxyquire';
+import { PlainClientAPI } from 'contentful-management';
+import { CleanupSettings } from '.';
 
-const mockedSettings = { definition: { value: 'test' }, organization: { value: 'test' } };
+const mockedSettings = { definition: { value: 'test' }, organization: { value: 'test' } } as CleanupSettings;
 const bundlesFixture = [
   { sys: { id: 'test-1' } },
   { sys: { id: 'test-2' } },
@@ -15,7 +17,10 @@ const bundlesFixture = [
 ];
 
 describe.only('cleanUpBundles', () => {
-  let subject, clientMock, deleteMock, createClientArgs;
+  let subject: (settings: CleanupSettings) => Promise<undefined>,
+    clientMock: PlainClientAPI,
+    deleteMock: SinonStub,
+    createClientArgs: any[];
   let mockedBundles = bundlesFixture;
 
   beforeEach(() => {
@@ -24,7 +29,7 @@ describe.only('cleanUpBundles', () => {
 
   afterEach(() => {
     mockedBundles = bundlesFixture;
-    console.log.restore();
+    (console.log as SinonStub).restore();
   });
 
   beforeEach(() => {
@@ -41,10 +46,10 @@ describe.only('cleanUpBundles', () => {
         get: () => ({ bundle: { sys: { id: 'active-bundle' } } }),
         delete: deleteMock,
       },
-    };
+    } as unknown as PlainClientAPI;
     ({ cleanUpBundles: subject } = proxyquire('./clean-up-bundles', {
       'contentful-management': {
-        createClient: (...args) => {
+        createClient: (...args: any[]) => {
           createClientArgs = args;
           return clientMock;
         },
@@ -72,7 +77,7 @@ describe.only('cleanUpBundles', () => {
   it('shows a warning when nothing will be deleted and delete is not called', async () => {
     await subject({ ...mockedSettings, keep: 100 });
     assert.strictEqual(deleteMock.called, false);
-    assert(console.log.calledWith(match(/There is nothing to delete/)));
+    assert((console.log as SinonStub).calledWith(match(/There is nothing to delete/)));
   });
   it('only runs specific deletion calls at a time ', async () => {
     const clock = useFakeTimers();
@@ -80,10 +85,10 @@ describe.only('cleanUpBundles', () => {
     subject({ ...mockedSettings, keep: 0 });
     await clock.tickAsync(50);
     // Here we expect only the first ones to be called
-    assert.strictEqual(clientMock.appBundle.delete.callCount, 2); // 2 is batch size
+    assert.strictEqual((clientMock.appBundle.delete as SinonStub).callCount, 2); // 2 is batch size
     await clock.tickAsync(150);
     // Here the next ones also have called
-    assert.strictEqual(clientMock.appBundle.delete.callCount, 4); // 2 before + 2 new
+    assert.strictEqual((clientMock.appBundle.delete as SinonStub).callCount, 4); // 2 before + 2 new
 
     clock.restore();
   });
@@ -92,17 +97,17 @@ describe.only('cleanUpBundles', () => {
     mockedBundles.unshift({ sys: { id: 'slow' } });
     mockedBundles = mockedBundles.reverse();
     clientMock.appBundle.delete = stub().callsFake(
-      ({ appBundleId }) => new Promise((r) => setTimeout(r, appBundleId === 'slow' ? 200 : 100))
+      ({ appBundleId }) => new Promise((r) => setTimeout(r, appBundleId === 'slow' ? 200 : 100)),
     );
     subject({ ...mockedSettings, keep: 0 });
     await clock.tickAsync(50);
     // Here we expect only the first ones to be called
-    assert.strictEqual(clientMock.appBundle.delete.callCount, 2); // 2 is batch size
+    assert.strictEqual((clientMock.appBundle.delete as SinonStub).callCount, 2); // 2 is batch size
     await clock.tickAsync(100);
     // Here there are still only two called
-    assert.strictEqual(clientMock.appBundle.delete.callCount, 3); // 2 before + 1 new  (1 still in flight and occupies slot)
+    assert.strictEqual((clientMock.appBundle.delete as SinonStub).callCount, 3); // 2 before + 1 new  (1 still in flight and occupies slot)
     await clock.tickAsync(100);
-    assert.strictEqual(clientMock.appBundle.delete.callCount, 5); // 3 before + 2 new  (slot is free again)
+    assert.strictEqual((clientMock.appBundle.delete as SinonStub).callCount, 5); // 3 before + 2 new  (slot is free again)
 
     clock.restore();
   });
@@ -113,6 +118,6 @@ describe.only('cleanUpBundles', () => {
   it('queries more than 100 bundles', async () => {
     spy(clientMock.appBundle, 'getMany');
     await subject(mockedSettings);
-    assert(clientMock.appBundle.getMany.calledWith(match({ query: { limit: 1000 } })));
+    assert((clientMock.appBundle.getMany as SinonStub).calledWith(match({ query: { limit: 1000 } })));
   });
 });

@@ -1,20 +1,24 @@
-const assert = require('assert');
-const { stub, match } = require('sinon');
-const proxyquire = require('proxyquire');
+import assert from 'assert';
+import { stub, match, SinonStub } from 'sinon';
+import proxyquire from 'proxyquire';
+import { AppUpload, ClientAPI } from 'contentful-management';
+import { UploadSettings } from '.';
+
 describe('createAppUpload', () => {
-  let createAppUpload, clientMock;
+  let createAppUpload: (settings: UploadSettings) => Promise<AppUpload | null | undefined>,
+    clientMock: ClientAPI;
   const uploadMock = { sys: { id: 'test-id' } };
   const mockedSettings = {
     accessToken: 'token',
     organization: { value: 'id' },
     definition: { value: 'id' },
-  };
+  } as UploadSettings;
   beforeEach(() => {
     stub(console, 'log');
   });
 
   afterEach(() => {
-    console.log.restore();
+    (console.log as SinonStub).restore();
   });
 
   beforeEach(() => {
@@ -22,7 +26,7 @@ describe('createAppUpload', () => {
       getOrganization: () => ({
         createAppUpload: () => uploadMock,
       }),
-    };
+    } as unknown as ClientAPI;
 
     ({ createAppUpload } = proxyquire('./create-app-upload', {
       'contentful-management': {
@@ -40,11 +44,13 @@ describe('createAppUpload', () => {
     assert.strictEqual(appUpload, uploadMock);
   });
   it('shows creation error when createAppUpload throws', async () => {
-    clientMock.getOrganization = () => ({
-      createAppUpload: stub().rejects(new Error()),
-    });
+    clientMock = {
+      getOrganization: () => ({
+        createAppUpload: stub().rejects(new Error()),
+      }),
+    } as unknown as ClientAPI;
     await createAppUpload(mockedSettings);
 
-    assert(console.log.calledWith(match(/Creation error:/)));
+    assert((console.log as SinonStub).calledWith(match(/Creation error:/)));
   });
 });
