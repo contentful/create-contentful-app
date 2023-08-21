@@ -13,15 +13,20 @@ const mockFs = () => {
         }
         throw new Error();
       },
-      async writeFile(name: string, fileData: string) {
-        data[name] = fileData;
+      async writeFile(
+        name: string,
+        fileData: string,
+        opts: { encoding?: string; flag?: string } = {},
+      ) {
+        if (opts.flag === 'a') {
+          data[name] = `${data[name] || ''}${fileData}`;
+        } else {
+          data[name] = fileData;
+        }
       },
       async readFile(name: string) {
         return data[name];
       },
-    },
-    constants: {
-      F_OK: true,
     },
     resetData() {
       data = {};
