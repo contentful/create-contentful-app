@@ -11,6 +11,9 @@ updates:
       - dependency-name: "@types/node"
         versions:
           - ">=15.0.0"
+      - dependency-name: "prettier"
+        versions:
+          - ">=3.0.0"
     commit-message:
       prefix: fix
       prefix-development: chore

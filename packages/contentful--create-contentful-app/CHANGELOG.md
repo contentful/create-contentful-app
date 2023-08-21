@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.10...@contentful/create-contentful-app@1.9.0) (2023-08-18)
+
+### Bug Fixes
+
+- **deps:** bump commander from 10.0.1 to 11.0.0 ([#1568](https://github.com/contentful/create-contentful-app/issues/1568)) ([1badb6f](https://github.com/contentful/create-contentful-app/commit/1badb6f6a7e6f803ab912accd63e67f52f786045))
+- **deps:** bump contentful-management from 10.35.4 to 10.35.6 ([#1550](https://github.com/contentful/create-contentful-app/issues/1550)) ([3855612](https://github.com/contentful/create-contentful-app/commit/38556121356fe4099a5cc71537ecfb9435bee75a))
+- **deps:** bump contentful-management from 10.35.6 to 10.36.0 ([#1557](https://github.com/contentful/create-contentful-app/issues/1557)) ([73c0e01](https://github.com/contentful/create-contentful-app/commit/73c0e01ceaeec1112441e6cfa9c5b409c31601de))
+- **deps:** bump contentful-management from 10.36.0 to 10.37.0 ([#1574](https://github.com/contentful/create-contentful-app/issues/1574)) ([93d6be5](https://github.com/contentful/create-contentful-app/commit/93d6be5a787de2b3b3707a5704b4a5bdeeffb9c9))
+- **deps:** bump contentful-management from 10.37.0 to 10.38.0 ([#1575](https://github.com/contentful/create-contentful-app/issues/1575)) ([0d8d87b](https://github.com/contentful/create-contentful-app/commit/0d8d87b4fabae0a566d706a45020476313c8c397))
+- **deps:** bump contentful-management from 10.38.0 to 10.38.2 ([#1579](https://github.com/contentful/create-contentful-app/issues/1579)) ([52f0953](https://github.com/contentful/create-contentful-app/commit/52f0953ff97a41a7446b6a1468c256f99af6adb2))
+- **deps:** bump contentful-management from 10.38.2 to 10.38.3 ([#1587](https://github.com/contentful/create-contentful-app/issues/1587)) ([dcb2b80](https://github.com/contentful/create-contentful-app/commit/dcb2b8060df15ee9977a191b2abed13716e9c1ed))
+- **deps:** bump contentful-management from 10.38.3 to 10.38.4 ([#1598](https://github.com/contentful/create-contentful-app/issues/1598)) ([6a1a5cd](https://github.com/contentful/create-contentful-app/commit/6a1a5cd9b7acf01d9395572d1079ba8e3c3286de))
+- **deps:** bump contentful-management from 10.38.4 to 10.38.5 ([#1604](https://github.com/contentful/create-contentful-app/issues/1604)) ([67591d9](https://github.com/contentful/create-contentful-app/commit/67591d96badb9d71dd81c775b7c4b3f8306006bd))
+- **deps:** bump contentful-management from 10.38.5 to 10.39.1 ([#1605](https://github.com/contentful/create-contentful-app/issues/1605)) ([6344a4a](https://github.com/contentful/create-contentful-app/commit/6344a4aedc7d9d8391d1f5327ea6f4ae642226dd))
+- **deps:** bump contentful-management from 10.39.1 to 10.39.2 ([#1613](https://github.com/contentful/create-contentful-app/issues/1613)) ([9f262c5](https://github.com/contentful/create-contentful-app/commit/9f262c560a808ca5ab703420ac2cdee0ece64281))
+- **deps:** bump inquirer from 8.2.5 to 8.2.6 ([#1625](https://github.com/contentful/create-contentful-app/issues/1625)) ([740a838](https://github.com/contentful/create-contentful-app/commit/740a8381f2f37831cff888101c60816ed2843462))
+
+### Features
+
+- parallelized file write tasks for `--action` and `--delivery-function` ([02e3aff](https://github.com/contentful/create-contentful-app/commit/02e3aff8a88340c5797573395357b3e01c79244e))
+
 ## [1.8.10](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.8.9...@contentful/create-contentful-app@1.8.10) (2023-05-23)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
