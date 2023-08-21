@@ -12,7 +12,6 @@
   "plugins": [
     "@typescript-eslint"
   ],
-  "ignorePatterns": ["**/*.test.ts"],
   "rules": {
     "no-console": "off",
     "no-process-exit": "off",

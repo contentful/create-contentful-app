@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
-  "exclude": ["node_modules", "**/*.spec.ts"],
+  "exclude": ["node_modules", "**/*.test.ts"],
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
