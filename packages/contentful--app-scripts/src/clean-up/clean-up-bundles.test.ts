@@ -16,7 +16,7 @@ const bundlesFixture = [
   { sys: { id: 'test-8' } },
 ];
 
-describe.only('cleanUpBundles', () => {
+describe('cleanUpBundles', () => {
   let subject: typeof import('./clean-up-bundles').cleanUpBundles,
     clientMock: PlainClientAPI,
     deleteMock: SinonStub,
