@@ -169,7 +169,7 @@ function getDeliveryFunctionsManifest() {
         process.exit(1);
       }
 
-      // EntryFile is not used but we want to strip it from delivery functions
+      // EntryFile is not use, so we want to strip it from delivery functions
       // eslint-disable-next-line no-unused-vars
       const { entryFile: _, ...deliveryFnWithoutEntryFile } = deliveryFn;
 
