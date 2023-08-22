@@ -30,7 +30,7 @@ const nonInteractive = async (options: CleanupOptions) => {
   await cleanUpBundles(settings);
 };
 
-export default {
+export const cleanup = {
   interactive,
   nonInteractive,
 };

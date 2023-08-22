@@ -1,6 +1,6 @@
-export * as createAppDefinition from './create-app-definition';
-export * as upload from './upload';
-export * as activate from './activate';
-export * as cleanup from './clean-up';
-export * as open from './open';
-export * as track from '../utils/analytics';
+export { createAppDefinition } from './create-app-definition';
+export { upload } from './upload';
+export { activate } from './activate';
+export { cleanup } from './clean-up';
+export { open } from './open';
+export { track } from '../utils/analytics';

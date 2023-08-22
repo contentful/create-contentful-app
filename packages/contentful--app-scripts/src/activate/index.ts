@@ -31,7 +31,7 @@ const nonInteractive = async (options: ActivateOptions) => {
   await activateBundle(settings);
 };
 
-export default {
+export const activate = {
   interactive,
   nonInteractive,
 };

@@ -46,7 +46,7 @@ const nonInteractive = async (options: UploadOptions) => {
   await uploadAndActivate(settings);
 };
 
-export default {
+export const upload = {
   interactive,
   nonInteractive,
 };

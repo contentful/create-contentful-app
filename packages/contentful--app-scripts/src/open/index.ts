@@ -12,7 +12,7 @@ const nonInteractive = async () => {
   throw new Error(`"open-settings" is not available in non-interactive mode`);
 };
 
-export default {
+export const open = {
   interactive,
   nonInteractive,
 };
