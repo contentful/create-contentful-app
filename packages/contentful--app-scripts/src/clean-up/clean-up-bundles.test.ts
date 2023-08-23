@@ -54,7 +54,7 @@ describe('cleanUpBundles', () => {
           return clientMock;
         },
       },
-      '../../utils/constants': {
+      '../constants': {
         MAX_CONCURRENT_DELETION_CALLS: 2,
       },
     }));

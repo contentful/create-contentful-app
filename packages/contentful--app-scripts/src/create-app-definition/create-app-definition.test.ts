@@ -37,7 +37,7 @@ describe('createAppDefinition', () => {
           return clientMock;
         },
       },
-      '../../utils/cache-credential': {
+      '../cache-credential': {
         cacheEnvVars: cachedEnvVarsMock,
       },
       '../utils': {
