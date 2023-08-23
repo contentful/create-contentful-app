@@ -3,4 +3,4 @@ export { upload } from './upload';
 export { activate } from './activate';
 export { cleanup } from './clean-up';
 export { open } from './open';
-export { track } from '../utils/analytics';
+export { track } from './analytics';

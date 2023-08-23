@@ -1,6 +1,6 @@
 import { SinonStub, stub } from 'sinon';
 import assert from 'assert';
-import { APP_DEF_ENV_KEY } from '../../utils/constants';
+import { APP_DEF_ENV_KEY } from '../constants';
 import proxyquire from 'proxyquire';
 import { REDIRECT_URL } from './open-settings';
 

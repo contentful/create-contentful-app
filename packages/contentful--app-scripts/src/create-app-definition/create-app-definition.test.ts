@@ -1,7 +1,7 @@
 import proxyquire from 'proxyquire';
 import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
-import { APP_DEF_ENV_KEY } from '../../utils/constants';
+import { APP_DEF_ENV_KEY } from '../constants';
 import { ClientAPI } from 'contentful-management';
 
 const organizationId = 'orgId';

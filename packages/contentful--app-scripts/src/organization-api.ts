@@ -1,7 +1,6 @@
 import ora from 'ora';
-import { selectFromList } from './utils';
-import { throwError } from './utils';
-import { ORG_ID_ENV_KEY } from '../utils/constants';
+import { selectFromList, throwError } from './utils';
+import { ORG_ID_ENV_KEY } from './constants';
 import { ClientAPI } from 'contentful-management';
 
 export interface Organization {

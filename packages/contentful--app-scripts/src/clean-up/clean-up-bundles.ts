@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import ora from 'ora';
 import Bottleneck from 'bottleneck';
-import { MAX_CONCURRENT_DELETION_CALLS, DEFAULT_BUNDLES_TO_FETCH } from '../../utils/constants';
+import { MAX_CONCURRENT_DELETION_CALLS, DEFAULT_BUNDLES_TO_FETCH } from '../constants';
 import { throwError } from '../utils';
 import {
   AppBundleProps,
@@ -71,7 +71,7 @@ export async function cleanUpBundles(settings: CleanupSettings) {
     if (requestedAmount < 1) {
       throw new Error('Requested amount of bundles to fetch must be greater than 0');
     }
-    const getBundles = async (limit?: number, skip: number = 0): Promise<AppBundleProps[]> => {
+    const getBundles = async (limit?: number, skip = 0): Promise<AppBundleProps[]> => {
       const result = await fetchAppBundles(limit, skip);
       const currLength = skip + result.items.length;
 

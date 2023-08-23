@@ -3,9 +3,9 @@
 import chalk from 'chalk';
 import open from 'open';
 import inquirer from 'inquirer';
-import { cacheEnvVars } from '../utils/cache-credential';
+import { cacheEnvVars } from './cache-credential';
 import { createClient } from 'contentful-management';
-import { ACCESS_TOKEN_ENV_KEY } from '../utils/constants';
+import { ACCESS_TOKEN_ENV_KEY } from './constants';
 
 const checkTokenValidity = async (accessToken = '', host?: string) => {
   try {

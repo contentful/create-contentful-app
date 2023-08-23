@@ -5,8 +5,8 @@ import chalk from 'chalk';
 import { isString, isPlainObject, has } from 'lodash';
 
 import { throwValidationException, selectFromList } from '../utils';
-import { cacheEnvVars } from '../../utils/cache-credential';
-import { ORG_ID_ENV_KEY, APP_DEF_ENV_KEY } from '../../utils/constants';
+import { cacheEnvVars } from '../cache-credential';
+import { ORG_ID_ENV_KEY, APP_DEF_ENV_KEY } from '../constants';
 import { AppDefinitionSettings } from './build-app-definition-settings';
 
 async function fetchOrganizations(client: ClientAPI) {

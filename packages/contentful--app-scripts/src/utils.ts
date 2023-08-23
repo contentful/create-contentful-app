@@ -1,7 +1,7 @@
 import fs from 'fs';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import { cacheEnvVars } from '../utils/cache-credential';
+import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
 

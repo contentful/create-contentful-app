@@ -1,5 +1,5 @@
 import { prompt } from 'inquirer';
-import { DEFAULT_BUNDLES_TO_KEEP, DEFAULT_CONTENTFUL_API_HOST } from '../../utils/constants';
+import { DEFAULT_BUNDLES_TO_KEEP, DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { getAppInfo } from '../get-app-info';
 import { CleanupOptions, CleanupSettings } from '.';
 

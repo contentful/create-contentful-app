@@ -1,6 +1,6 @@
 import ora from 'ora';
 import { selectFromList, throwError } from './utils';
-import { APP_DEF_ENV_KEY } from '../utils/constants';
+import { APP_DEF_ENV_KEY } from './constants';
 import { ClientAPI } from 'contentful-management';
 
 export interface Definition {

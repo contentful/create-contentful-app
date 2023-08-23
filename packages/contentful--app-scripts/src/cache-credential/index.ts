@@ -50,7 +50,7 @@ async function checkFileEnvExists() {
 export async function cacheEnvVars(envObj: Record<string, string>) {
   try {
     let envVars = '';
-    let envFileExists = await checkFileEnvExists();
+    const envFileExists = await checkFileEnvExists();
 
     for (const [key, val] of Object.entries(envObj)) {
       if (envFileExists) {
