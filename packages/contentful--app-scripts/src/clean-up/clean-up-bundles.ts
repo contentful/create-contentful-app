@@ -71,9 +71,9 @@ export async function cleanUpBundles(settings: CleanupSettings) {
     if (requestedAmount < 1) {
       throw new Error('Requested amount of bundles to fetch must be greater than 0');
     }
-    const getBundles = async (limit?: number, skip?: number): Promise<AppBundleProps[]> => {
+    const getBundles = async (limit?: number, skip: number = 0): Promise<AppBundleProps[]> => {
       const result = await fetchAppBundles(limit, skip);
-      const currLength = (skip ?? 0) + result.items.length;
+      const currLength = skip + result.items.length;
 
       if (result.total > currLength) {
         return [...result.items, ...(await getBundles(result.items.length, currLength))];

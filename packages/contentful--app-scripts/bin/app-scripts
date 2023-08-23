@@ -3,7 +3,7 @@
 const { program } = require('commander');
 const { version } = require('../package.json');
 
-const { createAppDefinition, upload, activate, cleanup, open, track } = require('../');
+const { createAppDefinition, upload, activate, cleanup, open, track } = require('../lib');
 
 async function runCommand(command, options) {
   const { ci } = program.opts();

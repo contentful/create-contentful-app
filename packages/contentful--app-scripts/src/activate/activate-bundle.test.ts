@@ -22,8 +22,7 @@ describe('activate-bundle', () => {
   });
 
   afterEach(() => {
-    // @ts-ignore Restoring stub
-    console.log.restore();
+    (console.log as SinonStub).restore();
   });
 
   const throwErrorStub = stub();

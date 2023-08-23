@@ -1,10 +1,11 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { EOL } from 'os';
-const ignore = require('ignore')();
+import ignore  from 'ignore';
 import chalk from 'chalk';
 import { DOTENV_FILE } from '../constants';
 
+const ig = ignore();
 
 const fsPromises = fs.promises;
 const fsConstants = fs.constants;
@@ -27,8 +28,8 @@ async function removeOldEnv(envKey: string) {
 
 function addEnvFileToGitIgnore() {
   try {
-    if (!ignore.ignores(DOTENV_FILE)) {
-      ignore.add(DOTENV_FILE);
+    if (!ig.ignores(DOTENV_FILE)) {
+      ig.add(DOTENV_FILE);
     }
   } catch(err) {
     console.log(`${

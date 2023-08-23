@@ -1,14 +1,7 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "@tsconfig/node14/tsconfig.json",
   "exclude": ["node_modules", "**/*.test.ts"],
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "outDir": "./lib",
-    "typeRoots": ["./typings", "./node_modules/@types"]
+    "outDir": "./lib"
   }
 }
