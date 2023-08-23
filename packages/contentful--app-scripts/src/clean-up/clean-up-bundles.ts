@@ -9,7 +9,7 @@ import {
   PlainClientAPI,
   createClient,
 } from 'contentful-management';
-import { CleanupSettings } from '.';
+import { CleanupSettings } from '../types';
 
 async function deleteBundle(
   bundleId: string,

@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { getAppInfo } from '../get-app-info';
 import { validateArguments } from '../validate-arguments';
-import { ActivateOptions, ActivateSettings } from '.';
+import { ActivateOptions, ActivateSettings } from '../types';
 
 const requiredOptions = {
   organizationId: '--organization-id',

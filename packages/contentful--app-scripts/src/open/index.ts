@@ -1,8 +1,5 @@
+import { OpenSettingsOptions } from '../types';
 import { openSettings } from './open-settings';
-
-export interface OpenSettingsOptions {
-  definitionId?: string;
-}
 
 const interactive = async (options: OpenSettingsOptions) => {
   openSettings(options);

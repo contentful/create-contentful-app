@@ -1,7 +1,7 @@
 import { prompt } from 'inquirer';
 import { DEFAULT_BUNDLES_TO_KEEP, DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { getAppInfo } from '../get-app-info';
-import { CleanupOptions, CleanupSettings } from '.';
+import { CleanupOptions, CleanupSettings } from '../types';
 
 export async function buildCleanUpSettings(options: CleanupOptions): Promise<CleanupSettings> {
   const { keep, host } = options;

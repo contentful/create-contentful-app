@@ -3,7 +3,7 @@ import ora from 'ora';
 import { DEFAULT_BUNDLES_TO_KEEP } from '../constants';
 import { validateArguments } from '../validate-arguments';
 import { getAppInfo } from '../get-app-info';
-import { CleanupOptions, CleanupSettings } from '.';
+import { CleanupOptions, CleanupSettings } from '../types';
 
 const requiredOptions = {
   definitionId: '--definition-id',

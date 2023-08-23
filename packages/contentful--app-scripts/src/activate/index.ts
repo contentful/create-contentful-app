@@ -1,24 +1,7 @@
 import { activateBundle } from './activate-bundle';
 import { getActivateSettingsArgs } from './get-activate-args';
 import { buildBundleActivateSettings } from './build-bundle-activate-settings';
-import { Organization } from '../organization-api';
-import { Definition } from '../definition-api';
-
-export interface ActivateOptions {
-  bundleId: string;
-  organizationId?: string;
-  definitionId?: string;
-  token?: string;
-  host?: string;
-}
-
-export interface ActivateSettings {
-  bundleId: string;
-  organization: Organization;
-  definition: Definition;
-  accessToken: string;
-  host?: string;
-}
+import { ActivateOptions } from '../types';
 
 const interactive = async (options: ActivateOptions) => {
   const settings = await buildBundleActivateSettings(options);

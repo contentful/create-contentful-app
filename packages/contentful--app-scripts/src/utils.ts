@@ -4,19 +4,9 @@ import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
+import { FunctionAppAction } from './types';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
-
-export interface FunctionAppAction {
-  id: string;
-  name: string;
-  description: string;
-  category: 'Custom';
-  type: 'function';
-  path: string;
-  allowNetworks?: string[];
-  entryFile?: string;
-}
 
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);

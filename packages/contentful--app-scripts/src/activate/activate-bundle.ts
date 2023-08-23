@@ -2,7 +2,7 @@ import ora from 'ora';
 import { cyan, bold, yellow } from 'chalk';
 import { throwError } from '../utils';
 import { AppLocation, createClient } from 'contentful-management';
-import { ActivateSettings } from '.';
+import { ActivateSettings } from '../types';
 
 export async function activateBundle({
   accessToken,

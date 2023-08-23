@@ -3,7 +3,7 @@ import ora from 'ora';
 import { getAppInfo } from '../get-app-info';
 import { validateArguments } from '../validate-arguments';
 import { getActionsManifest } from '../utils';
-import { UploadOptions, UploadSettings } from '.';
+import { UploadOptions, UploadSettings } from '../types';
 
 const requiredOptions = {
   definitionId: '--definition-id',

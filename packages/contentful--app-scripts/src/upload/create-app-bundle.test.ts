@@ -2,7 +2,7 @@ import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
 import { AppUpload, ClientAPI } from 'contentful-management';
-import { UploadSettings } from '.';
+import { UploadSettings } from '../types';
 
 const bundleMock = { sys: { id: 'mocked_bundle' } };
 const mockedSettings = {

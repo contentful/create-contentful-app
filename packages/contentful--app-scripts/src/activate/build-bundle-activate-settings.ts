@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 import { getAppInfo } from '../get-app-info';
-import { ActivateOptions, ActivateSettings } from '.';
+import { ActivateOptions, ActivateSettings } from '../types';
 
 export async function buildBundleActivateSettings(
   options: ActivateOptions,

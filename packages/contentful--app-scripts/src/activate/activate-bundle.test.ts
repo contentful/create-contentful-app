@@ -2,7 +2,7 @@ import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
 import { AppDefinitionProps, PlainClientAPI } from 'contentful-management';
-import { ActivateSettings } from '.';
+import { ActivateSettings } from '../types';
 
 const mockedSettings = {
   accessToken: 'token',

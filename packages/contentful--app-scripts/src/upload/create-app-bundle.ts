@@ -4,7 +4,7 @@ import { showCreationError } from '../utils';
 import { createClient } from 'contentful-management';
 
 import { createAppUpload } from './create-app-upload';
-import { UploadSettings } from '.';
+import { UploadSettings } from '../types';
 
 export async function createAppBundleFromUpload(settings: UploadSettings, appUploadId: string) {
   const { accessToken, host, userAgentApplication, comment, actions } = settings;

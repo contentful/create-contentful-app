@@ -2,7 +2,7 @@ import { stub, spy, match, useFakeTimers, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
 import { PlainClientAPI } from 'contentful-management';
-import { CleanupSettings } from '.';
+import { CleanupSettings } from '../types';
 
 const mockedSettings = { definition: { value: 'test' }, organization: { value: 'test' } } as CleanupSettings;
 const bundlesFixture = [

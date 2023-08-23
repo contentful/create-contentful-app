@@ -2,7 +2,7 @@ import { prompt } from 'inquirer';
 import { getAppInfo } from '../get-app-info';
 import { getActionsManifest } from '../utils';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
-import { UploadOptions, UploadSettings } from '.';
+import { UploadOptions, UploadSettings } from '../types';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
   const actionsManifest = getActionsManifest();

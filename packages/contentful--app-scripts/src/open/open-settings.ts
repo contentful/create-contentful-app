@@ -2,7 +2,7 @@ import open from 'open';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { APP_DEF_ENV_KEY } from '../constants';
-import { OpenSettingsOptions } from '.';
+import { OpenSettingsOptions } from '../types';
 
 export const REDIRECT_URL = 'https://app.contentful.com/deeplink?link=app-definition';
 
