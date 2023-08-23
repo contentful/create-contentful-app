@@ -2,13 +2,15 @@
 
 const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
-const { getActionsManifest } = require('../utils');
+const { getEntityFromManifest } = require('../utils');
 const { CONTENTFUL_API_HOST } = require('../../utils/constants');
 
 async function buildAppUploadSettings(options) {
-  const actionsManifest = getActionsManifest();
+  const actionsManifest = getEntityFromManifest('actions');
+  const deliveryFnManifest = getEntityFromManifest('deliveryFunctions');
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
+
   if (!bundleDir) {
     prompts.push({
       name: 'bundleDirectory',
@@ -49,6 +51,7 @@ async function buildAppUploadSettings(options) {
     comment,
     host,
     actions: actionsManifest,
+    deliveryFunctions: deliveryFnManifest,
     ...appUploadSettings,
     ...appInfo,
   };

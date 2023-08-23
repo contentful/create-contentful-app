@@ -35,6 +35,14 @@ const showCreationError = (subject, message) => {
     `);
 };
 
+const logProgress = (message) => {
+  console.log('');
+  console.log(`  ----------------------------
+  ${message}
+  ----------------------------`);
+  console.log('');
+};
+
 const throwError = (err, message) => {
   console.log(`
 ${chalk.red('Error:')} ${message}.
@@ -50,10 +58,8 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
   const cachedElement = list.find((item) => item.value === cachedEnvVar);
 
   if (cachedElement) {
-    console.log(`
-  ${message}
-  Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
-    `);
+    logProgress(`${message}
+      Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})`);
     return cachedElement;
   } else {
     const { elementId } = await inquirer.prompt([
@@ -73,7 +79,7 @@ const selectFromList = async (list, message, cachedOptionEnvVar) => {
   }
 };
 
-function getActionsManifest() {
+function getEntityFromManifest(type) {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
   if (!isManifestExists) {
@@ -83,29 +89,29 @@ function getActionsManifest() {
   try {
     const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
 
-    if (!Array.isArray(manifest.actions) || manifest.actions.length === 0) {
+    if (!Array.isArray(manifest[type]) || manifest[type].length === 0) {
       return;
     }
 
-    console.log('');
-    console.log(`  ----------------------------
-  App actions manifest found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
-  ----------------------------`);
-    console.log('');
+    logProgress(
+      `${type === 'actions' ? 'App Actions' : 'Delivery functions'} found in ${chalk.bold(
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
+    );
 
-    const actions = manifest.actions.map((action) => {
-      const allowNetworks = Array.isArray(action.allowNetworks)
-        ? action.allowNetworks.map(stripProtocol)
+    const items = manifest[type].map((item) => {
+      const allowNetworks = Array.isArray(item.allowNetworks)
+        ? item.allowNetworks.map(stripProtocol)
         : [];
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
-            'Error:'
-          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for action "${
-            action.name
-          }".`
+            'Error:',
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
+            item.name
+          }".`,
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -113,20 +119,20 @@ function getActionsManifest() {
 
       // EntryFile is not used but we do want to strip it from action
       // eslint-disable-next-line no-unused-vars
-      const { entryFile: _, ...actionWithoutEntryFile } = action;
+      const { entryFile: _, ...itemWithoutEntryFile } = item;
 
       return {
-        ...actionWithoutEntryFile,
+        ...itemWithoutEntryFile,
         allowNetworks,
       };
     });
 
-    return actions;
+    return items;
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
-        DEFAULT_MANIFEST_PATH
-      )}.`
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
     );
     // eslint-disable-next-line no-process-exit
     process.exit(1);
@@ -138,7 +144,7 @@ module.exports = {
   throwError,
   selectFromList,
   showCreationError,
-  getActionsManifest,
+  getEntityFromManifest,
   isValidNetwork,
   stripProtocol,
 };

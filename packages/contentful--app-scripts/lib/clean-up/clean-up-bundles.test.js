@@ -14,7 +14,7 @@ const bundlesFixture = [
   { sys: { id: 'test-8' } },
 ];
 
-describe.only('cleanUpBundles', () => {
+describe('cleanUpBundles', () => {
   let subject, clientMock, deleteMock, createClientArgs;
   let mockedBundles = bundlesFixture;
 
@@ -92,7 +92,7 @@ describe.only('cleanUpBundles', () => {
     mockedBundles.unshift({ sys: { id: 'slow' } });
     mockedBundles = mockedBundles.reverse();
     clientMock.appBundle.delete = stub().callsFake(
-      ({ appBundleId }) => new Promise((r) => setTimeout(r, appBundleId === 'slow' ? 200 : 100))
+      ({ appBundleId }) => new Promise((r) => setTimeout(r, appBundleId === 'slow' ? 200 : 100)),
     );
     subject({ ...mockedSettings, keep: 0 });
     await clock.tickAsync(50);
