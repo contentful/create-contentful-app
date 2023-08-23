@@ -68,9 +68,8 @@ describe('removeProtocolFromUrl', () => {
   });
 });
 
-describe('getActionsManifest', () => {
+describe('get actions from manifest', () => {
   let fs, exitStub, consoleLog, chalk;
-  let DEFAULT_MANIFEST_PATH = 'path/to/manifest';
 
   const actionMock = {
     name: 'name',
@@ -94,7 +93,7 @@ describe('getActionsManifest', () => {
     red: stub(),
   };
 
-  let { getActionsManifest } = proxyquire('./utils', { fs, chalk });
+  let { getEntityFromManifest } = proxyquire('./utils', { fs, chalk });
 
   beforeEach(() => {
     exitStub = stub(process, 'exit');
@@ -108,7 +107,7 @@ describe('getActionsManifest', () => {
   it('should return undefined if manifest does not exist', () => {
     fs.existsSync.returns(false);
 
-    const result = getActionsManifest(DEFAULT_MANIFEST_PATH);
+    const result = getEntityFromManifest('actions');
 
     assert.equal(result, undefined);
   });
@@ -117,7 +116,7 @@ describe('getActionsManifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(JSON.stringify({ actions: [] }));
 
-    const result = getActionsManifest(DEFAULT_MANIFEST_PATH);
+    const result = getEntityFromManifest('actions');
     assert.equal(result, undefined);
   });
 
@@ -129,7 +128,7 @@ describe('getActionsManifest', () => {
       }),
     );
 
-    const result = getActionsManifest();
+    const result = getEntityFromManifest('actions');
 
     assert.deepEqual(result, [resultMock]);
     assert.ok(consoleLog.called);
@@ -149,7 +148,7 @@ describe('getActionsManifest', () => {
       }),
     );
 
-    const result = getActionsManifest();
+    const result = getEntityFromManifest('actions');
 
     assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
     assert.ok(consoleLog.called);
@@ -163,7 +162,7 @@ describe('getActionsManifest', () => {
       }),
     );
 
-    const result = getActionsManifest();
+    const result = getEntityFromManifest('actions');
 
     assert.notDeepEqual(result, [actionMock]);
   });
@@ -182,7 +181,7 @@ describe('getActionsManifest', () => {
       }),
     );
 
-    getActionsManifest();
+    getEntityFromManifest('actions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });
@@ -191,15 +190,14 @@ describe('getActionsManifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.throws();
 
-    getActionsManifest();
+    getEntityFromManifest('actions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });
 });
 
-describe('getDeliveryFunctionsManifest', () => {
+describe('get delivery functions from manifest', () => {
   let fs, exitStub, consoleLog, chalk;
-  let DEFAULT_MANIFEST_PATH = 'path/to/manifest';
 
   const deliveryFnMock = {
     id: 'test',
@@ -221,7 +219,7 @@ describe('getDeliveryFunctionsManifest', () => {
     red: stub(),
   };
 
-  let { getDeliveryFunctionsManifest } = proxyquire('./utils', { fs, chalk });
+  let { getEntityFromManifest } = proxyquire('./utils', { fs, chalk });
 
   beforeEach(() => {
     exitStub = stub(process, 'exit');
@@ -235,7 +233,7 @@ describe('getDeliveryFunctionsManifest', () => {
   it('should return undefined if manifest does not exist', () => {
     fs.existsSync.returns(false);
 
-    const result = getDeliveryFunctionsManifest(DEFAULT_MANIFEST_PATH);
+    const result = getEntityFromManifest('deliveryFunctions');
 
     assert.equal(result, undefined);
   });
@@ -244,7 +242,7 @@ describe('getDeliveryFunctionsManifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(JSON.stringify({ deliveryFunctions: [] }));
 
-    const result = getDeliveryFunctionsManifest(DEFAULT_MANIFEST_PATH);
+    const result = getEntityFromManifest('deliveryFunctions');
     assert.equal(result, undefined);
   });
 
@@ -256,7 +254,7 @@ describe('getDeliveryFunctionsManifest', () => {
       }),
     );
 
-    const result = getDeliveryFunctionsManifest();
+    const result = getEntityFromManifest('deliveryFunctions');
 
     assert.deepEqual(result, [resultMock]);
     assert.ok(consoleLog.called);
@@ -276,7 +274,7 @@ describe('getDeliveryFunctionsManifest', () => {
       }),
     );
 
-    const result = getDeliveryFunctionsManifest();
+    const result = getEntityFromManifest('deliveryFunctions');
 
     assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
     assert.ok(consoleLog.called);
@@ -290,7 +288,7 @@ describe('getDeliveryFunctionsManifest', () => {
       }),
     );
 
-    const result = getDeliveryFunctionsManifest();
+    const result = getEntityFromManifest('deliveryFunctions');
 
     assert.notDeepEqual(result, [deliveryFnMock]);
   });
@@ -309,7 +307,7 @@ describe('getDeliveryFunctionsManifest', () => {
       }),
     );
 
-    getDeliveryFunctionsManifest();
+    getEntityFromManifest('deliveryFunctions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });
@@ -318,7 +316,7 @@ describe('getDeliveryFunctionsManifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.throws();
 
-    getDeliveryFunctionsManifest();
+    getEntityFromManifest('deliveryFunctions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });

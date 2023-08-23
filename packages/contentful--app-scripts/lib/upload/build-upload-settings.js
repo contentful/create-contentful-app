@@ -2,12 +2,12 @@
 
 const inquirer = require('inquirer');
 const { getAppInfo } = require('../get-app-info');
-const { getActionsManifest, getDeliveryFunctionsManifest } = require('../utils');
+const { getEntityFromManifest } = require('../utils');
 const { CONTENTFUL_API_HOST } = require('../../utils/constants');
 
 async function buildAppUploadSettings(options) {
-  const actionsManifest = getActionsManifest();
-  const deliveryFnManifest = getDeliveryFunctionsManifest();
+  const actionsManifest = getEntityFromManifest('actions');
+  const deliveryFnManifest = getEntityFromManifest('deliveryFunctions');
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
