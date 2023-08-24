@@ -12,7 +12,7 @@ async function createAppBundleFromFile(orgId: string, token: string, zip: Buffer
 }
 
 export async function createAppUpload(settings: UploadSettings) {
-  validateBundle(settings.bundleDirectory || '../types');
+  validateBundle(settings.bundleDirectory || '.');
   let appUpload = null;
   const zipFileSpinner = ora('Preparing your files for upload...').start();
   const zipFile = await createZipFileFromDirectory(settings.bundleDirectory || '../types');
