@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.11.0...@contentful/app-scripts@1.12.0) (2023-08-23)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 10.39.2 to 10.40.0 ([#1647](https://github.com/contentful/create-contentful-app/issues/1647)) ([966c358](https://github.com/contentful/create-contentful-app/commit/966c358662ca2c1793ebb2c5eadd28a616c72eb3))
+
+### Features
+
+- **deliveryFunctions:** cca build and upload [MONET-1336] ([#1641](https://github.com/contentful/create-contentful-app/issues/1641)) ([abe6ce8](https://github.com/contentful/create-contentful-app/commit/abe6ce81ace1c6a61610bb38a07e7f6f343621e1))
+
 # [1.11.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.10.2...@contentful/app-scripts@1.11.0) (2023-08-18)
 
 ### Bug Fixes

@@ -1,7 +1,7 @@
 import { Definition } from "./definition-api";
 import { Organization } from "./organization-api";
 
-interface FunctionAppAction {
+export interface FunctionAppAction {
   id: string;
   name: string;
   description: string;
@@ -12,7 +12,14 @@ interface FunctionAppAction {
   entryFile?: string;
 }
 
-export type ManifestAppActions = FunctionAppAction[];
+export interface DeliveryFunction {
+  id: string;
+  name: string;
+  description: string;
+  path: string;
+  allowNetworks?: string[];
+  entryFile?: string;
+}
 
 export interface ActivateOptions {
   bundleId: string;
@@ -70,5 +77,6 @@ export interface UploadSettings {
   skipActivation?: boolean;
   userAgentApplication?: string;
   host?: string;
-  actions?: ManifestAppActions;
+  actions?: FunctionAppAction[];
+  deliveryFunctions?: DeliveryFunction[];
 }

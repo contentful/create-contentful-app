@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha ./src/**/*.test.ts",
+    "test": "mocha \"./{,!(node_modules)/**/}*.test.js\" --exit",
     "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
     "build": "tsc"

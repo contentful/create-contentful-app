@@ -68,9 +68,8 @@ describe('removeProtocolFromUrl', () => {
   });
 });
 
-describe('getActionsManifest', () => {
+describe('get actions from manifest', () => {
   let exitStub: SinonStub, consoleLog: SinonStub;
-  const DEFAULT_MANIFEST_PATH = 'path/to/manifest';
 
   const actionMock = {
     name: 'name',
@@ -94,7 +93,7 @@ describe('getActionsManifest', () => {
     red: stub(),
   };
 
-  const { getActionsManifest } = proxyquire('./utils', { fs, chalk });
+  const { getEntityFromManifest } = proxyquire('./utils', { fs, chalk });
 
   beforeEach(() => {
     exitStub = stub(process, 'exit');
@@ -108,7 +107,7 @@ describe('getActionsManifest', () => {
   it('should return undefined if manifest does not exist', () => {
     fs.existsSync.returns(false);
 
-    const result = getActionsManifest(DEFAULT_MANIFEST_PATH);
+    const result = getEntityFromManifest('actions');
 
     assert.equal(result, undefined);
   });
@@ -117,7 +116,7 @@ describe('getActionsManifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(JSON.stringify({ actions: [] }));
 
-    const result = getActionsManifest(DEFAULT_MANIFEST_PATH);
+    const result = getEntityFromManifest('actions');
     assert.equal(result, undefined);
   });
 
@@ -126,10 +125,10 @@ describe('getActionsManifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         actions: [actionMock],
-      })
+      }),
     );
 
-    const result = getActionsManifest();
+    const result = getEntityFromManifest('actions');
 
     assert.deepEqual(result, [resultMock]);
     assert.ok(consoleLog.called);
@@ -146,10 +145,10 @@ describe('getActionsManifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         actions: [mockAction],
-      })
+      }),
     );
 
-    const result = getActionsManifest();
+    const result = getEntityFromManifest('actions');
 
     assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
     assert.ok(consoleLog.called);
@@ -160,10 +159,10 @@ describe('getActionsManifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         actions: [actionMock],
-      })
+      }),
     );
 
-    const result = getActionsManifest();
+    const result = getEntityFromManifest('actions');
 
     assert.notDeepEqual(result, [actionMock]);
   });
@@ -179,10 +178,10 @@ describe('getActionsManifest', () => {
             allowNetworks: ['412.1.1.1'],
           },
         ],
-      })
+      }),
     );
 
-    getActionsManifest();
+    getEntityFromManifest('actions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });
@@ -191,7 +190,133 @@ describe('getActionsManifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.throws();
 
-    getActionsManifest();
+    getEntityFromManifest('actions');
+
+    assert.ok(exitStub.calledOnceWith(1));
+  });
+});
+
+describe('get delivery functions from manifest', () => {
+  let exitStub: SinonStub, consoleLog: SinonStub;
+
+  const deliveryFnMock = {
+    id: 'test',
+    name: 'name',
+    description: 'descriptoin',
+    path: 'delivery-functions/mock.js',
+    entryFile: './delivery-functions/mock.ts',
+    allowNetworks: ['127.0.0.1', 'some.domain.tld'],
+  };
+  // eslint-disable-next-line no-unused-vars
+  const { entryFile: _, ...resultMock } = deliveryFnMock;
+
+  const fs = {
+    existsSync: stub(),
+    readFileSync: stub(),
+  };
+  const chalk = {
+    bold: stub(),
+    red: stub(),
+  };
+
+  const { getEntityFromManifest } = proxyquire('./utils', { fs, chalk });
+
+  beforeEach(() => {
+    exitStub = stub(process, 'exit');
+    consoleLog = stub(console, 'log');
+  });
+  afterEach(() => {
+    exitStub.restore();
+    consoleLog.restore();
+  });
+
+  it('should return undefined if manifest does not exist', () => {
+    fs.existsSync.returns(false);
+
+    const result = getEntityFromManifest('deliveryFunctions');
+
+    assert.equal(result, undefined);
+  });
+
+  it('should return undefined if manifest has no delivery functions', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(JSON.stringify({ deliveryFunctions: [] }));
+
+    const result = getEntityFromManifest('deliveryFunctions');
+    assert.equal(result, undefined);
+  });
+
+  it('should return an array of delivery functions if manifest is valid', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(
+      JSON.stringify({
+        deliveryFunctions: [deliveryFnMock],
+      }),
+    );
+
+    const result = getEntityFromManifest('deliveryFunctions');
+
+    assert.deepEqual(result, [resultMock]);
+    assert.ok(consoleLog.called);
+  });
+
+  it('should strip the protocol when a domain has a protocol in allowNetworks', () => {
+    const mockDeliveryFn = {
+      ...deliveryFnMock,
+      allowNetworks: ['http://some.domain.tld'],
+    };
+    // eslint-disable-next-line no-unused-vars
+    const { entryFile: _, ...resultMock } = mockDeliveryFn;
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(
+      JSON.stringify({
+        deliveryFunctions: [mockDeliveryFn],
+      }),
+    );
+
+    const result = getEntityFromManifest('deliveryFunctions');
+
+    assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
+    assert.ok(consoleLog.called);
+  });
+
+  it('should return an array of delivery functions without entryFile prop if manifest is valid', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(
+      JSON.stringify({
+        deliveryFunctions: [deliveryFnMock],
+      }),
+    );
+
+    const result = getEntityFromManifest('deliveryFunctions');
+
+    assert.notDeepEqual(result, [deliveryFnMock]);
+  });
+
+  it('should exit with error if invalid network is found in allowNetworks', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(
+      JSON.stringify({
+        deliveryFunctions: [
+          {
+            name: 'test resolver fn',
+            entryFile: 'entry1',
+            allowNetworks: ['412.1.1.1'],
+          },
+        ],
+      }),
+    );
+
+    getEntityFromManifest('deliveryFunctions');
+
+    assert.ok(exitStub.calledOnceWith(1));
+  });
+
+  it('should exit with error if manifest is invalid JSON', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.throws();
+
+    getEntityFromManifest('deliveryFunctions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });

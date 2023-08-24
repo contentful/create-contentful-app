@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { getAppInfo } from '../get-app-info';
 import { validateArguments } from '../validate-arguments';
-import { getActionsManifest } from '../utils';
+import { getEntityFromManifest } from '../utils';
 import { UploadOptions, UploadSettings } from '../types';
 
 const requiredOptions = {
@@ -14,7 +14,8 @@ const requiredOptions = {
 
 export async function getUploadSettingsArgs(options: UploadOptions): Promise<UploadSettings> {
   const validateSpinner = ora('Validating your input...').start();
-  const actionsManifest = getActionsManifest();
+  const actionsManifest = getEntityFromManifest('actions');
+  const deliveryFnManifest = getEntityFromManifest('deliveryFunctions');
   const { bundleDir, comment, skipActivation, host, userAgentApplication } = options;
 
   try {
@@ -28,6 +29,7 @@ export async function getUploadSettingsArgs(options: UploadOptions): Promise<Upl
       host,
       userAgentApplication,
       actions: actionsManifest,
+      deliveryFunctions: deliveryFnManifest,
     };
   } catch (err: any) {
     console.log(`

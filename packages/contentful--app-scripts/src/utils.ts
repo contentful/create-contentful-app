@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
-import { ManifestAppActions } from './types';
+import { DeliveryFunction, FunctionAppAction } from './types';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -38,6 +38,14 @@ export const showCreationError = (subject: string, message: string) => {
     `);
 };
 
+const logProgress = (message: string) => {
+  console.log('');
+  console.log(`  ----------------------------
+  ${message}
+  ----------------------------`);
+  console.log('');
+};
+
 export const throwError = (err: Error, message: string) => {
   console.log(`
 ${chalk.red('Error:')} ${message}.
@@ -57,10 +65,8 @@ export const selectFromList = async <T extends (Definition | Organization)>(
   const cachedElement = list.find((item) => item.value === cachedEnvVar);
 
   if (cachedElement) {
-    console.log(`
-  ${message}
-  Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})
-    `);
+    logProgress(`${message}
+      Using environment variable: ${cachedElement.name} (${chalk.blue(cachedElement.value)})`);
     return cachedElement;
   } else {
     const { elementId } = await inquirer.prompt([
@@ -80,7 +86,9 @@ export const selectFromList = async <T extends (Definition | Organization)>(
   }
 };
 
-export function getActionsManifest() {
+type Entities<Type> = Type extends 'actions' ? Omit<FunctionAppAction, 'entryFile'>[] : Omit<DeliveryFunction, 'entryFile'>[];
+
+export function getEntityFromManifest<Type extends 'actions' | 'deliveryFunctions'>(type: Type): Entities<Type> | undefined {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
   if (!isManifestExists) {
@@ -90,19 +98,19 @@ export function getActionsManifest() {
   try {
     const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
 
-    if (!Array.isArray(manifest.actions) || manifest.actions.length === 0) {
+    if (!Array.isArray(manifest[type]) || manifest[type].length === 0) {
       return;
     }
 
-    console.log('');
-    console.log(`  ----------------------------
-  App actions manifest found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.
-  ----------------------------`);
-    console.log('');
+    logProgress(
+      `${type === 'actions' ? 'App Actions' : 'Delivery functions'} found in ${chalk.bold(
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
+    );
 
-    const actions = (manifest.actions as ManifestAppActions).map((action) => {
-      const allowNetworks = Array.isArray(action.allowNetworks)
-        ? action.allowNetworks.map(stripProtocol)
+    const items = (manifest[type] as FunctionAppAction[] | DeliveryFunction[]).map((item) => {
+      const allowNetworks = Array.isArray(item.allowNetworks)
+        ? item.allowNetworks.map(stripProtocol)
         : [];
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
@@ -110,24 +118,25 @@ export function getActionsManifest() {
         console.log(
           `${chalk.red(
             'Error:',
-          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for action "${
-            action.name
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
+            item.name
           }".`,
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
       }
 
-      // EntryFile is not used but we do want to strip it from action
-      const { entryFile: _, ...actionWithoutEntryFile } = action;
+      // EntryFile is not used but we do want to strip it
+      // eslint-disable-next-line no-unused-vars
+      const { entryFile: _, ...itemWithoutEntryFile } = item;
 
       return {
-        ...actionWithoutEntryFile,
+        ...itemWithoutEntryFile,
         allowNetworks,
       };
     });
 
-    return actions;
+    return items as Entities<Type>;
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(

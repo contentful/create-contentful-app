@@ -7,7 +7,7 @@ import { createAppUpload } from './create-app-upload';
 import { UploadSettings } from '../types';
 
 export async function createAppBundleFromUpload(settings: UploadSettings, appUploadId: string) {
-  const { accessToken, host, userAgentApplication, comment, actions } = settings;
+  const { accessToken, host, userAgentApplication, comment, actions, deliveryFunctions } = settings;
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({
     accessToken,
@@ -25,6 +25,7 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       appUploadId,
       comment: comment && comment.length > 0 ? comment : undefined,
       actions,
+      deliveryFunctions,
     });
   } catch (err: any) {
     showCreationError('app upload', err.message);
@@ -42,7 +43,7 @@ export async function createAppBundleFromSettings(settings: UploadSettings) {
 
     console.log(`
   ${chalk.yellow('Done!')} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
-      appUpload.sys.id
+      appUpload.sys.id,
     )}) has been created.`);
   } catch (err: any) {
     return showCreationError('app upload', err.message);
@@ -56,7 +57,7 @@ export async function createAppBundleFromSettings(settings: UploadSettings) {
 
   console.log(`
   ${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
-    settings.definition.name
+    settings.definition.name,
   )} in ${chalk.bold(settings.organization.name)}.
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}

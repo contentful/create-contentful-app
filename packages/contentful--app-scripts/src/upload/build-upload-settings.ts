@@ -1,11 +1,12 @@
 import { prompt } from 'inquirer';
 import { getAppInfo } from '../get-app-info';
-import { getActionsManifest } from '../utils';
+import { getEntityFromManifest } from '../utils';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { UploadOptions, UploadSettings } from '../types';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
-  const actionsManifest = getActionsManifest();
+  const actionsManifest = getEntityFromManifest('actions');
+  const deliveryFnManifest = getEntityFromManifest('deliveryFunctions');
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
@@ -49,6 +50,7 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     comment,
     host,
     actions: actionsManifest,
+    deliveryFunctions: deliveryFnManifest,
     ...appUploadSettings,
     ...appInfo,
   };
