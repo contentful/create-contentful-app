@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
-import { FunctionAppAction } from './types';
+import { ManifestAppActions } from './types';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -100,7 +100,7 @@ export function getActionsManifest() {
   ----------------------------`);
     console.log('');
 
-    const actions = (manifest.actions as FunctionAppAction[]).map((action) => {
+    const actions = (manifest.actions as ManifestAppActions).map((action) => {
       const allowNetworks = Array.isArray(action.allowNetworks)
         ? action.allowNetworks.map(stripProtocol)
         : [];
