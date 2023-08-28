@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-// @ts-ignore JSON import error
-import { version } from '../package.json';
 
 import { createAppDefinition, upload, activate, cleanup, open, track } from './index';
 
@@ -14,6 +12,7 @@ async function runCommand(command: Command, options?: any) {
 }
 
 (async function main() {
+  const version = process.env.npm_package_version as string;
   program.version(version).option('--ci', 'Execute in non-interactive mode', false);
 
   program
