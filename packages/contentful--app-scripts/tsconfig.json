@@ -2,6 +2,7 @@
   "extends": "@tsconfig/node14/tsconfig.json",
   "exclude": ["node_modules", "**/*.test.ts"],
   "compilerOptions": {
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "declaration": true
   }
 }
