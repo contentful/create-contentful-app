@@ -14,6 +14,7 @@
     "npm": ">=6"
   },
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -21,28 +22,26 @@
     ]
   },
   "bin": {
-    "contentful-app-scripts": "bin/app-scripts"
+    "contentful-app-scripts": "lib/bin.js"
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
-    "lint": "eslint ./lib",
+    "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha \"./{,!(node_modules)/**/}*.test.js\" --exit",
     "test:watch": "npm t -- --watch",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "build": "tsc"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
   "directories": {
-    "lib": "lib",
-    "bin": "bin"
+    "lib": "lib"
   },
   "files": [
-    "lib",
-    "bin",
-    "utils"
+    "lib"
   ],
   "publishConfig": {
     "access": "public"
@@ -61,5 +60,18 @@
     "open": "8.4.2",
     "ora": "5.4.1"
   },
-  "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
+  "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42",
+  "devDependencies": {
+    "@tsconfig/node14": "14.1.0",
+    "@types/adm-zip": "0.5.0",
+    "@types/analytics-node": "3.1.11",
+    "@types/inquirer": "8.2.1",
+    "@types/lodash": "4.14.197",
+    "@types/mocha": "10.0.1",
+    "@types/proxyquire": "1.3.28",
+    "@types/sinon": "10.0.16",
+    "proxyquire": "2.1.3",
+    "sinon": "15.2.0",
+    "ts-node": "10.9.1"
+  }
 }
