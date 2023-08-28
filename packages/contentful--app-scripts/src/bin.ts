@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
+// @ts-ignore JSON import error
 import { version } from '../package.json';
 
 import { createAppDefinition, upload, activate, cleanup, open, track } from './index';

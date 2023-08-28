@@ -2,7 +2,6 @@
   "extends": "@tsconfig/node14/tsconfig.json",
   "exclude": ["node_modules", "**/*.test.ts"],
   "compilerOptions": {
-    "resolveJsonModule": true,
     "outDir": "./lib"
   }
 }
