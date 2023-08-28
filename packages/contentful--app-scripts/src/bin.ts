@@ -12,7 +12,7 @@ async function runCommand(command: Command, options?: any) {
 }
 
 (async function main() {
-  const version = process.env.npm_package_version as string;
+  const version = process.env.npm_package_version ?? '';
   program.version(version).option('--ci', 'Execute in non-interactive mode', false);
 
   program
