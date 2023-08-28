@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-const { program } = require('commander');
-const { version } = require('../package.json');
+import { program } from 'commander';
+import { version } from '../package.json';
 
-const { createAppDefinition, upload, activate, cleanup, open, track } = require('../lib');
+import { createAppDefinition, upload, activate, cleanup, open, track } from './index';
 
-async function runCommand(command, options) {
+type Command = typeof createAppDefinition | typeof upload | typeof activate | typeof cleanup | typeof open;
+
+async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
   return ci ? await command.nonInteractive(options) : await command.interactive(options);
 }
@@ -16,8 +18,8 @@ async function runCommand(command, options) {
   program
     .command('create-app-definition')
     .description('Create a new AppDefinition for an App')
-    .action(async (options) => {
-      await runCommand(createAppDefinition, options);
+    .action(async () => {
+      await runCommand(createAppDefinition);
     });
 
   program
@@ -67,7 +69,7 @@ async function runCommand(command, options) {
     });
 
   program.hook('preAction', (thisCommand) => {
-    track({ command: thisCommand.args[0], ci: `${thisCommand._optionValues.ci}` });
+    track({ command: thisCommand.args[0], ci: `${thisCommand.opts().ci}` });
   });
 
   await program.parseAsync(process.argv);

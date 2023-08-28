@@ -7,10 +7,10 @@ const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
  *
  * @param {object} properties tracking properties
  * @param {string} properties.command triggered command e.g create-app-definition, upload, etc.
- * @param {boolean} properties.ci value if --ci flag has been set
+ * @param {string} properties.ci value if --ci flag has been set
  * @returns
  */
-export function track(properties: { command: string; ci: boolean; }) {
+export function track(properties: { command: string; ci: string; }) {
   if (process.env.DISABLE_ANALYTICS) {
     return;
   }

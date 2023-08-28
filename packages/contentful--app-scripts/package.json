@@ -21,7 +21,7 @@
     ]
   },
   "bin": {
-    "contentful-app-scripts": "bin/app-scripts"
+    "contentful-app-scripts": "lib/src/bin.js"
   },
   "scripts": {
     "prettier": "prettier **/*.js --write --ignore-path .gitignore",
@@ -37,13 +37,10 @@
   },
   "homepage": "https://github.com/contentful/create-contentful-app#readme",
   "directories": {
-    "lib": "lib",
-    "bin": "bin"
+    "lib": "lib"
   },
   "files": [
-    "lib",
-    "bin",
-    "utils"
+    "lib"
   ],
   "publishConfig": {
     "access": "public"
