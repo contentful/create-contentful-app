@@ -63,7 +63,7 @@
     "@types/analytics-node": "^3.1.9",
     "@types/chai-as-promised": "^7.1.5",
     "@types/chalk": "2.2.0",
-    "@types/degit": "2.8.3",
+    "@types/degit": "2.8.4",
     "@types/inquirer": "8.2.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "14.18.63",
