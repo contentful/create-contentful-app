@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
-import { CONTENTFUL_APP_MANIFEST } from './constants';
+import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
 import degit from 'degit';
 import { highlight } from './logger';
 import { getAddBuildCommandFn } from './utils/package';
@@ -56,6 +56,7 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
     });
 
     await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
+    await d.remove(appActionDirectoryPath, destination, { action: 'remove', files: IGNORED_CLONED_FILES })
   } catch (e) {
     console.log(e);
     process.exit(1);
