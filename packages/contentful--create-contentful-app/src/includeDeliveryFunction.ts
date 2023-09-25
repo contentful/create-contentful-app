@@ -1,6 +1,6 @@
 import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
-import { CONTENTFUL_APP_MANIFEST } from './constants';
+import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
 import degit from 'degit';
 import { highlight } from './logger';
 import { exists, mergeJsonIntoFile } from './utils/file';
@@ -22,7 +22,7 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
 
     const deliveryFunctionDirectoryPath = resolve(`${destination}/delivery-functions`);
 
-    const d = await degit(templateSource, { mode: 'tar', cache: false });
+    const d = degit(templateSource, { mode: 'tar', cache: false });
     await d.clone(deliveryFunctionDirectoryPath);
 
     // merge the manifest from the template folder to the root folder
@@ -55,6 +55,8 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
     });
 
     await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
+
+    await d.remove(deliveryFunctionDirectoryPath, destination, { action: "remove", files: IGNORED_CLONED_FILES });
   } catch (e) {
     console.error(e);
     process.exit(1);
