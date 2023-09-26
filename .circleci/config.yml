@@ -65,6 +65,22 @@ commands:
             cd test
             npm t
 
+  test-built-actions-delivery-functions:
+    steps:
+      - checkout
+      - install-deps
+      - build
+      - run:
+          name: Run build with actions and delivery functions
+          command: |
+            FORMER_CWD="$(pwd)"
+            PROJECT=test-$(date +%s)
+            mkdir "/tmp/${PROJECT}"
+            cd "/tmp/${PROJECT}"
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-delivery-function --typescript --action --delivery-function
+            cd my-action-delivery-function
+            npm run build
+
   prepare-release:
     steps:
       - checkout
@@ -120,6 +136,11 @@ jobs:
     steps:
       - test-built-app
 
+  test-built-app-18-actions-delivery-functions:
+    executor: node-container-18
+    steps:
+      - test-built-actions-delivery-functions
+
 workflows:
   test:
     jobs:
@@ -149,6 +170,9 @@ workflows:
             - vault
           requires:
             - lint-and-test-18
+      - test-built-app-18-actions-delivery-functions:
+          context:
+            - vault
 
       - release:
           context:
@@ -160,6 +184,7 @@ workflows:
             - test-built-app-14
             - test-built-app-16
             - test-built-app-18
+            - test-built-app-18-actions-delivery-functions
 
       - release-canary:
           context:
@@ -171,3 +196,4 @@ workflows:
             - test-built-app-14
             - test-built-app-16
             - test-built-app-18
+            - test-built-app-18-actions-delivery-functions
