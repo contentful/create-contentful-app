@@ -56,7 +56,7 @@ export async function cloneAppAction(destination: string, templateIsTypescript: 
     });
 
     await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
-    await d.remove(appActionDirectoryPath, destination, { action: 'remove', files: IGNORED_CLONED_FILES })
+    await d.remove(appActionDirectoryPath, destination, { action: 'remove', files: IGNORED_CLONED_FILES.map(fileName => `${appActionDirectoryPath}/${fileName}`) })
   } catch (e) {
     console.log(e);
     process.exit(1);
