@@ -56,7 +56,7 @@ export async function cloneDeliveryFunction(destination: string, templateIsTypes
 
     await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
 
-    await d.remove(deliveryFunctionDirectoryPath, destination, { action: "remove", files: IGNORED_CLONED_FILES });
+    await d.remove(deliveryFunctionDirectoryPath, destination, { action: "remove", files: IGNORED_CLONED_FILES.map(fileName => `${deliveryFunctionDirectoryPath}/${fileName}`) });
   } catch (e) {
     console.error(e);
     process.exit(1);
