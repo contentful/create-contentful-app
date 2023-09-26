@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.10.0...@contentful/create-contentful-app@1.10.1) (2023-09-26)
+
+### Bug Fixes
+
+- cleanup broke build script ([#1700](https://github.com/contentful/create-contentful-app/issues/1700)) ([dd994b0](https://github.com/contentful/create-contentful-app/commit/dd994b00c8ab750832f401faa2f1ea208313c9f2))
+- **deps:** bump contentful-management from 10.46.2 to 10.46.3 ([#1695](https://github.com/contentful/create-contentful-app/issues/1695)) ([bc1be4a](https://github.com/contentful/create-contentful-app/commit/bc1be4a4678cb207a903e0538d28caeaad25b3c4))
+- **deps:** bump rimraf from 5.0.1 to 5.0.4 ([#1699](https://github.com/contentful/create-contentful-app/issues/1699)) ([4597886](https://github.com/contentful/create-contentful-app/commit/459788623118b0603972338980749d54495e809a))
+
 # [1.10.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.9.2...@contentful/create-contentful-app@1.10.0) (2023-09-25)
 
 ### Bug Fixes
