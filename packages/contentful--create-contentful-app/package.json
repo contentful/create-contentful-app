@@ -44,7 +44,7 @@
     "inquirer": "8.2.6",
     "merge-options": "^3.0.4",
     "node-fetch": "2.6.7",
-    "rimraf": "5.0.4",
+    "rimraf": "5.0.5",
     "tildify": "2.0.0",
     "validate-npm-package-name": "5.0.0"
   },
