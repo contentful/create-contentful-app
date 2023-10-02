@@ -6,8 +6,8 @@
 
 # Requirements
 
-- Node.js v14.15, v16.16 or v18.12
-- npm v6 or later
+- Node.js v18.12 or later
+- npm v9 or later
 
 # Usage
 
@@ -57,14 +57,13 @@ These flags are mutually exclusive. If no flag is provided, the TypeScript templ
 
 Some popular templates are:
 
-| Template                                                                                                     | CLI Command                                                                                                                          |
-| ------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- |
-| [typescript](https://github.com/contentful/apps/tree/master/examples/typescript)                             | `yarn create contentful-app -ts`                                                                                                     |
-| [javascript](https://github.com/contentful/apps/tree/master/examples/javascript)                             | `yarn create contentful-app -js`                                                                                                     |
-| [nextjs](https://github.com/contentful/apps/tree/master/examples/nextjs)                                     | `yarn create contentful-app --example nextjs`                                                                                        |
-| [vite-react](https://github.com/contentful/apps/tree/master/examples/vite-react)                             | `yarn create contentful-app --example vite-react`                                                                                    |
-| [vue](https://github.com/contentful/apps/tree/master/examples/vue)                                           | `yarn create contentful-app --example vue`                                                                                    |
-
+| Template                                                                         | CLI Command                                       |
+| -------------------------------------------------------------------------------- | :------------------------------------------------ |
+| [typescript](https://github.com/contentful/apps/tree/master/examples/typescript) | `yarn create contentful-app -ts`                  |
+| [javascript](https://github.com/contentful/apps/tree/master/examples/javascript) | `yarn create contentful-app -js`                  |
+| [nextjs](https://github.com/contentful/apps/tree/master/examples/nextjs)         | `yarn create contentful-app --example nextjs`     |
+| [vite-react](https://github.com/contentful/apps/tree/master/examples/vite-react) | `yarn create contentful-app --example vite-react` |
+| [vue](https://github.com/contentful/apps/tree/master/examples/vue)               | `yarn create contentful-app --example vue`        |
 
 ### Help
 
