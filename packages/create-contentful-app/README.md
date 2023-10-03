@@ -6,8 +6,8 @@
 
 # Requirements
 
-- Node.js v14.15, v16.16 or v18.12
-- npm v6 or later
+- Node.js v18.12 or later
+- npm v9 or later
 
 # Usage
 
