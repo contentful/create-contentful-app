@@ -108,13 +108,33 @@ If used in the [entry sidebar location](/developers/docs/extensibility/app-frame
 
 Usage:
 
+Field component:
+```tsx
+import { SDKProvider, useFieldValue } from '@contentful/react-apps-toolkit';
+
+function FieldComponentUsingFieldValue() {
+  const [localizedValue, setLocalizedValue] = useFieldValue(sdk.field.id, sdk.field.locale); // specifies the current field and locale
+
+  return <input value={localizedValue} onChange={(e) => setLocalizedValue(e.target.value)} />;
+}
+
+function App() {
+  return (
+    <SDKProvider>
+      <FieldComponentUsingFieldValue />
+    </SDKProvider>
+  );
+}
+```
+
+Sidebar or Entry Editor component:
 ```tsx
 import { SDKProvider, useFieldValue } from '@contentful/react-apps-toolkit';
 
 function ComponentUsingFieldValue() {
-  const [value, setValue] = useFieldValue('slug', 'en-US');
+  const [defaultValue, setDefaultValue] = useFieldValue('slug', sdk.locales.default); // specifies the "slug" field and the environment's default locale
 
-  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+  return <input value={defaultValue} onChange={(e) => setDefaultValue(e.target.value)} />;
 }
 
 function App() {
