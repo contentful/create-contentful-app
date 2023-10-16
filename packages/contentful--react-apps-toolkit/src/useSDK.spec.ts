@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks/native';
 import { useSDK } from './index';
 
 let mockedSdk: string | undefined = 'mocked-sdk';
