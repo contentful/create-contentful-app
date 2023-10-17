@@ -4,20 +4,22 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "test": "lerna run test",
-    "lint": "lerna run lint",
-    "build": "lerna run build",
+    "test": "nx run-many -t test",
+    "lint": "nx run-many -t lint",
+    "build": "nx run-many -t build",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
     "publish": "lerna publish from-git --yes --no-verify-access",
     "version:canary": "npm run version -- --conventional-prerelease",
     "publish:canary": "npm run publish -- --canary",
-    "pre-commit": "lerna run pre-commit",
+    "pre-commit": "nx run-many -t pre-commit",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -29,7 +31,7 @@
     "eslint-plugin-node": "11.1.0",
     "fs-extra": "11.1.1",
     "husky": "8.0.3",
-    "lerna": "6.6.2",
+    "lerna": "7.0.0",
     "lint-staged": "15.0.1",
     "mocha": "10.2.0",
     "nx": "16.10.0",

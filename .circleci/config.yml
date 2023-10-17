@@ -24,7 +24,7 @@ commands:
     steps:
       - run:
           name: Install Dependencies
-          command: npm ci && npm run bootstrap
+          command: npm ci
 
   build:
     steps:

@@ -1,5 +1,5 @@
 import { PageExtensionSDK, SerializedJSONValue } from '@contentful/app-sdk';
-import { act, renderHook, RenderResult } from '@testing-library/react-hooks';
+import { act, renderHook, RenderResult } from '@testing-library/react-hooks/native';
 import { useFieldValue, UseFieldValueReturnValue } from './useFieldValue';
 import { useSDK } from './useSDK';
 
