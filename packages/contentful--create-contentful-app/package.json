@@ -72,7 +72,7 @@
     "@types/sinon": "^10.0.16",
     "@types/sinon-chai": "^3.2.9",
     "@types/tildify": "2.0.2",
-    "@types/validate-npm-package-name": "4.0.0",
+    "@types/validate-npm-package-name": "4.0.1",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "contentful-management": "11.2.0",
