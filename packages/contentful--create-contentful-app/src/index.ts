@@ -114,7 +114,8 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.example &&
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
-      !normalizedOptions.typescript;
+      !normalizedOptions.typescript &&
+      !normalizedOptions.deliveryFunction;
 
     const templateSource = await getTemplateSource(options);
 
@@ -135,7 +136,7 @@ async function initProject(appName: string, options: CLIOptions) {
       isContentfulTemplate(templateSource) &&
       normalizedOptions.deliveryFunction
     ) {
-      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.typescript);
+      await cloneDeliveryFunction(fullAppFolder, !normalizedOptions.javascript);
     }
 
     updatePackageName(fullAppFolder);
