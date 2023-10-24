@@ -114,7 +114,9 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.example &&
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
-      !normalizedOptions.typescript;
+      !normalizedOptions.typescript &&
+      !normalizedOptions.deliveryFunction &&
+      !normalizedOptions.action;
 
     const templateSource = await getTemplateSource(options);
 
@@ -127,7 +129,7 @@ async function initProject(appName: string, options: CLIOptions) {
     await cloneTemplateIn(fullAppFolder, templateSource);
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
-      await cloneAppAction(fullAppFolder, !!normalizedOptions.typescript);
+      await cloneAppAction(fullAppFolder, !!normalizedOptions.javascript);
     }
 
     if (
@@ -135,7 +137,7 @@ async function initProject(appName: string, options: CLIOptions) {
       isContentfulTemplate(templateSource) &&
       normalizedOptions.deliveryFunction
     ) {
-      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.typescript);
+      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.javascript);
     }
 
     updatePackageName(fullAppFolder);

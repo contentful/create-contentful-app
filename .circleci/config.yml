@@ -72,7 +72,7 @@ commands:
             PROJECT=test-$(date +%s)
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-delivery-function --typescript --action --delivery-function
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-delivery-function --action --delivery-function
             cd my-action-delivery-function
             npm run build
 
@@ -125,7 +125,7 @@ jobs:
     executor: node-container-18
     steps:
       - test-built-actions-delivery-functions
-  
+
   test-built-app-20-actions-delivery-functions:
     executor: node-container-20
     steps:
