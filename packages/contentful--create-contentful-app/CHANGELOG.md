@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.10.1...@contentful/create-contentful-app@1.11.0) (2023-10-24)
+
+### Bug Fixes
+
+- **deps:** bump commander from 11.0.0 to 11.1.0 ([#1721](https://github.com/contentful/create-contentful-app/issues/1721)) ([f541912](https://github.com/contentful/create-contentful-app/commit/f541912589c87315cf88c400aa0a41bc04ab1097))
+- **deps:** bump contentful-management from 10.46.3 to 10.46.4 ([#1706](https://github.com/contentful/create-contentful-app/issues/1706)) ([6de0229](https://github.com/contentful/create-contentful-app/commit/6de0229f82246f20776b0400a109eee2c000b10f))
+- **deps:** bump contentful-management from 10.46.4 to 11.0.1 ([#1717](https://github.com/contentful/create-contentful-app/issues/1717)) ([e659604](https://github.com/contentful/create-contentful-app/commit/e659604e5f845be97be8e203e78d00a4252cb244))
+- **deps:** bump contentful-management from 11.0.1 to 11.1.1 ([#1719](https://github.com/contentful/create-contentful-app/issues/1719)) ([20ee86c](https://github.com/contentful/create-contentful-app/commit/20ee86c077e28381a646ea3f39dd8a3c930cc84a))
+- **deps:** bump contentful-management from 11.1.1 to 11.2.0 ([#1720](https://github.com/contentful/create-contentful-app/issues/1720)) ([64eb17d](https://github.com/contentful/create-contentful-app/commit/64eb17dfa3ebfea31fe7465d13e3e8283f6dd687))
+- **deps:** bump rimraf from 5.0.4 to 5.0.5 ([#1703](https://github.com/contentful/create-contentful-app/issues/1703)) ([ca3bac6](https://github.com/contentful/create-contentful-app/commit/ca3bac67b2a4d3dc3db8c6c7b8d8b8893a17a6ee))
+- update READMEs to note new node lts [EXT-4812] ([#1710](https://github.com/contentful/create-contentful-app/issues/1710)) ([a178689](https://github.com/contentful/create-contentful-app/commit/a17868967e95f2c5e0696cd6ccd8cf51f538145a))
+
+### Features
+
+- assume ts for deliveryFunction if no option provided [MONET-1564] ([#1743](https://github.com/contentful/create-contentful-app/issues/1743)) ([aa8a245](https://github.com/contentful/create-contentful-app/commit/aa8a24593df41c98634652ddafe2c3498a606bd0))
+
 ## [1.10.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.10.0...@contentful/create-contentful-app@1.10.1) (2023-09-26)
 
 ### Bug Fixes
