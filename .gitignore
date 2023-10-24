@@ -19,6 +19,8 @@ lerna-debug.log*
 dist
 /dependency-check
 
+.nx
+
 # editors
 .idea
 .vscode
