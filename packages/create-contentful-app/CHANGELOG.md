@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.129](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.2.128...create-contentful-app@1.2.129) (2023-10-24)
+
+### Bug Fixes
+
+- update READMEs to note new node lts [EXT-4812] ([#1710](https://github.com/contentful/create-contentful-app/issues/1710)) ([a178689](https://github.com/contentful/create-contentful-app/commit/a17868967e95f2c5e0696cd6ccd8cf51f538145a))
+
 ## [1.2.128](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.2.127...create-contentful-app@1.2.128) (2023-09-26)
 
 **Note:** Version bump only for package create-contentful-app

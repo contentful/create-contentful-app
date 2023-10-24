@@ -92,6 +92,10 @@ async function makeContentfulExampleSource(options: CLIOptions): Promise<string>
     return selectTemplate(ContentfulExample.Typescript);
   }
 
+  if (options.deliveryFunction || options.action) {
+    return selectTemplate(ContentfulExample.Typescript);
+  }
+
   return await promptExampleSelection();
 }
 
