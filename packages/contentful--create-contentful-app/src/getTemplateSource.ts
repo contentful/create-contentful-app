@@ -3,7 +3,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { CLIOptions, ContentfulExample } from './types';
 import { highlight, warn, wrapInBlanks } from './logger';
-import { EXAMPLES_PATH, TEMPLATES } from './constants';
+import { EXAMPLES_PATH, IGNORED_EXAMPLE_FOLDERS } from './constants';
 import { isContentfulTemplate } from './utils';
 
 const CONTENTFUL_APPS_EXAMPLE_FOLDER =
@@ -14,7 +14,7 @@ async function getGithubFolderNames() {
   const contents = await response.json();
 
   return contents
-    .filter((content: any) => content.type === 'dir' && !TEMPLATES.includes(content.name))
+    .filter((content: any) => content.type === 'dir' && !IGNORED_EXAMPLE_FOLDERS.includes(content.name))
     .map((content: any) => content.name);
 }
 
