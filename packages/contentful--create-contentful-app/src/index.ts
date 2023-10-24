@@ -129,7 +129,7 @@ async function initProject(appName: string, options: CLIOptions) {
     await cloneTemplateIn(fullAppFolder, templateSource);
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
-      await cloneAppAction(fullAppFolder, !normalizedOptions.javascript);
+      await cloneAppAction(fullAppFolder, !!normalizedOptions.javascript);
     }
 
     if (
@@ -137,7 +137,7 @@ async function initProject(appName: string, options: CLIOptions) {
       isContentfulTemplate(templateSource) &&
       normalizedOptions.deliveryFunction
     ) {
-      await cloneDeliveryFunction(fullAppFolder, !normalizedOptions.javascript);
+      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.javascript);
     }
 
     updatePackageName(fullAppFolder);

@@ -11,13 +11,13 @@ const addBuildCommand = getAddBuildCommandFn({
   command: 'node build-delivery-functions.js',
 });
 
-export async function cloneDeliveryFunction(destination: string, templateIsTypescript: boolean) {
+export async function cloneDeliveryFunction(destination: string, templateIsJavascript: boolean) {
   try {
     console.log(highlight('---- Cloning hosted delivery function.'));
     // Clone the delivery function template to the created directory under the folder 'actions'
     const templateSource = join(
       'contentful/apps/examples/hosted-delivery-function-templates',
-      templateIsTypescript ? 'typescript' : 'javascript',
+      templateIsJavascript ? 'javascript' : 'typescript',
     );
 
     const deliveryFunctionDirectoryPath = resolve(`${destination}/delivery-functions`);

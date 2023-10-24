@@ -12,13 +12,13 @@ const addBuildCommand = getAddBuildCommandFn({
   command: 'node build-actions.js',
 });
 
-export async function cloneAppAction(destination: string, templateIsTypescript: boolean) {
+export async function cloneAppAction(destination: string, templateIsJavascript: boolean) {
   try {
     console.log(highlight('---- Cloning hosted app action.'));
     // Clone the app actions template to the created directory under the folder 'actions'
     const templateSource = join(
       'contentful/apps/examples/hosted-app-action-templates',
-      templateIsTypescript ? 'typescript' : 'javascript',
+      templateIsJavascript ? 'javascript' : 'typescript',
     );
 
     const appActionDirectoryPath = resolve(`${destination}/actions`);
