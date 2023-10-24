@@ -115,7 +115,8 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
       !normalizedOptions.typescript &&
-      !normalizedOptions.deliveryFunction;
+      !normalizedOptions.deliveryFunction &&
+      !normalizedOptions.action;
 
     const templateSource = await getTemplateSource(options);
 
@@ -128,7 +129,7 @@ async function initProject(appName: string, options: CLIOptions) {
     await cloneTemplateIn(fullAppFolder, templateSource);
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
-      await cloneAppAction(fullAppFolder, !!normalizedOptions.typescript);
+      await cloneAppAction(fullAppFolder, !normalizedOptions.javascript);
     }
 
     if (
