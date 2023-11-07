@@ -64,7 +64,7 @@
   "devDependencies": {
     "@tsconfig/node14": "14.1.0",
     "@types/adm-zip": "0.5.3",
-    "@types/analytics-node": "3.1.13",
+    "@types/analytics-node": "3.1.14",
     "@types/inquirer": "8.2.1",
     "@types/lodash": "4.14.200",
     "@types/mocha": "10.0.3",
