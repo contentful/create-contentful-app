@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.13.0...@contentful/app-scripts@1.13.1) (2023-11-13)
+
+### Bug Fixes
+
+- **deps:** bump axios from 1.5.1 to 1.6.1 ([#1770](https://github.com/contentful/create-contentful-app/issues/1770)) ([5a32d75](https://github.com/contentful/create-contentful-app/commit/5a32d75d9fe6da0ab399e1a6df00236166b3b99f))
+- **deps:** bump commander from 11.0.0 to 11.1.0 ([#1721](https://github.com/contentful/create-contentful-app/issues/1721)) ([f541912](https://github.com/contentful/create-contentful-app/commit/f541912589c87315cf88c400aa0a41bc04ab1097))
+- **deps:** bump contentful-management from 10.40.1 to 10.41.0 ([#1658](https://github.com/contentful/create-contentful-app/issues/1658)) ([febb3f2](https://github.com/contentful/create-contentful-app/commit/febb3f2a067c0bbf66497fe42c280c35ea10846d))
+- **deps:** bump contentful-management from 10.41.0 to 10.42.0 ([#1660](https://github.com/contentful/create-contentful-app/issues/1660)) ([0a2d7e9](https://github.com/contentful/create-contentful-app/commit/0a2d7e9a3571b6ed00234aec238465c8692b5343))
+- **deps:** bump contentful-management from 10.42.0 to 10.43.0 ([#1663](https://github.com/contentful/create-contentful-app/issues/1663)) ([1b96e28](https://github.com/contentful/create-contentful-app/commit/1b96e28f08e388b2f930b513b9ef23cd510da0a5))
+- **deps:** bump contentful-management from 10.43.0 to 10.44.0 ([#1665](https://github.com/contentful/create-contentful-app/issues/1665)) ([ed4b203](https://github.com/contentful/create-contentful-app/commit/ed4b203b754ac982a7fc6f5324622a161637d8c4))
+- **deps:** bump contentful-management from 10.44.0 to 10.44.1 ([#1667](https://github.com/contentful/create-contentful-app/issues/1667)) ([f6034b8](https://github.com/contentful/create-contentful-app/commit/f6034b8e560072e512eb86f84ced85a2c7fc8623))
+- **deps:** bump contentful-management from 10.44.1 to 10.45.0 ([#1671](https://github.com/contentful/create-contentful-app/issues/1671)) ([475003d](https://github.com/contentful/create-contentful-app/commit/475003d25220ba6a62970d965f86d6d0b17a441c))
+- **deps:** bump contentful-management from 10.45.0 to 10.45.1 ([#1675](https://github.com/contentful/create-contentful-app/issues/1675)) ([38ea08b](https://github.com/contentful/create-contentful-app/commit/38ea08bd9fddd4ad39b196405d4ba84a05941ad0))
+- **deps:** bump contentful-management from 10.45.1 to 10.46.0 ([#1679](https://github.com/contentful/create-contentful-app/issues/1679)) ([3d156ee](https://github.com/contentful/create-contentful-app/commit/3d156ee0fbcc02a4fe8cca83224db38352ebfb3d))
+- **deps:** bump contentful-management from 10.46.0 to 10.46.1 ([#1682](https://github.com/contentful/create-contentful-app/issues/1682)) ([0e97591](https://github.com/contentful/create-contentful-app/commit/0e97591cb2a015e4528d858a3e532bad7c6e47ae))
+- **deps:** bump contentful-management from 10.46.1 to 10.46.2 ([#1684](https://github.com/contentful/create-contentful-app/issues/1684)) ([0409b8b](https://github.com/contentful/create-contentful-app/commit/0409b8bcd89e0f5f15b7721328b137669a873e96))
+- **deps:** bump contentful-management from 10.46.2 to 10.46.3 ([#1695](https://github.com/contentful/create-contentful-app/issues/1695)) ([bc1be4a](https://github.com/contentful/create-contentful-app/commit/bc1be4a4678cb207a903e0538d28caeaad25b3c4))
+- **deps:** bump contentful-management from 10.46.3 to 10.46.4 ([#1706](https://github.com/contentful/create-contentful-app/issues/1706)) ([6de0229](https://github.com/contentful/create-contentful-app/commit/6de0229f82246f20776b0400a109eee2c000b10f))
+- **deps:** bump contentful-management from 10.46.4 to 11.0.1 ([#1717](https://github.com/contentful/create-contentful-app/issues/1717)) ([e659604](https://github.com/contentful/create-contentful-app/commit/e659604e5f845be97be8e203e78d00a4252cb244))
+- **deps:** bump contentful-management from 11.0.1 to 11.1.1 ([#1719](https://github.com/contentful/create-contentful-app/issues/1719)) ([20ee86c](https://github.com/contentful/create-contentful-app/commit/20ee86c077e28381a646ea3f39dd8a3c930cc84a))
+- **deps:** bump contentful-management from 11.1.1 to 11.2.0 ([#1720](https://github.com/contentful/create-contentful-app/issues/1720)) ([64eb17d](https://github.com/contentful/create-contentful-app/commit/64eb17dfa3ebfea31fe7465d13e3e8283f6dd687))
+- **deps:** bump contentful-management from 11.2.0 to 11.3.0 ([#1748](https://github.com/contentful/create-contentful-app/issues/1748)) ([6bc79e0](https://github.com/contentful/create-contentful-app/commit/6bc79e0e45d22d6c8372d83a181899889dff8a4f))
+- **deps:** bump contentful-management from 11.3.0 to 11.4.0 ([#1751](https://github.com/contentful/create-contentful-app/issues/1751)) ([1e39b46](https://github.com/contentful/create-contentful-app/commit/1e39b46670bdac4ea850ee035606e7c99f719ad7))
+- **deps:** bump contentful-management from 11.4.0 to 11.5.0 ([#1764](https://github.com/contentful/create-contentful-app/issues/1764)) ([514aebc](https://github.com/contentful/create-contentful-app/commit/514aebc36adf39719de66b0c43dc7405f8bb4720))
+- **deps:** bump contentful-management from 11.5.0 to 11.5.1 ([#1769](https://github.com/contentful/create-contentful-app/issues/1769)) ([1cafd79](https://github.com/contentful/create-contentful-app/commit/1cafd790857f903966d0666e7b3ec0015fcd9071))
+
 # [1.13.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.12.0...@contentful/app-scripts@1.13.0) (2023-08-28)
 
 ### Bug Fixes
