@@ -52,7 +52,7 @@
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
     "commander": "11.1.0",
-    "contentful-management": "11.5.2",
+    "contentful-management": "11.5.3",
     "dotenv": "16.3.1",
     "ignore": "5.2.4",
     "inquirer": "8.2.6",
