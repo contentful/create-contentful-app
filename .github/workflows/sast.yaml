@@ -1,4 +1,4 @@
-name: SAST (Static Application Security Testing)
+name: SAST (Static Application Security Testing).
 
 on:
   push:
