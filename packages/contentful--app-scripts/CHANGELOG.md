@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.13.1...@contentful/app-scripts@1.13.2) (2023-12-08)
+
+### Bug Fixes
+
+- **deps:** bump @segment/analytics-node from 1.1.3 to 1.1.4 ([#1792](https://github.com/contentful/create-contentful-app/issues/1792)) ([150da6e](https://github.com/contentful/create-contentful-app/commit/150da6eb4ab6b198ea63e7868eac5417abfec2ce))
+- **deps:** bump contentful-management from 11.5.1 to 11.5.2 ([#1776](https://github.com/contentful/create-contentful-app/issues/1776)) ([53db219](https://github.com/contentful/create-contentful-app/commit/53db21958c50883e47ae283e025bab887580245c))
+- **deps:** bump contentful-management from 11.5.2 to 11.5.3 ([#1778](https://github.com/contentful/create-contentful-app/issues/1778)) ([ae37f79](https://github.com/contentful/create-contentful-app/commit/ae37f793c9c173bdea89953385aa3ae3009ffb34))
+- **deps:** bump contentful-management from 11.5.3 to 11.5.4 ([#1782](https://github.com/contentful/create-contentful-app/issues/1782)) ([b28d8b7](https://github.com/contentful/create-contentful-app/commit/b28d8b727b9b5394825220dc3ed5664463ba8783))
+- **deps:** bump contentful-management from 11.5.4 to 11.5.6 ([#1795](https://github.com/contentful/create-contentful-app/issues/1795)) ([5e389cf](https://github.com/contentful/create-contentful-app/commit/5e389cfb46fcd1f896234a21b5df9f5897513950))
+- **deps:** bump contentful-management from 11.5.6 to 11.5.7 ([#1797](https://github.com/contentful/create-contentful-app/issues/1797)) ([df71763](https://github.com/contentful/create-contentful-app/commit/df71763006f58af7c6a8d2e719cbae580144d53f))
+- **deps:** bump contentful-management from 11.5.7 to 11.5.8 ([#1799](https://github.com/contentful/create-contentful-app/issues/1799)) ([24652c4](https://github.com/contentful/create-contentful-app/commit/24652c49e0ee64984803af44dbbad4bf1c1e5e03))
+- **deps:** bump contentful-management from 11.5.8 to 11.6.0 ([#1800](https://github.com/contentful/create-contentful-app/issues/1800)) ([0af57e8](https://github.com/contentful/create-contentful-app/commit/0af57e8cbc8f0d6115f083b93a7328e3aceb94f7))
+- **deps:** bump ignore from 5.2.4 to 5.3.0 ([#1780](https://github.com/contentful/create-contentful-app/issues/1780)) ([f20f17b](https://github.com/contentful/create-contentful-app/commit/f20f17bb827fd5fcce332e3143a89efba612449a))
+- stop org spinner after fetching organizations ([#1801](https://github.com/contentful/create-contentful-app/issues/1801)) ([defa6fa](https://github.com/contentful/create-contentful-app/commit/defa6fa23320a4892c3168cb23d7f2839b13e1da))
+
 ## [1.13.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.13.0...@contentful/app-scripts@1.13.1) (2023-11-13)
 
 ### Bug Fixes
