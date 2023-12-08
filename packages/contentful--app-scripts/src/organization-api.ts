@@ -29,6 +29,7 @@ export async function selectOrganization(client: ClientAPI): Promise<Organizatio
 
   try {
     const organizations = await fetchOrganizations(client);
+    orgSpinner.stop();
     return await selectFromList(organizations, 'Select an organization:', ORG_ID_ENV_KEY);
   } finally {
     orgSpinner.stop();
