@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import ora from 'ora';
-import { showCreationError } from '../utils';
+import { throwCreationError } from '../utils';
 import { createClient } from 'contentful-management';
 
 import { createAppUpload } from './create-app-upload';
@@ -28,7 +28,7 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       deliveryFunctions,
     });
   } catch (err: any) {
-    showCreationError('app upload', err.message);
+    throwCreationError('app upload', err.message);
   }
   bundleSpinner.stop();
   return appBundle;
@@ -46,7 +46,8 @@ export async function createAppBundleFromSettings(settings: UploadSettings) {
       appUpload.sys.id,
     )}) has been created.`);
   } catch (err: any) {
-    return showCreationError('app upload', err.message);
+    throwCreationError('app upload', err.message);
+    return;
   }
 
   console.log('');

@@ -28,7 +28,7 @@ export const stripProtocol = (url: string) => {
   return protocolRemovedUrl.split('/')[0];
 };
 
-export const showCreationError = (subject: string, message: string) => {
+export const throwCreationError = (subject: string, message: string) => {
   console.log(`
     ${chalk.red('Creation error:')}
 
@@ -36,6 +36,8 @@ export const showCreationError = (subject: string, message: string) => {
 
       Message:  ${chalk.red(message)}
     `);
+
+  throw new Error(message)
 };
 
 const logProgress = (message: string) => {

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import AdmZip from 'adm-zip';
-import { showCreationError } from '../utils';
+import { throwCreationError } from '../utils';
 
 export async function createZipFileFromDirectory(path: string) {
   try {
@@ -16,7 +16,6 @@ export async function createZipFileFromDirectory(path: string) {
 
     return zip.toBuffer();
   } catch (err: any) {
-    showCreationError('zip file', err.message);
-    return null;
+    throwCreationError('zip file', err.message);
   }
 }

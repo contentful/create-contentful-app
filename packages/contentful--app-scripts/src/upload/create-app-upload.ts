@@ -1,7 +1,7 @@
 import ora from 'ora';
 import { createZipFileFromDirectory } from './create-zip-from-directory';
 import { validateBundle } from './validate-bundle';
-import { showCreationError } from '../utils';
+import { throwCreationError } from '../utils';
 import { createClient } from 'contentful-management';
 import { UploadSettings } from '../types';
 
@@ -29,7 +29,7 @@ export async function createAppUpload(settings: UploadSettings) {
       settings.host
     );
   } catch (err: any) {
-    showCreationError('app bundle', err.message);
+    throwCreationError('app bundle', err.message);
   }
 
   uploadSpinner.stop();
