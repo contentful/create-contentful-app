@@ -75,7 +75,7 @@
     "@types/validate-npm-package-name": "4.0.2",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "contentful-management": "11.12.0",
+    "contentful-management": "11.12.1",
     "mocha": "^10.2.0",
     "sinon": "^17.0.0",
     "sinon-chai": "^3.7.0",
