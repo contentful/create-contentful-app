@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
-import { DeliveryFunction, FunctionAppAction } from './types';
+import { ContentfulFunction, FunctionAppAction } from './types';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -86,9 +86,9 @@ export const selectFromList = async <T extends (Definition | Organization)>(
   }
 };
 
-type Entities<Type> = Type extends 'actions' ? Omit<FunctionAppAction, 'entryFile'>[] : Omit<DeliveryFunction, 'entryFile'>[];
+type Entities<Type> = Type extends 'actions' ? Omit<FunctionAppAction, 'entryFile'>[] : Omit<ContentfulFunction, 'entryFile'>[];
 
-export function getEntityFromManifest<Type extends 'actions' | 'deliveryFunctions'>(type: Type): Entities<Type> | undefined {
+export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type: Type): Entities<Type> | undefined {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
   if (!isManifestExists) {
@@ -103,12 +103,12 @@ export function getEntityFromManifest<Type extends 'actions' | 'deliveryFunction
     }
 
     logProgress(
-      `${type === 'actions' ? 'App Actions' : 'Delivery functions'} found in ${chalk.bold(
+      `${type === 'actions' ? 'App Actions' : 'functions'} found in ${chalk.bold(
         DEFAULT_MANIFEST_PATH,
       )}.`,
     );
 
-    const items = (manifest[type] as FunctionAppAction[] | DeliveryFunction[]).map((item) => {
+    const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
         ? item.allowNetworks.map(stripProtocol)
         : [];

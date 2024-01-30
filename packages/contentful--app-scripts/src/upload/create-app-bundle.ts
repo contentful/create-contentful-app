@@ -7,7 +7,7 @@ import { createAppUpload } from './create-app-upload';
 import { UploadSettings } from '../types';
 
 export async function createAppBundleFromUpload(settings: UploadSettings, appUploadId: string) {
-  const { accessToken, host, userAgentApplication, comment, actions, deliveryFunctions } = settings;
+  const { accessToken, host, userAgentApplication, comment, actions, functions } = settings;
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({
     accessToken,
@@ -25,7 +25,8 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       appUploadId,
       comment: comment && comment.length > 0 ? comment : undefined,
       actions,
-      deliveryFunctions,
+      // TO DO: update once https://github.com/contentful/contentful-management.js/pull/2154 is merged.
+      deliveryFunctions: functions,
     });
   } catch (err: any) {
     showCreationError('app upload', err.message);

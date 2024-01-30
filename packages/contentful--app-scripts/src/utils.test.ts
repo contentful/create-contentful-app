@@ -196,19 +196,19 @@ describe('get actions from manifest', () => {
   });
 });
 
-describe('get delivery functions from manifest', () => {
+describe('get functions from manifest', () => {
   let exitStub: SinonStub, consoleLog: SinonStub;
 
-  const deliveryFnMock = {
+  const functionMock = {
     id: 'test',
     name: 'name',
     description: 'descriptoin',
-    path: 'delivery-functions/mock.js',
-    entryFile: './delivery-functions/mock.ts',
+    path: 'functions/mock.js',
+    entryFile: './functions/mock.ts',
     allowNetworks: ['127.0.0.1', 'some.domain.tld'],
   };
   // eslint-disable-next-line no-unused-vars
-  const { entryFile: _, ...resultMock } = deliveryFnMock;
+  const { entryFile: _, ...resultMock } = functionMock;
 
   const fs = {
     existsSync: stub(),
@@ -233,71 +233,71 @@ describe('get delivery functions from manifest', () => {
   it('should return undefined if manifest does not exist', () => {
     fs.existsSync.returns(false);
 
-    const result = getEntityFromManifest('deliveryFunctions');
+    const result = getEntityFromManifest('functions');
 
     assert.equal(result, undefined);
   });
 
-  it('should return undefined if manifest has no delivery functions', () => {
+  it('should return undefined if manifest has no functions', () => {
     fs.existsSync.returns(true);
-    fs.readFileSync.returns(JSON.stringify({ deliveryFunctions: [] }));
+    fs.readFileSync.returns(JSON.stringify({ functions: [] }));
 
-    const result = getEntityFromManifest('deliveryFunctions');
+    const result = getEntityFromManifest('functions');
     assert.equal(result, undefined);
   });
 
-  it('should return an array of delivery functions if manifest is valid', () => {
+  it('should return an array of functions if manifest is valid', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(
       JSON.stringify({
-        deliveryFunctions: [deliveryFnMock],
+        functions: [functionMock],
       }),
     );
 
-    const result = getEntityFromManifest('deliveryFunctions');
+    const result = getEntityFromManifest('functions');
 
     assert.deepEqual(result, [resultMock]);
     assert.ok(consoleLog.called);
   });
 
   it('should strip the protocol when a domain has a protocol in allowNetworks', () => {
-    const mockDeliveryFn = {
-      ...deliveryFnMock,
+    const mockFn = {
+      ...functionMock,
       allowNetworks: ['http://some.domain.tld'],
     };
     // eslint-disable-next-line no-unused-vars
-    const { entryFile: _, ...resultMock } = mockDeliveryFn;
+    const { entryFile: _, ...resultMock } = mockFn;
     fs.existsSync.returns(true);
     fs.readFileSync.returns(
       JSON.stringify({
-        deliveryFunctions: [mockDeliveryFn],
+        functions: [mockFn],
       }),
     );
 
-    const result = getEntityFromManifest('deliveryFunctions');
+    const result = getEntityFromManifest('functions');
 
     assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
     assert.ok(consoleLog.called);
   });
 
-  it('should return an array of delivery functions without entryFile prop if manifest is valid', () => {
+  it('should return an array of functions without entryFile prop if manifest is valid', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(
       JSON.stringify({
-        deliveryFunctions: [deliveryFnMock],
+        functions: [functionMock],
       }),
     );
 
-    const result = getEntityFromManifest('deliveryFunctions');
+    const result = getEntityFromManifest('functions');
 
-    assert.notDeepEqual(result, [deliveryFnMock]);
+    assert.notDeepEqual(result, [functionMock]);
   });
 
   it('should exit with error if invalid network is found in allowNetworks', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(
       JSON.stringify({
-        deliveryFunctions: [
+        functions: [
           {
             name: 'test resolver fn',
             entryFile: 'entry1',
@@ -307,7 +307,7 @@ describe('get delivery functions from manifest', () => {
       }),
     );
 
-    getEntityFromManifest('deliveryFunctions');
+    getEntityFromManifest('functions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });
@@ -316,7 +316,7 @@ describe('get delivery functions from manifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.throws();
 
-    getEntityFromManifest('deliveryFunctions');
+    getEntityFromManifest('functions');
 
     assert.ok(exitStub.calledOnceWith(1));
   });

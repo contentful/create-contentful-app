@@ -17,7 +17,7 @@ import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants'
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
 import { cloneAppAction } from './includeAppAction';
-import { cloneDeliveryFunction } from './includeDeliveryFunction';
+import { cloneFunction } from './includeFunction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -115,7 +115,7 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
       !normalizedOptions.typescript &&
-      !normalizedOptions.deliveryFunction &&
+      !normalizedOptions.function &&
       !normalizedOptions.action;
 
     const templateSource = await getTemplateSource(options);
@@ -135,9 +135,9 @@ async function initProject(appName: string, options: CLIOptions) {
     if (
       !isInteractive &&
       isContentfulTemplate(templateSource) &&
-      normalizedOptions.deliveryFunction
+      normalizedOptions.function
     ) {
-      await cloneDeliveryFunction(fullAppFolder, !!normalizedOptions.javascript);
+      await cloneFunction(fullAppFolder, !!normalizedOptions.javascript);
     }
 
     updatePackageName(fullAppFolder);
@@ -197,8 +197,8 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .option('-a, --action', 'include a hosted app action in the ts or js template')
     .option(
-      '-d, --delivery-function',
-      'include a hosted delivery function template (EAP only, contact monet@contentful.com if interested)',
+      '-d, --function',
+      'include a hosted function template (EAP only, contact monet@contentful.com if interested)',
     )
     .action(initProject);
   await program.parseAsync();
