@@ -59,7 +59,7 @@ function assertValidArguments(accessToken: string, appDefinitionSettings: AppDef
 export async function createAppDefinition(accessToken: string, appDefinitionSettings: AppDefinitionSettings) {
   assertValidArguments(accessToken, appDefinitionSettings);
 
-  const client = createClient({ accessToken });
+  const client = createClient({ accessToken, host: appDefinitionSettings.host });
   const organizations = await fetchOrganizations(client);
 
   const selectedOrg = await selectFromList(
