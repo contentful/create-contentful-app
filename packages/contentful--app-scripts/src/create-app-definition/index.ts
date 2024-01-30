@@ -4,7 +4,7 @@ import { getManagementToken } from '../get-management-token';
 
 const interactive = async () => {
   const appDefinitionSettings = await buildAppDefinitionSettings();
-  const managementToken = await getManagementToken();
+  const managementToken = await getManagementToken(appDefinitionSettings.host);
 
   return create(managementToken, appDefinitionSettings);
 };
