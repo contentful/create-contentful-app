@@ -2,11 +2,13 @@ import chalk from 'chalk';
 import { AppLocation, FieldType } from 'contentful-management';
 import inquirer from 'inquirer';
 import path from 'path';
+import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 
 export interface AppDefinitionSettings {
   name: string;
   locations: AppLocation['location'][];
   fields?: FieldType[];
+  host?: string;
 }
 
 export async function buildAppDefinitionSettings() {
@@ -15,7 +17,7 @@ export async function buildAppDefinitionSettings() {
 NOTE: This will create an app definition in your Contentful organization.
       - Read more about app definitions: ${chalk.underline('https://ctfl.io/app-definitions')}
       - Read more about app locations: ${chalk.underline('https://ctfl.io/app-locations')}
-  `),
+  `)
   );
 
   const appDefinitionSettings = await inquirer.prompt<AppDefinitionSettings>([
@@ -77,6 +79,11 @@ NOTE: This will create an app definition in your Contentful organization.
         }
         return true;
       },
+    },
+    {
+      name: 'host',
+      message: `Contentful CMA endpoint URL:`,
+      default: DEFAULT_CONTENTFUL_API_HOST,
     },
   ]);
 

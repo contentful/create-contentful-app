@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "1.11.3",
+  "version": "1.11.5",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -36,7 +36,7 @@
     "test": "mocha 'test/**/*.spec.{js,ts}'"
   },
   "dependencies": {
-    "@contentful/app-scripts": "1.13.2",
+    "@contentful/app-scripts": "1.13.4",
     "analytics-node": "^6.2.0",
     "chalk": "4.1.2",
     "commander": "11.1.0",
@@ -75,7 +75,7 @@
     "@types/validate-npm-package-name": "4.0.2",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "contentful-management": "11.14.0",
+    "contentful-management": "11.14.1",
     "mocha": "^10.2.0",
     "sinon": "^17.0.0",
     "sinon-chai": "^3.7.0",

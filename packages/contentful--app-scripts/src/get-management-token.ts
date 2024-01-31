@@ -20,7 +20,10 @@ const checkTokenValidity = async (accessToken = '', host?: string) => {
 export async function getManagementToken(host?: string) {
   const redirectUrl = 'https://www.contentful.com/developers/cli-oauth-page/';
   const CLIENT_ID = '9f86a1d54f3d6f85c159468f5919d6e5d27716b3ed68fd01bd534e3dea2df864';
-  const oauthUrl = `https://be.contentful.com/oauth/authorize?response_type=token&scope=content_management_manage&client_id=${CLIENT_ID}&&redirect_uri=${encodeURIComponent(
+  const oauthHost = host?.includes('.eu.contentful.com')
+    ? 'be.eu.contentful.com'
+    : 'be.contentful.com';
+  const oauthUrl = `https://${oauthHost}/oauth/authorize?response_type=token&scope=content_management_manage&client_id=${CLIENT_ID}&&redirect_uri=${encodeURIComponent(
     redirectUrl
   )}`;
 
