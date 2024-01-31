@@ -13,10 +13,10 @@ const addBuildCommand = getAddBuildCommandFn({
 
 export async function cloneFunction(destination: string, templateIsJavascript: boolean) {
   try {
-    console.log(highlight('---- Cloning hosted function.'));
+    console.log(highlight('---- Cloning function.'));
     // Clone the function template to the created directory under the folder 'actions'
     const templateSource = join(
-      'contentful/apps/examples/hosted-function-templates',
+      'contentful/apps/examples/function-templates',
       templateIsJavascript ? 'javascript' : 'typescript',
     );
 
