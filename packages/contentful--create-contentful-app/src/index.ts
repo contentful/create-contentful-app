@@ -197,8 +197,8 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .option('-a, --action', 'include a hosted app action in the ts or js template')
     .option(
-      '-d, --function',
-      'include a hosted function template (EAP only, contact monet@contentful.com if interested)',
+      '-f, --function',
+      'include a function template (EAP only, contact monet@contentful.com if interested)',
     )
     .action(initProject);
   await program.parseAsync();

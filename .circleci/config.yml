@@ -73,7 +73,7 @@ commands:
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
             node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-function --action --function
-            cd my-action-function
+            cd my-action-function   
             npm run build
 
   prepare-release:
