@@ -25,8 +25,7 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       appUploadId,
       comment: comment && comment.length > 0 ? comment : undefined,
       actions,
-      // TO DO: update once https://github.com/contentful/contentful-management.js/pull/2154 is merged.
-      deliveryFunctions: functions,
+      functions,
     });
   } catch (err: any) {
     showCreationError('app upload', err.message);
