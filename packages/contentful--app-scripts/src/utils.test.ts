@@ -74,7 +74,7 @@ describe('get actions from manifest', () => {
   const actionMock = {
     name: 'name',
     category: 'Custom',
-    description: 'descriptoin',
+    description: 'description',
     type: 'function',
     path: 'actions/mock.js',
     entryFile: './actions/mock.ts',
@@ -202,7 +202,7 @@ describe('get functions from manifest', () => {
   const functionMock = {
     id: 'test',
     name: 'name',
-    description: 'descriptoin',
+    description: 'description',
     path: 'functions/mock.js',
     entryFile: './functions/mock.ts',
     allowNetworks: ['127.0.0.1', 'some.domain.tld'],
