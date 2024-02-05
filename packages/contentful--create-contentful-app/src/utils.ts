@@ -65,7 +65,7 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
     delete normalizedOptions.action;
-    delete normalizedOptions.deliveryFunction;
+    delete normalizedOptions.function;
   }
 
   if (normalizedOptions.example) {
@@ -73,7 +73,7 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
     delete normalizedOptions.action;
-    delete normalizedOptions.deliveryFunction;
+    delete normalizedOptions.function;
   }
 
   if (normalizedOptions.typescript) {

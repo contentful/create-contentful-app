@@ -6,7 +6,7 @@ import { UploadOptions, UploadSettings } from '../types';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
   const actionsManifest = getEntityFromManifest('actions');
-  const deliveryFnManifest = getEntityFromManifest('deliveryFunctions');
+  const functionManifest = getEntityFromManifest('functions');
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
@@ -50,7 +50,7 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     comment,
     host,
     actions: actionsManifest,
-    deliveryFunctions: deliveryFnManifest,
+    functions: functionManifest,
     ...appUploadSettings,
     ...appInfo,
   };

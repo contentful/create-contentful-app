@@ -60,20 +60,20 @@ commands:
             cd test
             npm t
 
-  test-built-actions-delivery-functions:
+  test-built-actions-functions:
     steps:
       - checkout
       - install-deps
       - build
       - run:
-          name: Run build with actions and delivery functions
+          name: Run build with actions and functions
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-delivery-function --action --delivery-function
-            cd my-action-delivery-function
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-function --action --function
+            cd my-action-function   
             npm run build
 
   prepare-release:
@@ -121,15 +121,15 @@ jobs:
     steps:
       - test-built-app
 
-  test-built-app-18-actions-delivery-functions:
+  test-built-app-18-actions-functions:
     executor: node-container-18
     steps:
-      - test-built-actions-delivery-functions
+      - test-built-actions-functions
 
-  test-built-app-20-actions-delivery-functions:
+  test-built-app-20-actions-functions:
     executor: node-container-20
     steps:
-      - test-built-actions-delivery-functions
+      - test-built-actions-functions
 
 workflows:
   test:
@@ -142,7 +142,7 @@ workflows:
             - vault
           requires:
             - lint-and-test-18
-      - test-built-app-18-actions-delivery-functions:
+      - test-built-app-18-actions-functions:
           context:
             - vault
       - lint-and-test-20:
@@ -153,7 +153,7 @@ workflows:
             - vault
           requires:
             - lint-and-test-20
-      - test-built-app-20-actions-delivery-functions:
+      - test-built-app-20-actions-functions:
           context:
             - vault
       - release:
@@ -164,9 +164,9 @@ workflows:
               only: master
           requires:
             - test-built-app-18
-            - test-built-app-18-actions-delivery-functions
+            - test-built-app-18-actions-functions
             - test-built-app-20
-            - test-built-app-20-actions-delivery-functions
+            - test-built-app-20-actions-functions
 
       - release-canary:
           context:
@@ -176,6 +176,6 @@ workflows:
               only: canary
           requires:
             - test-built-app-18
-            - test-built-app-18-actions-delivery-functions
+            - test-built-app-18-actions-functions
             - test-built-app-20
-            - test-built-app-20-actions-delivery-functions
+            - test-built-app-20-actions-functions

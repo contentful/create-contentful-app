@@ -12,7 +12,7 @@ export interface FunctionAppAction {
   entryFile?: string;
 }
 
-export interface DeliveryFunction {
+export interface ContentfulFunction {
   id: string;
   name: string;
   description: string;
@@ -78,5 +78,5 @@ export interface UploadSettings {
   userAgentApplication?: string;
   host?: string;
   actions?: FunctionAppAction[];
-  deliveryFunctions?: DeliveryFunction[];
+  functions?: ContentfulFunction[];
 }

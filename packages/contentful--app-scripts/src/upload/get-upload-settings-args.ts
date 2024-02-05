@@ -15,7 +15,7 @@ const requiredOptions = {
 export async function getUploadSettingsArgs(options: UploadOptions): Promise<UploadSettings> {
   const validateSpinner = ora('Validating your input...').start();
   const actionsManifest = getEntityFromManifest('actions');
-  const deliveryFnManifest = getEntityFromManifest('deliveryFunctions');
+  const functionManifest = getEntityFromManifest('functions');
   const { bundleDir, comment, skipActivation, host, userAgentApplication } = options;
 
   try {
@@ -29,7 +29,7 @@ export async function getUploadSettingsArgs(options: UploadOptions): Promise<Upl
       host,
       userAgentApplication,
       actions: actionsManifest,
-      deliveryFunctions: deliveryFnManifest,
+      functions: functionManifest,
     };
   } catch (err: any) {
     console.log(`

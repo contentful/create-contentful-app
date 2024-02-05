@@ -7,34 +7,34 @@ import { exists, mergeJsonIntoFile } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
 
 const addBuildCommand = getAddBuildCommandFn({
-  name: 'build:delivery-functions',
-  command: 'node build-delivery-functions.js',
+  name: 'build:functions',
+  command: 'node build-functions.js',
 });
 
-export async function cloneDeliveryFunction(destination: string, templateIsJavascript: boolean) {
+export async function cloneFunction(destination: string, templateIsJavascript: boolean) {
   try {
-    console.log(highlight('---- Cloning hosted delivery function.'));
-    // Clone the delivery function template to the created directory under the folder 'actions'
+    console.log(highlight('---- Cloning function.'));
+    // Clone the function template to the created directory under the folder 'actions'
     const templateSource = join(
-      'contentful/apps/examples/hosted-delivery-function-templates',
+      'contentful/apps/examples/function-templates',
       templateIsJavascript ? 'javascript' : 'typescript',
     );
 
-    const deliveryFunctionDirectoryPath = resolve(`${destination}/delivery-functions`);
+    const functionDirectoryPath = resolve(`${destination}/functions`);
 
     const d = degit(templateSource, { mode: 'tar', cache: false });
-    await d.clone(deliveryFunctionDirectoryPath);
+    await d.clone(functionDirectoryPath);
 
     // merge the manifest from the template folder to the root folder
     const writeAppManifest = mergeJsonIntoFile({
-      source: `${deliveryFunctionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
+      source: `${functionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
       destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
     });
 
     // move the build file from the actions folder to the root folder
     const copyBuildFile = rename(
-      `${deliveryFunctionDirectoryPath}/build-delivery-functions.js`,
-      `${destination}/build-delivery-functions.js`,
+      `${functionDirectoryPath}/build-functions.js`,
+      `${destination}/build-functions.js`,
     );
 
     // modify package.json build commands
@@ -43,20 +43,20 @@ export async function cloneDeliveryFunction(destination: string, templateIsJavas
 
     if (!packageJsonExists) {
       console.error(
-        `Failed to add delivery function build commands: ${packageJsonLocation} does not exist.`,
+        `Failed to add function build commands: ${packageJsonLocation} does not exist.`,
       );
       return;
     }
 
     const writeBuildCommand = mergeJsonIntoFile({
-      source: `${deliveryFunctionDirectoryPath}/package.json`,
+      source: `${functionDirectoryPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });
 
     await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
 
-    await d.remove(deliveryFunctionDirectoryPath, destination, { action: "remove", files: IGNORED_CLONED_FILES.map(fileName => `${deliveryFunctionDirectoryPath}/${fileName}`) });
+    await d.remove(functionDirectoryPath, destination, { action: "remove", files: IGNORED_CLONED_FILES.map(fileName => `${functionDirectoryPath}/${fileName}`) });
   } catch (e) {
     console.error(e);
     process.exit(1);
