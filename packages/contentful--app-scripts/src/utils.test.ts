@@ -206,6 +206,7 @@ describe('get functions from manifest', () => {
     path: 'functions/mock.js',
     entryFile: './functions/mock.ts',
     allowNetworks: ['127.0.0.1', 'some.domain.tld'],
+    accepts: ["graphql.field.mapping", "graphql.query"]
   };
   // eslint-disable-next-line no-unused-vars
   const { entryFile: _, ...resultMock } = functionMock;
@@ -302,6 +303,25 @@ describe('get functions from manifest', () => {
             name: 'test resolver fn',
             entryFile: 'entry1',
             allowNetworks: ['412.1.1.1'],
+          },
+        ],
+      }),
+    );
+
+    getEntityFromManifest('functions');
+
+    assert.ok(exitStub.calledOnceWith(1));
+  });
+
+  it('should exit with error if the is an invalid event', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(
+      JSON.stringify({
+        functions: [
+          {
+            name: 'action1',
+            entryFile: 'entry1',
+            accepts: ['webhooks.rest'],
           },
         ],
       }),

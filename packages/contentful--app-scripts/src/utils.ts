@@ -113,12 +113,26 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
         ? item.allowNetworks.map(stripProtocol)
         : [];
 
+      const accepts = 'accepts' in item ? Array.isArray(item.accepts) ? item.accepts : undefined : undefined;
+      const hasInvalidEvent = accepts?.find((event) => !["graphql.field.mapping", "graphql.query"].includes(event));
+
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
             'Error:',
           )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
+            item.name
+          }".`,
+        );
+        // eslint-disable-next-line no-process-exit
+        process.exit(1);
+      }
+      if (hasInvalidEvent) {
+        console.log(
+          `${chalk.red(
+            'Error:',
+          )} Invalid events ${hasInvalidEvent} found in the accepts array for ${type} "${
             item.name
           }".`,
         );
@@ -132,6 +146,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
 
       return {
         ...itemWithoutEntryFile,
+        ...(accepts !== undefined ? { accepts } : {}),
         allowNetworks,
       };
     });

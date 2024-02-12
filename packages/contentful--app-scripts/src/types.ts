@@ -17,6 +17,7 @@ export interface ContentfulFunction {
   name: string;
   description: string;
   path: string;
+  accepts: string[];
   allowNetworks?: string[];
   entryFile?: string;
 }
