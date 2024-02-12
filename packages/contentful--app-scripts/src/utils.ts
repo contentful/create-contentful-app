@@ -108,13 +108,16 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
       )}.`,
     );
 
+    const fieldMappingEvent = "graphql.field.mapping";
+    const queryEvent =  "graphql.query";
+
     const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
         ? item.allowNetworks.map(stripProtocol)
         : [];
 
       const accepts = 'accepts' in item ? Array.isArray(item.accepts) ? item.accepts : undefined : undefined;
-      const hasInvalidEvent = accepts?.find((event) => !["graphql.field.mapping", "graphql.query"].includes(event));
+      const hasInvalidEvent = accepts?.find((event) => ![fieldMappingEvent, queryEvent].includes(event));
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
