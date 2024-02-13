@@ -149,7 +149,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
 
       return {
         ...itemWithoutEntryFile,
-        ...(accepts !== undefined ? { accepts } : {}),
+        ...(accepts && { accepts }),
         allowNetworks,
       };
     });
