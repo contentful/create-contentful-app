@@ -116,7 +116,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
         ? item.allowNetworks.map(stripProtocol)
         : [];
 
-      const accepts = 'accepts' in item ? Array.isArray(item.accepts) ? item.accepts : undefined : undefined;
+      const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
       const hasInvalidEvent = accepts?.some((event) => ![fieldMappingEvent, queryEvent].includes(event));
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
