@@ -108,10 +108,16 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
       )}.`,
     );
 
+    const fieldMappingEvent = "graphql.field.mapping";
+    const queryEvent =  "graphql.query";
+
     const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
         ? item.allowNetworks.map(stripProtocol)
         : [];
+
+      const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
+      const hasInvalidEvent = accepts?.some((event) => ![fieldMappingEvent, queryEvent].includes(event));
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
@@ -125,6 +131,17 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
         // eslint-disable-next-line no-process-exit
         process.exit(1);
       }
+      if (hasInvalidEvent) {
+        console.log(
+          `${chalk.red(
+            'Error:',
+          )} Invalid events ${hasInvalidEvent} found in the accepts array for ${type} "${
+            item.name
+          }".`,
+        );
+        // eslint-disable-next-line no-process-exit
+        process.exit(1);
+      }
 
       // EntryFile is not used but we do want to strip it
       // eslint-disable-next-line no-unused-vars
@@ -132,6 +149,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
 
       return {
         ...itemWithoutEntryFile,
+        ...(accepts && { accepts }),
         allowNetworks,
       };
     });
