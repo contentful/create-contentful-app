@@ -53,7 +53,7 @@
     "chalk": "4.1.2",
     "commander": "12.0.0",
     "contentful-management": "11.16.0",
-    "dotenv": "16.4.4",
+    "dotenv": "16.4.5",
     "ignore": "5.3.1",
     "inquirer": "8.2.6",
     "lodash": "4.17.21",
