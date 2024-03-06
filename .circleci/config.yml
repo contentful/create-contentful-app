@@ -82,7 +82,8 @@ commands:
       - vault/get-secrets:
           template-preset: 'semantic-release'
       - vault/configure-lerna
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
+      - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - install-deps
       - build
 
