@@ -1,10 +1,16 @@
 version: 2
-
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.NPM_REGISTRY_REGISTRY_GH_ORG_TOKEN}}
 updates:
   - package-ecosystem: npm
     schedule:
       interval: daily
     open-pull-requests-limit: 99
+    registries:
+      - npm-github
     reviewers:
       - 'contentful/team-extensibility'
     ignore:
