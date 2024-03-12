@@ -206,7 +206,7 @@ describe('get functions from manifest', () => {
     path: 'functions/mock.js',
     entryFile: './functions/mock.ts',
     allowNetworks: ['127.0.0.1', 'some.domain.tld'],
-    accepts: ["graphql.field.mapping", "graphql.query"]
+    accepts: ["graphql.field.mapping", "graphql.query", 'appevent.filter']
   };
   // eslint-disable-next-line no-unused-vars
   const { entryFile: _, ...resultMock } = functionMock;
