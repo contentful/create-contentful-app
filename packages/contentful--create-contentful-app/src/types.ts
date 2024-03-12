@@ -6,7 +6,7 @@ export type CLIOptions = Partial<{
   source: string;
   example: string;
   action: boolean;
-  function: boolean;
+  function: string;
 }>;
 
 export const ContentfulExample = {
