@@ -11,13 +11,33 @@ const addBuildCommand = getAddBuildCommandFn({
   command: 'node build-functions.js',
 });
 
-export async function cloneFunction(destination: string, templateIsJavascript: boolean) {
+const VALID_FUNCTION_TEMPLATES_DIRS = ['templates', 'appevent-filter'];
+
+function functionTemplateFromName(functionName: string) {
+  let dirName = functionName;
+  if (functionName === 'delivery') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions
+  if (!VALID_FUNCTION_TEMPLATES_DIRS.includes(dirName)) {
+    console.error(
+      `Invalid function template: ${functionName}. Must be one of ${VALID_FUNCTION_TEMPLATES_DIRS.join(
+        ', '
+      )}.`
+    );
+    process.exit(1);
+  }
+  return dirName;
+}
+
+export async function cloneFunction(
+  destination: string,
+  templateIsJavascript: boolean,
+  functionName: string
+) {
   try {
-    console.log(highlight('---- Cloning function.'));
+    console.log(highlight(`---- Cloning function "${functionName}".`));
     // Clone the function template to the created directory under the folder 'actions'
     const templateSource = join(
-      'contentful/apps/examples/function-templates',
-      templateIsJavascript ? 'javascript' : 'typescript',
+      `contentful/apps/examples/function-${functionTemplateFromName(functionName)}`,
+      templateIsJavascript ? 'javascript' : 'typescript'
     );
 
     const functionDirectoryPath = resolve(`${destination}/functions`);
@@ -34,7 +54,7 @@ export async function cloneFunction(destination: string, templateIsJavascript: b
     // move the build file from the actions folder to the root folder
     const copyBuildFile = rename(
       `${functionDirectoryPath}/build-functions.js`,
-      `${destination}/build-functions.js`,
+      `${destination}/build-functions.js`
     );
 
     // modify package.json build commands
@@ -43,7 +63,7 @@ export async function cloneFunction(destination: string, templateIsJavascript: b
 
     if (!packageJsonExists) {
       console.error(
-        `Failed to add function build commands: ${packageJsonLocation} does not exist.`,
+        `Failed to add function build commands: ${packageJsonLocation} does not exist.`
       );
       return;
     }
@@ -56,7 +76,10 @@ export async function cloneFunction(destination: string, templateIsJavascript: b
 
     await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
 
-    await d.remove(functionDirectoryPath, destination, { action: "remove", files: IGNORED_CLONED_FILES.map(fileName => `${functionDirectoryPath}/${fileName}`) });
+    await d.remove(functionDirectoryPath, destination, {
+      action: 'remove',
+      files: IGNORED_CLONED_FILES.map((fileName) => `${functionDirectoryPath}/${fileName}`),
+    });
   } catch (e) {
     console.error(e);
     process.exit(1);

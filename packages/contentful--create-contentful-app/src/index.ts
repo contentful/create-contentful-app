@@ -137,7 +137,7 @@ async function initProject(appName: string, options: CLIOptions) {
       isContentfulTemplate(templateSource) &&
       normalizedOptions.function
     ) {
-      await cloneFunction(fullAppFolder, !!normalizedOptions.javascript);
+      await cloneFunction(fullAppFolder, !!normalizedOptions.javascript, normalizedOptions.function);
     }
 
     updatePackageName(fullAppFolder);
@@ -197,8 +197,9 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .option('-a, --action', 'include a hosted app action in the ts or js template')
     .option(
-      '-f, --function',
-      'include a function template',
+      '-f, --function <function-template-name>',
+      'include the specified function template',
+      'delivery',
     )
     .action(initProject);
   await program.parseAsync();
