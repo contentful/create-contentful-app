@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.12.1...@contentful/create-contentful-app@1.12.2) (2024-03-12)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.16.0 to 11.17.0 ([#1877](https://github.com/contentful/create-contentful-app/issues/1877)) ([10293c1](https://github.com/contentful/create-contentful-app/commit/10293c131703963e9e81617dc7ef6f28855c2081))
+- **deps:** bump contentful-management from 11.17.0 to 11.19.1 ([#1881](https://github.com/contentful/create-contentful-app/issues/1881)) ([410cdb9](https://github.com/contentful/create-contentful-app/commit/410cdb9347c5b0e0d0d53ed1834260361207f76e))
+- **deps:** bump contentful-management from 11.19.1 to 11.20.1 ([#1883](https://github.com/contentful/create-contentful-app/issues/1883)) ([8fc0dbe](https://github.com/contentful/create-contentful-app/commit/8fc0dbe8916d85e65b56ee538917139b58ee9c82))
+- **deps:** bump contentful-management from 11.20.1 to 11.21.0 ([#1884](https://github.com/contentful/create-contentful-app/issues/1884)) ([39bb1b3](https://github.com/contentful/create-contentful-app/commit/39bb1b30f147844918e1b450b76594138b2bd8fb))
+- **deps:** bump contentful-management from 11.21.0 to 11.21.1 ([#1888](https://github.com/contentful/create-contentful-app/issues/1888)) ([3e0b279](https://github.com/contentful/create-contentful-app/commit/3e0b2794dfc852081a36f66eaafb330dfc8a7b72))
+- **deps:** bump contentful-management from 11.21.1 to 11.23.0 ([#1894](https://github.com/contentful/create-contentful-app/issues/1894)) ([5cf058c](https://github.com/contentful/create-contentful-app/commit/5cf058c41ae84f50d19017a72a36f36e096fa6a8))
+
 ## [1.12.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.12.0...@contentful/create-contentful-app@1.12.1) (2024-02-14)
 
 ### Bug Fixes
