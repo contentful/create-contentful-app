@@ -8,7 +8,7 @@ import { isContentfulTemplate } from './utils';
 
 // TODO: !!!!!! remove feature branch REF parameter before merging !!!!!!
 const CONTENTFUL_APPS_EXAMPLE_FOLDER =
-  'https://api.github.com/repos/contentful/apps/contents/examples?ref=feat/cca-cli-app-event-filter';
+  'https://api.github.com/repos/contentful/apps/contents/examples';
 
 async function getGithubFolderNames() {
   const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);
