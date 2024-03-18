@@ -6,7 +6,6 @@ import { highlight, warn, wrapInBlanks } from './logger';
 import { EXAMPLES_PATH, IGNORED_EXAMPLE_FOLDERS } from './constants';
 import { isContentfulTemplate } from './utils';
 
-// TODO: !!!!!! remove feature branch REF parameter before merging !!!!!!
 const CONTENTFUL_APPS_EXAMPLE_FOLDER =
   'https://api.github.com/repos/contentful/apps/contents/examples';
 
