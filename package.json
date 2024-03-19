@@ -14,11 +14,14 @@
     "lint": "lerna run lint",
     "build": "lerna run build",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
-    "publish": "lerna publish from-git --yes --no-verify-access",
+    "publish": "lerna publish from-git --yes",
     "version:canary": "npm run version -- --conventional-prerelease",
     "publish:canary": "npm run publish -- --canary",
     "pre-commit": "lerna run pre-commit",
     "prepare": "husky install"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
     "@types/mocha": "10.0.6",
