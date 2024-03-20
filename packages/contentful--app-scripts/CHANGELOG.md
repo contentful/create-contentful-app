@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.15.0...@contentful/app-scripts@1.17.0) (2024-03-20)
+
+### Bug Fixes
+
+- **deps:** bump @segment/analytics-node from 2.0.0 to 2.1.0 ([#1891](https://github.com/contentful/create-contentful-app/issues/1891)) ([6af49ce](https://github.com/contentful/create-contentful-app/commit/6af49ce4dfd8ccfb16dd135603f594a0714d5fd0))
+- **deps:** bump adm-zip from 0.5.10 to 0.5.12 ([#1899](https://github.com/contentful/create-contentful-app/issues/1899)) ([7e1590d](https://github.com/contentful/create-contentful-app/commit/7e1590d18991e4a31dba20ca3dbb3c10fcca63f4))
+- **deps:** bump contentful-management from 11.16.0 to 11.17.0 ([#1877](https://github.com/contentful/create-contentful-app/issues/1877)) ([10293c1](https://github.com/contentful/create-contentful-app/commit/10293c131703963e9e81617dc7ef6f28855c2081))
+- **deps:** bump contentful-management from 11.17.0 to 11.19.1 ([#1881](https://github.com/contentful/create-contentful-app/issues/1881)) ([410cdb9](https://github.com/contentful/create-contentful-app/commit/410cdb9347c5b0e0d0d53ed1834260361207f76e))
+- **deps:** bump contentful-management from 11.19.1 to 11.20.1 ([#1883](https://github.com/contentful/create-contentful-app/issues/1883)) ([8fc0dbe](https://github.com/contentful/create-contentful-app/commit/8fc0dbe8916d85e65b56ee538917139b58ee9c82))
+- **deps:** bump contentful-management from 11.20.1 to 11.21.0 ([#1884](https://github.com/contentful/create-contentful-app/issues/1884)) ([39bb1b3](https://github.com/contentful/create-contentful-app/commit/39bb1b30f147844918e1b450b76594138b2bd8fb))
+- **deps:** bump contentful-management from 11.21.0 to 11.21.1 ([#1888](https://github.com/contentful/create-contentful-app/issues/1888)) ([3e0b279](https://github.com/contentful/create-contentful-app/commit/3e0b2794dfc852081a36f66eaafb330dfc8a7b72))
+- **deps:** bump contentful-management from 11.21.1 to 11.23.0 ([#1894](https://github.com/contentful/create-contentful-app/issues/1894)) ([5cf058c](https://github.com/contentful/create-contentful-app/commit/5cf058c41ae84f50d19017a72a36f36e096fa6a8))
+- **deps:** bump dotenv from 16.4.4 to 16.4.5 ([#1875](https://github.com/contentful/create-contentful-app/issues/1875)) ([4aab9c7](https://github.com/contentful/create-contentful-app/commit/4aab9c73ff3e14591ac9cbb84eab9496f85a1df5))
+- prettier change on .ts file ([#1906](https://github.com/contentful/create-contentful-app/issues/1906)) ([d45e9b6](https://github.com/contentful/create-contentful-app/commit/d45e9b632ed4b6513628f28e817585042eb74b8e))
+- prettier readme ([#1905](https://github.com/contentful/create-contentful-app/issues/1905)) ([12952cc](https://github.com/contentful/create-contentful-app/commit/12952ccffffdea45291fca5385bf7731ed4c769b))
+
+### Features
+
+- add app event filter to function manifest accepts param ([#1895](https://github.com/contentful/create-contentful-app/issues/1895)) ([21916c4](https://github.com/contentful/create-contentful-app/commit/21916c4692f2a91ca2bc4cff39b0b70ccb07f714))
+
 # [1.16.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.15.0...@contentful/app-scripts@1.16.0) (2024-03-12)
 
 ### Bug Fixes
