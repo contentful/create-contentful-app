@@ -93,14 +93,14 @@ jobs:
     steps:
       - prepare-release
       - run: npm run version
-      - run: npm run publish
+      - run: npm run publish-packages
 
   release-canary:
     executor: node-container-18
     steps:
       - prepare-release
       - run: npm run version:canary
-      - run: npm run publish:canary
+      - run: npm run publish-packages:canary
 
   lint-and-test-18:
     executor: node-container-18
