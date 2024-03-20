@@ -14,9 +14,9 @@
     "lint": "lerna run lint",
     "build": "lerna run build",
     "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact",
-    "publish": "lerna publish from-git --yes",
+    "publish-packages": "lerna publish from-git --yes",
     "version:canary": "npm run version -- --conventional-prerelease",
-    "publish:canary": "npm run publish -- --canary",
+    "publish-packages:canary": "npm run publish-packages -- --canary",
     "pre-commit": "lerna run pre-commit",
     "prepare": "husky install"
   },
