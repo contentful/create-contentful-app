@@ -1,5 +1,5 @@
-import { Definition } from "./definition-api";
-import { Organization } from "./organization-api";
+import { Definition } from './definition-api';
+import { Organization } from './organization-api';
 
 export interface FunctionAppAction {
   id: string;
