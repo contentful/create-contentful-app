@@ -15,7 +15,7 @@ const VALID_FUNCTION_TEMPLATES_DIRS = ['templates', 'appevent-filter'];
 
 function functionTemplateFromName(functionName: string) {
   let dirName = functionName;
-  if (functionName === 'delivery') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions
+  if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
   if (!VALID_FUNCTION_TEMPLATES_DIRS.includes(dirName)) {
     console.error(
       `Invalid function template: ${functionName}. Must be one of ${VALID_FUNCTION_TEMPLATES_DIRS.join(

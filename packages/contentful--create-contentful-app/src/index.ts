@@ -198,8 +198,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('-a, --action', 'include a hosted app action in the ts or js template')
     .option(
       '-f, --function <function-template-name>',
-      'include the specified function template',
-      'delivery',
+      'include the specified function template'
     )
     .action(initProject);
   await program.parseAsync();

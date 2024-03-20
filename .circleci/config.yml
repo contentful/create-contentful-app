@@ -72,7 +72,7 @@ commands:
             PROJECT=test-$(date +%s)
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-function --action --function delivery
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-function --action --function external-references
             cd my-action-function   
             npm run build
 
