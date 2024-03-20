@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.12.3...@contentful/create-contentful-app@1.13.0) (2024-03-20)
+
+### Features
+
+- add support for multiple function template types in CCA CLI [EXT-5023] ([#1896](https://github.com/contentful/create-contentful-app/issues/1896)) ([17a9936](https://github.com/contentful/create-contentful-app/commit/17a99364feb85a4836249367a91e230302f65ff5))
+
 ## [1.12.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.12.2...@contentful/create-contentful-app@1.12.3) (2024-03-20)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
