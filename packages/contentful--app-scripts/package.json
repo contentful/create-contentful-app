@@ -62,7 +62,7 @@
   },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42",
   "devDependencies": {
-    "@tsconfig/node18": "18.2.3",
+    "@tsconfig/node18": "18.2.4",
     "@types/adm-zip": "0.5.5",
     "@types/analytics-node": "3.1.14",
     "@types/inquirer": "8.2.1",
