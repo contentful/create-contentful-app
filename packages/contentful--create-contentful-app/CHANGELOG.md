@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.13.0...@contentful/create-contentful-app@1.14.0) (2024-03-28)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.23.0 to 11.24.0 ([#1909](https://github.com/contentful/create-contentful-app/issues/1909)) ([c894426](https://github.com/contentful/create-contentful-app/commit/c894426630112042ba13509541f8d10ca22c8b50))
+- **deps:** bump contentful-management from 11.24.0 to 11.24.2 ([#1912](https://github.com/contentful/create-contentful-app/issues/1912)) ([e602e3e](https://github.com/contentful/create-contentful-app/commit/e602e3eb37a59b098a808c9ae1b179761ad04aba))
+- **deps:** bump contentful-management from 11.24.2 to 11.24.3 ([#1913](https://github.com/contentful/create-contentful-app/issues/1913)) ([61570f7](https://github.com/contentful/create-contentful-app/commit/61570f768c26665595085bb89699d477e7e9b69a))
+
+### Features
+
+- validate whether the function/action entry points exist in the bundle ([#1919](https://github.com/contentful/create-contentful-app/issues/1919)) ([47f9f58](https://github.com/contentful/create-contentful-app/commit/47f9f580b9b1307b1feecb73225098dd64320a03))
+
 # [1.13.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.12.3...@contentful/create-contentful-app@1.13.0) (2024-03-20)
 
 ### Features
