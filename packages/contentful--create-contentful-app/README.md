@@ -85,18 +85,19 @@ or specify your own template
 Official Contentful templates are hosted at https://github.com/contentful/apps/tree/master/examples.
 
 Arguments:
-  app-name                      app name
+  app-name                                      app name
 
 Options:
-  --npm                         use npm
-  --yarn                        use Yarn
-  -js, --javascript             use default JavaScript template
-  -ts, --typescript             use default TypeScript template
-  -e, --example <example-name>  bootstrap an example app from https://github.com/contentful/apps/tree/master/examples
-  -s, --source <url>            provide a template by its source repository.
-                                format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
-  -a, --actions                 includes a hosted app action in ts or js template
-  -h, --help                    shows all available CLI options
+  --npm                                         use npm
+  --yarn                                        use Yarn
+  -js, --javascript                             use default JavaScript template
+  -ts, --typescript                             use default TypeScript template
+  -e, --example <example-name>                  bootstrap an example app from https://github.com/contentful/apps/tree/master/examples
+  -s, --source <url>                            provide a template by its source repository.
+                                                format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
+  -a, --actions                                 includes a hosted app action in ts or js template
+  -f, --function <function-template-name>       include the specified function template
+  -h, --help                                    shows all available CLI options
 ```
 
 ### Tracking
