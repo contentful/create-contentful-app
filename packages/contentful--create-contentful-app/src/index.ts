@@ -6,6 +6,7 @@ import validateNPMPackageName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
+
 import { cloneTemplateIn } from './template';
 import { detectManager, exec, normalizeOptions, isContentfulTemplate } from './utils';
 import { CLIOptions } from './types';
