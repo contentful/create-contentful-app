@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.14.0...@contentful/create-contentful-app@1.15.0) (2024-04-04)
+
+### Features
+
+- bump to release ([#1925](https://github.com/contentful/create-contentful-app/issues/1925)) ([43bba2a](https://github.com/contentful/create-contentful-app/commit/43bba2a32bea8631e4f11189bd7b956820882061))
+- note --function CLI param in README ([#1924](https://github.com/contentful/create-contentful-app/issues/1924)) ([472bea1](https://github.com/contentful/create-contentful-app/commit/472bea1047ec4f2f35dbab8f453666dbf16ee27a))
+
 # [1.14.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.13.0...@contentful/create-contentful-app@1.14.0) (2024-03-28)
 
 ### Bug Fixes
