@@ -81,8 +81,6 @@ commands:
       - checkout
       - vault/get-secrets:
           template-preset: 'semantic-release'
-      - vault/get-secrets:
-          template-preset: 'semantic-release-ecosystem'
       - vault/configure-lerna
       - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
