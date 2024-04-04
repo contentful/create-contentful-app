@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.15.0...@contentful/create-contentful-app@1.15.1) (2024-04-04)
+
+### Bug Fixes
+
+- npm publishing ([#1926](https://github.com/contentful/create-contentful-app/issues/1926)) ([6b2b23e](https://github.com/contentful/create-contentful-app/commit/6b2b23ed5275e84b058c11edc274a337ccb953aa))
+
 # [1.15.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.14.0...@contentful/create-contentful-app@1.15.0) (2024-04-04)
 
 ### Features
