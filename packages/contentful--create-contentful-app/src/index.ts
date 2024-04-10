@@ -176,9 +176,10 @@ async function initProject(appName: string, options: CLIOptions) {
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
         `Official Contentful templates and examples are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
-        'Use',
+        'Once your app is created, use ',
+        code('  cd my-app'),
         '',
-        code('  create-app-definition'),
+        code('  npm run create-app-definition'),
         '',
         'for your app in order to use it on Contentful.'
       ].join('\n')
