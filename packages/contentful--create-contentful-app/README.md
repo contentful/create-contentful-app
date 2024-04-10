@@ -84,6 +84,11 @@ or specify your own template
 
 Official Contentful templates are hosted at https://github.com/contentful/apps/tree/master/examples.
 
+Use
+  create-app-definition,
+
+for your app in order to use it on Contentful.
+
 Arguments:
   app-name                                      app name
 
