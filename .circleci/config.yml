@@ -163,7 +163,7 @@ workflows:
             - vault
           filters:
             branches:
-              only: master
+              only: main
           requires:
             - test-built-app-18
             - test-built-app-18-actions-functions
