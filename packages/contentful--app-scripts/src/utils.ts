@@ -8,7 +8,7 @@ import { ContentfulFunction, FunctionAppAction } from './types';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
-const graphqlEvents = {
+const graphQLEvents = {
   fieldMappingEvent: 'graphql.field.mapping',
   queryEvent: 'graphql.query',
 };
@@ -130,7 +130,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
 
       const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
       const hasInvalidEvent = accepts?.some(
-        (event) => ![...Object.values(graphqlEvents), ...Object.values(appEvents)].includes(event)
+        (event) => ![...Object.values(graphQLEvents), ...Object.values(appEvents)].includes(event)
       );
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
