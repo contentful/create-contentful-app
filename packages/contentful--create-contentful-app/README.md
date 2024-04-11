@@ -100,7 +100,7 @@ Options:
   -h, --help                                    shows all available CLI options
 ```
 
-In order to run the app within Contentful run `npm run create-app-definition` within you app directory to create an app definition.
+In order to run the app within Contentful run `npm run create-app-definition` within your app directory to create an app definition.
 
 ### Tracking
 
