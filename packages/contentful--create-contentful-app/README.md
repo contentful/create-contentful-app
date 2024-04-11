@@ -84,14 +84,6 @@ or specify your own template
 
 Official Contentful templates are hosted at https://github.com/contentful/apps/tree/master/examples.
 
-Once your app is created, you can use
-  
-  cd my-app
-
-  npm run create-app-definition
-
-for your app in order to use it on Contentful.
-
 Arguments:
   app-name                                      app name
 
@@ -107,6 +99,8 @@ Options:
   -f, --function <function-template-name>       include the specified function template
   -h, --help                                    shows all available CLI options
 ```
+
+In order to run the app within Contentful run `npm run create-app-definition` within you app directory to create an app definition.
 
 ### Tracking
 
