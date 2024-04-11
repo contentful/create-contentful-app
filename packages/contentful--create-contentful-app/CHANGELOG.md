@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.15.3...@contentful/create-contentful-app@1.16.0) (2024-04-11)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.24.3 to 11.24.5 ([#1933](https://github.com/contentful/create-contentful-app/issues/1933)) ([cf14bdd](https://github.com/contentful/create-contentful-app/commit/cf14bdd86354709d809a4bde6cc9a3315f008f2c))
+
+### Features
+
+- Support for handler and transformer functions [EXT-5139] [EXT-5133] ([#1936](https://github.com/contentful/create-contentful-app/issues/1936)) ([481bc2b](https://github.com/contentful/create-contentful-app/commit/481bc2b6fac64d1d5bb28796b702478bd3f56908))
+
 ## [1.15.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.15.2...@contentful/create-contentful-app@1.15.3) (2024-04-05)
 
 ### Bug Fixes
