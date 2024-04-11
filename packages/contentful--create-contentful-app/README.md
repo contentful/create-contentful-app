@@ -100,6 +100,8 @@ Options:
   -h, --help                                    shows all available CLI options
 ```
 
+In order to run the app within Contentful run `npm run create-app-definition` within your app directory to create an app definition.
+
 ### Tracking
 
 We gather depersonalized usage data of our CLI tools in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
