@@ -17,7 +17,7 @@ To start developing your first app, run:
 npx create-contentful-app my-first-app
 ```
 
-![Screenshot of `npx create-contentful-app my-app`](https://raw.githubusercontent.com/contentful/create-contentful-app/master/packages/contentful--create-contentful-app/docs/screenshot.png)
+![Screenshot of `npx create-contentful-app my-app`](https://raw.githubusercontent.com/contentful/create-contentful-app/main/packages/contentful--create-contentful-app/docs/screenshot.png)
 
 ## Bootstrap
 

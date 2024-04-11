@@ -11,7 +11,12 @@ const addBuildCommand = getAddBuildCommandFn({
   command: 'node build-functions.js',
 });
 
-const VALID_FUNCTION_TEMPLATES_DIRS = ['templates', 'appevent-filter'];
+const VALID_FUNCTION_TEMPLATES_DIRS = [
+  'templates',
+  'appevent-filter',
+  'appevent-handler',
+  'appevent-transformation',
+];
 
 function functionTemplateFromName(functionName: string) {
   let dirName = functionName;
