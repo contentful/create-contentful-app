@@ -12,10 +12,11 @@ const addBuildCommand = getAddBuildCommandFn({
 });
 
 const VALID_FUNCTION_TEMPLATES_DIRS = [
-  'templates',
   'appevent-filter',
   'appevent-handler',
   'appevent-transformation',
+  'external-references',
+  'templates',
 ];
 
 function functionTemplateFromName(functionName: string) {
