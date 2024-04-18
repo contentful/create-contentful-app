@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.1](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.0...@contentful/create-contentful-app@1.16.1) (2024-04-18)
+
+### Bug Fixes
+
+- cli defaults function flag to external references ([#1949](https://github.com/contentful/create-contentful-app/issues/1949)) ([16012b3](https://github.com/contentful/create-contentful-app/commit/16012b380f352477bc039e99a7cffaacdd433b66))
+- **deps:** bump contentful-management from 11.24.5 to 11.25.0 ([#1941](https://github.com/contentful/create-contentful-app/issues/1941)) ([4591121](https://github.com/contentful/create-contentful-app/commit/4591121e938e663666450c2e767cf019f19ccdcf))
+
 # [1.16.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.15.3...@contentful/create-contentful-app@1.16.0) (2024-04-11)
 
 ### Bug Fixes
