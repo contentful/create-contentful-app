@@ -12,16 +12,14 @@ const addBuildCommand = getAddBuildCommandFn({
 });
 
 const VALID_FUNCTION_TEMPLATES_DIRS = [
+  'external-references',
   'appevent-filter',
   'appevent-handler',
   'appevent-transformation',
-  'external-references',
-  'templates',
 ];
 
 function functionTemplateFromName(functionName: string) {
   let dirName = functionName;
-  if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
   if (!VALID_FUNCTION_TEMPLATES_DIRS.includes(dirName)) {
     console.error(
       `Invalid function template: ${functionName}. Must be one of ${VALID_FUNCTION_TEMPLATES_DIRS.join(
@@ -30,6 +28,7 @@ function functionTemplateFromName(functionName: string) {
     );
     process.exit(1);
   }
+  if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
   return dirName;
 }
 
