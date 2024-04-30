@@ -23,7 +23,7 @@ export async function cloneAppAction(destination: string, templateIsJavascript: 
 
     const appActionDirectoryPath = resolve(`${destination}/actions`);
 
-    const d = await tiged(templateSource, { mode: 'tar', cache: false });
+    const d = await tiged(templateSource, { mode: 'tar', disableCache: true });
     await d.clone(appActionDirectoryPath);
 
     // move the manifest from the actions folder to the root folder

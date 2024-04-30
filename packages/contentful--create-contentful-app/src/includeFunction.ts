@@ -47,7 +47,7 @@ export async function cloneFunction(
 
     const functionDirectoryPath = resolve(`${destination}/functions`);
 
-    const d = tiged(templateSource, { mode: 'tar', cache: false });
+    const d = tiged(templateSource, { mode: 'tar', disableCache: true });
     await d.clone(functionDirectoryPath);
 
     // merge the manifest from the template folder to the root folder
