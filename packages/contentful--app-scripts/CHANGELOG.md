@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.19.0...@contentful/app-scripts@1.19.1) (2024-04-30)
+
+### Bug Fixes
+
+- **deps:** bump @segment/analytics-node from 2.1.0 to 2.1.2 ([#1959](https://github.com/contentful/create-contentful-app/issues/1959)) ([4a67f94](https://github.com/contentful/create-contentful-app/commit/4a67f9453fef7fcc642dd340da67d64bbd9884eb))
+- **deps:** bump contentful-management from 11.24.5 to 11.25.0 ([#1941](https://github.com/contentful/create-contentful-app/issues/1941)) ([4591121](https://github.com/contentful/create-contentful-app/commit/4591121e938e663666450c2e767cf019f19ccdcf))
+- **deps:** bump contentful-management from 11.25.0 to 11.25.1 ([#1954](https://github.com/contentful/create-contentful-app/issues/1954)) ([4b09838](https://github.com/contentful/create-contentful-app/commit/4b098383a981afca9176da135fbf2de80e381d1d))
+- **deps:** bump contentful-management from 11.25.1 to 11.25.2 ([#1955](https://github.com/contentful/create-contentful-app/issues/1955)) ([8ffcaf6](https://github.com/contentful/create-contentful-app/commit/8ffcaf67891345e22a92e28b3ac787a3b3626659))
+- remove unnecessary `console.log` statement ([#1960](https://github.com/contentful/create-contentful-app/issues/1960)) ([d4436f6](https://github.com/contentful/create-contentful-app/commit/d4436f62dc01c85d7b91b4f08bd4af2123809a89))
+
 # [1.19.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.18.0...@contentful/app-scripts@1.19.0) (2024-04-11)
 
 ### Bug Fixes
