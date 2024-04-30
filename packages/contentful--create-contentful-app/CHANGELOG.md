@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.3...@contentful/create-contentful-app@1.16.4) (2024-04-30)
+
+### Bug Fixes
+
+- disable tiged cache [] ([#1962](https://github.com/contentful/create-contentful-app/issues/1962)) ([c002231](https://github.com/contentful/create-contentful-app/commit/c0022316490bdf3d9c1f89792826c95cecf7335f))
+
 ## [1.16.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.2...@contentful/create-contentful-app@1.16.3) (2024-04-30)
 
 ### Bug Fixes
