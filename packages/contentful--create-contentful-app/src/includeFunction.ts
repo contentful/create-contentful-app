@@ -1,7 +1,7 @@
 import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
-import degit from 'degit';
+import tiged from 'tiged';
 import { highlight } from './logger';
 import { exists, mergeJsonIntoFile } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
@@ -47,7 +47,7 @@ export async function cloneFunction(
 
     const functionDirectoryPath = resolve(`${destination}/functions`);
 
-    const d = degit(templateSource, { mode: 'tar', cache: false });
+    const d = tiged(templateSource, { mode: 'tar', cache: false });
     await d.clone(functionDirectoryPath);
 
     // merge the manifest from the template folder to the root folder

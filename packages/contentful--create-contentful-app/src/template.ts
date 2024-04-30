@@ -1,19 +1,19 @@
 import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
-import degit from 'degit';
+import tiged from 'tiged';
 import * as rimraf from 'rimraf';
 import { success } from './logger';
 import { rmIfExists } from './utils';
 
 async function clone(source: string, destination: string) {
-  const d = degit(source, { mode: 'tar', cache: false });
+  const d = tiged(source, { mode: 'tar', cache: false });
 
   try {
     await d.clone(destination);
   } catch (e: any) {
     if (e.code === 'DEST_NOT_EMPTY') {
-      // In this case, we know that degit will suggest users
-      // provide a 'force' flag - this is a flag for degit though
+      // In this case, we know that tiged will suggest users
+      // provide a 'force' flag - this is a flag for tiged though
       // and not CCA. So we swallow the details of this error
       // to avoid confusing people.
       throw new Error('Destination directory is not empty.');
