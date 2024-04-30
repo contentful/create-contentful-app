@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.2...@contentful/create-contentful-app@1.16.3) (2024-04-30)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.25.0 to 11.25.1 ([#1954](https://github.com/contentful/create-contentful-app/issues/1954)) ([4b09838](https://github.com/contentful/create-contentful-app/commit/4b098383a981afca9176da135fbf2de80e381d1d))
+- **deps:** bump contentful-management from 11.25.1 to 11.25.2 ([#1955](https://github.com/contentful/create-contentful-app/issues/1955)) ([8ffcaf6](https://github.com/contentful/create-contentful-app/commit/8ffcaf67891345e22a92e28b3ac787a3b3626659))
+- swap to tiged instead of degit [] ([#1961](https://github.com/contentful/create-contentful-app/issues/1961)) ([b9760b4](https://github.com/contentful/create-contentful-app/commit/b9760b464f4d48001ee0e12427cda4c00fd0b0f7))
+
 ## [1.16.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.1...@contentful/create-contentful-app@1.16.2) (2024-04-23)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
