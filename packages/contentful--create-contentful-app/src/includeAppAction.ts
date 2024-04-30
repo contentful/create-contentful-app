@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
-import degit from 'degit';
+import tiged from 'tiged';
 import { highlight } from './logger';
 import { getAddBuildCommandFn } from './utils/package';
 import { exists, mergeJsonIntoFile } from './utils/file';
@@ -23,7 +23,7 @@ export async function cloneAppAction(destination: string, templateIsJavascript: 
 
     const appActionDirectoryPath = resolve(`${destination}/actions`);
 
-    const d = await degit(templateSource, { mode: 'tar', cache: false });
+    const d = await tiged(templateSource, { mode: 'tar', cache: false });
     await d.clone(appActionDirectoryPath);
 
     // move the manifest from the actions folder to the root folder
