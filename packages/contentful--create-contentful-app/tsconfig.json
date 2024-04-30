@@ -1,9 +1,9 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "@tsconfig/node20/tsconfig.json",
   "exclude": ["node_modules", "**/*.spec.ts", "app-actions"],
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "es2020",
+    "module": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
