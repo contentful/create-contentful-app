@@ -6,7 +6,7 @@ import { success } from './logger';
 import { rmIfExists } from './utils';
 
 async function clone(source: string, destination: string) {
-  const d = tiged(source, { mode: 'tar', cache: false });
+  const d = tiged(source, { mode: 'tar', disableCache: true });
 
   try {
     await d.clone(destination);
