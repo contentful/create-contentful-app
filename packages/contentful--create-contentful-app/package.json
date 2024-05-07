@@ -46,7 +46,7 @@
     "rimraf": "5.0.5",
     "tiged": "^2.12.7",
     "tildify": "2.0.0",
-    "validate-npm-package-name": "5.0.0"
+    "validate-npm-package-name": "5.0.1"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
