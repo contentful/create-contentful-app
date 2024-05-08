@@ -3,6 +3,7 @@
 import { program } from 'commander';
 
 import { createAppDefinition, upload, activate, cleanup, open, track } from './index';
+import { feedback } from './feedback';
 
 type Command = typeof createAppDefinition | typeof upload | typeof activate | typeof cleanup | typeof open;
 
@@ -66,6 +67,13 @@ async function runCommand(command: Command, options?: any) {
     .option('--host [host]', 'Contentful domain to use')
     .action(async (options) => {
       await runCommand(cleanup, options);
+    });
+  
+  program
+    .command('feedback')
+    .description('Provide Contentful with feedback on the CLI')
+    .action(async (options) => {
+      await runCommand(feedback, options);
     });
 
   program.hook('preAction', (thisCommand) => {

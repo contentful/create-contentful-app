@@ -3,11 +3,13 @@ import { getUploadSettingsArgs } from './get-upload-settings-args';
 import { createAppBundleFromSettings } from './create-app-bundle';
 import { buildAppUploadSettings } from './build-upload-settings';
 import { UploadOptions, UploadSettings } from '../types';
+import { logFeedbackNudge } from '../feedback/feedback';
 
 async function uploadAndActivate(settings: UploadSettings) {
   const bundle = await createAppBundleFromSettings(settings);
   if (!settings.skipActivation && bundle) {
     await activateBundle({ ...settings, bundleId: bundle.sys.id });
+    logFeedbackNudge();
   }
 }
 
