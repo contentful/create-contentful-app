@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.5...@contentful/create-contentful-app@1.16.6) (2024-05-08)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.25.2 to 11.25.3 ([#1963](https://github.com/contentful/create-contentful-app/issues/1963)) ([689ed38](https://github.com/contentful/create-contentful-app/commit/689ed38d8f844be1a164fa67b4f45896ad297806))
+- **deps:** bump validate-npm-package-name from 5.0.0 to 5.0.1 ([#1966](https://github.com/contentful/create-contentful-app/issues/1966)) ([23329b8](https://github.com/contentful/create-contentful-app/commit/23329b8df0d9334c2ac8ead5354a8a0ec45ee516))
+
 ## [1.16.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.4...@contentful/create-contentful-app@1.16.5) (2024-04-30)
 
 **Note:** Version bump only for package @contentful/create-contentful-app

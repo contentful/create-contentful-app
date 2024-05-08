@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.19.1...@contentful/app-scripts@1.20.0) (2024-05-08)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.25.2 to 11.25.3 ([#1963](https://github.com/contentful/create-contentful-app/issues/1963)) ([689ed38](https://github.com/contentful/create-contentful-app/commit/689ed38d8f844be1a164fa67b4f45896ad297806))
+
+### Features
+
+- adding cli feedback link + nudge ([#1970](https://github.com/contentful/create-contentful-app/issues/1970)) ([95d64b4](https://github.com/contentful/create-contentful-app/commit/95d64b4e017e428a8379cde849b56ede3d9ba261))
+
 ## [1.19.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.19.0...@contentful/app-scripts@1.19.1) (2024-04-30)
 
 ### Bug Fixes
