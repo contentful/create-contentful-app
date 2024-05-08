@@ -4,3 +4,4 @@ export { activate } from './activate';
 export { cleanup } from './clean-up';
 export { open } from './open';
 export { track } from './analytics';
+export { feedback } from './feedback';
