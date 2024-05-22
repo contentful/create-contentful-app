@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.7](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.6...@contentful/create-contentful-app@1.16.7) (2024-05-22)
+
+### Bug Fixes
+
+- **deps:** bump commander from 12.0.0 to 12.1.0 ([#1979](https://github.com/contentful/create-contentful-app/issues/1979)) ([638cd5f](https://github.com/contentful/create-contentful-app/commit/638cd5f7d3554ab0a034d904746826fba3c1f754))
+- **deps:** bump contentful-management from 11.25.3 to 11.25.5 ([#1978](https://github.com/contentful/create-contentful-app/issues/1978)) ([e4d9b29](https://github.com/contentful/create-contentful-app/commit/e4d9b2964d06597718ba36284050e909c6ca720a))
+- **deps:** bump rimraf from 5.0.5 to 5.0.7 ([#1972](https://github.com/contentful/create-contentful-app/issues/1972)) ([1795c65](https://github.com/contentful/create-contentful-app/commit/1795c65fe217e1da4fe85d8f8e3dff3f4bbd90e4))
+
 ## [1.16.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.5...@contentful/create-contentful-app@1.16.6) (2024-05-08)
 
 ### Bug Fixes
