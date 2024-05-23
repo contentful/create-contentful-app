@@ -16,7 +16,7 @@ async function uploadAndActivate(settings: UploadSettings) {
   const bundle = await createAppBundleFromSettings(settings);
   if (uploadSettingsHaveAppEventFunction(settings)) {
     console.log(
-      'Remember that, in order to be invoked, your App Event function(s) must be linked to your App Event subscription using the CMA or the Events tab of the App Details page.'
+      'Remember that in order to be invoked, your App Event function(s) must be linked to your App Event subscription using the CMA or the Events tab of the App Details page.'
     );
   }
   if (!settings.skipActivation && bundle) {
