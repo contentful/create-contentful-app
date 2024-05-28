@@ -12,7 +12,7 @@ updates:
     registries:
       - npm-github
     reviewers:
-      - 'contentful/team-developer-experience'
+      - 'contentful/team-tundra'
     ignore:
       - dependency-name: "@types/node"
         versions:
