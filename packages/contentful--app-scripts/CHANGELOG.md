@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.20.1...@contentful/app-scripts@1.21.0) (2024-05-29)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.25.6 to 11.26.1 ([#1986](https://github.com/contentful/create-contentful-app/issues/1986)) ([cc080be](https://github.com/contentful/create-contentful-app/commit/cc080befbfc3fe1dc0149c03b94664592b220dd9))
+- **deps:** bump contentful-management from 11.26.1 to 11.26.2 ([#1990](https://github.com/contentful/create-contentful-app/issues/1990)) ([8adf6f8](https://github.com/contentful/create-contentful-app/commit/8adf6f850ece0e44e655a4d2f30af4f8e1155522))
+
+### Features
+
+- add nudge about app event function workflow to upload flow [EXT-5160] ([#1989](https://github.com/contentful/create-contentful-app/issues/1989)) ([0403ee9](https://github.com/contentful/create-contentful-app/commit/0403ee92ad5e17e72daf7df70c35db241c2a2071))
+
 ## [1.20.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.20.0...@contentful/app-scripts@1.20.1) (2024-05-22)
 
 ### Bug Fixes
