@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@segment/analytics-node": "^2.0.0",
-    "adm-zip": "0.5.13",
+    "adm-zip": "0.5.14",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
     "commander": "12.1.0",
