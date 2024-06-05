@@ -71,9 +71,10 @@ async function promptForParameter(): Promise<
       type: 'list',
       choices(answers) {
         const parameterTypes = ['Boolean', 'Symbol', 'Number', 'Enum'];
-        if (answers.instanceOrInstallation === 'Installation') {
-          parameterTypes.push('Secret');
-        }
+        // TODO uncomment when secret app installation parameters are finalized in the API
+        // if (answers.instanceOrInstallation === 'Installation') {
+        //   parameterTypes.push('Secret');
+        // }
         return parameterTypes;
       },
     },
@@ -100,9 +101,10 @@ async function promptForParameter(): Promise<
     {
       name: 'default',
       message: 'Default value (leave blank if none):',
-      when(answers) {
-        return answers.type !== 'Secret';
-      },
+      // TODO uncomment when secret app installation parameters are finalized in the API
+      // when(answers) {
+      //   return answers.type !== 'Secret';
+      // },
       validate(input, answers) {
         return validateDefault(input, answers.type, answers.options);
       },

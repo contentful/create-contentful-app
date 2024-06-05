@@ -47,7 +47,7 @@ describe('buildAppParameterSettings', async () => {
       instanceOrInstallation: 'installation',
       name: 'param1',
       id: 'param1',
-      type: 'Secret',
+      type: 'Symbol',
       required: true,
     });
     promptStub.onCall(1).resolves({ addAnother: false });
@@ -58,7 +58,7 @@ describe('buildAppParameterSettings', async () => {
       {
         name: 'param1',
         id: 'param1',
-        type: 'Secret',
+        type: 'Symbol',
         required: true,
         default: undefined,
         description: undefined,
