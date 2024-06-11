@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.22.0...@contentful/app-scripts@1.23.0) (2024-06-11)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.26.2 to 11.27.0 ([#2000](https://github.com/contentful/create-contentful-app/issues/2000)) ([999d408](https://github.com/contentful/create-contentful-app/commit/999d40820fa33cf2bf270bacc1e0d5ad48fcafeb))
+
+### Features
+
+- add a script to install the app ([#2009](https://github.com/contentful/create-contentful-app/issues/2009)) ([9c08f7c](https://github.com/contentful/create-contentful-app/commit/9c08f7cfff5fa0db3443fb7c5f90bfd363b8494a))
+
 # [1.22.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.21.0...@contentful/app-scripts@1.22.0) (2024-06-05)
 
 ### Bug Fixes
