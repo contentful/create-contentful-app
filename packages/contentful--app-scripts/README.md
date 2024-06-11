@@ -220,6 +220,32 @@ When passing the `--ci` argument adding all variables as arguments is required
 
 **Note:** You can also pass all arguments in interactive mode to skip being asked for it.
 
+### Install the AppDefinition into a specific space / environment
+
+It opens a dialog to select the space and environment where the app associated with the given [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/) should be installed.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts install --definition-id some-definition-id
+> ```
+
+You can also execute this command without the argument if the environment variable (`CONTENTFUL_APP_DEF_ID`) has been set.
+
+> **Example**
+>
+> ```shell
+> $ CONTENTFUL_APP_DEF_ID=some-definition-id npx --no-install @contentful/app-scripts install
+> ```
+
+By default, the script will install the app into the default host URL: `app.contentful.com`. If you want to install the app into a different host URL, you can set the argument `--host` to the desired host URL.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts install --definition-id some-definition-id --host api.eu.contentful.com
+> ```
+
 ### Tracking
 
 We gather depersonalized usage data of our CLI tools in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
