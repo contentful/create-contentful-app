@@ -88,6 +88,7 @@ async function runCommand(command: Command, options?: any) {
       'Opens a picker to select the space and environment for installing the app associated with a given AppDefinition'
     )
     .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--host [host]', 'Contentful domain to use')
     .action(async (options) => {
       await runCommand(install, options);
     });

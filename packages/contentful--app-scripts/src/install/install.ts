@@ -1,10 +1,8 @@
 import open from 'open';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import { APP_DEF_ENV_KEY } from '../constants';
+import { APP_DEF_ENV_KEY, DEFAULT_CONTENTFUL_APP_HOST } from '../constants';
 import { InstallOptions } from '../types';
-
-export const REDIRECT_URL = 'https://app.contentful.com/deeplink?link=apps';
 
 export async function installToEnvironment(options: InstallOptions) {
   let definitionId;
@@ -32,8 +30,11 @@ export async function installToEnvironment(options: InstallOptions) {
     throw new Error('No app-definition-id');
   }
 
+  const host = options.host || DEFAULT_CONTENTFUL_APP_HOST;
+  const redirectUrl = `https://${host}/deeplink?link=apps`;
+
   try {
-    open(`${REDIRECT_URL}&id=${definitionId}`);
+    open(`${redirectUrl}&id=${definitionId}`);
   } catch (err: any) {
     console.log(`${chalk.red('Error:')} Failed to open browser`);
     console.log(err.message);

@@ -60,6 +60,7 @@ export interface OpenSettingsOptions {
 
 export interface InstallOptions {
   definitionId?: string;
+  host?: string;
 }
 
 export interface UploadOptions {
