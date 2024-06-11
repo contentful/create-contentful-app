@@ -2,10 +2,16 @@
 
 import { program } from 'commander';
 
-import { createAppDefinition, upload, activate, cleanup, open, track } from './index';
+import { createAppDefinition, upload, activate, cleanup, open, track, install } from './index';
 import { feedback } from './feedback';
 
-type Command = typeof createAppDefinition | typeof upload | typeof activate | typeof cleanup | typeof open;
+type Command =
+  | typeof createAppDefinition
+  | typeof upload
+  | typeof activate
+  | typeof cleanup
+  | typeof open
+  | typeof install;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
@@ -68,12 +74,22 @@ async function runCommand(command: Command, options?: any) {
     .action(async (options) => {
       await runCommand(cleanup, options);
     });
-  
+
   program
     .command('feedback')
     .description('Provide Contentful with feedback on the CLI')
     .action(async (options) => {
       await runCommand(feedback, options);
+    });
+
+  program
+    .command('install')
+    .description(
+      'Opens a picker to select the space and environment for installing the app associated with a given AppDefinition'
+    )
+    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .action(async (options) => {
+      await runCommand(install, options);
     });
 
   program.hook('preAction', (thisCommand) => {

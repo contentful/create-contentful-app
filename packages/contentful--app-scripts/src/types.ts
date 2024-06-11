@@ -58,6 +58,10 @@ export interface OpenSettingsOptions {
   definitionId?: string;
 }
 
+export interface InstallOptions {
+  definitionId?: string;
+}
+
 export interface UploadOptions {
   organizationId?: string;
   definitionId?: string;
