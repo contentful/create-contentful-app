@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.23.0...@contentful/app-scripts@1.24.0) (2024-06-17)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.27.0 to 11.27.1 ([#2013](https://github.com/contentful/create-contentful-app/issues/2013)) ([6af3a4b](https://github.com/contentful/create-contentful-app/commit/6af3a4b9cd6df4a73ea2b2aa83ad64284c8ed766))
+
+### Features
+
+- extend the list of accepted events with ERL events ([#2015](https://github.com/contentful/create-contentful-app/issues/2015)) ([6059448](https://github.com/contentful/create-contentful-app/commit/605944819dadee7df7275d42ac42fcda419b16dd))
+
 # [1.23.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.22.0...@contentful/app-scripts@1.23.0) (2024-06-11)
 
 ### Bug Fixes
