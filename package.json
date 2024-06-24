@@ -24,7 +24,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
-    "@types/mocha": "10.0.6",
+    "@types/mocha": "10.0.7",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "babel-eslint": "10.1.0",
