@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.24.0...@contentful/app-scripts@1.25.0) (2024-06-27)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.27.1 to 11.27.2 ([#2016](https://github.com/contentful/create-contentful-app/issues/2016)) ([1e6aace](https://github.com/contentful/create-contentful-app/commit/1e6aace1fb36e3ee8e1bb495a8ca004c9179e99a))
+- **deps:** bump contentful-management from 11.27.2 to 11.27.3 ([#2018](https://github.com/contentful/create-contentful-app/issues/2018)) ([db7b875](https://github.com/contentful/create-contentful-app/commit/db7b8757e00584d25e036ea3b87378ce85dae2ac))
+- **deps:** bump contentful-management from 11.27.3 to 11.27.4 ([#2024](https://github.com/contentful/create-contentful-app/issues/2024)) ([e675197](https://github.com/contentful/create-contentful-app/commit/e6751974e2ee51672906469243caf7ed99e99ad4))
+
+### Features
+
+- allow installation parameters to be of type 'Secret' ([#2023](https://github.com/contentful/create-contentful-app/issues/2023)) ([7aabc37](https://github.com/contentful/create-contentful-app/commit/7aabc37f33e2cfae1643edec1417d7b7fd45486a))
+
 # [1.24.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.23.0...@contentful/app-scripts@1.24.0) (2024-06-17)
 
 ### Bug Fixes
