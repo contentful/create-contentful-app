@@ -55,7 +55,7 @@
     "contentful-management": "11.30.2",
     "dotenv": "16.4.5",
     "ignore": "5.3.1",
-    "inquirer": "8.2.6",
+    "inquirer": "10.1.5",
     "lodash": "4.17.21",
     "open": "8.4.2",
     "ora": "5.4.1"
