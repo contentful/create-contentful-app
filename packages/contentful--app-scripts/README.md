@@ -32,7 +32,7 @@ Otherwise
 $ npx @contentful/app-scripts create-app-definition
 ```
 
-### 👨‍💻 Programmatic
+### 👩‍💻 Programmatic
 
 ```javascript
 const { createAppDefinition } = require('@contentful/app-scripts');
