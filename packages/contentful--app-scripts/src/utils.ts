@@ -13,12 +13,10 @@ const functionEvents = {
   queryEvent: 'graphql.query',
   resourceLinksSearchEvent: 'resources.search',
   resourceLinksLookupEvent: 'resources.lookup',
-};
-
-const appEvents = {
   appEventFilter: 'appevent.filter',
   appEventHandler: 'appevent.handler',
   appEventTransformation: 'appevent.transformation',
+  appActionCall: 'appaction.call',
 };
 
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
@@ -132,7 +130,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
 
       const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
       const hasInvalidEvent = accepts?.some(
-        (event) => ![...Object.values(functionEvents), ...Object.values(appEvents)].includes(event)
+        (event) => !Object.values(functionEvents).includes(event)
       );
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
