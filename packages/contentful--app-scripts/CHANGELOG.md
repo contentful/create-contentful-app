@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.27.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.26.0...@contentful/app-scripts@1.27.0) (2024-08-28)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.31.7 to 11.31.8 ([#2106](https://github.com/contentful/create-contentful-app/issues/2106)) ([baef7af](https://github.com/contentful/create-contentful-app/commit/baef7af1b061cb0138c8903594c54e7469690b95))
+- **deps:** bump contentful-management from 11.31.8 to 11.31.9 ([#2109](https://github.com/contentful/create-contentful-app/issues/2109)) ([4292f64](https://github.com/contentful/create-contentful-app/commit/4292f647b8bbf6ec78429638fe798b7dab4c9e32))
+
+### Features
+
+- allow appaction.call events in the accepts field [EXT-5360] ([#2111](https://github.com/contentful/create-contentful-app/issues/2111)) ([bfd6c76](https://github.com/contentful/create-contentful-app/commit/bfd6c76913b4a255795dff61d7097e79ead8590d))
+
 # [1.26.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.25.0...@contentful/app-scripts@1.26.0) (2024-08-23)
 
 ### Bug Fixes
