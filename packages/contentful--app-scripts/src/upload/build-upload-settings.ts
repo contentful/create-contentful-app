@@ -37,7 +37,7 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
       name: 'host',
       message: `Contentful CMA endpoint URL:`,
       default: DEFAULT_CONTENTFUL_API_HOST,
-      filter: (input: string) => input.replace(/^https?:\/\//, ''),
+      filter: hostProtocolFilter,
     });
   }
 
@@ -55,4 +55,8 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     ...appUploadSettings,
     ...appInfo,
   };
+}
+
+export function hostProtocolFilter (input: string) {
+  return input.replace(/^https?:\/\//, '');
 }
