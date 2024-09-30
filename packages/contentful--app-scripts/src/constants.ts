@@ -8,3 +8,4 @@ export const DEFAULT_BUNDLES_TO_FETCH = 1000;
 export const MAX_CONCURRENT_DELETION_CALLS = 5;
 
 export const DEFAULT_CONTENTFUL_API_HOST = 'api.contentful.com';
+export const DEFAULT_CONTENTFUL_APP_HOST = 'app.contentful.com';

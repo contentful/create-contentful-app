@@ -1,7 +1,7 @@
 import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
-import degit from 'degit';
+import tiged from 'tiged';
 import { highlight } from './logger';
 import { exists, mergeJsonIntoFile } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
@@ -11,11 +11,15 @@ const addBuildCommand = getAddBuildCommandFn({
   command: 'node build-functions.js',
 });
 
-const VALID_FUNCTION_TEMPLATES_DIRS = ['templates', 'appevent-filter'];
+const VALID_FUNCTION_TEMPLATES_DIRS = [
+  'external-references',
+  'appevent-filter',
+  'appevent-handler',
+  'appevent-transformation',
+];
 
 function functionTemplateFromName(functionName: string) {
   let dirName = functionName;
-  if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
   if (!VALID_FUNCTION_TEMPLATES_DIRS.includes(dirName)) {
     console.error(
       `Invalid function template: ${functionName}. Must be one of ${VALID_FUNCTION_TEMPLATES_DIRS.join(
@@ -24,6 +28,7 @@ function functionTemplateFromName(functionName: string) {
     );
     process.exit(1);
   }
+  if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
   return dirName;
 }
 
@@ -42,7 +47,7 @@ export async function cloneFunction(
 
     const functionDirectoryPath = resolve(`${destination}/functions`);
 
-    const d = degit(templateSource, { mode: 'tar', cache: false });
+    const d = tiged(templateSource, { mode: 'tar', disableCache: true });
     await d.clone(functionDirectoryPath);
 
     // merge the manifest from the template folder to the root folder

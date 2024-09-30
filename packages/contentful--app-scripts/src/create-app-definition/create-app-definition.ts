@@ -38,7 +38,7 @@ function assertValidArguments(accessToken: string, appDefinitionSettings: AppDef
   if (!isPlainObject(appDefinitionSettings) || !has(appDefinitionSettings, 'locations')) {
     throwValidationException(
       'AppDefinitionSettings',
-      `Expected plain object with 'location' property, got ${JSON.stringify(
+      `Expected plain object with 'locations' property, got ${JSON.stringify(
         appDefinitionSettings,
         null,
         2
@@ -85,6 +85,14 @@ export async function createAppDefinition(accessToken: string, appDefinitionSett
         location,
       };
     }),
+    parameters: {
+      ...(appDefinitionSettings.parameters?.instance && {
+        instance: appDefinitionSettings.parameters.instance,
+      }),
+      ...(appDefinitionSettings.parameters?.installation && {
+        installation: appDefinitionSettings.parameters.installation,
+      }),
+    },
   };
 
   try {

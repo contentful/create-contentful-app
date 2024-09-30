@@ -1,14 +1,21 @@
 import chalk from 'chalk';
-import { AppLocation, FieldType } from 'contentful-management';
+import { AppLocation, FieldType, ParameterDefinition, InstallationParameterType } from 'contentful-management';
 import inquirer from 'inquirer';
 import path from 'path';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
+import { buildAppParameterSettings } from './build-app-parameter-settings';
+
 
 export interface AppDefinitionSettings {
   name: string;
   locations: AppLocation['location'][];
   fields?: FieldType[];
   host?: string;
+  buildAppParameters: boolean;
+  parameters?: {
+    instance: ParameterDefinition[],
+    installation: ParameterDefinition<InstallationParameterType>[],
+  }
 }
 
 export async function buildAppDefinitionSettings() {
@@ -85,7 +92,17 @@ NOTE: This will create an app definition in your Contentful organization.
       message: `Contentful CMA endpoint URL:`,
       default: DEFAULT_CONTENTFUL_API_HOST,
     },
+    {
+      name: 'buildAppParameters',
+      message: 'Would you like to specify App Parameter schemas? (see https://ctfl.io/app-parameters)',
+      type: 'confirm',
+      default: false,
+    },
   ]);
+
+  if (appDefinitionSettings.buildAppParameters) {
+    appDefinitionSettings.parameters = await buildAppParameterSettings();
+  }
 
   appDefinitionSettings.locations = ['dialog', ...appDefinitionSettings.locations];
 

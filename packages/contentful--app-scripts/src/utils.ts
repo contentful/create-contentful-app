@@ -9,6 +9,17 @@ import { ContentfulFunction, FunctionAppAction } from './types';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
+const functionEvents = {
+  fieldMappingEvent: 'graphql.field.mapping',
+  queryEvent: 'graphql.query',
+  resourceLinksSearchEvent: 'resources.search',
+  resourceLinksLookupEvent: 'resources.lookup',
+  appEventFilter: 'appevent.filter',
+  appEventHandler: 'appevent.handler',
+  appEventTransformation: 'appevent.transformation',
+  appActionCall: 'appaction.call',
+};
+
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);
   message && console.log(message);
@@ -101,10 +112,10 @@ ${err.message}
   throw err;
 };
 
-export const selectFromList = async <T extends (Definition | Organization)>(
+export const selectFromList = async <T extends Definition | Organization>(
   list: T[],
   message: string,
-  cachedOptionEnvVar: string,
+  cachedOptionEnvVar: string
 ): Promise<T> => {
   const cachedEnvVar = process.env[cachedOptionEnvVar];
   const cachedElement = list.find((item) => item.value === cachedEnvVar);
@@ -131,9 +142,13 @@ export const selectFromList = async <T extends (Definition | Organization)>(
   }
 };
 
-type Entities<Type> = Type extends 'actions' ? Omit<FunctionAppAction, 'entryFile'>[] : Omit<ContentfulFunction, 'entryFile'>[];
+type Entities<Type> = Type extends 'actions'
+  ? Omit<FunctionAppAction, 'entryFile'>[]
+  : Omit<ContentfulFunction, 'entryFile'>[];
 
-export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type: Type): Entities<Type> | undefined {
+export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
+  type: Type
+): Entities<Type> | undefined {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
   if (!isManifestExists) {
@@ -149,13 +164,9 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
 
     logProgress(
       `${type === 'actions' ? 'App Actions' : 'functions'} found in ${chalk.bold(
-        DEFAULT_MANIFEST_PATH,
-      )}.`,
+        DEFAULT_MANIFEST_PATH
+      )}.`
     );
-
-    const fieldMappingEvent = "graphql.field.mapping";
-    const queryEvent =  "graphql.query";
-    const appEventFilter = 'appevent.filter';
 
     const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
@@ -163,16 +174,18 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
         : [];
 
       const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
-      const hasInvalidEvent = accepts?.some((event) => ![fieldMappingEvent, queryEvent, appEventFilter].includes(event));
+      const hasInvalidEvent = accepts?.some(
+        (event) => !Object.values(functionEvents).includes(event)
+      );
 
       const hasInvalidNetwork = allowNetworks.find((network) => !isValidNetwork(network));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
-            'Error:',
+            'Error:'
           )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
             item.name
-          }".`,
+          }".`
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -180,16 +193,16 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
       if (hasInvalidEvent) {
         console.log(
           `${chalk.red(
-            'Error:',
+            'Error:'
           )} Invalid events ${hasInvalidEvent} found in the accepts array for ${type} "${
             item.name
-          }".`,
+          }".`
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
       }
 
-      // EntryFile is not used but we do want to strip it
+      // EntryFile is not used but we do want to strip it.
       // eslint-disable-next-line no-unused-vars
       const { entryFile: _, ...itemWithoutEntryFile } = item;
 
@@ -204,8 +217,8 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
-        DEFAULT_MANIFEST_PATH,
-      )}.`,
+        DEFAULT_MANIFEST_PATH
+      )}.`
     );
     // eslint-disable-next-line no-process-exit
     process.exit(1);

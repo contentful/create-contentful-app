@@ -131,6 +131,12 @@ async function initProject(appName: string, options: CLIOptions) {
     }
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
+      // If function flag is specified, but no function name is provided, we default to external-references
+      // for legacy support.
+      if (normalizedOptions.function === true) {
+        normalizedOptions.function = 'external-references';
+      }
+
       await cloneFunction(
         fullAppFolder,
         !!normalizedOptions.javascript,
@@ -194,7 +200,7 @@ async function initProject(appName: string, options: CLIOptions) {
       ].join('\n')
     )
     .option('-a, --action', 'include a hosted app action in the ts or js template')
-    .option('-f, --function <function-template-name>', 'include the specified function template')
+    .option('-f, --function [function-template-name]', 'include the specified function template')
     .action(initProject);
   await program.parseAsync();
 })();
