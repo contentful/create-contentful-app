@@ -22,13 +22,14 @@ describe('buildAppUploadSettings', () => {
     sinon.restore();
   });
 
-  it('should strip protocol from host input when provided via prompt', async () => {
+  for (const protocol of ['http://', 'https://']) {
+  it(`should strip ${protocol} protocol from host input when provided via prompt`, async () => {
     const options = {};
     const prompts = {
       bundleDirectory: './custom-build',
       comment: 'Test comment',
       activateBundle: true,
-      host: 'https://api.contentful.com',
+      host: `${protocol}api.contentful.com`,
     };
 
     // Manually apply the filter function to simulate inquirer's behavior
@@ -50,6 +51,7 @@ describe('buildAppUploadSettings', () => {
     assert.strictEqual(result.actions, 'actionsManifest');
     assert.strictEqual(result.functions, 'functionsManifest');
   });
+  }
 
   it('should prompt for missing options and use defaults', async () => {
     const options = {};
