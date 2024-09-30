@@ -33,7 +33,7 @@ const wildcardSubdomain = /\*\./g;
 function isValidIP(ipAddress: string): boolean {
   const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}(?::\d{1,5})?$/;
   const ipv6Pattern = /^\[?([0-9a-fA-F]{1,4}:){1,7}[0-9a-fA-F]{1,4}\]?(:\d{1,5})?$/;
-
+  
   const [ip, port] = ipAddress.includes('[')
   ? ipAddress.split(/[[]]/).filter(Boolean)[0].split(']:')
   : ipAddress.split(':');
