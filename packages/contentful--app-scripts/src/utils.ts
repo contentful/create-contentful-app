@@ -22,7 +22,7 @@ const wildcardSubdomain = /\*\./g;
 function isValidIP(ipAddress: string): boolean {
   const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}(?::\d{1,5})?$/;
   const ipv6Pattern = /^\[?([0-9a-fA-F]{1,4}:){1,7}[0-9a-fA-F]{1,4}\]?(:\d{1,5})?$/;
-  
+
   const [ip, port] = ipAddress.includes('[')
     ? ipAddress.split(/[\[\]]/).filter(Boolean)[0].split(']:')
     : ipAddress.split(':');
@@ -101,10 +101,10 @@ ${err.message}
   throw err;
 };
 
-export const selectFromList = async <T extends Definition | Organization>(
+export const selectFromList = async <T extends (Definition | Organization)>(
   list: T[],
   message: string,
-  cachedOptionEnvVar: string
+  cachedOptionEnvVar: string,
 ): Promise<T> => {
   const cachedEnvVar = process.env[cachedOptionEnvVar];
   const cachedElement = list.find((item) => item.value === cachedEnvVar);
@@ -131,15 +131,11 @@ export const selectFromList = async <T extends Definition | Organization>(
   }
 };
 
-type Entities<Type> = Type extends 'actions'
-  ? Omit<FunctionAppAction, 'entryFile'>[]
-  : Omit<ContentfulFunction, 'entryFile'>[];
+type Entities<Type> = Type extends 'actions' ? Omit<FunctionAppAction, 'entryFile'>[] : Omit<ContentfulFunction, 'entryFile'>[];
 
-export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
-  type: Type
-): Entities<Type> | undefined {
-  console.log('COMING HERE');
+export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type: Type): Entities<Type> | undefined {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
+
   if (!isManifestExists) {
     return;
   }
@@ -153,12 +149,12 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
 
     logProgress(
       `${type === 'actions' ? 'App Actions' : 'functions'} found in ${chalk.bold(
-        DEFAULT_MANIFEST_PATH
-      )}.`
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
     );
 
-    const fieldMappingEvent = 'graphql.field.mapping';
-    const queryEvent = 'graphql.query';
+    const fieldMappingEvent = "graphql.field.mapping";
+    const queryEvent =  "graphql.query";
     const appEventFilter = 'appevent.filter';
 
     const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
@@ -167,17 +163,16 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
         : [];
 
       const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
-      const hasInvalidEvent = accepts?.some(
-        (event) => ![fieldMappingEvent, queryEvent, appEventFilter].includes(event)
-      );
+      const hasInvalidEvent = accepts?.some((event) => ![fieldMappingEvent, queryEvent, appEventFilter].includes(event));
+
       const hasInvalidNetwork = allowNetworks.find((network) => !isValidNetwork(network));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
-            'Error:'
+            'Error:',
           )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
             item.name
-          }".`
+          }".`,
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -185,10 +180,10 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
       if (hasInvalidEvent) {
         console.log(
           `${chalk.red(
-            'Error:'
+            'Error:',
           )} Invalid events ${hasInvalidEvent} found in the accepts array for ${type} "${
             item.name
-          }".`
+          }".`,
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -197,7 +192,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
       // EntryFile is not used but we do want to strip it
       // eslint-disable-next-line no-unused-vars
       const { entryFile: _, ...itemWithoutEntryFile } = item;
-      console.log('hfslhfdsjlk');
+
       return {
         ...itemWithoutEntryFile,
         ...(accepts && { accepts }),
@@ -209,8 +204,8 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
-        DEFAULT_MANIFEST_PATH
-      )}.`
+        DEFAULT_MANIFEST_PATH,
+      )}.`,
     );
     // eslint-disable-next-line no-process-exit
     process.exit(1);
