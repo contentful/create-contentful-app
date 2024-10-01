@@ -4,7 +4,7 @@ import proxyquire from 'proxyquire';
 
 import { isValidNetwork, stripProtocol } from './utils';
 
-describe('isValidURL', () => {
+describe('isValidNetwork', () => {
   it('returns true for a valid IP address', () => {
     const result = isValidNetwork('192.168.0.1');
     assert.strictEqual(result, true);
