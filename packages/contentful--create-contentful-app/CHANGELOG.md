@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.15](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.14...@contentful/create-contentful-app@1.16.15) (2024-10-01)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.31.9 to 11.32.0 ([#2114](https://github.com/contentful/create-contentful-app/issues/2114)) ([61923ca](https://github.com/contentful/create-contentful-app/commit/61923ca4c420ad01440817588da09fdd2142bbb7))
+- **deps:** bump contentful-management from 11.32.0 to 11.33.0 ([#2117](https://github.com/contentful/create-contentful-app/issues/2117)) ([4d79842](https://github.com/contentful/create-contentful-app/commit/4d798423e33491b106ce893c9448e15ee3a65e83))
+- **deps:** bump contentful-management from 11.33.0 to 11.34.0 ([#2135](https://github.com/contentful/create-contentful-app/issues/2135)) ([d71dd18](https://github.com/contentful/create-contentful-app/commit/d71dd18da36349bc82fbaef48f42ec5a0cbb0ce8))
+- **deps:** bump contentful-management from 11.34.0 to 11.35.0 ([#2139](https://github.com/contentful/create-contentful-app/issues/2139)) ([c4e2b80](https://github.com/contentful/create-contentful-app/commit/c4e2b80f99b198fb33e1411a9204e31e87608734))
+- **deps:** bump contentful-management from 11.35.0 to 11.35.1 ([#2150](https://github.com/contentful/create-contentful-app/issues/2150)) ([526977c](https://github.com/contentful/create-contentful-app/commit/526977ce0f60542b19fb39ac39dd515c2492fa1e))
+
 ## [1.16.14](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.13...@contentful/create-contentful-app@1.16.14) (2024-08-28)
 
 ### Bug Fixes
