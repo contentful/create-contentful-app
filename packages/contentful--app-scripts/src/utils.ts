@@ -28,8 +28,16 @@ export const throwValidationException = (subject: string, message?: string, deta
 };
 
 export const isValidNetwork = (address: string) => {
-  const addressRegex =
-    /^(?:localhost|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}))(?::\d{1,5})?$/;
+  const addressRegex = new RegExp(
+    '^(?:' +
+      '(?:' +
+      '(?:\\*\\.)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}' +
+      '|\\*\\.[a-zA-Z]{2,6}' + // Matches wildcard domains like *.com
+      ')|' +
+      '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|' +
+      '(\\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})' +
+      ')(?::\\d{1,5})?$'
+  );
   return addressRegex.test(address);
 };
 
