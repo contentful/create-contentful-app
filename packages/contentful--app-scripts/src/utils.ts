@@ -27,16 +27,23 @@ export const throwValidationException = (subject: string, message?: string, deta
   throw new TypeError(message);
 };
 
-export const isValidNetwork = (address: string) => {
+export const isValidNetwork = (address: string): boolean => {
+  // Regular expression to validate network addresses
   const addressRegex = new RegExp(
-    '^(?:' +
-      '(?:' +
-      '(?:\\*\\.)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}' +
-      '|\\*\\.[a-zA-Z]{2,6}' + // Matches wildcard domains like *.com
-      ')|' +
-      '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|' +
-      '(\\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})' +
-      ')(?::\\d{1,5})?$'
+    '^(?:' + // Start of the non-capturing group for the entire address
+      '(?:' + // Start of the non-capturing group for domain names
+        '(?:\\*\\.)' + // Matches wildcard domains like *.example.com
+        '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)' + // Matches a single subdomain
+        '[a-zA-Z]{2,6}' + // Matches the top-level domain (TLD)
+      '|' + // OR
+        '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+' + // Matches standard domains with one or more subdomains
+        '[a-zA-Z]{2,6}' + // Matches the top-level domain (TLD)
+      ')|' + // End of the non-capturing group for domain names, OR
+      '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' + // Matches the first three octets of an IPv4 address
+      '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|' + // Matches the last octet of an IPv4 address
+      '(\\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\\]' + // Matches IPv6 addresses in square brackets
+      '|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})' + // Matches IPv6 addresses without square brackets
+    ')(?::\\d{1,5})?$' // Matches an optional port number (1 to 5 digits)
   );
   return addressRegex.test(address);
 };

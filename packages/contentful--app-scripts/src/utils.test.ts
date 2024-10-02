@@ -54,6 +54,22 @@ describe('isValidIpAddress', () => {
     const result = isValidNetwork('*.128.0.1');
     assert.strictEqual(result, false);
   });
+
+  it('returns false for invalid wildcard domain address', () => {
+    const result = isValidNetwork('*.com');
+    assert.strictEqual(result, false);
+  });
+
+  it('returns false for invalid wildcard domain address', () => {
+    const result = isValidNetwork('*.too.example.com');
+    assert.strictEqual(result, false);
+  });
+
+  it('returns false for invalid wildcard domain address', () => {
+    const result = isValidNetwork('*');
+    assert.strictEqual(result, false);
+  });
+
 });
 
 describe('removeProtocolFromUrl', () => {
