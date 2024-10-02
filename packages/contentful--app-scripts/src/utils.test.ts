@@ -10,6 +10,11 @@ describe('isValidIpAddress', () => {
     assert.strictEqual(result, true);
   });
 
+  it('returns true for a wildcard domain address', () => {
+    const result = isValidNetwork('*.cloudflare.com');
+    assert.strictEqual(result, true);
+  });
+
   it('returns true for a valid domain', () => {
     const result = isValidNetwork('google.com');
     assert.strictEqual(result, true);
@@ -44,6 +49,27 @@ describe('isValidIpAddress', () => {
     const result = isValidNetwork('[2001:0db8:85a3:0000:0000:8a2e:0370:7334]:443');
     assert.strictEqual(result, true);
   });
+
+  it('returns false for an invalid wildcard domain address', () => {
+    const result = isValidNetwork('*.128.0.1');
+    assert.strictEqual(result, false);
+  });
+
+  it('returns false for invalid wildcard domain address', () => {
+    const result = isValidNetwork('*.com');
+    assert.strictEqual(result, false);
+  });
+
+  it('returns false for invalid wildcard domain address', () => {
+    const result = isValidNetwork('*.too.example.com');
+    assert.strictEqual(result, false);
+  });
+
+  it('returns false for invalid wildcard domain address', () => {
+    const result = isValidNetwork('*');
+    assert.strictEqual(result, false);
+  });
+
 });
 
 describe('removeProtocolFromUrl', () => {
@@ -125,7 +151,7 @@ describe('get actions from manifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         actions: [actionMock],
-      }),
+      })
     );
 
     const result = getEntityFromManifest('actions');
@@ -145,7 +171,7 @@ describe('get actions from manifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         actions: [mockAction],
-      }),
+      })
     );
 
     const result = getEntityFromManifest('actions');
@@ -159,7 +185,7 @@ describe('get actions from manifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         actions: [actionMock],
-      }),
+      })
     );
 
     const result = getEntityFromManifest('actions');
@@ -178,7 +204,7 @@ describe('get actions from manifest', () => {
             allowNetworks: ['412.1.1.1'],
           },
         ],
-      }),
+      })
     );
 
     getEntityFromManifest('actions');
@@ -206,7 +232,7 @@ describe('get functions from manifest', () => {
     path: 'functions/mock.js',
     entryFile: './functions/mock.ts',
     allowNetworks: ['127.0.0.1', 'some.domain.tld'],
-    accepts: ["graphql.field.mapping", "graphql.query", 'appevent.filter']
+    accepts: ['graphql.field.mapping', 'graphql.query', 'appevent.filter'],
   };
   // eslint-disable-next-line no-unused-vars
   const { entryFile: _, ...resultMock } = functionMock;
@@ -252,7 +278,7 @@ describe('get functions from manifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         functions: [functionMock],
-      }),
+      })
     );
 
     const result = getEntityFromManifest('functions');
@@ -272,7 +298,7 @@ describe('get functions from manifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         functions: [mockFn],
-      }),
+      })
     );
 
     const result = getEntityFromManifest('functions');
@@ -286,7 +312,7 @@ describe('get functions from manifest', () => {
     fs.readFileSync.returns(
       JSON.stringify({
         functions: [functionMock],
-      }),
+      })
     );
 
     const result = getEntityFromManifest('functions');
@@ -305,7 +331,7 @@ describe('get functions from manifest', () => {
             allowNetworks: ['412.1.1.1'],
           },
         ],
-      }),
+      })
     );
 
     getEntityFromManifest('functions');
@@ -324,7 +350,7 @@ describe('get functions from manifest', () => {
             accepts: ['webhooks.rest'],
           },
         ],
-      }),
+      })
     );
 
     getEntityFromManifest('functions');
