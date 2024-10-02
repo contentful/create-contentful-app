@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.29.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.28.0...@contentful/app-scripts@1.29.0) (2024-10-02)
+
+### Features
+
+- support wildcard domains with regex [MONET-2345] ([#2155](https://github.com/contentful/create-contentful-app/issues/2155)) ([80f5e87](https://github.com/contentful/create-contentful-app/commit/80f5e872fa6728a6481f61df222abea24f406a38))
+
 # [1.28.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.27.0...@contentful/app-scripts@1.28.0) (2024-10-01)
 
 ### Bug Fixes
