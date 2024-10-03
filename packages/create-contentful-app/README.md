@@ -2,7 +2,7 @@
 
 # Create Contentful App
 
-`create-contentful-app` is a command line interface to easily bootstrap [Contentful Apps](https://www.contentful.com/developers/docs/extensibility/app-framework/).
+`create-contentful-app` is a command line interface used to easily bootstrap [Contentful Apps](https://www.contentful.com/developers/docs/extensibility/app-framework/).
 
 # Requirements
 
