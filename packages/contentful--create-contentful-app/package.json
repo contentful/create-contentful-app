@@ -36,7 +36,7 @@
     "test": "mocha 'test/**/*.spec.{js,ts}'"
   },
   "dependencies": {
-    "@contentful/app-scripts": "1.29.0",
+    "@contentful/app-scripts": "1.27.0",
     "analytics-node": "^6.2.0",
     "chalk": "4.1.2",
     "commander": "12.1.0",
