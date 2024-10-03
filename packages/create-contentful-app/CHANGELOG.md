@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.21](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.3.20...create-contentful-app@1.3.21) (2024-10-03)
+
+### Bug Fixes
+
+- force update in packages/create-contentful-app [] ([98632bf](https://github.com/contentful/create-contentful-app/commit/98632bfbe4ca743a5c8edfbd6b1ff811a75fd3cf))
+- force update in packages/create-contentful-app [] ([#2160](https://github.com/contentful/create-contentful-app/issues/2160)) ([653959b](https://github.com/contentful/create-contentful-app/commit/653959bbd95223e7a4ecb26e54c329207837a9aa))
+- use CCA packages that are available on npm [] ([#2158](https://github.com/contentful/create-contentful-app/issues/2158)) ([9dafe42](https://github.com/contentful/create-contentful-app/commit/9dafe42738ae676f36340687822f3f20ef1dfb26))
+
 ## [1.3.20](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.3.19...create-contentful-app@1.3.20) (2024-10-02)
 
 **Note:** Version bump only for package create-contentful-app
