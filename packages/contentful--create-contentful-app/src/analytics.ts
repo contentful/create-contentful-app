@@ -4,7 +4,7 @@ import Analytics from 'analytics-node';
 const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
 
 interface CCAEventProperties {
-  template?: string; // can be example, source or JS or TS
+  template?: string; // can be example, source, or JS or TS
   manager: 'npm' | 'yarn';
   interactive: boolean;
 }
