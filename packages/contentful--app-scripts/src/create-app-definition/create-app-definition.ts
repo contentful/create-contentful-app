@@ -56,7 +56,10 @@ function assertValidArguments(accessToken: string, appDefinitionSettings: AppDef
   }
 }
 
-export async function createAppDefinition(accessToken: string, appDefinitionSettings: AppDefinitionSettings) {
+export async function createAppDefinition(
+  accessToken: string,
+  appDefinitionSettings: AppDefinitionSettings
+) {
   assertValidArguments(accessToken, appDefinitionSettings);
 
   const client = createClient({ accessToken, host: appDefinitionSettings.host });
@@ -78,6 +81,22 @@ export async function createAppDefinition(accessToken: string, appDefinitionSett
         return {
           location,
           fieldTypes: appDefinitionSettings.fields || [],
+        };
+      }
+
+      if (location === 'page') {
+        const { pageNav, pageNavLinkName, pageNavLinkPath } = appDefinitionSettings;
+
+        return {
+          location,
+          ...(pageNav
+            ? {
+                navigationItem: {
+                  name: pageNavLinkName,
+                  path: pageNavLinkPath,
+                },
+              }
+            : {}),
         };
       }
 
@@ -103,9 +122,9 @@ export async function createAppDefinition(accessToken: string, appDefinitionSett
     });
 
     console.log(`
-  ${chalk.greenBright('Success!')} Created an app definition for ${chalk.bold(appName)} in ${chalk.bold(
-      selectedOrg.name
-    )}.
+  ${chalk.greenBright('Success!')} Created an app definition for ${chalk.bold(
+      appName
+    )} in ${chalk.bold(selectedOrg.name)}.
 
   ${chalk.dim(`NOTE: You can update this app definition in your organization settings:
         ${chalk.underline(`https://app.contentful.com/deeplink?link=org`)}`)}
