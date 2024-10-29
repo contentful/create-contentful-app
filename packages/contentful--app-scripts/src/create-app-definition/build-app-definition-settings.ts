@@ -87,8 +87,8 @@ NOTE: This will create an app definition in your Contentful organization.
       when(answers) {
         return answers.locations.includes('entry-field');
       },
-      validate(answers) {
-        if (answers.length < 1) {
+      validate(input) {
+        if (input.length < 1) {
           return 'You must choose at least one field type.';
         }
         return true;
@@ -107,13 +107,10 @@ NOTE: This will create an app definition in your Contentful organization.
       name: 'pageNavLinkName',
       message: 'Page location: Provide a name for the link in the main navigation:',
       when(answers) {
-        if (answers.locations.includes('page') && answers.pageNav) {
-          return answers.name;
-        }
-        return false;
+        return answers.locations.includes('page') && answers.pageNav;
       },
-      validate(answers) {
-        if (answers.length < 1 || answers.length > 40) {
+      validate(input) {
+        if (input.length < 1 || input.length > 40) {
           return 'Size must be at least 1 and at most 40';
         }
         return true;
@@ -127,14 +124,14 @@ NOTE: This will create an app definition in your Contentful organization.
       when(answers) {
         return answers.locations.includes('page') && answers.pageNav;
       },
-      validate(answers) {
-        if (answers.length > 512) {
+      validate(input) {
+        if (input.length > 512) {
           return 'Maximum 512 characters';
         }
-        if (answers.includes(' ')) {
+        if (input.includes(' ')) {
           return 'Path cannot contain empty space';
         }
-        if (!answers.startsWith('/')) {
+        if (!input.startsWith('/')) {
           return 'Path must start with /';
         }
         return true;
