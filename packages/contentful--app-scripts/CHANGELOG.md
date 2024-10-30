@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.30.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.29.0...@contentful/app-scripts@1.30.0) (2024-10-30)
+
+### Features
+
+- support setting navigationItem for page in create-app-definition [EXT-5884] ([#2176](https://github.com/contentful/create-contentful-app/issues/2176)) ([05420d4](https://github.com/contentful/create-contentful-app/commit/05420d4848cfbcbc88feb95e22268d3d26a30853))
+
 # [1.29.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.28.0...@contentful/app-scripts@1.29.0) (2024-10-02)
 
 ### Features
