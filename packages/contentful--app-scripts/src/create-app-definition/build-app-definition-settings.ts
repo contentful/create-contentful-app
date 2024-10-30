@@ -1,21 +1,28 @@
 import chalk from 'chalk';
-import { AppLocation, FieldType, ParameterDefinition, InstallationParameterType } from 'contentful-management';
+import {
+  AppLocation,
+  FieldType,
+  ParameterDefinition,
+  InstallationParameterType,
+} from 'contentful-management';
 import inquirer from 'inquirer';
 import path from 'path';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { buildAppParameterSettings } from './build-app-parameter-settings';
 
-
 export interface AppDefinitionSettings {
   name: string;
   locations: AppLocation['location'][];
   fields?: FieldType[];
+  pageNav?: boolean;
+  pageNavLinkName?: string;
+  pageNavLinkPath?: string;
   host?: string;
   buildAppParameters: boolean;
   parameters?: {
-    instance: ParameterDefinition[],
-    installation: ParameterDefinition<InstallationParameterType>[],
-  }
+    instance: ParameterDefinition[];
+    installation: ParameterDefinition<InstallationParameterType>[];
+  };
 }
 
 export async function buildAppDefinitionSettings() {
@@ -80,9 +87,52 @@ NOTE: This will create an app definition in your Contentful organization.
       when(answers) {
         return answers.locations.includes('entry-field');
       },
-      validate(answers) {
-        if (answers.length < 1) {
+      validate(input) {
+        if (input.length < 1) {
           return 'You must choose at least one field type.';
+        }
+        return true;
+      },
+    },
+    {
+      name: 'pageNav',
+      message: 'Page location: Would you like your page location to render in the main navigation?',
+      type: 'confirm',
+      default: false,
+      when(answers) {
+        return answers.locations.includes('page');
+      },
+    },
+    {
+      name: 'pageNavLinkName',
+      message: 'Page location: Provide a name for the link in the main navigation:',
+      when(answers) {
+        return answers.locations.includes('page') && answers.pageNav;
+      },
+      validate(input) {
+        if (input.length < 1 || input.length > 40) {
+          return 'Size must be at least 1 and at most 40';
+        }
+        return true;
+      },
+    },
+    {
+      name: 'pageNavLinkPath',
+      message:
+        'Page location: Provide a path which starts with / and does not contain empty space:',
+      default: '/',
+      when(answers) {
+        return answers.locations.includes('page') && answers.pageNav;
+      },
+      validate(input) {
+        if (input.length > 512) {
+          return 'Maximum 512 characters';
+        }
+        if (input.includes(' ')) {
+          return 'Path cannot contain empty space';
+        }
+        if (!input.startsWith('/')) {
+          return 'Path must start with /';
         }
         return true;
       },
@@ -94,7 +144,8 @@ NOTE: This will create an app definition in your Contentful organization.
     },
     {
       name: 'buildAppParameters',
-      message: 'Would you like to specify App Parameter schemas? (see https://ctfl.io/app-parameters)',
+      message:
+        'Would you like to specify App Parameter schemas? (see https://ctfl.io/app-parameters)',
       type: 'confirm',
       default: false,
     },
