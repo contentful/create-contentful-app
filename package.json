@@ -35,7 +35,7 @@
     "husky": "9.1.6",
     "lerna": "6.6.2",
     "lint-staged": "15.2.10",
-    "mocha": "10.7.3",
+    "mocha": "10.8.1",
     "nx": "20.0.6",
     "prettier": "2.8.8",
     "proxyquire": "2.1.3",
