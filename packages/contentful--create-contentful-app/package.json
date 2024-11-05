@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@contentful/app-scripts": "1.27.0",
-    "analytics-node": "^6.2.0",
+    "@segment/analytics-node": "^2.2.0",
     "chalk": "4.1.2",
     "commander": "12.1.0",
     "inquirer": "8.2.6",
