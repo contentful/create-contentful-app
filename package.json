@@ -18,7 +18,7 @@
     "version:canary": "npm run version -- --conventional-prerelease",
     "publish-packages:canary": "npm run publish-packages -- --canary",
     "pre-commit": "lerna run pre-commit",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
