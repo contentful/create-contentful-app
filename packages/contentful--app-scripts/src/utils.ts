@@ -172,7 +172,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
         process.exit(1);
       }
 
-      // EntryFile is not used but we do want to strip it.
+      // EntryFile is not used but we do want to strip it
       // eslint-disable-next-line no-unused-vars
       const { entryFile: _, ...itemWithoutEntryFile } = item;
 
