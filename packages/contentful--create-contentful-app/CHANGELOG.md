@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.19](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.18...@contentful/create-contentful-app@1.16.19) (2024-11-07)
+
+### Bug Fixes
+
+- bump app-scripts in contentful-scoped cca package [] ([#2200](https://github.com/contentful/create-contentful-app/issues/2200)) ([0abfa5c](https://github.com/contentful/create-contentful-app/commit/0abfa5c970831d60889d81a4346a40ab8dbce30d))
+- **deps:** bump contentful-management from 11.36.0 to 11.36.1 ([#2196](https://github.com/contentful/create-contentful-app/issues/2196)) ([d2cd711](https://github.com/contentful/create-contentful-app/commit/d2cd711867bd8ac0786d2eba49e9e51e01016a11))
+
 ## [1.16.18](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.16.17...@contentful/create-contentful-app@1.16.18) (2024-11-06)
 
 ### Bug Fixes
