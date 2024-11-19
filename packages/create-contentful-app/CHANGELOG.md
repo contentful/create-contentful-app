@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.22](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.3.21...create-contentful-app@1.3.22) (2024-11-19)
+
+### Bug Fixes
+
+- suppress warnings in CCA [] ([#2204](https://github.com/contentful/create-contentful-app/issues/2204)) ([1802a80](https://github.com/contentful/create-contentful-app/commit/1802a80a9f7c5e6ed3aec57ea10c697a1ca7dfbb))
+
 ## [1.3.21](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@1.3.20...create-contentful-app@1.3.21) (2024-10-03)
 
 ### Bug Fixes
