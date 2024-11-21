@@ -11,7 +11,7 @@ describe('validateBundle', () => {
     (console.warn as SinonStub).restore();
   });
 
-  it('throws when there is no index.html', () => {
+  it('throws when there is no index.html & no functions or actions', () => {
     const fsstub = { readdirSync: () => [] };
     const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
     try {
@@ -19,9 +19,19 @@ describe('validateBundle', () => {
     } catch (e: any) {
       assert.strictEqual(
         e.message,
-        'Make sure your bundle includes a valid index.html file in its root folder.'
+        'Ensure your bundle includes a valid index.html file in its root folder, or a valid Contentful Function entrypoint (defined in your contentful-app-manifest.json file).'
       );
     }
+  });
+  it('does not throw when there is no index.html but a function is defined', () => {
+    const mockedSettings = {
+      functions: [{ id: 'myFunc', path: 'functions/myFunc.js' }],
+    } as Pick<UploadSettings, 'functions' | 'actions'>;
+    const fsstub = {
+      readdirSync: () => ['functions', 'functions/myFunc.js'],
+    };
+    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
+    validateBundle('build', mockedSettings);
   });
 
   it('warns when the index.html contains an absolute path', () => {
