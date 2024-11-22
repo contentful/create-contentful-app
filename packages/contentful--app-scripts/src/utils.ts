@@ -9,15 +9,15 @@ import { ContentfulFunction, FunctionAppAction } from './types';
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
 const functionEvents = {
+  appActionCall: 'appaction.call',
+  appEventFilter: 'appevent.filter',
+  appEventHandler: 'appevent.handler',
+  appEventTransformation: 'appevent.transformation',
   fieldMappingEvent: 'graphql.field.mapping',
   resourceTypeMappingEvent: 'graphql.resourcetype.mapping',
   queryEvent: 'graphql.query',
   resourceLinksSearchEvent: 'resources.search',
-  resourceLinksLookupEvent: 'resources.lookup',
-  appEventFilter: 'appevent.filter',
-  appEventHandler: 'appevent.handler',
-  appEventTransformation: 'appevent.transformation',
-  appActionCall: 'appaction.call',
+  resourceLinksLookupEvent: 'resources.lookup'
 };
 
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
@@ -163,9 +163,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
       }
       if (hasInvalidEvent) {
         console.log(
-          `${chalk.red(
-            'Error:'
-          )} Invalid events ${hasInvalidEvent} found in the accepts array for ${type} "${
+          `${chalk.red('Error:')} Invalid events found in the accepts array for ${type} "${
             item.name
           }".`
         );

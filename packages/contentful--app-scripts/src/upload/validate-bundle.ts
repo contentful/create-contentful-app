@@ -20,20 +20,24 @@ export const validateBundle = (
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });
   const entry = getEntryFile(files);
 
-  if (!entry) {
-    throw new Error('Make sure your bundle includes a valid index.html file in its root folder.');
+  if (!entry && !functions && !actions) {
+    throw new Error(
+      'Ensure your bundle includes a valid index.html file in its root folder, or a valid Contentful Function entrypoint (defined in your contentful-app-manifest.json file).'
+    );
   }
 
-  const entryFile = fs.readFileSync(Path.join(buildFolder, entry), { encoding: 'utf8' });
+  if (entry) {
+    const entryFile = fs.readFileSync(Path.join(buildFolder, entry), { encoding: 'utf8' });
 
-  if (fileContainsAbsolutePath(entryFile)) {
-    console.log('----------------------------');
-    console.warn(
-      `${chalk.red(
-        'Warning:'
-      )} This bundle uses absolute paths. Please use relative paths instead for correct rendering. See more details here https://www.contentful.com/developers/docs/extensibility/app-framework/app-bundle/#limitations`
-    );
-    console.log('----------------------------');
+    if (fileContainsAbsolutePath(entryFile)) {
+      console.log('----------------------------');
+      console.warn(
+        `${chalk.red(
+          'Warning:'
+        )} This bundle uses absolute paths. Please use relative paths instead for correct rendering. See more details here https://www.contentful.com/developers/docs/extensibility/app-framework/app-bundle/#limitations`
+      );
+      console.log('----------------------------');
+    }
   }
 
   if (functions) {
