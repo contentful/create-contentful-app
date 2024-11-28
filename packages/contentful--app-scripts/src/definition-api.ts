@@ -1,18 +1,31 @@
 import ora from 'ora';
 import { selectFromList, throwError } from './utils';
 import { APP_DEF_ENV_KEY } from './constants';
-import { ClientAPI } from 'contentful-management';
+import { AppDefinition, ClientAPI } from 'contentful-management';
 
 export interface Definition {
-  name: string,
-  value: string,
+  name: string;
+  value: string;
 }
 
 async function fetchDefinitions(client: ClientAPI, orgId: string): Promise<Definition[]> {
   try {
     const organization = await client.getOrganization(orgId);
-    const definitions = await organization.getAppDefinitions();
-    return definitions.items.map((def) => ({
+
+    const batchedAppDefinitions: AppDefinition[] = [];
+    let skip = 0;
+    let totalNumOfAppDefinitions = 0;
+
+    while (skip === 0 || batchedAppDefinitions.length < totalNumOfAppDefinitions) {
+      const appDefinitionsResponse = await organization.getAppDefinitions({ skip, limit: 100 });
+
+      totalNumOfAppDefinitions = appDefinitionsResponse.total;
+      batchedAppDefinitions.push(...appDefinitionsResponse.items);
+
+      skip += 100;
+    }
+
+    return batchedAppDefinitions.map((def) => ({
       name: def.name,
       value: def.sys.id,
     }));
@@ -32,7 +45,11 @@ export async function selectDefinition(client: ClientAPI, orgId: string): Promis
   return await selectFromList(definitions as Definition[], 'Select an app:', APP_DEF_ENV_KEY);
 }
 
-export async function getDefinitionById(client: ClientAPI, orgId: string, defId: string): Promise<Definition> {
+export async function getDefinitionById(
+  client: ClientAPI,
+  orgId: string,
+  defId: string
+): Promise<Definition> {
   try {
     const organization = await client.getOrganization(orgId);
     const definition = await organization.getAppDefinition(defId);
