@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.31.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.31.0...@contentful/app-scripts@1.31.1) (2024-12-03)
+
+### Bug Fixes
+
+- batch requests to get app definitions in upload script [] ([#2248](https://github.com/contentful/create-contentful-app/issues/2248)) ([89a09c8](https://github.com/contentful/create-contentful-app/commit/89a09c8af4648d5ac05cc32e7262791151c988bc))
+- **deps:** bump contentful-management from 11.39.1 to 11.39.2 ([#2229](https://github.com/contentful/create-contentful-app/issues/2229)) ([ea40db0](https://github.com/contentful/create-contentful-app/commit/ea40db0cae089a29ff7d53142eb6ebf459770825))
+- **deps:** bump contentful-management from 11.39.2 to 11.40.0 ([#2240](https://github.com/contentful/create-contentful-app/issues/2240)) ([046f754](https://github.com/contentful/create-contentful-app/commit/046f754f7872da1d197859ff92c8ceece28fb9c5))
+- **deps:** bump dotenv from 16.4.5 to 16.4.6 ([#2246](https://github.com/contentful/create-contentful-app/issues/2246)) ([af968a0](https://github.com/contentful/create-contentful-app/commit/af968a0d4e74b3bd462646760608fb123bab42b4))
+
 # [1.31.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.30.2...@contentful/app-scripts@1.31.0) (2024-11-22)
 
 ### Bug Fixes
