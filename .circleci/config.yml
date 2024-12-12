@@ -11,12 +11,17 @@ environment: &base-env
 executors:
   node-container-18:
     docker:
-      - image: cimg/node:18.12.0
+      - image: cimg/node:18.20
         environment: *base-env
 
   node-container-20:
     docker:
-      - image: cimg/node:20.7
+      - image: cimg/node:20.18
+        environment: *base-env
+
+  node-container-22:
+    docker:
+      - image: cimg/node:22.11
         environment: *base-env
 
 commands:
@@ -113,6 +118,11 @@ jobs:
     steps:
       - lint-and-test
 
+  lint-and-test-22:
+    executor: node-container-22
+    steps:
+      - lint-and-test
+
   test-built-app-18:
     executor: node-container-18
     steps:
@@ -123,6 +133,11 @@ jobs:
     steps:
       - test-built-app
 
+  test-built-app-22:
+    executor: node-container-22
+    steps:
+      - test-built-app
+
   test-built-app-18-actions-functions:
     executor: node-container-18
     steps:
@@ -130,6 +145,11 @@ jobs:
 
   test-built-app-20-actions-functions:
     executor: node-container-20
+    steps:
+      - test-built-actions-functions
+
+  test-built-app-22-actions-functions:
+    executor: node-container-22
     steps:
       - test-built-actions-functions
 
@@ -158,6 +178,17 @@ workflows:
       - test-built-app-20-actions-functions:
           context:
             - vault
+      - lint-and-test-22:
+          context:
+            - vault
+      - test-built-app-22:
+          context:
+            - vault
+          requires:
+            - lint-and-test-22
+      - test-built-app-22-actions-functions:
+          context:
+            - vault
       - release:
           context:
             - vault
@@ -169,6 +200,8 @@ workflows:
             - test-built-app-18-actions-functions
             - test-built-app-20
             - test-built-app-20-actions-functions
+            - test-built-app-22
+            - test-built-app-22-actions-functions
 
       - release-canary:
           context:
@@ -181,3 +214,5 @@ workflows:
             - test-built-app-18-actions-functions
             - test-built-app-20
             - test-built-app-20-actions-functions
+            - test-built-app-22
+            - test-built-app-22-actions-functions
