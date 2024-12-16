@@ -1,0 +1,17 @@
+{
+  "functions": [
+    {
+      "id": "example",
+      "name": "custom",
+      "description": "my custom app manifest file with a different name in a different location",
+      "path": "fixtures/function.js",
+      "entryFile": "fixtures/function.ts",
+      "allowNetworks": [
+        "api.contentful.com"
+      ],
+      "accepts": [
+        "appaction.call"
+      ]
+    }
+  ]
+}

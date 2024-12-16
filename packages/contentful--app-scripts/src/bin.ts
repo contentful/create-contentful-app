@@ -2,7 +2,16 @@
 
 import { program } from 'commander';
 
-import { createAppDefinition, upload, activate, cleanup, open, track, install } from './index';
+import {
+  createAppDefinition,
+  upload,
+  activate,
+  cleanup,
+  open,
+  track,
+  install,
+  buildFunctions,
+} from './index';
 import { feedback } from './feedback';
 
 type Command =
@@ -11,14 +20,15 @@ type Command =
   | typeof activate
   | typeof cleanup
   | typeof open
-  | typeof install;
+  | typeof install
+  | typeof buildFunctions;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
   return ci ? await command.nonInteractive(options) : await command.interactive(options);
 }
 
-(async function main() {
+async function main() {
   const version = process.env.npm_package_version ?? '';
   program.version(version).option('--ci', 'Execute in non-interactive mode', false);
 
@@ -93,12 +103,24 @@ async function runCommand(command: Command, options?: any) {
       await runCommand(install, options);
     });
 
+  program
+    .command('build-functions')
+    .description('Builds Contentful Function source into a bundle')
+    .option('-m, --manifest-file <path>', 'Contentful app manifest file path')
+    .option('-w, --watch', 'watch for changes')
+    .option('-e, --esbuild-config <path>', 'custom esbuild config file path')
+    .action(async (options) => {
+      await runCommand(buildFunctions, options);
+    });
+
   program.hook('preAction', (thisCommand) => {
     track({ command: thisCommand.args[0], ci: thisCommand.opts().ci });
   });
 
   await program.parseAsync(process.argv);
-})().catch((e) => {
+}
+
+main().catch((e) => {
   console.error(e);
   // eslint-disable-next-line no-process-exit
   process.exit(1);
