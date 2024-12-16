@@ -1,8 +1,13 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
   "exclude": ["node_modules", "**/*.test.ts", "**/*.d.ts", "**/__tests__/*"],
   "compilerOptions": {
-    "outDir": "./lib",
-    "declaration": true
+    "lib": ["es2022"],
+    "module": "node16",
+    "target": "es2022",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16"
   }
 }

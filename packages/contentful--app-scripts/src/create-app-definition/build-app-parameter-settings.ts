@@ -137,7 +137,10 @@ async function promptForParameter(): Promise<
   return parameter;
 }
 
-export async function buildAppParameterSettings() {
+export async function buildAppParameterSettings(): Promise<{
+  instance: ParameterDefinition[];
+  installation: ParameterDefinition<InstallationParameterType>[];
+}> {
   const parameters: {
     instance: ParameterDefinition[];
     installation: ParameterDefinition<InstallationParameterType>[];
