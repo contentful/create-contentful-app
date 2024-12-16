@@ -105,10 +105,10 @@ async function main() {
 
   program
     .command('build-functions')
-    .description('Builds Contentful Function source into a bundle')
+    .description('Builds Contentful Function source into an App Framework compatible bundle.')
+    .option('-e, --esbuild-config <path>', 'custom esbuild config file path')
     .option('-m, --manifest-file <path>', 'Contentful app manifest file path')
     .option('-w, --watch', 'watch for changes')
-    .option('-e, --esbuild-config <path>', 'custom esbuild config file path')
     .action(async (options) => {
       await runCommand(buildFunctions, options);
     });
