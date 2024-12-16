@@ -28,7 +28,7 @@ async function runCommand(command: Command, options?: any) {
   return ci ? await command.nonInteractive(options) : await command.interactive(options);
 }
 
-async function main() {
+(async function main() {
   const version = process.env.npm_package_version ?? '';
   program.version(version).option('--ci', 'Execute in non-interactive mode', false);
 
@@ -118,9 +118,7 @@ async function main() {
   });
 
   await program.parseAsync(process.argv);
-}
-
-main().catch((e) => {
+})().catch((e) => {
   console.error(e);
   // eslint-disable-next-line no-process-exit
   process.exit(1);
