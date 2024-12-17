@@ -46,14 +46,15 @@ export const validateFunctions = (manifest: Record<string, any>) => {
     if (uniqueValues.has(entryFile)) {
       throw new Error(`Duplicate entryFile path: '${entryFile}'`);
     }
-    if (uniqueValues.has(accepts)) {
-      throw new Error(`Duplicate accepts: '${accepts}'`);
-    }
 
     uniqueValues.add(entryFile);
     uniqueValues.add(path);
     uniqueValues.add(id);
-    uniqueValues.add(accepts);
+
+    const acceptsSet = new Set(accepts);
+    if (acceptsSet.size !== accepts.length) {
+      throw new Error(`Duplicate values found in 'accepts' for function with id '${id}'.`);
+    }
   });
 };
 
