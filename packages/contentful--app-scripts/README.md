@@ -255,3 +255,38 @@ We gather depersonalized usage data of our CLI tools in order to improve experie
 > ```
 > DISABLE_ANALYTICS=true npx create-contentful-app
 > ```
+
+### Build Contentful Function source
+
+Builds the source code for a Contentful Function into an App Framework compatible bundle.
+
+#### Interactive mode:
+
+In the interactive mode, the CLI will prompt for custom configuration, but none of the options are required.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts build-functions
+> ```
+
+#### Non-interactive mode:
+
+When passing the `--ci` argument adding all variables as arguments is required
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts build-functions --ci \
+>     --manifest-file path/to/contentful/app/manifest.json \
+>     --esbuild-config path/to/custom/esbuild/config.js \
+>     --watch
+> ```
+
+**Options:**
+
+Options:
+  -e, --esbuild-config <path>  custom esbuild config file path
+  -m, --manifest-file <path>   Contentful app manifest file path
+  -w, --watch                  watch for changes
+  -h, --help                   display help for command

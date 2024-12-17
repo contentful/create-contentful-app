@@ -2,7 +2,16 @@
 
 import { program } from 'commander';
 
-import { createAppDefinition, upload, activate, cleanup, open, track, install } from './index';
+import {
+  createAppDefinition,
+  upload,
+  activate,
+  cleanup,
+  open,
+  track,
+  install,
+  buildFunctions,
+} from './index';
 import { feedback } from './feedback';
 
 type Command =
@@ -11,7 +20,8 @@ type Command =
   | typeof activate
   | typeof cleanup
   | typeof open
-  | typeof install;
+  | typeof install
+  | typeof buildFunctions;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
@@ -91,6 +101,16 @@ async function runCommand(command: Command, options?: any) {
     .option('--host [host]', 'Contentful domain to use')
     .action(async (options) => {
       await runCommand(install, options);
+    });
+
+  program
+    .command('build-functions')
+    .description('Builds Contentful Function source into an App Framework compatible bundle.')
+    .option('-e, --esbuild-config <path>', 'custom esbuild config file path')
+    .option('-m, --manifest-file <path>', 'Contentful app manifest file path')
+    .option('-w, --watch', 'watch for changes')
+    .action(async (options) => {
+      await runCommand(buildFunctions, options);
     });
 
   program.hook('preAction', (thisCommand) => {

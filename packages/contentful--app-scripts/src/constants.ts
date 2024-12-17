@@ -9,3 +9,5 @@ export const MAX_CONCURRENT_DELETION_CALLS = 5;
 
 export const DEFAULT_CONTENTFUL_API_HOST = 'api.contentful.com';
 export const DEFAULT_CONTENTFUL_APP_HOST = 'app.contentful.com';
+
+export const DEFAULT_APP_MANIFEST_PATH = 'contentful-app-manifest.json';

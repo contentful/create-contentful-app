@@ -86,3 +86,9 @@ export interface UploadSettings {
   actions?: FunctionAppAction[];
   functions?: ContentfulFunction[];
 }
+
+export interface BuildFunctionsOptions {
+  manifestFile?: string;
+  esbuildConfig?: string;
+  watch?: boolean;
+}
