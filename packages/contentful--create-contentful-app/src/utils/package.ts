@@ -10,17 +10,18 @@ export function getAddBuildCommandFn({ name, command }: BuildCommandOptions) {
     packageJson?: Record<string, any>,
     additionalProperties?: Record<string, any>,
   ): Record<string, any> => {
-    let buildCommand = packageJson?.scripts?.build ?? '';
+    let destBuildCommand = packageJson?.scripts?.build ?? '';
+    const sourceBuildCommand = additionalProperties?.scripts?.build ?? command;
     const triggerCommand = `npm run ${name}`;
 
-    if (buildCommand === '') {
-      buildCommand = triggerCommand;
-    } else if (!buildCommand.split(/\s*&+\s*/).includes(triggerCommand)) {
-      buildCommand += ` && ${triggerCommand}`;
+    if (destBuildCommand === '') {
+      destBuildCommand = triggerCommand;
+    } else if (!destBuildCommand.split(/\s*&+\s*/).includes(triggerCommand)) {
+      destBuildCommand += ` && ${triggerCommand}`;
     }
 
     return mergeOptions({}, packageJson, additionalProperties, {
-      scripts: { [name]: command, build: buildCommand },
+      scripts: { [name]: sourceBuildCommand, build: destBuildCommand },
     });
   };
 }

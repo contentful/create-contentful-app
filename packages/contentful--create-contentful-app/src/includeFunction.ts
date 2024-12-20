@@ -1,4 +1,3 @@
-import { rename } from 'fs/promises';
 import { resolve, join } from 'path';
 import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
 import tiged from 'tiged';
@@ -6,9 +5,10 @@ import { highlight } from './logger';
 import { exists, mergeJsonIntoFile } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
 
+// TODO: after appActions work we can change this getAddBuildCommandFn params from command -> defaultCommand as examples will have build commands
 const addBuildCommand = getAddBuildCommandFn({
   name: 'build:functions',
-  command: 'node build-functions.js',
+  command: 'contentful-app-scripts build-functions --ci',
 });
 
 const VALID_FUNCTION_TEMPLATES_DIRS = [
@@ -57,12 +57,6 @@ export async function cloneFunction(
       destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
     });
 
-    // move the build file from the actions folder to the root folder
-    const copyBuildFile = rename(
-      `${functionDirectoryPath}/build-functions.js`,
-      `${destination}/build-functions.js`
-    );
-
     // modify package.json build commands
     const packageJsonLocation = resolve(`${destination}/package.json`);
     const packageJsonExists = await exists(packageJsonLocation);
@@ -80,7 +74,7 @@ export async function cloneFunction(
       mergeFn: addBuildCommand,
     });
 
-    await Promise.all([writeAppManifest, copyBuildFile, writeBuildCommand]);
+    await Promise.all([writeAppManifest, writeBuildCommand]);
 
     await d.remove(functionDirectoryPath, destination, {
       action: 'remove',
