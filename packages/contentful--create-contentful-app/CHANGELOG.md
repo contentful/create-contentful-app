@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.17.2...@contentful/create-contentful-app@1.17.3) (2024-12-20)
+
+### Bug Fixes
+
+- no longer copy build-functions script, copy build script from example package [EXT-6084] ([#2267](https://github.com/contentful/create-contentful-app/issues/2267)) ([893e936](https://github.com/contentful/create-contentful-app/commit/893e9368544625103673e9857f6069e2c5b63de3))
+
 ## [1.17.2](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.17.1...@contentful/create-contentful-app@1.17.2) (2024-12-17)
 
 ### Bug Fixes
