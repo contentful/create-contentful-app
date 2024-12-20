@@ -1,14 +1,16 @@
 {
-  "extends": "@tsconfig/node20/tsconfig.json",
-  "exclude": ["node_modules", "**/*.spec.ts", "app-actions"],
+  "exclude": ["node_modules", "**/*.spec.ts", "app-actions", "**/*.d.ts"],
   "compilerOptions": {
-    "target": "es2020",
-    "module": "NodeNext",
+    "declaration": true,
+    "lib": ["es2022"],
+    "target": "es2022",
+    "module": "Node16",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./lib",
+    "moduleResolution": "Node16",
     "typeRoots": ["./typings", "./node_modules/@types"]
   }
 }

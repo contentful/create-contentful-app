@@ -59,7 +59,6 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node20": "^20.1.4",
     "@types/analytics-node": "^3.1.9",
     "@types/chai-as-promised": "^7.1.5",
     "@types/chalk": "2.2.0",

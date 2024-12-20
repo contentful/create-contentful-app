@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { existsSync, readFileSync } from 'fs';
+// @ts-expect-error Could not find a declaration file for module 'tiged'
 import tiged from 'tiged';
 import * as rimraf from 'rimraf';
 import { success } from './logger';
