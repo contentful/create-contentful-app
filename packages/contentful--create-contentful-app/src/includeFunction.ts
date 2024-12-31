@@ -1,7 +1,10 @@
-import { resolve, join } from 'path';
-import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
+import chalk from 'chalk';
+import { join, resolve } from 'path';
+import { rimraf } from 'rimraf';
 import tiged from 'tiged';
-import { highlight } from './logger';
+import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
+import { error, highlight } from './logger';
+import { InvalidTemplateError } from './types';
 import { exists, mergeJsonIntoFile } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
 
@@ -19,15 +22,16 @@ const VALID_FUNCTION_TEMPLATES_DIRS = [
   'comment-bot',
 ];
 
-function functionTemplateFromName(functionName: string) {
+export function functionTemplateFromName(functionName: string, destination: string) {
   let dirName = functionName;
   if (!VALID_FUNCTION_TEMPLATES_DIRS.includes(dirName)) {
-    console.error(
-      `Invalid function template: ${functionName}. Must be one of ${VALID_FUNCTION_TEMPLATES_DIRS.join(
-        ', '
-      )}.`
+    // cleanup in case of invalid example
+    rimraf.sync(destination);
+    throw new InvalidTemplateError(
+      `${chalk.red(`Invalid function template:`)} The function name ${highlight(
+        chalk.cyan(functionName)
+      )} is not valid. Must be one of: ${highlight(VALID_FUNCTION_TEMPLATES_DIRS.join(', '))}.`
     );
-    process.exit(1);
   }
   if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
   return dirName;
@@ -39,10 +43,10 @@ export async function cloneFunction(
   functionName: string
 ) {
   try {
-    console.log(highlight(`---- Cloning function "${functionName}".`));
+    console.log(highlight(`---- Cloning function ${chalk.cyan(functionName)}...`));
     // Clone the function template to the created directory under the folder 'actions'
     const templateSource = join(
-      `contentful/apps/examples/function-${functionTemplateFromName(functionName)}`,
+      `contentful/apps/examples/function-${functionTemplateFromName(functionName, destination)}`,
       templateIsJavascript ? 'javascript' : 'typescript'
     );
 
@@ -62,10 +66,9 @@ export async function cloneFunction(
     const packageJsonExists = await exists(packageJsonLocation);
 
     if (!packageJsonExists) {
-      console.error(
+      throw new Error(
         `Failed to add function build commands: ${packageJsonLocation} does not exist.`
       );
-      return;
     }
 
     const writeBuildCommand = mergeJsonIntoFile({
@@ -81,7 +84,7 @@ export async function cloneFunction(
       files: IGNORED_CLONED_FILES.map((fileName) => `${functionDirectoryPath}/${fileName}`),
     });
   } catch (e) {
-    console.error(e);
+    error(`Failed to clone function ${highlight(chalk.cyan(functionName))}`, e);
     process.exit(1);
   }
 }
