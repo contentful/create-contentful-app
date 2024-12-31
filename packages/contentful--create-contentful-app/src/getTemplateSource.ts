@@ -1,22 +1,10 @@
-import fetch from 'node-fetch';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { CLIOptions, ContentfulExample } from './types';
-import { highlight, warn, wrapInBlanks } from './logger';
+import { CLIOptions, ContentfulExample, InvalidTemplateError } from './types';
+import { code, highlight, warn, wrapInBlanks } from './logger';
 import { EXAMPLES_PATH, IGNORED_EXAMPLE_FOLDERS } from './constants';
 import { isContentfulTemplate } from './utils';
-
-const CONTENTFUL_APPS_EXAMPLE_FOLDER =
-  'https://api.github.com/repos/contentful/apps/contents/examples';
-
-async function getGithubFolderNames() {
-  const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);
-  const contents = await response.json();
-
-  return contents
-    .filter((content: any) => content.type === 'dir' && !IGNORED_EXAMPLE_FOLDERS.includes(content.name))
-    .map((content: any) => content.name);
-}
+import { getGithubFolderNames } from './getGithubFolderNames';
 
 async function promptExampleSelection(): Promise<string> {
   let template = 'typescript';
@@ -56,6 +44,12 @@ async function promptExampleSelection(): Promise<string> {
   } else {
     // get available templates from examples
     const availableTemplates = await getGithubFolderNames();
+    // filter out the ignored ones that are listed as templates instead of examples
+    const filteredTemplates = availableTemplates.filter(
+      (template) =>
+        !IGNORED_EXAMPLE_FOLDERS.includes(template as (typeof IGNORED_EXAMPLE_FOLDERS)[number])
+    );
+    console.log(availableTemplates.length, filteredTemplates.length);
 
     // ask user to select a template from the available examples
     const { example } = await inquirer.prompt([
@@ -63,7 +57,7 @@ async function promptExampleSelection(): Promise<string> {
         name: 'example',
         message: 'Select a template',
         type: 'list',
-        choices: availableTemplates,
+        choices: filteredTemplates,
       },
     ]);
 
@@ -79,9 +73,23 @@ function selectTemplate(template: string) {
   return EXAMPLES_PATH + template;
 }
 
-async function makeContentfulExampleSource(options: CLIOptions): Promise<string> {
+export async function makeContentfulExampleSource(options: CLIOptions): Promise<string> {
   if (options.example) {
-    return selectTemplate(options.example);
+    // check to see if the example is valid
+    const availableTemplates = await getGithubFolderNames();
+    const isValidContentfulExample = availableTemplates.includes(options.example);
+    if (!isValidContentfulExample) {
+      throw new InvalidTemplateError(
+        `${chalk.red(`Invalid template:`)} The example name ${highlight(
+          chalk.cyan(options.example)
+        )} is not valid. Please use one of Contentful's public example apps from ${highlight(
+          `https://github.com/contentful/apps/tree/master/examples`
+        )}. Use the ${code(`--example`)} option followed by the example name.`
+      );
+    }
+
+    const templateSource = selectTemplate(options.example);
+    return templateSource;
   }
 
   if (options.javascript) {
