@@ -10,7 +10,7 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
-  if (! bundleDir) {
+  if (!bundleDir) {
     prompts.push({
       name: 'bundleDirectory',
       message: `Bundle directory, if not default:`,
@@ -41,15 +41,15 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     });
   }
 
-  const { activateBundle, ...appUploadSettings } = await prompt(prompts);
-
-  const appInfo = await getAppInfo(options);
+  const { activateBundle, host: interactiveHost, ...appUploadSettings } = await prompt(prompts);
+  const hostValue = host || interactiveHost;
+  const appInfo = await getAppInfo({ ...options, host: hostValue });
 
   return {
     bundleDirectory: bundleDir,
     skipActivation: skipActivation === undefined ? !activateBundle : skipActivation,
     comment,
-    host,
+    host: hostValue,
     actions: actionsManifest,
     functions: functionManifest,
     ...appUploadSettings,
@@ -57,6 +57,6 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
   };
 }
 
-export function hostProtocolFilter (input: string) {
+export function hostProtocolFilter(input: string) {
   return input.replace(/^https?:\/\//, '');
 }
