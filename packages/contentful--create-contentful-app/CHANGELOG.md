@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.17.3...@contentful/create-contentful-app@1.17.4) (2025-01-02)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.40.2 to 11.40.3 ([#2276](https://github.com/contentful/create-contentful-app/issues/2276)) ([c77e0ae](https://github.com/contentful/create-contentful-app/commit/c77e0ae2a395bf80c62aa27354f908bcc721ddf7))
+- improve error handling for invalid templates in CCA [EXT-4028] ([#2277](https://github.com/contentful/create-contentful-app/issues/2277)) ([feaaa15](https://github.com/contentful/create-contentful-app/commit/feaaa15b8a1803d4ff07b1d8b264ba1049c291f8))
+
 ## [1.17.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.17.2...@contentful/create-contentful-app@1.17.3) (2024-12-20)
 
 ### Bug Fixes
