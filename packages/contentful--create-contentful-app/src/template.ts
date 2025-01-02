@@ -42,7 +42,6 @@ function cleanUp(destination: string) {
 
 export async function cloneTemplateIn(destination: string, source: string) {
   await clone(source, destination);
-  console.log(success('Done!'));
 
   try {
     validate(destination);
@@ -53,4 +52,5 @@ export async function cloneTemplateIn(destination: string, source: string) {
   }
 
   cleanUp(destination);
+  console.log(success('Done!'));
 }

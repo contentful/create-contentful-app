@@ -13,3 +13,6 @@ export const ContentfulExample = {
   Javascript: 'javascript',
   Typescript: 'typescript',
 };
+
+export class InvalidTemplateError extends Error {}
+export class HTTPResponseError extends Error {}

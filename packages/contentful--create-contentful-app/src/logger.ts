@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { HTTPResponseError, InvalidTemplateError } from './types';
 
 export function warn(message: string): void {
   console.log(`${chalk.yellow('Warning:')} ${message}`);
@@ -8,6 +9,10 @@ export function error(message: string, error: unknown): void {
   console.log(`${chalk.red('Error:')} ${message}`);
   if (error === undefined) {
     return;
+  } else if (error instanceof InvalidTemplateError || error instanceof HTTPResponseError) {
+    // for known errors, we just want to show the message
+    console.log();
+    console.log(error.message);
   } else if (error instanceof Error) {
     console.log();
     console.log(error);
@@ -21,9 +26,9 @@ export function error(message: string, error: unknown): void {
 }
 
 export function wrapInBlanks(message: string | chalk.Chalk) {
-  console.log(' ')
-  console.log(message)
-  console.log(' ')
+  console.log(' ');
+  console.log(message);
+  console.log(' ');
 }
 
 export function highlight(str: string) {

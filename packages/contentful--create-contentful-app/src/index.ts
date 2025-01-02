@@ -162,7 +162,7 @@ async function initProject(appName: string, options: CLIOptions) {
     }
     successMessage(fullAppFolder, useYarn);
   } catch (err) {
-    error(`Failed to create ${appName}`, err);
+    error(`Failed to create ${highlight(chalk.cyan(appName))}`, err);
     process.exit(1);
   }
 }
