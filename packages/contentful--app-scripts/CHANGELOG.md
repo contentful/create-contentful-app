@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.32.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.1...@contentful/app-scripts@1.32.2) (2025-01-03)
+
+### Bug Fixes
+
+- only set default src when creating app def if a frontend location is specified [EXT-5935] ([#2279](https://github.com/contentful/create-contentful-app/issues/2279)) ([959361e](https://github.com/contentful/create-contentful-app/commit/959361ee03730233fc3ab99032731a2a01c0600e))
+
 ## [1.32.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.0...@contentful/app-scripts@1.32.1) (2025-01-03)
 
 ### Bug Fixes
