@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.32.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.0...@contentful/app-scripts@1.32.1) (2025-01-03)
+
+### Bug Fixes
+
+- bump app-scripts to force axios update to be released properly [ZEND-5779] ([#2278](https://github.com/contentful/create-contentful-app/issues/2278)) ([4d7c6c3](https://github.com/contentful/create-contentful-app/commit/4d7c6c3bc8e663a93041fdb5bbb6e44e02490732))
+- **deps:** bump contentful-management from 11.40.2 to 11.40.3 ([#2276](https://github.com/contentful/create-contentful-app/issues/2276)) ([c77e0ae](https://github.com/contentful/create-contentful-app/commit/c77e0ae2a395bf80c62aa27354f908bcc721ddf7))
+- **deps:** bump esbuild from 0.24.0 to 0.24.1 ([#2266](https://github.com/contentful/create-contentful-app/issues/2266)) ([211da27](https://github.com/contentful/create-contentful-app/commit/211da278e73ab9f7eaa7028c79877c8c967a6498))
+- **deps:** bump esbuild from 0.24.1 to 0.24.2 ([#2270](https://github.com/contentful/create-contentful-app/issues/2270)) ([93ecdee](https://github.com/contentful/create-contentful-app/commit/93ecdee153efd264757d3058317a310da1812d8c))
+- **deps:** bump ignore from 6.0.2 to 7.0.0 ([#2272](https://github.com/contentful/create-contentful-app/issues/2272)) ([b0a79c7](https://github.com/contentful/create-contentful-app/commit/b0a79c79f13571d02ea39a579f2d9c5b4fa51f04))
+
 # [1.32.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.31.1...@contentful/app-scripts@1.32.0) (2024-12-17)
 
 ### Bug Fixes
