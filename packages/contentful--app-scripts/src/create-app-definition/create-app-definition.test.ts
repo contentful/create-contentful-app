@@ -92,4 +92,32 @@ describe('createAppDefinition', () => {
     assert(loggedMessage.includes(tutorialLink));
     assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], { [APP_DEF_ENV_KEY]: 'appId' });
   });
+
+  it('sets default src if any frontend location is specified', async () => {
+    const createAppDefinitionStub = stub().resolves({ sys: { id: 'testId' } });
+    clientMock.getOrganization = stub().resolves({
+      createAppDefinition: createAppDefinitionStub,
+    });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
+
+    await subject(token, { locations: ['entry-field', 'dialog'] });
+    assert(createAppDefinitionStub.calledWithMatch({ src: 'http://localhost:3000' }));
+  });
+
+  it('does not set default src if only location is dialog', async () => {
+    const createAppDefinitionStub = stub().resolves({ sys: { id: 'testId' } });
+    clientMock.getOrganization = stub().resolves({
+      createAppDefinition: createAppDefinitionStub,
+    });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
+
+    await subject(token, { locations: ['dialog'] });
+    assert(createAppDefinitionStub.calledWithMatch({ src: undefined }));
+  });
 });

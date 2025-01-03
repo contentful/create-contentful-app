@@ -73,37 +73,39 @@ export async function createAppDefinition(
   const organizationId = selectedOrg.value;
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
-  const body = {
-    name: appName,
-    src: 'http://localhost:3000',
-    locations: appDefinitionSettings.locations.map((location) => {
-      if (location === 'entry-field') {
-        return {
-          location,
-          fieldTypes: appDefinitionSettings.fields || [],
-        };
-      }
+  const locations = appDefinitionSettings.locations.map((location) => {
+    if (location === 'entry-field') {
+      return {
+        location,
+        fieldTypes: appDefinitionSettings.fields || [],
+      };
+    }
 
-      if (location === 'page') {
-        const { pageNav, pageNavLinkName, pageNavLinkPath } = appDefinitionSettings;
-
-        return {
-          location,
-          ...(pageNav
-            ? {
-                navigationItem: {
-                  name: pageNavLinkName,
-                  path: pageNavLinkPath,
-                },
-              }
-            : {}),
-        };
-      }
+    if (location === 'page') {
+      const { pageNav, pageNavLinkName, pageNavLinkPath } = appDefinitionSettings;
 
       return {
         location,
+        ...(pageNav
+          ? {
+              navigationItem: {
+                name: pageNavLinkName,
+                path: pageNavLinkPath,
+              },
+            }
+          : {}),
       };
-    }),
+    }
+
+    return {
+      location,
+    };
+  })
+  const hasFrontendLocation = locations.some(({ location }) => location !== 'dialog');
+  const body = {
+    name: appName,
+    src: hasFrontendLocation ? 'http://localhost:3000' : undefined,
+    locations,
     parameters: {
       ...(appDefinitionSettings.parameters?.instance && {
         instance: appDefinitionSettings.parameters.instance,
