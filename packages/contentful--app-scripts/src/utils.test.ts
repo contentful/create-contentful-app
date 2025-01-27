@@ -2,7 +2,8 @@ import assert from 'assert';
 import { SinonStub, stub } from 'sinon';
 import proxyquire from 'proxyquire';
 
-import { isValidNetwork, stripProtocol } from './utils';
+import { getWebAppHostname, isValidNetwork, stripProtocol } from './utils';
+import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
 
 describe('isValidIpAddress', () => {
   it('returns true for a valid IP address', () => {
@@ -69,7 +70,6 @@ describe('isValidIpAddress', () => {
     const result = isValidNetwork('*');
     assert.strictEqual(result, false);
   });
-
 });
 
 describe('removeProtocolFromUrl', () => {
@@ -365,5 +365,22 @@ describe('get functions from manifest', () => {
     getEntityFromManifest('functions');
 
     assert.ok(exitStub.calledOnceWith(1));
+  });
+});
+
+describe('get web app hostname', () => {
+  it('should return the default if host is undefined', () => {
+    const result = getWebAppHostname(undefined);
+    assert.equal(result, DEFAULT_CONTENTFUL_APP_HOST);
+  });
+
+  it('should return the host with app subdomain', () => {
+    const result = getWebAppHostname('api.contentful.com');
+    assert.equal(result, DEFAULT_CONTENTFUL_APP_HOST);
+  });
+
+  it('should return the host with app subdomain for EU', () => {
+    const result = getWebAppHostname('api.eu.contentful.com');
+    assert.equal(result, 'app.eu.contentful.com');
   });
 });
