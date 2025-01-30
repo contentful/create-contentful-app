@@ -58,7 +58,7 @@
     "dotenv": "16.4.7",
     "esbuild": "^0.24.0",
     "ignore": "7.0.3",
-    "inquirer": "8.2.6",
+    "inquirer": "12.3.3",
     "lodash": "4.17.21",
     "open": "8.4.2",
     "ora": "5.4.1",
