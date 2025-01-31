@@ -69,6 +69,7 @@ async function runCommand(command: Command, options?: any) {
     .command('open-settings')
     .description('Opens the app editor for a given AppDefinition')
     .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--host [host]', 'Contentful domain to use')
     .action(async (options) => {
       await runCommand(open, options);
     });

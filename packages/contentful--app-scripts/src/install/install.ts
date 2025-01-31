@@ -1,26 +1,38 @@
 import open from 'open';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import { APP_DEF_ENV_KEY, DEFAULT_CONTENTFUL_APP_HOST } from '../constants';
+import { APP_DEF_ENV_KEY, DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { InstallOptions } from '../types';
+import { getWebAppHostname } from '../utils';
 
 export async function installToEnvironment(options: InstallOptions) {
   let definitionId;
+  const prompts = [];
+
   if (options.definitionId) {
     definitionId = options.definitionId;
   } else if (process.env[APP_DEF_ENV_KEY]) {
     definitionId = process.env[APP_DEF_ENV_KEY];
   } else {
-    const prompts = await inquirer.prompt([
-      {
-        name: 'definitionId',
-        message: `The id of the app:`,
-      },
-    ]);
-    definitionId = prompts.definitionId;
+    prompts.push({
+      name: 'definitionId',
+      message: `The id of the app:`,
+    });
   }
 
-  if (!definitionId) {
+  if (!options.host) {
+    prompts.push({
+      name: 'host',
+      message: `Contentful CMA endpoint URL:`,
+      default: DEFAULT_CONTENTFUL_API_HOST,
+    });
+  }
+
+  const openSettingsOptions = await inquirer.prompt(prompts);
+  const hostValue = options.host || openSettingsOptions?.host;
+  const appDefinitionIdValue = definitionId || openSettingsOptions?.definitionId;
+
+  if (!appDefinitionIdValue) {
     console.log(`
         ${chalk.red('Error:')} There was no app-definition defined.
 
@@ -30,8 +42,8 @@ export async function installToEnvironment(options: InstallOptions) {
     throw new Error('No app-definition-id');
   }
 
-  const host = options.host || DEFAULT_CONTENTFUL_APP_HOST;
-  const redirectUrl = `https://${host}/deeplink?link=apps`;
+  const webApp = getWebAppHostname(hostValue);
+  const redirectUrl = `https://${webApp}/deeplink?link=apps`;
 
   try {
     open(`${redirectUrl}&id=${definitionId}`);
