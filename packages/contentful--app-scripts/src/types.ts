@@ -92,3 +92,10 @@ export interface BuildFunctionsOptions {
   esbuildConfig?: string;
   watch?: boolean;
 }
+
+// These will likely need to be changed later
+export interface AddFunctionsOptions {
+  manifestFile?: string;
+  esbuildConfig?: string;
+  watch?: boolean;
+}
