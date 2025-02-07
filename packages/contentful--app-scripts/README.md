@@ -177,6 +177,16 @@ You can also execute this command without the argument if the environment variab
 > $ CONTENTFUL_APP_DEF_ID=some-definition-id npx --no-install @contentful/app-scripts open-settings
 > ```
 
+**Options:**
+
+| Argument          | Description                                  | Default value        |
+| ----------------- | -------------------------------------------- | -------------------- |
+|                   |
+| `--definition-id` | The ID of the app to which to add the bundle |
+| `--host`          | (optional) Contentful CMA-endpoint to use    | `api.contentful.com` |
+
+**Note:** You can also pass all arguments in interactive mode to skip being asked for it.
+
 ### Clean up bundles
 
 Allows you to clean the list of previous bundles. It fetches the list and deletes all bundles except the 50 newest ones.
@@ -246,6 +256,16 @@ By default, the script will install the app into the default host URL: `app.cont
 > $ npx --no-install @contentful/app-scripts install --definition-id some-definition-id --host api.eu.contentful.com
 > ```
 
+**Options:**
+
+| Argument          | Description                                  | Default value        |
+| ----------------- | -------------------------------------------- | -------------------- |
+|                   |
+| `--definition-id` | The ID of the app to which to add the bundle |
+| `--host`          | (optional) Contentful CMA-endpoint to use    | `api.contentful.com` |
+
+**Note:** You can also pass all arguments in interactive mode to skip being asked for it.
+
 ### Tracking
 
 We gather depersonalized usage data of our CLI tools in order to improve experience. If you do not want your data to be gathered, you can opt out by providing an env variable `DISABLE_ANALYTICS` set to any value:
@@ -286,7 +306,7 @@ When passing the `--ci` argument adding all variables as arguments is required
 **Options:**
 
 Options:
-  -e, --esbuild-config <path>  custom esbuild config file path
-  -m, --manifest-file <path>   Contentful app manifest file path
-  -w, --watch                  watch for changes
-  -h, --help                   display help for command
+-e, --esbuild-config <path> custom esbuild config file path
+-m, --manifest-file <path> Contentful app manifest file path
+-w, --watch watch for changes
+-h, --help display help for command
