@@ -48,7 +48,7 @@ async function runCommand(command: Command, options?: any) {
     .option('--token [accessToken]', 'Your content management access token')
     .option('--comment [comment]', 'Optional comment for the created bundle')
     .option('--skip-activation', 'A Boolean flag to skip automatic activation')
-    .option('--host [host]', 'Contentful domain to use')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(upload, options);
     });
@@ -60,7 +60,7 @@ async function runCommand(command: Command, options?: any) {
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
-    .option('--host [host]', 'Contentful domain to use')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(activate, options);
     });
@@ -69,6 +69,7 @@ async function runCommand(command: Command, options?: any) {
     .command('open-settings')
     .description('Opens the app editor for a given AppDefinition')
     .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(open, options);
     });
@@ -80,7 +81,7 @@ async function runCommand(command: Command, options?: any) {
     .option('--definition-id  [defId]', 'The id of your apps definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--keep [keepAmount]', 'The amount of bundles that should remain')
-    .option('--host [host]', 'Contentful domain to use')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(cleanup, options);
     });
@@ -98,7 +99,7 @@ async function runCommand(command: Command, options?: any) {
       'Opens a picker to select the space and environment for installing the app associated with a given AppDefinition'
     )
     .option('--definition-id  [defId]', 'The id of your apps definition')
-    .option('--host [host]', 'Contentful domain to use')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(install, options);
     });
