@@ -6,6 +6,7 @@ import { Definition } from './definition-api';
 import { Organization } from './organization-api';
 import { ContentfulFunction, FunctionAppAction } from './types';
 import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
+import { resolve } from 'node:path';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -198,3 +199,9 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
 export function getWebAppHostname(host: string | undefined): string {
   return host && host.includes('api') ? host.replace('api', 'app') : DEFAULT_CONTENTFUL_APP_HOST;
 }
+
+export const resolveManifestFile = (options: { manifestFile?: string }, cwd = process.cwd()) => {
+  return require(options.manifestFile
+    ? resolve(cwd, options.manifestFile)
+    : resolve(cwd, 'contentful-app-manifest.json'));
+};

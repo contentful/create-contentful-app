@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import assert from 'assert';
 import path from 'path';
 import { type BuildFunctionsOptions } from '../../types';
-import { resolveEsBuildConfig, resolveManifestFile, validateFunctions } from '../build-functions';
-import assert from 'assert';
+import { resolveEsBuildConfig, validateFunctions } from '../build-functions';
 
 function assertPartialObject(actual: any, expected: any) {
   for (const key in expected) {
@@ -13,28 +13,6 @@ function assertPartialObject(actual: any, expected: any) {
     }
   }
 }
-
-describe('resolveManifestFile', () => {
-  it('should resolve the default manifest file if none is provided', async () => {
-    const options: BuildFunctionsOptions = {};
-    const manifest = await resolveManifestFile(options, __dirname);
-    assert.strictEqual(Boolean(manifest), true);
-    assert.strictEqual('functions' in manifest, true);
-    assert.strictEqual(manifest.functions.length, 1);
-    assert.strictEqual(manifest.functions[0].name, 'default');
-  });
-
-  it('should resolve the manifest file at the provided path if present', async () => {
-    const options: BuildFunctionsOptions = {
-      manifestFile: 'fixtures/another-contentful-app-manifest.json',
-    };
-    const manifest = await resolveManifestFile(options, __dirname);
-    assert.strictEqual(Boolean(manifest), true);
-    assert.strictEqual('functions' in manifest, true);
-    assert.strictEqual(manifest.functions.length, 1);
-    assert.strictEqual(manifest.functions[0].name, 'custom');
-  });
-});
 
 describe('resolveEsBuildConfig', () => {
   it('should resolve the default esbuild config if none is provided', async () => {

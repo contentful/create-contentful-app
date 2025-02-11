@@ -5,6 +5,7 @@ import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfil
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { type BuildFunctionsOptions, type ContentfulFunction } from '../types';
 import { z } from 'zod';
+import { resolveManifestFile } from '../utils';
 
 type ContentfulFunctionToBuild = Omit<ContentfulFunction, 'entryFile'> & { entryFile: string };
 
@@ -56,12 +57,6 @@ export const validateFunctions = (manifest: Record<string, any>) => {
       throw new Error(`Duplicate values found in 'accepts' for function with id '${id}'.`);
     }
   });
-};
-
-export const resolveManifestFile = (options: BuildFunctionsOptions, cwd = process.cwd()) => {
-  return require(options.manifestFile
-    ? resolve(cwd, options.manifestFile)
-    : resolve(cwd, 'contentful-app-manifest.json'));
 };
 
 const getEntryPoints = (
