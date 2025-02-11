@@ -205,3 +205,5 @@ export const resolveManifestFile = (options: { manifestFile?: string }, cwd = pr
     ? resolve(cwd, options.manifestFile)
     : resolve(cwd, 'contentful-app-manifest.json'));
 };
+
+export const ID_REGEX = /^[a-zA-Z0-9]+$/;

@@ -119,7 +119,7 @@ describe('validateFunctions', () => {
     const manifest = {
       functions: [
         {
-          id: 'an-id',
+          id: 'example',
           name: 'myFunc',
           entryFile: 'index.ts',
           description: 'My function',
