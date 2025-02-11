@@ -5,7 +5,7 @@ describe('validateActionsManifest', () => {
 	it('validates a valid function invocation action with custom category', async () => {
 		const manifest = {
 			actions: [{
-				id: 'test_action',
+				id: 'testAction',
 				type: 'function-invocation',
 				functionId: 'test-function',
 				name: 'Test Action',
@@ -120,7 +120,28 @@ describe('validateActionsManifest', () => {
 	it('throws if an endpoint type action defines an id', async () => {
 		const manifest = {
 			actions: [{
-				id: 'test_action',
+				id: 'testAction',
+				type: 'endpoint',
+				name: 'Test Action',
+				description: 'Test description',
+				category: 'Custom',
+				url: 'https://test.com',
+				parameters: []
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('Invalid App Action manifest');
+		}
+	});
+
+	it('throws if a function-invocation type action defines an invalid id', async () => {
+		const manifest = {
+			actions: [{
+				id: 'test-action',
 				type: 'endpoint',
 				name: 'Test Action',
 				description: 'Test description',
