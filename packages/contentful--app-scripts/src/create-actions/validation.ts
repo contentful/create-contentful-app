@@ -1,5 +1,6 @@
 import z from 'zod';
 import { CreateAppActionOptions } from './types';
+import { ID_REGEX } from '../utils';
 
 const parametersSchema = z
 	.array(
@@ -12,6 +13,16 @@ const parametersSchema = z
 			default: z.union([z.string(), z.number(), z.boolean()]).optional(),
 		})
 	)
+
+export const validateId = (id: string) => {
+	if (!ID_REGEX.test(id)) {
+		return {
+			ok: false,
+			message: `Invalid "id" (must only contain alphanumeric characters). Received: ${id}.`,
+		}
+	}
+	return { ok: true };
+}
 
 export function validateActionsManifest(
 	manifest: Record<string, any>,
@@ -45,6 +56,13 @@ export function validateActionsManifest(
 
 		if (action.type === 'endpoint' && (!action.url || action.functionId || action.id)) {
 			acc.push(new Error('Invalid App Action manifest: "endpoint" Actions must define a "url", may not target a "functionId", or set a custom "id".'));
+		}
+
+		if (action.id) {
+			const { ok, message } = validateId(action.id);
+			if (!ok) {
+				acc.push(new Error(message));
+			}
 		}
 
 		if (action.category !== 'Custom' && action.parameters) {
