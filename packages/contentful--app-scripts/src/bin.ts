@@ -12,7 +12,7 @@ import {
   install,
   buildFunctions,
   generateFunction,
-  createActions,
+  upsertActions,
 } from './index';
 import { feedback } from './feedback';
 
@@ -25,7 +25,7 @@ type Command =
   | typeof install
   | typeof buildFunctions
   | typeof generateFunction
-  | typeof createActions;
+  | typeof upsertActions;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
@@ -130,15 +130,15 @@ async function runCommand(command: Command, options?: any) {
     });
 
   program
-    .command('create-actions')
-    .description('Create App Action(s) for an App')
+    .command('upsert-actions')
+    .description('Upsert Action(s) for an App')
     .option('-m, --manifest-file <path>', 'Contentful app manifest file path')
     .option('--organization-id [orgId]', 'The id of your organization')
     .option('--definition-id  [defId]', 'The id of your app\'s definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
-      await runCommand(createActions, options);
+      await runCommand(upsertActions, options);
     });
 
   program.hook('preAction', (thisCommand) => {
