@@ -54,14 +54,14 @@ export function validateActionsManifest(
 			acc.push(new Error('Invalid App Action manifest: "function-invocation" Actions must define a "functionId" and may not target a "url".'));
 		}
 
-		if (action.type === 'endpoint' && (!action.url || action.functionId || action.id)) {
-			acc.push(new Error('Invalid App Action manifest: "endpoint" Actions must define a "url", may not target a "functionId", or set a custom "id".'));
+		if (action.type === 'endpoint' && (!action.url || action.functionId)) {
+			acc.push(new Error('Invalid App Action manifest: "endpoint" Actions must define a "url" and may not target a "functionId".'));
 		}
 
 		if (action.id) {
 			const { ok, message } = validateId(action.id);
 			if (!ok) {
-				acc.push(new Error(message));
+				acc.push(new Error(`Invalid App Action manifest: ${message}`));
 			}
 		}
 

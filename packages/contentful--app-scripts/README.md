@@ -311,9 +311,9 @@ Options:
 -w, --watch watch for changes
 -h, --help display help for command
 
-### Create App Actions
+### Upsert App Actions
 
-Allows you to create Actions for an App using a Contentful App Manifest file.
+Creates or updates Actions for an App using the configuration in a Contentful App Manifest file. Created resources will be synced back to your manifest file.
 
 #### Interactive mode:
 
