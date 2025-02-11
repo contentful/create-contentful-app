@@ -1,11 +1,11 @@
 import { AppActionCategoryType, AppActionParameterDefinition, CreateAppActionProps } from "contentful-management";
 
 export type BaseAppActionProps = {
+	id?: string;
 	name: string;
 	description?: string;
 }
 export type FunctionAppActionManifestProps = {
-	id?: string;
 	type: 'function-invocation';
 	functionId: string;
 }
@@ -17,10 +17,10 @@ export type CustomCategoryAppActionProps = {
 	category: 'Custom';
 	parameters: AppActionParameterDefinition[];
 }
-export type NativeCategoryAppActionProps = {
+export type BuiltInCategoryAppActionProps = {
 	category: Omit<AppActionCategoryType, 'Custom'>;
 }
-type CategoryProps = CustomCategoryAppActionProps | NativeCategoryAppActionProps;
+type CategoryProps = CustomCategoryAppActionProps | BuiltInCategoryAppActionProps;
 
 export type FunctionAppActionProps = {
 	id?: string;

@@ -117,28 +117,7 @@ describe('validateActionsManifest', () => {
 		}
 	});
 
-	it('throws if an endpoint type action defines an id', async () => {
-		const manifest = {
-			actions: [{
-				id: 'testAction',
-				type: 'endpoint',
-				name: 'Test Action',
-				description: 'Test description',
-				category: 'Custom',
-				url: 'https://test.com',
-				parameters: []
-			}]
-		};
-
-		try {
-			await validateActionsManifest(manifest);
-		} catch (error) {
-			expect(error).to.be.instanceOf(Error);
-			expect(error.message).to.include('Invalid App Action manifest');
-		}
-	});
-
-	it('throws if a function-invocation type action defines an invalid id', async () => {
+	it('throws if an action defines an invalid id', async () => {
 		const manifest = {
 			actions: [{
 				id: 'test-action',
