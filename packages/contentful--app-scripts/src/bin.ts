@@ -11,6 +11,7 @@ import {
   track,
   install,
   buildFunctions,
+  createActions,
 } from './index';
 import { feedback } from './feedback';
 
@@ -21,7 +22,8 @@ type Command =
   | typeof cleanup
   | typeof open
   | typeof install
-  | typeof buildFunctions;
+  | typeof buildFunctions
+  | typeof createActions;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
@@ -44,7 +46,7 @@ async function runCommand(command: Command, options?: any) {
     .description('Upload your build folder and create an AppBundle')
     .option('--bundle-dir [directory]', 'The directory of your build folder')
     .option('--organization-id [orgId]', 'The id of your organization')
-    .option('--definition-id [defId]', 'The id of your apps definition')
+    .option('--definition-id [defId]', 'The id of your app\'s definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--comment [comment]', 'Optional comment for the created bundle')
     .option('--skip-activation', 'A Boolean flag to skip automatic activation')
@@ -58,7 +60,7 @@ async function runCommand(command: Command, options?: any) {
     .description('Mark an AppBundle as "active" for a given AppDefinition')
     .option('--bundle-id [bundleId]', 'The id of your bundle')
     .option('--organization-id [orgId]', 'The id of your organization')
-    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--definition-id  [defId]', 'The id of your app\'s definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
@@ -68,7 +70,7 @@ async function runCommand(command: Command, options?: any) {
   program
     .command('open-settings')
     .description('Opens the app editor for a given AppDefinition')
-    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--definition-id  [defId]', 'The id of your app\'s definition')
     .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(open, options);
@@ -78,7 +80,7 @@ async function runCommand(command: Command, options?: any) {
     .command('bundle-cleanup')
     .description('Removes old, non-active bundles, only keeps the 50 most recent ones')
     .option('--organization-id [orgId]', 'The id of your organization')
-    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--definition-id  [defId]', 'The id of your app\'s definition')
     .option('--token [accessToken]', 'Your content management access token')
     .option('--keep [keepAmount]', 'The amount of bundles that should remain')
     .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
@@ -98,7 +100,7 @@ async function runCommand(command: Command, options?: any) {
     .description(
       'Opens a picker to select the space and environment for installing the app associated with a given AppDefinition'
     )
-    .option('--definition-id  [defId]', 'The id of your apps definition')
+    .option('--definition-id  [defId]', 'The id of your app\'s definition')
     .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(install, options);
@@ -112,6 +114,18 @@ async function runCommand(command: Command, options?: any) {
     .option('-w, --watch', 'watch for changes')
     .action(async (options) => {
       await runCommand(buildFunctions, options);
+    });
+
+  program
+    .command('create-actions')
+    .description('Create App Action(s) for an App')
+    .option('-m, --manifest-file <path>', 'Contentful app manifest file path')
+    .option('--organization-id [orgId]', 'The id of your organization')
+    .option('--definition-id  [defId]', 'The id of your app\'s definition')
+    .option('--token [accessToken]', 'Your content management access token')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
+    .action(async (options) => {
+      await runCommand(createActions, options);
     });
 
   program.hook('preAction', (thisCommand) => {

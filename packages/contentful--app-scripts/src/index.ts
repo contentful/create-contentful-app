@@ -7,3 +7,4 @@ export { track } from './analytics';
 export { feedback } from './feedback';
 export { install } from './install';
 export { buildFunctions } from './build-functions';
+export { createActions } from './create-actions';
