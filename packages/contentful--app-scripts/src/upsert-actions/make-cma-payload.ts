@@ -5,13 +5,14 @@ import {
 	CustomCategoryAppActionProps,
 	EndpointAppActionProps,
 	FunctionAppActionProps,
-	NativeCategoryAppActionProps,
+	BuiltInCategoryAppActionProps,
 } from './types';
 
 export function makeAppActionCMAPayload(action: AppActionManifest): CreateAppActionPayload {
 	const baseProps: BaseAppActionProps = {
 		name: action.name,
 		...(action.description && { description: action.description }),
+		...(action.id && { id: action.id }),
 	};
 
 	const additionalPropsByType =
@@ -25,7 +26,6 @@ export function makeAppActionCMAPayload(action: AppActionManifest): CreateAppAct
 						type: 'Link',
 					},
 				},
-				...(action.id && { id: action.id }),
 			} as FunctionAppActionProps)
 			: ({
 				type: action.type,
@@ -40,7 +40,7 @@ export function makeAppActionCMAPayload(action: AppActionManifest): CreateAppAct
 			} as CustomCategoryAppActionProps)
 			: ({
 				category: action.category,
-			} as NativeCategoryAppActionProps);
+			} as BuiltInCategoryAppActionProps);
 
 	const payload = {
 		...baseProps,
