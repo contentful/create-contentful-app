@@ -8,3 +8,4 @@ export { feedback } from './feedback';
 export { install } from './install';
 export { buildFunctions } from './build-functions';
 export { generateFunction } from './generate-function';
+export { createActions } from './create-actions';
