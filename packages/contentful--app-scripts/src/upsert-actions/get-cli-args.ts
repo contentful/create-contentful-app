@@ -16,7 +16,7 @@ export async function getCreateAppActionsArgs(
 	const validateSpinner = ora('Validating your input').start();
 
 	try {
-		validateArguments(requiredOptions, settings, 'create-actions');
+		validateArguments(requiredOptions, settings, 'upsert-actions');
 		const appInfo = await getAppInfo(settings);
 		return {
 			host: settings.host || 'api.contentful.com',
