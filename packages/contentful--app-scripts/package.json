@@ -53,7 +53,7 @@
     "adm-zip": "0.5.16",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
-    "commander": "12.1.0",
+    "commander": "13.1.0",
     "contentful-management": "11.47.1",
     "dotenv": "16.4.7",
     "esbuild": "^0.25.0",
