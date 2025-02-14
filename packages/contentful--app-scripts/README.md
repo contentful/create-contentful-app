@@ -322,7 +322,7 @@ In the interactive mode, the CLI will ask for all required options.
 > **Example**
 >
 > ```shell
-> $ npx --no-install @contentful/app-scripts create-actions
+> $ npx --no-install @contentful/app-scripts upsert-actions
 > ```
 
 #### Non-interactive mode:
@@ -332,7 +332,7 @@ When passing the `--ci` argument adding all variables as arguments is required.
 > **Example**
 >
 > ```shell
-> $ npx --no-install @contentful/app-scripts create-actions --ci \
+> $ npx --no-install @contentful/app-scripts upsert-actions --ci \
 >     --manifest-file path/to/contentful-app-manifest.json \
 >     --organization-id some-org-id \
 >     --definition-id some-app-def-id \
