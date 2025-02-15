@@ -1,0 +1,88 @@
+{
+  "name": "@contentful/create-app-function",
+  "version": "1.17.6",
+  "description": "A template for building Contentful Apps",
+  "keywords": [
+    "contentful",
+    "create-app-function"
+  ],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/contentful--create-app-function"
+  },
+  "engines": {
+    "node": ">=14.15.0",
+    "npm": ">=6"
+  },
+  "main": "lib/index.js",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "bin": {
+    "create-app-function": "lib/index.js"
+  },
+  "scripts": {
+    "prettier": "prettier **/*.js --write --ignore-path .gitignore",
+    "lint": "eslint ./src",
+    "lint:fix": "npm run lint -- --fix",
+    "pre-commit": "lint-staged",
+    "build": "tsc && npm run build:functions",
+    "test": "mocha 'test/**/*.spec.{js,ts}'",
+    "build:functions": "contentful-app-scripts build-functions --ci"
+  },
+  "dependencies": {
+    "@contentful/app-scripts": "1.32.2",
+    "@segment/analytics-node": "^2.2.0",
+    "chalk": "4.1.2",
+    "commander": "12.1.0",
+    "inquirer": "8.2.6",
+    "merge-options": "^3.0.4",
+    "node-fetch": "2.6.7",
+    "rimraf": "5.0.8",
+    "tiged": "^2.12.7",
+    "tildify": "2.0.0",
+    "validate-npm-package-name": "5.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/analytics-node": "^3.1.9",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/chalk": "2.2.0",
+    "@types/inquirer": "8.2.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "14.18.63",
+    "@types/node-fetch": "^2.6.2",
+    "@types/rimraf": "3.0.2",
+    "@types/sinon": "^17.0.0",
+    "@types/sinon-chai": "^3.2.9",
+    "@types/tildify": "2.0.2",
+    "@types/validate-npm-package-name": "4.0.2",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "contentful-management": "11.40.3",
+    "mocha": "^10.2.0",
+    "sinon": "^19.0.0",
+    "sinon-chai": "^3.7.0",
+    "ts-node": "^10.9.2",
+    "@contentful/app-scripts": "^1.32.0",
+    "@contentful/node-apps-toolkit": "^3.4.1",
+    "@tsconfig/recommended": "1.0.3"
+  },
+  "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42"
+}
