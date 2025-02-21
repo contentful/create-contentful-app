@@ -1,6 +1,10 @@
 import chalk from 'chalk';
 import { HTTPResponseError, InvalidTemplateError } from './types';
 
+export function warn(message: string): void {
+  console.log(`${chalk.yellow('Warning:')} ${message}`);
+}
+
 export function error(message: string, error: unknown): void {
   console.log(`${chalk.red('Error:')} ${message}`);
   if (error === undefined) {

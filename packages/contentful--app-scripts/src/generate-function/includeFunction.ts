@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { join, resolve } from 'path';
+import path, { join, resolve } from 'path';
 import { rimraf } from 'rimraf';
 import tiged from 'tiged';
 import { CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES } from './constants';
@@ -14,41 +14,44 @@ const addBuildCommand = getAddBuildCommandFn({
   command: 'contentful-app-scripts build-functions --ci',
 });
 
-const VALID_FUNCTION_TEMPLATES_DIRS = [
-  'appevent-filter',
+const VALID_FUNCTION_EXAMPLE_DIRS = [
   'appevent-handler',
-  'appevent-transformation',
-  'external-references',
-  'comment-bot',
-];
+  'typescript',
+  'javascript'
+].map(dir => `contentful/apps/function-examples/${dir}`);
 
-export function functionTemplateFromName(functionName: string, destination: string) {
-  let dirName = functionName;
-  if (!VALID_FUNCTION_TEMPLATES_DIRS.includes(dirName)) {
+export function functionTemplateFromName(functionPath: string, destination: string) {
+  const splitName = functionPath.split("/")
+  // Since the pattern for templates and examples are slightly different, this verifies the informative part of the path
+  let dirName = splitName.splice(0, splitName.indexOf("function-examples") + 1).join('')
+  console.log(dirName)
+  console.log(`functionName: ${functionPath}`);
+  if (!VALID_FUNCTION_EXAMPLE_DIRS.includes(dirName)) {
     // cleanup in case of invalid example
     rimraf.sync(destination);
     throw new InvalidTemplateError(
       `${chalk.red(`Invalid function template:`)} The function name ${highlight(
-        chalk.cyan(functionName)
-      )} is not valid. Must be one of: ${highlight(VALID_FUNCTION_TEMPLATES_DIRS.join(', '))}.`
+        chalk.cyan(functionPath)
+      )} is not valid. Must be one of: ${highlight(VALID_FUNCTION_EXAMPLE_DIRS.join(', '))}.`
     );
   }
-  if (functionName === 'external-references') dirName = 'templates'; // backwards compatible for the apps repo examples folder for delivery functions (external-references)
-  return dirName;
+  return functionPath;
 }
 
 export async function cloneFunction(
   destination: string,
-  templateIsJavascript: boolean,
   functionName: string
 ) {
   try {
     console.log(highlight(`---- Cloning function ${chalk.cyan(functionName)}...`));
     // Clone the function template to the created directory under the folder 'actions'
-    const templateSource = join(
-      `contentful/apps/examples/function-${functionTemplateFromName(functionName, destination)}`,
-      templateIsJavascript ? 'javascript' : 'typescript'
-    );
+    let templateSource;
+    try {
+      templateSource = functionTemplateFromName(functionName, destination)
+    } catch (e) {
+      error(`Failed to clone function ${highlight(chalk.cyan(functionName))}`, e);
+      process.exit(1);
+    }
 
     const functionDirectoryPath = resolve(`${destination}/functions`);
 
@@ -58,7 +61,18 @@ export async function cloneFunction(
     // merge the manifest from the template folder to the root folder
     let writeAppManifest : Promise<void> | undefined;
     const appManifestExists = await exists(`${destination}/${CONTENTFUL_APP_MANIFEST}`);
+    console.log(`App manifest source path: ${functionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`)
 
+
+    console.log(`source: ${functionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`)
+    console.log(`destination: ${destination}/${CONTENTFUL_APP_MANIFEST}`)
+    if (!appManifestExists) {
+      writeAppManifest = mergeJsonIntoFile({
+        source: `${functionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
+        destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
+      });
+    }
+  
     // modify package.json build commands
     const packageJsonLocation = resolve(`${destination}/package.json`);
     const packageJsonExists = await exists(packageJsonLocation);
@@ -69,19 +83,11 @@ export async function cloneFunction(
       );
     }
 
-    let writeBuildCommand : Promise<void> | undefined;
-    if (!appManifestExists) {
-      writeAppManifest = mergeJsonIntoFile({
-        source: `${functionDirectoryPath}/${CONTENTFUL_APP_MANIFEST}`,
-        destination: `${destination}/${CONTENTFUL_APP_MANIFEST}`,
-      });
-      writeBuildCommand = mergeJsonIntoFile({
+    const writeBuildCommand = mergeJsonIntoFile({
       source: `${functionDirectoryPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });
-    }
-  
 
     await Promise.all([writeAppManifest, writeBuildCommand]);
 

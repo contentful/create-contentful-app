@@ -1,5 +1,5 @@
 import mergeOptions from 'merge-options';
-import { readFile, writeFile, access } from 'fs/promises';
+import { readFile, writeFile, access, readdir } from 'fs/promises';
 import { resolve } from 'path';
 
 export async function getJsonData(
@@ -44,4 +44,14 @@ export function exists(path: string): Promise<boolean> {
   return access(path)
     .then(() => true)
     .catch(() => false);
+}
+
+export async function getAllFileNamesFromDir(dirPath: string): Promise<string[]> {
+  try {
+    const files = await readdir(dirPath);
+    return files;
+  } catch (error) {
+    console.error(`Error reading directory ${dirPath}`, error);
+    return [];
+  }
 }

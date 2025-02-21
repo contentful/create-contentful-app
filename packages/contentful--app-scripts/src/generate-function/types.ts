@@ -1,9 +1,16 @@
 export type CLIOptions = Partial<{
-  create: string | boolean;
+  npm: boolean;
+  yarn: boolean;
   javascript: boolean;
   typescript: boolean;
   source: string;
+  example: string;
 }>;
+
+export const ContentfulExample = {
+  Javascript: 'javascript',
+  Typescript: 'typescript',
+};
 
 export class InvalidCLIOptionsError extends Error {}
 export class InvalidTemplateError extends Error {}
