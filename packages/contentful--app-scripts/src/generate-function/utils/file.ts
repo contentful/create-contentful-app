@@ -45,13 +45,3 @@ export function exists(path: string): Promise<boolean> {
     .then(() => true)
     .catch(() => false);
 }
-
-export async function getAllFileNamesFromDir(dirPath: string): Promise<string[]> {
-  try {
-    const files = await readdir(dirPath);
-    return files;
-  } catch (error) {
-    console.error(`Error reading directory ${dirPath}`, error);
-    return [];
-  }
-}

@@ -1,4 +1,5 @@
-import fetch from 'node-fetch';
+import { CONTENTFUL_FUNCTIONS_EXAMPLE_REPO_PATH } from './constants';
+import axios from 'axios';
 import { HTTPResponseError } from './types';
 import chalk from 'chalk';
 
@@ -7,20 +8,10 @@ interface ContentResponse {
   name: string;
 }
 
-export const CONTENTFUL_APPS_EXAMPLE_FOLDER =
-  'https://api.github.com/repos/contentful/apps/contents/function-examples';
-
 export async function getGithubFolderNames(): Promise<string[]> {
   try {
-    const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);
-    if (!response.ok) {
-      throw new HTTPResponseError(
-        `${chalk.red('Error:')} Failed to fetch Contentful app templates: ${response.status} ${
-          response.statusText
-        }`
-      );
-    }
-    const contents = await response.json();
+    const response = await axios.get(CONTENTFUL_FUNCTIONS_EXAMPLE_REPO_PATH);
+    const contents = response.data;
     const filteredContents = contents.filter((content: ContentResponse) => content.type === 'dir');
     return filteredContents.map((content: ContentResponse) => content.name);
   } catch (err) {

@@ -1,17 +1,5 @@
-export type CLIOptions = Partial<{
-  npm: boolean;
-  yarn: boolean;
-  javascript: boolean;
-  typescript: boolean;
-  source: string;
-  example: string;
-}>;
+// Union type of each accepted example folder name in apps/function-examples repo
+export type AcceptedExamples = 'appevent-handler';
 
-export const ContentfulExample = {
-  Javascript: 'javascript',
-  Typescript: 'typescript',
-};
-
-export class InvalidCLIOptionsError extends Error {}
-export class InvalidTemplateError extends Error {}
 export class HTTPResponseError extends Error {}
+export class InvalidTemplateError extends Error {}

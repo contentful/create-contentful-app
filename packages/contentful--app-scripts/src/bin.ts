@@ -11,6 +11,7 @@ import {
   track,
   install,
   buildFunctions,
+  generateFunction,
 } from './index';
 import { feedback } from './feedback';
 
@@ -111,6 +112,13 @@ async function runCommand(command: Command, options?: any) {
     .option('-w, --watch', 'watch for changes')
     .action(async (options) => {
       await runCommand(buildFunctions, options);
+    });
+
+    program
+    .command('generate-function')
+    .description('Generate a new Contentful Function')
+    .action(async (options) => {
+      await runCommand(generateFunction, options);
     });
 
   program.hook('preAction', (thisCommand) => {
