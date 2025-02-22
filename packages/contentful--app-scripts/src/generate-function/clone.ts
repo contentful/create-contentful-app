@@ -20,7 +20,7 @@ export async function cloneFunction(
 ) {
   try {
     console.log(highlight(`---- Cloning function ${chalk.cyan(settings.name)}...`));
-    const localTmpPath = resolve(`${localPath}/tmp`);
+    const localTmpPath = resolve(`${localPath}/tmp`); // we require a tmp directory because tiged overwrites all files in the target directory
     const localFunctionsPath = resolve(`${localPath}/functions`);
 
     let cloneURL = `${REPO_URL}/${settings.sourceName}`; // this is the default for template
@@ -29,13 +29,27 @@ export async function cloneFunction(
     }
     await cloneAndResolveManifests(cloneURL, localTmpPath, localPath);
 
+    // copy the cloned files to the functions directory
     await fs.copy(localTmpPath, localFunctionsPath);
     await fs.remove(localTmpPath);
 
-    // now rename the function file. For now assume it is called example.ts or example.js?
-    const functionFile = settings.language === 'typescript' ? 'example.ts' : 'example.js';
+    // now rename the function file. Find the file with a .ts or .js extension
+    const files = await fs.readdir(localFunctionsPath);
+    const functionFile: string | undefined = files.find((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
+    if (!functionFile) {
+      throw new Error(`No function file found in ${localFunctionsPath}`);
+    }
     const newFunctionFile = `${settings.name}.${settings.language === 'typescript' ? 'ts' : 'js'}`;
     await fs.rename(`${localFunctionsPath}/${functionFile}`, `${localFunctionsPath}/${newFunctionFile}`);
+
+    // now alter the app-manifest.json to point to the new function file
+    const appManifest = await fs.readJson(`${localPath}/${APP_MANIFEST}`);
+    const entry = appManifest["functions"][appManifest["functions"].length - 1]
+    entry.id = settings.name;
+    // the path always has a .js extension
+    entry.path = `./functions/${newFunctionFile.replace('.ts', '.js')}`;
+    entry.entryFile = `./functions/${newFunctionFile}`;
+    await fs.writeJson(`${localPath}/${APP_MANIFEST}`, appManifest, { spaces: 2 });
 
   } catch (e) {
     error(`Failed to clone function ${highlight(chalk.cyan(settings.name))}`, e);
@@ -52,6 +66,7 @@ async function cloneAndResolveManifests(cloneURL: string, localFunctionsPath: st
   // modify package.json build commands
   await updatePackageJsonWithBuild(localPath, localFunctionsPath);
 
+  // remove the cloned files that we've already merged
   await tigedInstance.remove("unused_param", localFunctionsPath, {
       action: 'remove',
       files: IGNORED_CLONED_FILES.map((fileName) => `${localFunctionsPath}/${fileName}`),
@@ -72,6 +87,21 @@ async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
     writeAppManifest = mergeJsonIntoFile({
       source: `${localFunctionsPath}/${APP_MANIFEST}`,
       destination: `${localPath}/${APP_MANIFEST}`,
+    });
+  } else {
+    // add the function to the json's "functions" array
+    writeAppManifest = mergeJsonIntoFile({
+      source: `${localFunctionsPath}/${APP_MANIFEST}`,
+      destination: `${localPath}/${APP_MANIFEST}`,
+      mergeFn: (destinationJson = {}, sourceJson = {}) => {
+        if (!destinationJson.functions) {
+          destinationJson.functions = [];
+        }
+        if (sourceJson.functions && sourceJson.functions.length > 0) {
+          destinationJson.functions.push(sourceJson.functions[0]);
+        }
+        return destinationJson;
+      },
     });
   }
 }
