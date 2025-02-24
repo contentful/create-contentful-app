@@ -28,19 +28,19 @@ export async function cloneFunction(
       cloneURL = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
     }
     await cloneAndResolveManifests(cloneURL, localTmpPath, localPath);
+    
+   // now rename the function file. Find the file with a .ts or .js extension
+    const files = await fs.readdir(localTmpPath);
+    const functionFile: string | undefined = files.find((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
+    if (!functionFile) {
+      throw new Error(`No function file found in ${localTmpPath}`);
+    }
+    const newFunctionFile = `${settings.name}.${settings.language === 'typescript' ? 'ts' : 'js'}`;
+    await fs.rename(`${localTmpPath}/${functionFile}`, `${localTmpPath}/${newFunctionFile}`);
 
     // copy the cloned files to the functions directory
     await fs.copy(localTmpPath, localFunctionsPath);
     await fs.remove(localTmpPath);
-
-    // now rename the function file. Find the file with a .ts or .js extension
-    const files = await fs.readdir(localFunctionsPath);
-    const functionFile: string | undefined = files.find((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
-    if (!functionFile) {
-      throw new Error(`No function file found in ${localFunctionsPath}`);
-    }
-    const newFunctionFile = `${settings.name}.${settings.language === 'typescript' ? 'ts' : 'js'}`;
-    await fs.rename(`${localFunctionsPath}/${functionFile}`, `${localFunctionsPath}/${newFunctionFile}`);
 
     // now alter the app-manifest.json to point to the new function file
     const appManifest = await fs.readJson(`${localPath}/${APP_MANIFEST}`);
