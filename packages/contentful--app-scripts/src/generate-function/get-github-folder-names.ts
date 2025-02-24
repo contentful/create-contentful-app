@@ -1,7 +1,6 @@
 import { CONTENTFUL_FUNCTIONS_EXAMPLE_REPO_PATH } from './constants';
 import axios from 'axios';
 import { HTTPResponseError } from './types';
-import chalk from 'chalk';
 
 interface ContentResponse {
   type: string;

@@ -3,11 +3,11 @@ const fs = require('fs-extra')
 
 import chalk from 'chalk';
 import { resolve } from 'path';
-import { APP_MANIFEST, IGNORED_CLONED_FILES, REPO_URL } from './constants';
+import { APP_MANIFEST, CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES, REPO_URL } from './constants';
 import { error, highlight, warn } from './logger';
-import { exists, mergeJsonIntoFile } from './utils/file';
+import { exists, mergeJsonIntoFile, whichExists } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
-import { GenerateFunctionSettings } from './build-function-settings';
+import { GenerateFunctionSettings } from '../types';
 
 const addBuildCommand = getAddBuildCommandFn({
   name: 'build:functions',
@@ -43,13 +43,13 @@ export async function cloneFunction(
     await fs.remove(localTmpPath);
 
     // now alter the app-manifest.json to point to the new function file
-    const appManifest = await fs.readJson(`${localPath}/${APP_MANIFEST}`);
+    const appManifest = await fs.readJson(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
     const entry = appManifest["functions"][appManifest["functions"].length - 1]
     entry.id = settings.name;
     // the path always has a .js extension
     entry.path = `./functions/${newFunctionFile.replace('.ts', '.js')}`;
     entry.entryFile = `./functions/${newFunctionFile}`;
-    await fs.writeJson(`${localPath}/${APP_MANIFEST}`, appManifest, { spaces: 2 });
+    await fs.writeJson(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, appManifest, { spaces: 2 });
 
   } catch (e) {
     error(`Failed to clone function ${highlight(chalk.cyan(settings.name))}`, e);
@@ -81,18 +81,20 @@ async function clone(cloneURL: string, localFunctionsPath: string) {
 
 async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
   let writeAppManifest: Promise<void> | undefined;
-  const appManifestExists = await exists(`${localPath}/${APP_MANIFEST}`);
+  const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
+  const tmpAppManifestType = await whichExists(localFunctionsPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
+
   console.log(`App manifest source path: ${localFunctionsPath}/${APP_MANIFEST}`);
-  if (!appManifestExists) {
+  if (!finalAppManifestType) {
     writeAppManifest = mergeJsonIntoFile({
-      source: `${localFunctionsPath}/${APP_MANIFEST}`,
-      destination: `${localPath}/${APP_MANIFEST}`,
+      source: `${localFunctionsPath}/${tmpAppManifestType}`,
+      destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`, // always save as contentful-app-manifest.json
     });
   } else {
     // add the function to the json's "functions" array
     writeAppManifest = mergeJsonIntoFile({
-      source: `${localFunctionsPath}/${APP_MANIFEST}`,
-      destination: `${localPath}/${APP_MANIFEST}`,
+      source: `${localFunctionsPath}/${tmpAppManifestType}`,
+      destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`,
       mergeFn: (destinationJson = {}, sourceJson = {}) => {
         if (!destinationJson.functions) {
           destinationJson.functions = [];

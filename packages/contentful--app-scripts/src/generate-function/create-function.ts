@@ -1,6 +1,6 @@
 import { resolve } from "path";
-import { GenerateFunctionSettings } from "./build-function-settings";
 import { cloneFunction } from "./clone";
+import { GenerateFunctionSettings } from "../types";
 
 export async function create(settings: GenerateFunctionSettings) {
   const localPath = resolve(process.cwd());

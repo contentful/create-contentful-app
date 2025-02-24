@@ -1,6 +1,6 @@
 import mergeOptions from 'merge-options';
 import { readFile, writeFile, access, readdir } from 'fs/promises';
-import { resolve } from 'path';
+import { join, resolve } from 'path';
 
 export async function getJsonData(
   path: string | undefined,
@@ -44,4 +44,22 @@ export function exists(path: string): Promise<boolean> {
   return access(path)
     .then(() => true)
     .catch(() => false);
+}
+
+/**
+ * Check a directory if two files exist, returning the first one that exists or "None"
+ * @param basePath Base path
+ * @param paths List of paths, in order of preference
+ * @returns First subpath if it exists, otherwise the second if it exists, otherwise "None"
+ */
+export async function whichExists(basePath: string, paths: string[]): Promise<string> {
+    for (const path of paths) {
+        try {
+            await access(join(basePath, path));
+            return path;
+        } catch (error) {
+            // Ignore and continue checking the next path
+        }
+    }
+    return "None";
 }
