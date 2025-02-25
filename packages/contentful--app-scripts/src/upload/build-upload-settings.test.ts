@@ -10,12 +10,12 @@ import * as utilsModule from '../utils';
 describe('buildAppUploadSettings', () => {
   let promptStub;
   let getAppInfoStub;
-  let getEntityFromManifestStub;
+  let getFunctionsFromManifestStub;
 
   beforeEach(() => {
     promptStub = sinon.stub(inquirer, 'prompt');
     getAppInfoStub = sinon.stub(getAppInfoModule, 'getAppInfo');
-    getEntityFromManifestStub = sinon.stub(utilsModule, 'getEntityFromManifest');
+    getFunctionsFromManifestStub = sinon.stub(utilsModule, 'getFunctionsFromManifest');
   });
 
   afterEach(() => {
@@ -39,8 +39,7 @@ describe('buildAppUploadSettings', () => {
 
     getAppInfoStub.resolves({ appId: '123', appName: 'Test App' });
 
-    getEntityFromManifestStub.withArgs('actions').returns('actionsManifest');
-    getEntityFromManifestStub.withArgs('functions').returns('functionsManifest');
+    getFunctionsFromManifestStub.returns('functionsManifest');
 
     const result = await buildAppUploadSettings(options);
 
@@ -48,7 +47,6 @@ describe('buildAppUploadSettings', () => {
     assert.strictEqual(result.bundleDirectory, './custom-build');
     assert.strictEqual(result.comment, 'Test comment');
     assert.strictEqual(result.skipActivation, false); // activateBundle is true, so skipActivation should be false
-    assert.strictEqual(result.actions, 'actionsManifest');
     assert.strictEqual(result.functions, 'functionsManifest');
   });
   }
@@ -64,8 +62,7 @@ describe('buildAppUploadSettings', () => {
 
     promptStub.resolves(prompts);
     getAppInfoStub.resolves({ appId: '123', appName: 'Test App' });
-    getEntityFromManifestStub.withArgs('actions').returns('actionsManifest');
-    getEntityFromManifestStub.withArgs('functions').returns('functionsManifest');
+    getFunctionsFromManifestStub.returns('functionsManifest');
 
     const result = await buildAppUploadSettings(options);
 
@@ -82,8 +79,7 @@ describe('buildAppUploadSettings', () => {
 
     promptStub.resolves({});
     getAppInfoStub.resolves({ appId: '123', appName: 'Test App' });
-    getEntityFromManifestStub.withArgs('actions').returns('actionsManifest');
-    getEntityFromManifestStub.withArgs('functions').returns('functionsManifest');
+    getFunctionsFromManifestStub.returns('functionsManifest');
 
     const result = await buildAppUploadSettings(options);
 
@@ -99,8 +95,7 @@ describe('buildAppUploadSettings', () => {
 
     promptStub.resolves(prompts);
     getAppInfoStub.resolves({ appId: '123', appName: 'Test App' });
-    getEntityFromManifestStub.withArgs('actions').returns('actionsManifest');
-    getEntityFromManifestStub.withArgs('functions').returns('functionsManifest');
+    getFunctionsFromManifestStub.returns('functionsManifest');
 
     const result = await buildAppUploadSettings(options);
 
