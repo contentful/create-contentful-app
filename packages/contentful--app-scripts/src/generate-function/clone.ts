@@ -24,17 +24,16 @@ export async function cloneFunction(
     const { localTmpPath, localFunctionsPath } = resolvePaths(localPath);
 
     const cloneURL = getCloneURL(settings);
-    await cloneAndResolveManifests(cloneURL, localTmpPath, localPath);
+    await cloneAndResolveManifests(cloneURL, localTmpPath, localPath, localFunctionsPath);
     
-   // now rename the function file. Find the file with a .ts or .js extension
+    // now rename the function file. Find the file with a .ts or .js extension
     const renameFunctionFile = renameClonedFiles(localTmpPath, settings);
 
     // copy the cloned files to the functions directory
     moveFilesToFinalDirectory(localTmpPath, localFunctionsPath);
-
+  
     // now alter the app-manifest.json to point to the new function file
     await touchupAppManifest(localPath, settings, renameFunctionFile);
-
   } catch (e) {
     error(`Failed to clone function ${highlight(chalk.cyan(settings.name))}`, e);
     process.exit(1);
@@ -81,19 +80,26 @@ export function resolvePaths(localPath: string) {
   return { localTmpPath, localFunctionsPath };
 }
 
-export async function cloneAndResolveManifests(cloneURL: string, localFunctionsPath: string, localPath: string) {
-  const tigedInstance = await clone(cloneURL, localFunctionsPath);
+export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: string, localPath: string, localFunctionsPath: string) {
+  const tigedInstance = await clone(cloneURL, localTmpPath);
 
   // merge the manifest from the template folder to the root folder
-  await mergeAppManifest(localPath, localFunctionsPath);
+  await mergeAppManifest(localPath, localTmpPath);
 
   // modify package.json build commands
-  await updatePackageJsonWithBuild(localPath, localFunctionsPath);
+  await updatePackageJsonWithBuild(localPath, localTmpPath);
+
+  // check if a tsconfig.json file exists already
+  const ignoredFiles = IGNORED_CLONED_FILES
+  const tsconfigExists = await exists(`${localFunctionsPath}/tsconfig.json`);
+  if (tsconfigExists) {
+    ignoredFiles.push('tsconfig.json')
+  } 
 
   // remove the cloned files that we've already merged
-  await tigedInstance.remove("unused_param", localFunctionsPath, {
+  await tigedInstance.remove("unused_param", localTmpPath, {
       action: 'remove',
-      files: IGNORED_CLONED_FILES.map((fileName) => `${localFunctionsPath}/${fileName}`),
+      files: ignoredFiles.map((fileName) => `${localTmpPath}/${fileName}`),
     });
 }
 
@@ -104,18 +110,17 @@ export async function clone(cloneURL: string, localFunctionsPath: string) {
 }
 
 export async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
-  let writeAppManifest: Promise<void> | undefined;
   const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
   const tmpAppManifestType = await whichExists(localFunctionsPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
 
   if (!finalAppManifestType) {
-    writeAppManifest = mergeJsonIntoFile({
+    await mergeJsonIntoFile({
       source: `${localFunctionsPath}/${tmpAppManifestType}`,
       destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`, // always save as contentful-app-manifest.json
     });
   } else {
     // add the function to the json's "functions" array
-    writeAppManifest = mergeJsonIntoFile({
+    await mergeJsonIntoFile({
       source: `${localFunctionsPath}/${tmpAppManifestType}`,
       destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`,
       mergeFn: (destinationJson = {}, sourceJson = {}) => {
@@ -129,22 +134,17 @@ export async function mergeAppManifest(localPath: string, localFunctionsPath: st
       },
     });
   }
-  if (writeAppManifest) { // I'm not sure why this works but it lets the tests pass
-    await writeAppManifest;
-  }
 }
 
 export async function updatePackageJsonWithBuild(localPath: string, localFunctionsPath: string) {
   const packageJsonLocation = resolve(`${localPath}/package.json`);
   const packageJsonExists = await exists(packageJsonLocation);
   if (packageJsonExists) {
-    const writeBuildCommand = mergeJsonIntoFile({
+    await mergeJsonIntoFile({
       source: `${localFunctionsPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });
-
-    await writeBuildCommand;
   } else {
     warn("Failed to add function build commands: ${packageJsonLocation} does not exist.");
   }

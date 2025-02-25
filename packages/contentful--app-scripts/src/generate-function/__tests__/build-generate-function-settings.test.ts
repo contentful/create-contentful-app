@@ -1,14 +1,13 @@
-import { GenerateFunctionSettings } from "../../types";
+import { GenerateFunctionOptions, GenerateFunctionSettings } from "../../types";
 import assert from 'node:assert'
-
-const { buildGenerateFunctionSettingsFromOptions } = require('../build-generate-function-settings');
+import { buildGenerateFunctionSettingsFromOptions } from '../build-generate-function-settings';
 
 describe('buildGenerateFunctionSettingsFromOptions', () => {
     it('should return GenerateFunctionSettings - using minimum template', async () => {
         const options = {
             name: 'test',
             template: 'typescript',
-        }
+        } as GenerateFunctionOptions
         const expected = {
             name: 'test',
             sourceType: 'template',
@@ -25,7 +24,7 @@ describe('buildGenerateFunctionSettingsFromOptions', () => {
             name: 'test',
             example: 'appevent-handler',
             language: 'typescript'
-        }
+        } as GenerateFunctionOptions
         const expected = {
             name: 'test',
             sourceType: 'example',
