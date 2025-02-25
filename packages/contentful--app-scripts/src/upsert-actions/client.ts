@@ -1,5 +1,5 @@
 import { cyan } from 'chalk';
-import { CreateAppActionProps, PlainClientAPI } from 'contentful-management';
+import { AppActionProps, CreateAppActionProps, PlainClientAPI } from 'contentful-management';
 
 export async function createAction(
 	client: PlainClientAPI,
@@ -13,7 +13,7 @@ export async function createAction(
 		payload
 	);
 	console.log(`
-		${cyan('Success!')} Created Action ${cyan(action.name)} with ID ${cyan(
+			${cyan('Success!')} Created Action ${cyan(action.name)} with ID ${cyan(
 		action.sys.id
 	)} for App ${cyan(appDefinitionId)}.`);
 	return action;
@@ -42,7 +42,7 @@ export async function updateAction(
 	appDefinitionId: string,
 	appActionId: string,
 	payload: CreateAppActionProps
-) {
+): Promise<AppActionProps> {
 	const action = await client.appAction.update(
 		{
 			appDefinitionId,
@@ -51,7 +51,7 @@ export async function updateAction(
 		payload
 	);
 	console.log(`
-		${cyan('Success!')} Updated Action ${cyan(action.name)} with ID ${cyan(appActionId)} for App ${cyan(
+			${cyan('Success!')} Updated Action ${cyan(action.name)} with ID ${cyan(appActionId)} for App ${cyan(
 		appDefinitionId
 	)}.`);
 	return action;
