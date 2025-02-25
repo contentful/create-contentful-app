@@ -1,17 +1,6 @@
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
 
-export interface FunctionAppAction {
-  id: string;
-  name: string;
-  description: string;
-  category: 'Custom';
-  type: 'function';
-  path: string;
-  allowNetworks?: string[];
-  entryFile?: string;
-}
-
 export interface ContentfulFunction {
   id: string;
   name: string;
@@ -84,7 +73,6 @@ export interface UploadSettings {
   skipActivation?: boolean;
   userAgentApplication?: string;
   host?: string;
-  actions?: FunctionAppAction[];
   functions?: ContentfulFunction[];
 }
 

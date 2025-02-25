@@ -94,134 +94,6 @@ describe('removeProtocolFromUrl', () => {
   });
 });
 
-describe('get actions from manifest', () => {
-  let exitStub: SinonStub, consoleLog: SinonStub;
-
-  const actionMock = {
-    name: 'name',
-    category: 'Custom',
-    description: 'description',
-    type: 'function',
-    path: 'actions/mock.js',
-    entryFile: './actions/mock.ts',
-    parameters: [],
-    allowNetworks: ['127.0.0.1', 'some.domain.tld'],
-  };
-  // eslint-disable-next-line no-unused-vars
-  const { entryFile: _, ...resultMock } = actionMock;
-
-  const fs = {
-    existsSync: stub(),
-    readFileSync: stub(),
-  };
-  const chalk = {
-    bold: stub(),
-    red: stub(),
-  };
-
-  const { getEntityFromManifest } = proxyquire('./utils', { fs, chalk });
-
-  beforeEach(() => {
-    exitStub = stub(process, 'exit');
-    consoleLog = stub(console, 'log');
-  });
-  afterEach(() => {
-    exitStub.restore();
-    consoleLog.restore();
-  });
-
-  it('should return undefined if manifest does not exist', () => {
-    fs.existsSync.returns(false);
-
-    const result = getEntityFromManifest('actions');
-
-    assert.equal(result, undefined);
-  });
-
-  it('should return undefined if manifest has no actions', () => {
-    fs.existsSync.returns(true);
-    fs.readFileSync.returns(JSON.stringify({ actions: [] }));
-
-    const result = getEntityFromManifest('actions');
-    assert.equal(result, undefined);
-  });
-
-  it('should return an array of actions if manifest is valid', () => {
-    fs.existsSync.returns(true);
-    fs.readFileSync.returns(
-      JSON.stringify({
-        actions: [actionMock],
-      })
-    );
-
-    const result = getEntityFromManifest('actions');
-
-    assert.deepEqual(result, [resultMock]);
-    assert.ok(consoleLog.called);
-  });
-
-  it('should strip the protocol when a domain has a protocol in allowNetworks', () => {
-    const mockAction = {
-      ...actionMock,
-      allowNetworks: ['http://some.domain.tld'],
-    };
-    // eslint-disable-next-line no-unused-vars
-    const { entryFile: _, ...resultMock } = mockAction;
-    fs.existsSync.returns(true);
-    fs.readFileSync.returns(
-      JSON.stringify({
-        actions: [mockAction],
-      })
-    );
-
-    const result = getEntityFromManifest('actions');
-
-    assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
-    assert.ok(consoleLog.called);
-  });
-
-  it('should return an array of actions without entryFile prop if manifest is valid', () => {
-    fs.existsSync.returns(true);
-    fs.readFileSync.returns(
-      JSON.stringify({
-        actions: [actionMock],
-      })
-    );
-
-    const result = getEntityFromManifest('actions');
-
-    assert.notDeepEqual(result, [actionMock]);
-  });
-
-  it('should exit with error if invalid network is found in allowNetworks', () => {
-    fs.existsSync.returns(true);
-    fs.readFileSync.returns(
-      JSON.stringify({
-        actions: [
-          {
-            name: 'action1',
-            entryFile: 'entry1',
-            allowNetworks: ['412.1.1.1'],
-          },
-        ],
-      })
-    );
-
-    getEntityFromManifest('actions');
-
-    assert.ok(exitStub.calledOnceWith(1));
-  });
-
-  it('should exit with error if manifest is invalid JSON', () => {
-    fs.existsSync.returns(true);
-    fs.readFileSync.throws();
-
-    getEntityFromManifest('actions');
-
-    assert.ok(exitStub.calledOnceWith(1));
-  });
-});
-
 describe('get functions from manifest', () => {
   let exitStub: SinonStub, consoleLog: SinonStub;
 
@@ -246,7 +118,7 @@ describe('get functions from manifest', () => {
     red: stub(),
   };
 
-  const { getEntityFromManifest } = proxyquire('./utils', { fs, chalk });
+  const { getFunctionsFromManifest } = proxyquire('./utils', { fs, chalk });
 
   beforeEach(() => {
     exitStub = stub(process, 'exit');
@@ -260,7 +132,7 @@ describe('get functions from manifest', () => {
   it('should return undefined if manifest does not exist', () => {
     fs.existsSync.returns(false);
 
-    const result = getEntityFromManifest('functions');
+    const result = getFunctionsFromManifest();
 
     assert.equal(result, undefined);
   });
@@ -269,7 +141,7 @@ describe('get functions from manifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.returns(JSON.stringify({ functions: [] }));
 
-    const result = getEntityFromManifest('functions');
+    const result = getFunctionsFromManifest();
     assert.equal(result, undefined);
   });
 
@@ -281,7 +153,7 @@ describe('get functions from manifest', () => {
       })
     );
 
-    const result = getEntityFromManifest('functions');
+    const result = getFunctionsFromManifest();
 
     assert.deepEqual(result, [resultMock]);
     assert.ok(consoleLog.called);
@@ -301,7 +173,7 @@ describe('get functions from manifest', () => {
       })
     );
 
-    const result = getEntityFromManifest('functions');
+    const result = getFunctionsFromManifest();
 
     assert.deepEqual(result, [{ ...resultMock, allowNetworks: ['some.domain.tld'] }]);
     assert.ok(consoleLog.called);
@@ -315,7 +187,7 @@ describe('get functions from manifest', () => {
       })
     );
 
-    const result = getEntityFromManifest('functions');
+    const result = getFunctionsFromManifest();
 
     assert.notDeepEqual(result, [functionMock]);
   });
@@ -334,7 +206,7 @@ describe('get functions from manifest', () => {
       })
     );
 
-    getEntityFromManifest('functions');
+    getFunctionsFromManifest();
 
     assert.ok(exitStub.calledOnceWith(1));
   });
@@ -353,7 +225,7 @@ describe('get functions from manifest', () => {
       })
     );
 
-    getEntityFromManifest('functions');
+    getFunctionsFromManifest();
 
     assert.ok(exitStub.calledOnceWith(1));
   });
@@ -362,7 +234,7 @@ describe('get functions from manifest', () => {
     fs.existsSync.returns(true);
     fs.readFileSync.throws();
 
-    getEntityFromManifest('functions');
+    getFunctionsFromManifest();
 
     assert.ok(exitStub.calledOnceWith(1));
   });

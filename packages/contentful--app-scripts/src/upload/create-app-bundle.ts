@@ -7,7 +7,7 @@ import { createAppUpload } from './create-app-upload';
 import { UploadSettings } from '../types';
 
 export async function createAppBundleFromUpload(settings: UploadSettings, appUploadId: string) {
-  const { accessToken, host, userAgentApplication, comment, actions, functions } = settings;
+  const { accessToken, host, userAgentApplication, comment, functions } = settings;
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({
     accessToken,
@@ -24,7 +24,6 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
     appBundle = await appDefinition.createAppBundle({
       appUploadId,
       comment: comment && comment.length > 0 ? comment : undefined,
-      actions,
       functions,
     });
   } catch (err: any) {

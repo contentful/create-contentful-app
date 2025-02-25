@@ -1,5 +1,5 @@
 import z from 'zod';
-import { CreateAppActionOptions } from './types';
+import { CreateAppActionOptions as UpsertAppActionOptions } from './types';
 import { ID_REGEX } from '../utils';
 
 const parametersSchema = z
@@ -26,7 +26,7 @@ export const validateId = (id: string) => {
 
 export function validateActionsManifest(
 	manifest: Record<string, any>,
-): CreateAppActionOptions['actions'] {
+): UpsertAppActionOptions['actions'] {
 	if (!manifest.actions) {
 		throw new Error('Invalid App Action manifest: missing "actions" field');
 	}
