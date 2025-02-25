@@ -5,6 +5,7 @@ import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
 import { ContentfulFunction, FunctionAppAction } from './types';
+import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -17,7 +18,7 @@ const functionEvents = {
   resourceTypeMappingEvent: 'graphql.resourcetype.mapping',
   queryEvent: 'graphql.query',
   resourceLinksSearchEvent: 'resources.search',
-  resourceLinksLookupEvent: 'resources.lookup'
+  resourceLinksLookupEvent: 'resources.lookup',
 };
 
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
@@ -192,4 +193,8 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
+}
+
+export function getWebAppHostname(host: string | undefined): string {
+  return host && host.includes('api') ? host.replace('api', 'app') : DEFAULT_CONTENTFUL_APP_HOST;
 }
