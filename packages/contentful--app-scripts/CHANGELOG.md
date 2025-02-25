@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.33.0-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.3...@contentful/app-scripts@1.33.0-alpha.0) (2025-02-25)
+
+### Bug Fixes
+
+- create-actions -> upsert-actions leftovers ([4ca4452](https://github.com/contentful/create-contentful-app/commit/4ca4452b19cde8eb95a73f5ae46ea76ef296cea7))
+- **deps:** bump esbuild from 0.24.2 to 0.25.0 ([#2329](https://github.com/contentful/create-contentful-app/issues/2329)) ([53b92ce](https://github.com/contentful/create-contentful-app/commit/53b92cebe2157eaddb72c678a52f70b61de67b22))
+- **deps:** bump zod from 3.24.1 to 3.24.2 ([#2333](https://github.com/contentful/create-contentful-app/issues/2333)) ([63dea22](https://github.com/contentful/create-contentful-app/commit/63dea22adfed35376811d7725a7624883786a231))
+- error handling + tests ([d0ef4cf](https://github.com/contentful/create-contentful-app/commit/d0ef4cfbe556f3cb75f242f4fd8be43d58689e83))
+
+### Features
+
+- [BREAKING CHANGE] deprecate hosted app action functionality from app-scripts ([ce63787](https://github.com/contentful/create-contentful-app/commit/ce6378704bff006a3c9d4a13a8c908e1b2e65660))
+- add create-actions app-scripts command ([1d47bba](https://github.com/contentful/create-contentful-app/commit/1d47bba3d2020f79b1f2033dae647ae3801d5bbb))
+
 ## [1.32.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.2...@contentful/app-scripts@1.32.3) (2025-02-07)
 
 ### Bug Fixes
