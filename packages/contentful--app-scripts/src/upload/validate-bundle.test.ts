@@ -26,7 +26,7 @@ describe('validateBundle', () => {
   it('does not throw when there is no index.html but a function is defined', () => {
     const mockedSettings = {
       functions: [{ id: 'myFunc', path: 'functions/myFunc.js' }],
-    } as Pick<UploadSettings, 'functions' | 'actions'>;
+    } as Pick<UploadSettings, 'functions'>;
     const fsstub = {
       readdirSync: () => ['functions', 'functions/myFunc.js'],
     };
@@ -60,7 +60,7 @@ describe('validateBundle', () => {
         { id: 'myFunc', path: 'functions/myFunc.js' },
         { id: 'myOtherFunc', path: 'functions/myOtherFunc.js' },
       ],
-    } as Pick<UploadSettings, 'functions' | 'actions'>;
+    } as Pick<UploadSettings, 'functions'>;
     const fsstub = {
       readdirSync: () => ['index.html', 'functions', 'functions/myFunc.js'],
       readFileSync: () => '<html><script src="./relative/path"></script></html>',
@@ -72,28 +72,6 @@ describe('validateBundle', () => {
       assert.strictEqual(
         e.message,
         'Function "myOtherFunc" is missing its entry file at "build/functions/myOtherFunc.js".'
-      );
-    }
-  });
-
-  it('throws when there is no entry point for a function defined in the contentful-app-manifest.json', () => {
-    const mockedSettings = {
-      actions: [
-        { id: 'myAction', path: 'actions/myAction.js' },
-        { id: 'myOtherAction', path: 'actions/myOtherAction.js' },
-      ],
-    } as Pick<UploadSettings, 'functions' | 'actions'>;
-    const fsstub = {
-      readdirSync: () => ['index.html', 'actions', 'actions/myAction.js'],
-      readFileSync: () => '<html><script src="./relative/path"></script></html>',
-    };
-    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
-    try {
-      validateBundle('build', mockedSettings);
-    } catch (e: any) {
-      assert.strictEqual(
-        e.message,
-        'Action "myOtherAction" is missing its entry file at "build/actions/myOtherAction.js".'
       );
     }
   });
