@@ -1,5 +1,5 @@
 import { yellow } from 'chalk';
-import { CreateAppActionProps, createClient, PlainClientAPI } from 'contentful-management';
+import { AppActionProps, CreateAppActionProps, createClient, PlainClientAPI } from 'contentful-management';
 import fs from 'node:fs';
 import ora from 'ora';
 import { resolveManifestFile, throwError } from '../utils';
@@ -12,15 +12,16 @@ export async function doUpsert(
 	client: PlainClientAPI,
 	appDefinitionId: string,
 	payload: CreateAppActionPayload
-) {
+): Promise<AppActionProps> {
 	if (payload.id) {
 		const existingAction = await getExistingAction(client, appDefinitionId, payload.id);
 		if (existingAction) {
-			return await updateAction(
+			const { id, ...update } = payload;
+			return updateAction(
 				client,
 				appDefinitionId,
-				payload.id,
-				payload as CreateAppActionProps
+				id,
+				update as CreateAppActionProps
 			);
 		} else if (!existingAction && payload.type === 'endpoint') {
 			throw new Error(
@@ -28,24 +29,46 @@ export async function doUpsert(
 			);
 		}
 	}
-	return await createAction(client, appDefinitionId, payload as CreateAppActionProps);
+	return createAction(client, appDefinitionId, payload as CreateAppActionProps);
 }
 
-function syncRemoteDataToManifest(
+export function syncUpsertToManifest(
 	manifestActions: AppActionManifest[],
-	actionsToSync: AppActionManifest[],
+	actionsToSync: { [i: number]: AppActionManifest },
 	manifest: Record<string, any>,
 	manifestFile: string
 ) {
-	const dedupedActionsToSync = manifestActions
-		.filter((action) => !actionsToSync.find((a) => a.name === action.name))
-		.concat(actionsToSync);
+	const actions = manifestActions.map((action, i) => {
+		const syncedAction = actionsToSync[i];
+		return syncedAction || action;
+	});
 
 	fs.writeFileSync(
 		manifestFile,
-		JSON.stringify({ ...manifest, actions: dedupedActionsToSync }, null, 2)
+		JSON.stringify({ ...manifest, actions }, null, 2)
 	);
 	console.log(`Remote updates synced to your manifest file at ${yellow(manifestFile)}.`);
+}
+
+export async function processActionManifests(actions: AppActionManifest[], doUpsert: (payload: CreateAppActionPayload) => Promise<AppActionProps>) {
+	const actionsToSync: { [i: number]: AppActionManifest } = {}
+	const errors: { details: any; path: (string | number)[] }[] = [];
+	for (const i in actions) {
+		const action = actions[i];
+		const payload = makeAppActionCMAPayload(action);
+
+		try {
+			const appAction = await doUpsert(payload);
+			actionsToSync[i] = {
+				...action,
+				id: appAction.sys.id,
+			};
+		} catch (err: any) {
+			errors.push({ details: err, path: ['actions', i] });
+		}
+	}
+
+	return { actionsToSync, errors };
 }
 
 export async function upsertAppActions(settings: Required<CreateAppActionSettings>) {
@@ -67,32 +90,15 @@ export async function upsertAppActions(settings: Required<CreateAppActionSetting
 		}
 	);
 
-	const actionsToSync: AppActionManifest[] = [];
-	const errors: { details: any; path: (string | number)[] }[] = [];
-	for (const i in actions) {
-		const action = actions[i];
-		const payload = makeAppActionCMAPayload(action);
+	const { actionsToSync, errors } = await processActionManifests(actions, async (payload) => doUpsert(client, appDefinitionId, payload));
 
-		try {
-			const appAction = await doUpsert(client, appDefinitionId, payload);
-			actionsToSync.push({
-				...action,
-				id: appAction.sys.id,
-			});
-		} catch (err: any) {
-			errors.push({ details: err, path: ['actions', i] });
-		}
-	}
-
-	syncRemoteDataToManifest(actions, actionsToSync, manifest, manifestFile);
+	syncUpsertToManifest(actions, actionsToSync, manifest, manifestFile);
 
 	if (errors.length) {
 		const error = new Error(
-			JSON.stringify({
-				message: 'Something went wrong while syncing your actions manifest to Contentful',
-				details: errors,
-			})
+			`Failed to upsert actions`
 		);
+		Object.assign(error, { details: errors.map(({ details }) => details) });
 		throwError(error, 'Failed to upsert actions');
 	}
 
