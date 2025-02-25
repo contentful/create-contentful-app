@@ -1,6 +1,6 @@
 {
   "name": "@contentful/app-scripts",
-  "version": "1.32.2",
+  "version": "1.32.3",
   "description": "A collection of scripts for building Contentful Apps",
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -57,7 +57,7 @@
     "commander": "12.1.0",
     "contentful-management": "11.47.1",
     "dotenv": "16.4.7",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "ignore": "7.0.3",
     "inquirer": "8.2.6",
     "lodash": "4.17.21",

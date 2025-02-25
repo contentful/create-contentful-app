@@ -23,12 +23,13 @@ export async function buildCleanUpSettings(options: CleanupOptions): Promise<Cle
     });
   }
 
-  const appCleanUpSettings = await prompt(prompts);
-  const appInfo = await getAppInfo(options);
+  const { host: interactiveHost, ...appCleanUpSettings } = await prompt(prompts);
+  const hostValue = host || interactiveHost;
+  const appInfo = await getAppInfo({ ...options, host: hostValue });
 
   return {
     keep: keep === undefined ? +appCleanUpSettings.keep : +keep,
-    host,
+    host: hostValue,
     ...appCleanUpSettings,
     ...appInfo,
   };

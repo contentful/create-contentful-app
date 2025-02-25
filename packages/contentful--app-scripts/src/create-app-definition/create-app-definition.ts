@@ -4,7 +4,7 @@ import { ClientAPI, createClient } from 'contentful-management';
 import chalk from 'chalk';
 import { isString, isPlainObject, has } from 'lodash';
 
-import { throwValidationException, selectFromList } from '../utils';
+import { throwValidationException, selectFromList, getWebAppHostname } from '../utils';
 import { cacheEnvVars } from '../cache-credential';
 import { ORG_ID_ENV_KEY, APP_DEF_ENV_KEY } from '../constants';
 import { AppDefinitionSettings } from './build-app-definition-settings';
@@ -62,7 +62,8 @@ export async function createAppDefinition(
 ) {
   assertValidArguments(accessToken, appDefinitionSettings);
 
-  const client = createClient({ accessToken, host: appDefinitionSettings.host });
+  const host = appDefinitionSettings.host;
+  const client = createClient({ accessToken, host });
   const organizations = await fetchOrganizations(client);
 
   const selectedOrg = await selectFromList(
@@ -100,7 +101,7 @@ export async function createAppDefinition(
     return {
       location,
     };
-  })
+  });
   const hasFrontendLocation = locations.some(({ location }) => location !== 'dialog');
   const body = {
     name: appName,
@@ -123,20 +124,20 @@ export async function createAppDefinition(
       [APP_DEF_ENV_KEY]: createdAppDefinition.sys.id,
     });
 
+    const webApp = getWebAppHostname(host);
+
     console.log(`
   ${chalk.greenBright('Success!')} Created an app definition for ${chalk.bold(
       appName
     )} in ${chalk.bold(selectedOrg.name)}.
 
-  ${chalk.dim(`NOTE: You can update this app definition in your organization settings:
-        ${chalk.underline(`https://app.contentful.com/deeplink?link=org`)}`)}
+  ${chalk.dim(`NOTE: You can update this app definition in your apps settings:
+        ${chalk.underline(`https://${webApp}/deeplink?link=app-definition-list`)}`)}
 
   ${chalk.bold('Next steps:')}
     1. Run your app with ${chalk.cyan('`npm start`')} inside of your app folder.
     2. Install this app definition to one of your spaces by opening:
-        ${chalk.underline(
-          `https://app.contentful.com/deeplink?link=apps&id=${createdAppDefinition.sys.id}`
-        )}
+        ${chalk.underline(`https://${webApp}/deeplink?link=apps&id=${createdAppDefinition.sys.id}`)}
     3. Learn how to build your first Contentful app:
         ${chalk.underline(`https://ctfl.io/app-tutorial`)}
       `);

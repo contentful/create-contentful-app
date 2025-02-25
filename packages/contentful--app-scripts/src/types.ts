@@ -56,6 +56,7 @@ export interface CleanupSettings {
 
 export interface OpenSettingsOptions {
   definitionId?: string;
+  host?: string;
 }
 
 export interface InstallOptions {
