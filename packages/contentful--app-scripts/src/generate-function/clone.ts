@@ -109,19 +109,19 @@ export async function clone(cloneURL: string, localFunctionsPath: string) {
   return tigedInstance
 }
 
-export async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
+export async function mergeAppManifest(localPath: string, localTmpPath: string) {
   const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
-  const tmpAppManifestType = await whichExists(localFunctionsPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
+  const tmpAppManifestType = await whichExists(localTmpPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
 
   if (!finalAppManifestType) {
     await mergeJsonIntoFile({
-      source: `${localFunctionsPath}/${tmpAppManifestType}`,
+      source: `${localTmpPath}/${tmpAppManifestType}`,
       destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`, // always save as contentful-app-manifest.json
     });
   } else {
     // add the function to the json's "functions" array
     await mergeJsonIntoFile({
-      source: `${localFunctionsPath}/${tmpAppManifestType}`,
+      source: `${localTmpPath}/${tmpAppManifestType}`,
       destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`,
       mergeFn: (destinationJson = {}, sourceJson = {}) => {
         if (!destinationJson.functions) {
@@ -136,12 +136,12 @@ export async function mergeAppManifest(localPath: string, localFunctionsPath: st
   }
 }
 
-export async function updatePackageJsonWithBuild(localPath: string, localFunctionsPath: string) {
+export async function updatePackageJsonWithBuild(localPath: string, localTmpPath: string) {
   const packageJsonLocation = resolve(`${localPath}/package.json`);
   const packageJsonExists = await exists(packageJsonLocation);
   if (packageJsonExists) {
     await mergeJsonIntoFile({
-      source: `${localFunctionsPath}/package.json`,
+      source: `${localTmpPath}/package.json`,
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });

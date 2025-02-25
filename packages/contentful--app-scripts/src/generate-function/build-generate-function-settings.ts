@@ -5,6 +5,7 @@ import { ACCEPTED_EXAMPLE_FOLDERS, ACCEPTED_LANGUAGES, BANNED_FUNCTION_NAMES } f
 import { GenerateFunctionSettings, AcceptedFunctionExamples, SourceName, GenerateFunctionOptions, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
+import { warn } from './logger';
 
 export async function buildGenerateFunctionSettings() : Promise<GenerateFunctionSettings> {
   const baseSettings = await inquirer.prompt<GenerateFunctionSettings>([
@@ -96,14 +97,22 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
   const settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
     try {
       validateArguments(options);
+      for (const key in options) { // convert all options to lowercase and trim
+        const optionKey = key as keyof GenerateFunctionOptions;
+        options[optionKey] = options[optionKey].toLowerCase().trim();
+      }
+
       if ('example' in options) {
         if ('template' in options) {
           throw new Error('Cannot specify both --template and --example');
         }
+        
         if (!ACCEPTED_EXAMPLE_FOLDERS.includes(options.example as AcceptedFunctionExamples)) {
           throw new Error(`Invalid example name: ${options.example}`);
         }
-        if (!options.language || !ACCEPTED_LANGUAGES.includes(options.language)) {
+        
+        if (!ACCEPTED_LANGUAGES.includes(options.language)) {
+          warn(`Invalid language: ${options.language}. Defaulting to TypeScript.`);
           settings.language = 'typescript';
         } else {
           settings.language = options.language;
@@ -113,9 +122,6 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
         settings.name = options.name;
 
       } else if ('template' in options) {
-        if ('example' in options) {
-          throw new Error('Cannot specify both --template and --example');
-        }
         if ('language' in options && options.language && options.language != options.template) {
           console.warn(`Ignoring language option: ${options.language}. Defaulting to ${options.template}.`);
         }
