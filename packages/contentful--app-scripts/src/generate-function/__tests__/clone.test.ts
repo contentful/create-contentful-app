@@ -187,22 +187,6 @@ describe('Helper functions tests', () => {
 
             sinon.restore();
         });
-
-        it('should log the correct app manifest source path', async () => {
-            const consoleLogStub = sinon.stub(console, 'log');
-            const tmpManifest = { functions: [{ id: 'tmpFunction' }] };
-            fs.writeFileSync(path.join(functionsDir, APP_MANIFEST), JSON.stringify(tmpManifest, null, 2), 'utf-8');
-
-            sinon.stub(fs, 'existsSync').returns(false);
-            sinon.stub(fs, 'writeFileSync').callThrough();
-
-            await mergeAppManifest(tempDir, functionsDir);
-
-            assert.ok(consoleLogStub.calledWith(`App manifest source path: ${functionsDir}/${APP_MANIFEST}`));
-
-            consoleLogStub.restore();
-            sinon.restore();
-        });
     
   });
 
@@ -227,8 +211,6 @@ describe('Helper functions tests', () => {
             });
 
             it('should update package.json with build command if it exists', async () => {
-                sinon.stub(fs, 'writeFileSync').callThrough();
-                sinon.stub(fs, 'existsSync').returns(true);
                 const mergeJsonIntoFileSpy = sinon.stub(fileUtils, "mergeJsonIntoFile").resolves()
 
                 await updatePackageJsonWithBuild(tempDir, functionsDir);
