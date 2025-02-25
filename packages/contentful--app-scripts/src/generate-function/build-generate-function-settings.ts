@@ -92,8 +92,8 @@ function validateArguments(options: GenerateFunctionOptions) {
 }
 
 export async function buildGenerateFunctionSettingsFromOptions(options: GenerateFunctionOptions) : Promise<GenerateFunctionSettings> {
-  const validateSpinner = ora('Validating your input').start();
-  let settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
+  const validateSpinner = ora('Validating your input\n').start();
+  const settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
     try {
       validateArguments(options);
       if ('example' in options) {
@@ -116,7 +116,11 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
         if ('example' in options) {
           throw new Error('Cannot specify both --template and --example');
         }
+        if ('language' in options && options.language && options.language != options.template) {
+          console.warn(`Ignoring language option: ${options.language}. Defaulting to ${options.template}.`);
+        }
         if (!ACCEPTED_LANGUAGES.includes(options.template as Language)) {
+          console.warn(`Invalid language: ${options.template}. Defaulting to TypeScript.`);
           settings.language = 'typescript';
           settings.sourceName = 'typescript';
         } else {

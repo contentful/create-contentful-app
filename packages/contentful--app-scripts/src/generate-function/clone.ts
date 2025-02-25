@@ -1,5 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const tiged = require('tiged');
-const fs = require('fs-extra')
+import fs from 'node:fs'
 
 import chalk from 'chalk';
 import { resolve } from 'path';
@@ -20,36 +21,19 @@ export async function cloneFunction(
 ) {
   try {
     console.log(highlight(`---- Cloning function ${chalk.cyan(settings.name)}...`));
-    const localTmpPath = resolve(`${localPath}/tmp`); // we require a tmp directory because tiged overwrites all files in the target directory
-    const localFunctionsPath = resolve(`${localPath}/functions`);
+    const { localTmpPath, localFunctionsPath } = resolvePaths(localPath);
 
-    let cloneURL = `${REPO_URL}/${settings.sourceName}`; // this is the default for template
-    if (settings.sourceType === 'example') {
-      cloneURL = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
-    }
+    const cloneURL = getCloneURL(settings);
     await cloneAndResolveManifests(cloneURL, localTmpPath, localPath);
     
    // now rename the function file. Find the file with a .ts or .js extension
-    const files = await fs.readdir(localTmpPath);
-    const functionFile: string | undefined = files.find((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
-    if (!functionFile) {
-      throw new Error(`No function file found in ${localTmpPath}`);
-    }
-    const newFunctionFile = `${settings.name}.${settings.language === 'typescript' ? 'ts' : 'js'}`;
-    await fs.rename(`${localTmpPath}/${functionFile}`, `${localTmpPath}/${newFunctionFile}`);
+    const renameFunctionFile = renameClonedFiles(localTmpPath, settings);
 
     // copy the cloned files to the functions directory
-    await fs.copy(localTmpPath, localFunctionsPath);
-    await fs.remove(localTmpPath);
+    moveFilesToFinalDirectory(localTmpPath, localFunctionsPath);
 
     // now alter the app-manifest.json to point to the new function file
-    const appManifest = await fs.readJson(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
-    const entry = appManifest["functions"][appManifest["functions"].length - 1]
-    entry.id = settings.name;
-    // the path always has a .js extension
-    entry.path = `./functions/${newFunctionFile.replace('.ts', '.js')}`;
-    entry.entryFile = `./functions/${newFunctionFile}`;
-    await fs.writeJson(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, appManifest, { spaces: 2 });
+    await touchupAppManifest(localPath, settings, renameFunctionFile);
 
   } catch (e) {
     error(`Failed to clone function ${highlight(chalk.cyan(settings.name))}`, e);
@@ -57,7 +41,47 @@ export async function cloneFunction(
   }
 }
 
-async function cloneAndResolveManifests(cloneURL: string, localFunctionsPath: string, localPath: string) {
+export function getCloneURL(settings: GenerateFunctionSettings) {
+  let cloneURL = `${REPO_URL}/${settings.sourceName}`; // this is the default for template
+  if (settings.sourceType === 'example') {
+    cloneURL = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
+  }
+  return cloneURL;
+}
+
+export async function touchupAppManifest(localPath: string, settings: GenerateFunctionSettings, renameFunctionFile: string) {
+  const appManifest = JSON.parse(fs.readFileSync(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, 'utf-8'));
+  const entry = appManifest["functions"][appManifest["functions"].length - 1];
+  entry.id = settings.name;
+  // the path always has a .js extension
+  entry.path = `./functions/${renameFunctionFile.replace('.ts', '.js')}`;
+  entry.entryFile = `./functions/${renameFunctionFile}`;
+  await fs.writeFileSync(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(appManifest, null, 2));
+}
+
+export function moveFilesToFinalDirectory(localTmpPath: string, localFunctionsPath: string) {
+  fs.cpSync(localTmpPath, localFunctionsPath, {recursive: true});
+  fs.rmSync(localTmpPath, { recursive: true, force: true });
+}
+
+export function renameClonedFiles(localTmpPath: string, settings: GenerateFunctionSettings) {
+  const files = fs.readdirSync(localTmpPath);
+  const functionFile: string | undefined = files.find((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
+  if (!functionFile) {
+    throw new Error(`No function file found in ${localTmpPath}`);
+  }
+  const newFunctionFile = `${settings.name}.${settings.language === 'typescript' ? 'ts' : 'js'}`;
+  fs.renameSync(`${localTmpPath}/${functionFile}`, `${localTmpPath}/${newFunctionFile}`);
+  return newFunctionFile;
+}
+
+export function resolvePaths(localPath: string) {
+  const localTmpPath = resolve(`${localPath}/tmp`); // we require a tmp directory because tiged overwrites all files in the target directory
+  const localFunctionsPath = resolve(`${localPath}/functions`);
+  return { localTmpPath, localFunctionsPath };
+}
+
+export async function cloneAndResolveManifests(cloneURL: string, localFunctionsPath: string, localPath: string) {
   const tigedInstance = await clone(cloneURL, localFunctionsPath);
 
   // merge the manifest from the template folder to the root folder
@@ -73,18 +97,17 @@ async function cloneAndResolveManifests(cloneURL: string, localFunctionsPath: st
     });
 }
 
-async function clone(cloneURL: string, localFunctionsPath: string) {
+export async function clone(cloneURL: string, localFunctionsPath: string) {
   const tigedInstance = tiged(cloneURL, { mode: 'tar', disableCache: true, force: true });
   await tigedInstance.clone(localFunctionsPath);
   return tigedInstance
 }
 
-async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
+export async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
   let writeAppManifest: Promise<void> | undefined;
   const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
   const tmpAppManifestType = await whichExists(localFunctionsPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
 
-  console.log(`App manifest source path: ${localFunctionsPath}/${APP_MANIFEST}`);
   if (!finalAppManifestType) {
     writeAppManifest = mergeJsonIntoFile({
       source: `${localFunctionsPath}/${tmpAppManifestType}`,
@@ -106,9 +129,12 @@ async function mergeAppManifest(localPath: string, localFunctionsPath: string) {
       },
     });
   }
+  if (writeAppManifest) { // I'm not sure why this works but it lets the tests pass
+    await writeAppManifest;
+  }
 }
 
-async function updatePackageJsonWithBuild(localPath: string, localFunctionsPath: string) {
+export async function updatePackageJsonWithBuild(localPath: string, localFunctionsPath: string) {
   const packageJsonLocation = resolve(`${localPath}/package.json`);
   const packageJsonExists = await exists(packageJsonLocation);
   if (packageJsonExists) {
