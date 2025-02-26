@@ -310,3 +310,43 @@ Options:
 -m, --manifest-file <path> Contentful app manifest file path
 -w, --watch watch for changes
 -h, --help display help for command
+
+### Upsert App Actions
+
+Creates or updates Actions for an App using the configuration in a Contentful App Manifest file. Created resources will be synced back to your manifest file.
+
+#### Interactive mode:
+
+In the interactive mode, the CLI will ask for all required options.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts upsert-actions
+> ```
+
+#### Non-interactive mode:
+
+When passing the `--ci` argument adding all variables as arguments is required.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts upsert-actions --ci \
+>     --manifest-file path/to/contentful-app-manifest.json \
+>     --organization-id some-org-id \
+>     --definition-id some-app-def-id \
+>     --token $MY_CONTENTFUL_PAT
+> ```
+
+**Options:**
+
+| Argument            | Description                                                                                                                                | Default value                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `--manifest-file`   | The path to the Contentful app manifest file                                                                                               | `contentful-app-manifest.json` |
+| `--organization-id` | The ID of the organization which the app is defined in                                                                                     |                                |
+| `--definition-id`   | The ID of the app to which to add the actions                                                                                              |                                |
+| `--token`           | A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens) |                                |
+| `--host`            | (optional) Contentful CMA-endpoint to use                                                                                                  | `api.contentful.com`           |
+
+**Note:** You can also pass all arguments in interactive mode to skip being asked for it.

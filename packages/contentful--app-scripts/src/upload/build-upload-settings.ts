@@ -1,12 +1,11 @@
 import { prompt } from 'inquirer';
 import { getAppInfo } from '../get-app-info';
-import { getEntityFromManifest } from '../utils';
+import { getFunctionsFromManifest } from '../utils';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { UploadOptions, UploadSettings } from '../types';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
-  const actionsManifest = getEntityFromManifest('actions');
-  const functionManifest = getEntityFromManifest('functions');
+  const functionManifest = getFunctionsFromManifest();
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
@@ -50,7 +49,6 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     skipActivation: skipActivation === undefined ? !activateBundle : skipActivation,
     comment,
     host: hostValue,
-    actions: actionsManifest,
     functions: functionManifest,
     ...appUploadSettings,
     ...appInfo,

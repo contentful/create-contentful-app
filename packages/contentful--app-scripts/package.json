@@ -10,8 +10,8 @@
     "directory": "packages/contentful--app-scripts"
   },
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

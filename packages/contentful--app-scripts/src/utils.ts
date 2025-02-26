@@ -4,8 +4,9 @@ import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
-import { ContentfulFunction, FunctionAppAction } from './types';
+import { ContentfulFunction } from './types';
 import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
+import { resolve } from 'node:path';
 
 const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
 
@@ -114,13 +115,7 @@ export const selectFromList = async <T extends Definition | Organization>(
   }
 };
 
-type Entities<Type> = Type extends 'actions'
-  ? Omit<FunctionAppAction, 'entryFile'>[]
-  : Omit<ContentfulFunction, 'entryFile'>[];
-
-export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
-  type: Type
-): Entities<Type> | undefined {
+export function getFunctionsFromManifest(): Omit<ContentfulFunction, 'entryFile'>[] | undefined {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
   if (!isManifestExists) {
@@ -130,17 +125,17 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
   try {
     const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
 
-    if (!Array.isArray(manifest[type]) || manifest[type].length === 0) {
+    if (!Array.isArray(manifest['functions']) || manifest['functions'].length === 0) {
       return;
     }
 
     logProgress(
-      `${type === 'actions' ? 'App Actions' : 'functions'} found in ${chalk.bold(
+      `functions found in ${chalk.bold(
         DEFAULT_MANIFEST_PATH
       )}.`
     );
 
-    const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
+    const items = (manifest['functions'] as ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
         ? item.allowNetworks.map(stripProtocol)
         : [];
@@ -155,7 +150,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
         console.log(
           `${chalk.red(
             'Error:'
-          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for Function "${
             item.name
           }".`
         );
@@ -164,7 +159,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
       }
       if (hasInvalidEvent) {
         console.log(
-          `${chalk.red('Error:')} Invalid events found in the accepts array for ${type} "${
+          `${chalk.red('Error:')} Invalid events found in the accepts array for Function "${
             item.name
           }".`
         );
@@ -183,7 +178,7 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
       };
     });
 
-    return items as Entities<Type>;
+    return items;
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
@@ -198,3 +193,11 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(
 export function getWebAppHostname(host: string | undefined): string {
   return host && host.includes('api') ? host.replace('api', 'app') : DEFAULT_CONTENTFUL_APP_HOST;
 }
+
+export const resolveManifestFile = (options: { manifestFile?: string }, cwd = process.cwd()) => {
+  return require(options.manifestFile
+    ? resolve(cwd, options.manifestFile)
+    : resolve(cwd, 'contentful-app-manifest.json'));
+};
+
+export const ID_REGEX = /^[a-zA-Z0-9]+$/;

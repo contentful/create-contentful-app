@@ -14,13 +14,13 @@ const fileContainsAbsolutePath = (fileContent: string) => {
 
 export const validateBundle = (
   path: string,
-  { functions, actions }: Pick<UploadSettings, 'functions' | 'actions'>
+  { functions }: Pick<UploadSettings, 'functions'>
 ) => {
   const buildFolder = Path.join('./', path);
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });
   const entry = getEntryFile(files);
 
-  if (!entry && !functions && !actions) {
+  if (!entry && !functions) {
     throw new Error(
       'Ensure your bundle includes a valid index.html file in its root folder, or a valid Contentful Function entrypoint (defined in your contentful-app-manifest.json file).'
     );
@@ -47,18 +47,6 @@ export const validateBundle = (
         `Function "${functionWithoutEntryFile.id}" is missing its entry file at "${Path.join(
           buildFolder,
           functionWithoutEntryFile.path
-        )}".`
-      );
-    }
-  }
-
-  if (actions) {
-    const actionWithoutEntryFile = actions.find(({ path }) => !files.includes(path));
-    if (actionWithoutEntryFile) {
-      throw new Error(
-        `Action "${actionWithoutEntryFile.id}" is missing its entry file at "${Path.join(
-          buildFolder,
-          actionWithoutEntryFile.path
         )}".`
       );
     }
