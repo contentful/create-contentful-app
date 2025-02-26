@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.33.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.3...@contentful/app-scripts@1.33.0) (2025-02-26)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.47.1 to 11.47.2 ([#2342](https://github.com/contentful/create-contentful-app/issues/2342)) ([f93c4eb](https://github.com/contentful/create-contentful-app/commit/f93c4eb6a9e4b6395ee0ffa6ec1f4ba2bf42e6b3))
+- **deps:** bump esbuild from 0.24.2 to 0.25.0 ([#2329](https://github.com/contentful/create-contentful-app/issues/2329)) ([53b92ce](https://github.com/contentful/create-contentful-app/commit/53b92cebe2157eaddb72c678a52f70b61de67b22))
+- **deps:** bump zod from 3.24.1 to 3.24.2 ([#2333](https://github.com/contentful/create-contentful-app/issues/2333)) ([63dea22](https://github.com/contentful/create-contentful-app/commit/63dea22adfed35376811d7725a7624883786a231))
+
+### Features
+
+- easy-add-app-functions [EXT-6022] ([#2326](https://github.com/contentful/create-contentful-app/issues/2326)) ([cd083a7](https://github.com/contentful/create-contentful-app/commit/cd083a714199a1beba10c1ab4ec71aea10255a9b))
+
 ## [1.32.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.2...@contentful/app-scripts@1.32.3) (2025-02-07)
 
 ### Bug Fixes
