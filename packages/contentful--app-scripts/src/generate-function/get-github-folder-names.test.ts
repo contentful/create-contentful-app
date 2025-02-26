@@ -1,8 +1,8 @@
 import { stub, SinonStub } from 'sinon';
 import assert from 'assert';
 import axios from 'axios';
-import { getGithubFolderNames } from '../get-github-folder-names';
-import { HTTPResponseError } from '../types';
+import { getGithubFolderNames } from './get-github-folder-names';
+import { HTTPResponseError } from './types';
 
 describe('getGithubFolderNames', () => {
     let axiosGetStub: SinonStub;

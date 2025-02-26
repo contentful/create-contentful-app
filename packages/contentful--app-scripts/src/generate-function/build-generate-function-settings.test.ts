@@ -1,6 +1,6 @@
-import { GenerateFunctionOptions, GenerateFunctionSettings } from "../../types";
+import { GenerateFunctionOptions, GenerateFunctionSettings } from "../types";
 import assert from 'node:assert'
-import { buildGenerateFunctionSettingsFromOptions } from '../build-generate-function-settings';
+import { buildGenerateFunctionSettingsFromOptions } from './build-generate-function-settings';
 
 describe('buildGenerateFunctionSettingsFromOptions', () => {
     it('should return GenerateFunctionSettings - using minimum template', async () => {

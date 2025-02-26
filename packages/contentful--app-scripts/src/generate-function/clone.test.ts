@@ -3,8 +3,8 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert';
 import sinon from 'sinon';
-import * as fileUtils from '../utils/file';
-import * as logger from '../logger'
+import * as fileUtils from './utils/file';
+import * as logger from './logger'
 import {
   getCloneURL,
   touchupAppManifest,
@@ -13,10 +13,10 @@ import {
   resolvePaths,
   mergeAppManifest,
   updatePackageJsonWithBuild
-} from '../clone'; // adjust the path as needed
+} from './clone'; // adjust the path as needed
 
-import { REPO_URL, CONTENTFUL_APP_MANIFEST, APP_MANIFEST } from '../constants';
-import { GenerateFunctionSettings, Language } from '../../types';
+import { REPO_URL, CONTENTFUL_APP_MANIFEST, APP_MANIFEST } from './constants';
+import { GenerateFunctionSettings, Language } from '../types';
 
 const dummySettings = {
   name: 'myFunction',
