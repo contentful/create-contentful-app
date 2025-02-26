@@ -11,6 +11,7 @@ import {
   track,
   install,
   buildFunctions,
+  generateFunction,
 } from './index';
 import { feedback } from './feedback';
 
@@ -21,7 +22,8 @@ type Command =
   | typeof cleanup
   | typeof open
   | typeof install
-  | typeof buildFunctions;
+  | typeof buildFunctions
+  | typeof generateFunction;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
@@ -112,6 +114,17 @@ async function runCommand(command: Command, options?: any) {
     .option('-w, --watch', 'watch for changes')
     .action(async (options) => {
       await runCommand(buildFunctions, options);
+    });
+
+  program
+    .command('generate-function')
+    .description('Generate a new Contentful Function')
+    .option('--name <name>', 'Name of the function')
+    .option('--template <language>', 'Select a template and language for the function')
+    .option('--example <example_name>', 'Select an example function to generate')
+    .option('--language <language>', 'Select a language for the function')
+    .action(async (options) => {
+      await runCommand(generateFunction, options);
     });
 
   program.hook('preAction', (thisCommand) => {
