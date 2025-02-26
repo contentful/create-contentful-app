@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.33.0...@contentful/app-scripts@2.0.0) (2025-02-26)
+
+- feat!: add `upsert-actions` app-scripts command [EXT-5979] (#2332) ([5007a4f](https://github.com/contentful/create-contentful-app/commit/5007a4f1d5ffae4c544e78d318e5cb436ea28219)), closes [#2332](https://github.com/contentful/create-contentful-app/issues/2332)
+
+### BREAKING CHANGES
+
+- removes the ability to create hosted app actions from app-scripts
+
+- feat!: [BREAKING CHANGE] bump node and npm engines
+
 # [1.33.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.3...@contentful/app-scripts@1.33.0) (2025-02-26)
 
 ### Bug Fixes
