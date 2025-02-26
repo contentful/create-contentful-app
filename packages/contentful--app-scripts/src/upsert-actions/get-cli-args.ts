@@ -3,6 +3,7 @@ import ora from "ora";
 import { getAppInfo } from "../get-app-info";
 import { validateArguments } from "../validate-arguments";
 import { CreateAppActionSettings } from "./types";
+import { DEFAULT_APP_MANIFEST_PATH } from "../constants";
 
 const requiredOptions = {
 	organizationId: '--organization-id',
@@ -20,7 +21,7 @@ export async function getCreateAppActionsArgs(
 		const appInfo = await getAppInfo(settings);
 		return {
 			host: settings.host || 'api.contentful.com',
-			manifestFile: settings.manifestFile,
+			manifestFile: settings.manifestFile || DEFAULT_APP_MANIFEST_PATH,
 			accessToken: settings.token,
 			appDefinitionId: appInfo.definition.value,
 			organizationId: appInfo.organization.value,
