@@ -66,9 +66,9 @@ describe('Helper functions tests', () => {
       // The id should be the settings.name
       assert.strictEqual(entry.id, dummySettings.name);
       // The path is updated to always have a .js extension
-      assert.strictEqual(entry.path, `./functions/${renameFile.replace('.ts', '.js')}`);
+      assert.strictEqual(entry.path, `functions/${renameFile.replace('.ts', '.js')}`);
       // entryFile remains unchanged (uses the original renameFile)
-      assert.strictEqual(entry.entryFile, `./functions/${renameFile}`);
+      assert.strictEqual(entry.entryFile, `functions/${renameFile}`);
     });
   });
 
