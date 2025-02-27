@@ -113,7 +113,8 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
       !normalizedOptions.typescript &&
-      !normalizedOptions.function;
+      !normalizedOptions.function &&
+      !normalizedOptions.action;
 
     const templateSource = await getTemplateSource(options);
 
@@ -124,6 +125,10 @@ async function initProject(appName: string, options: CLIOptions) {
     });
 
     await cloneTemplateIn(fullAppFolder, templateSource);
+
+    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
+      await cloneAppAction(fullAppFolder, !!normalizedOptions.javascript);
+    }
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
       // If function flag is specified, but no function name is provided, we default to external-references
@@ -194,6 +199,7 @@ async function initProject(appName: string, options: CLIOptions) {
         )})`,
       ].join('\n')
     )
+    .option('-a, --action', 'include a hosted app action in the ts or js template')
     .option('-f, --function [function-template-name]', 'include the specified function template')
     .action(initProject);
   await program.parseAsync();
