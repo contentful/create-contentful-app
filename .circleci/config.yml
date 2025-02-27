@@ -194,7 +194,9 @@ workflows:
             - vault
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - app-scripts-v1
           requires:
             - test-built-app-18
             - test-built-app-18-actions-functions
