@@ -14,7 +14,6 @@ import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
-import { cloneAppAction } from './includeAppAction';
 import { cloneFunction } from './includeFunction';
 
 const DEFAULT_APP_NAME = 'contentful-app';
@@ -113,8 +112,7 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
       !normalizedOptions.typescript &&
-      !normalizedOptions.function &&
-      !normalizedOptions.action;
+      !normalizedOptions.function;
 
     const templateSource = await getTemplateSource(options);
 
@@ -125,10 +123,6 @@ async function initProject(appName: string, options: CLIOptions) {
     });
 
     await cloneTemplateIn(fullAppFolder, templateSource);
-
-    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
-      await cloneAppAction(fullAppFolder, !!normalizedOptions.javascript);
-    }
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
       // If function flag is specified, but no function name is provided, we default to external-references

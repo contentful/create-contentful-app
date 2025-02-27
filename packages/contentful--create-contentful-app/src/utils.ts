@@ -64,7 +64,6 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.example;
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
-    delete normalizedOptions.action;
     delete normalizedOptions.function;
   }
 
@@ -72,7 +71,6 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     fallbackOption = '--example';
     delete normalizedOptions.typescript;
     delete normalizedOptions.javascript;
-    delete normalizedOptions.action;
     delete normalizedOptions.function;
   }
 
