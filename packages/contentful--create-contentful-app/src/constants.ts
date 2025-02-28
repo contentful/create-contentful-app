@@ -29,6 +29,7 @@ export const IGNORED_CLONED_FILES = [CONTENTFUL_APP_MANIFEST, `package.json`];
 
 export const VERSION_1 = "1"
 export const VERSION_2 = "2"
+export const ALL_VERSIONS = [VERSION_1, VERSION_2] // add here if more versions are added
 
 export const CURRENT_VERSION = VERSION_1 // what is currently being used
 export const LEGACY_VERSION = VERSION_1 // the last version that was used

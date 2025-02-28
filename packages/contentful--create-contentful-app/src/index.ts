@@ -99,7 +99,6 @@ async function validateAppName(appName: string): Promise<string> {
 }
 
 async function initProject(appName: string, options: CLIOptions) {
-  console.dir(options, { depth: null });
   const normalizedOptions = normalizeOptions(options) as CLIOptions
 
   try {
