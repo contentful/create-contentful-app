@@ -11,8 +11,8 @@ import { detectManager, exec, normalizeOptions, isContentfulTemplate } from './u
 import { CLIOptions } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
-import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
-import { getTemplateSource } from './getTemplateSource';
+import { CREATE_APP_DEFINITION_GUIDE_URL, CURRENT_VERSION, REPO_URL, LEGACY_VERSION } from './constants';
+import { getPathSource } from './getTemplateSource';
 import { track } from './analytics';
 import { cloneAppAction } from './includeAppAction';
 import { cloneFunction } from './includeFunction';
@@ -99,7 +99,8 @@ async function validateAppName(appName: string): Promise<string> {
 }
 
 async function initProject(appName: string, options: CLIOptions) {
-  const normalizedOptions = normalizeOptions(options);
+  console.dir(options, { depth: null });
+  const normalizedOptions = normalizeOptions(options) as CLIOptions
 
   try {
     appName = await validateAppName(appName);
@@ -116,7 +117,7 @@ async function initProject(appName: string, options: CLIOptions) {
       !normalizedOptions.function &&
       !normalizedOptions.action;
 
-    const templateSource = await getTemplateSource(options);
+    const templateSource = await getPathSource(normalizedOptions);
 
     track({
       template: templateSource,
@@ -181,7 +182,7 @@ async function initProject(appName: string, options: CLIOptions) {
         '',
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
-        `Official Contentful templates and examples are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
+        `Official Contentful templates and examples are hosted at ${highlight(REPO_URL)}.`,
       ].join('\n')
     )
     .argument('[app-name]', 'app name')
@@ -189,7 +190,7 @@ async function initProject(appName: string, options: CLIOptions) {
     .option('--yarn', 'use Yarn')
     .option('-ts, --typescript', 'use TypeScript template (default)')
     .option('-js, --javascript', 'use JavaScript template')
-    .option('-e, --example <example-name>', `bootstrap an example app from ${EXAMPLES_REPO_URL}`)
+    .option('-e, --example <example-name>', `bootstrap an example app from ${REPO_URL}`)
     .option(
       '-s, --source <url>',
       [
@@ -201,6 +202,9 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .option('-a, --action', 'include a hosted app action in the ts or js template')
     .option('-f, --function [function-template-name]', 'include the specified function template')
+    .option('-l --legacy', `Use the last version of app templates and examples (version ${chalk.green(LEGACY_VERSION)})`)
+    .option('-n --next', `Use the next version of app templates and examples, if it exists (version ${chalk.green(CURRENT_VERSION)})`)
+    .option('-v --version [version-number]', `Select the app examples version to use. Default is the most current version (version ${chalk.green(CURRENT_VERSION)})`)
     .action(initProject);
   await program.parseAsync();
 })();

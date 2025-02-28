@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import inquirer from 'inquirer';
 import sinon from 'sinon';
-import { EXAMPLES_PATH } from '../src/constants';
+import { CURRENT_VERSION, examples_path, templates_path } from '../src/constants';
 import * as getGithubFolderNamesModule from '../src/getGithubFolderNames';
-import { getTemplateSource, makeContentfulExampleSource } from '../src/getTemplateSource';
+import { getPathSource,  generateSource } from '../src/getTemplateSource';
 import { ContentfulExample, InvalidTemplateError } from '../src/types';
 
-describe('getTemplateSource', () => {
-  describe('makeContentfulExampleSource', () => {
+describe('getPathSource', () => {
+  describe('generateSource', () => {
     let getGithubFolderNamesStub;
     let promptStub;
 
@@ -23,15 +23,15 @@ describe('getTemplateSource', () => {
     it('should return template source with valid example template', async () => {
       getGithubFolderNamesStub.resolves(['home-location', 'page-location']);
 
-      const templateSource = await makeContentfulExampleSource({ example: 'home-location' });
-      expect(templateSource).to.equal(`${EXAMPLES_PATH}home-location`);
+      const templateSource = await generateSource({ example: 'home-location' });
+      expect(templateSource).to.equal(`${examples_path(CURRENT_VERSION)}home-location`);
     });
 
     it('should throw an error with invalid example template', async () => {
       getGithubFolderNamesStub.resolves(['home-location', 'page-location']);
 
       try {
-        const templateSource = await makeContentfulExampleSource({ example: 'invalid' });
+        const templateSource = await generateSource({ example: 'invalid' });
         console.log(templateSource);
       } catch (error) {
         expect(error instanceof InvalidTemplateError).to.be.true;
@@ -39,33 +39,34 @@ describe('getTemplateSource', () => {
     });
 
     it('should return template source with valid javascript template option', async () => {
-      const templateSource = await makeContentfulExampleSource({ javascript: true });
-      expect(templateSource).to.equal(`${EXAMPLES_PATH}${ContentfulExample.Javascript}`);
+      const templateSource = await generateSource({ javascript: true });
+      expect(templateSource).to.equal(`${templates_path(CURRENT_VERSION)}${ContentfulExample.Javascript}`);
     });
 
     it('should return template source with valid typescript template option', async () => {
-      const templateSource = await makeContentfulExampleSource({ typescript: true });
-      expect(templateSource).to.equal(`${EXAMPLES_PATH}${ContentfulExample.Typescript}`);
+      const templateSource = await generateSource({ typescript: true });
+      expect(templateSource).to.equal(`${templates_path(CURRENT_VERSION)}${ContentfulExample.Typescript}`);
     });
 
     it('should return typescript template source with function option', async () => {
-      const templateSource = await makeContentfulExampleSource({ function: 'function-appaction' });
-      expect(templateSource).to.equal(`${EXAMPLES_PATH}${ContentfulExample.Typescript}`);
+      const templateSource = await generateSource({ function: 'function-appaction' });
+      expect(templateSource).to.equal(`${templates_path(CURRENT_VERSION)}${ContentfulExample.Typescript}`);
     });
 
     it('should return typescript template source with action option', async () => {
-      const templateSource = await makeContentfulExampleSource({ function: true });
-      expect(templateSource).to.equal(`${EXAMPLES_PATH}${ContentfulExample.Typescript}`);
+      const templateSource = await generateSource({ function: true });
+      expect(templateSource).to.equal(`${templates_path(CURRENT_VERSION)}${ContentfulExample.Typescript}`);
     });
 
     it('should return prompt example selection if no options are provided', async () => {
+      getGithubFolderNamesStub.resolves(['home-location', 'page-location']);
       promptStub.resolves({ starter: 'template', language: 'vite-react' });
-      const templateSource = await makeContentfulExampleSource({});
-      expect(templateSource).to.equal(`${EXAMPLES_PATH}vite-react`);
+      const templateSource = await generateSource({});
+      expect(templateSource).to.equal(`${templates_path(CURRENT_VERSION)}vite-react`);
     });
   });
 
-  describe('getTemplateSource', async () => {
+  describe('getPathSource', async () => {
     let consoleLogSpy;
 
     beforeEach(() => {
@@ -77,15 +78,15 @@ describe('getTemplateSource', () => {
     });
 
     it('should return source without a warning when it is a Contentful template', async () => {
-      const source = `${EXAMPLES_PATH}${ContentfulExample.Typescript}`;
-      const sourceResult = await getTemplateSource({ source });
+      const source = `${templates_path(CURRENT_VERSION)}${ContentfulExample.Typescript}`;
+      const sourceResult = await getPathSource({ source });
       expect(sourceResult).to.equal(source);
       expect(consoleLogSpy.calledOnce).to.be.false;
     });
 
     it('should provide warning if source is not a Contentful template', async () => {
       const source = 'my-source';
-      const sourceResult = await getTemplateSource({ source });
+      const sourceResult = await getPathSource({ source });
       expect(sourceResult).to.equal(source);
       expect(consoleLogSpy.getCall(0).args[0]).to.include('Warning');
     });

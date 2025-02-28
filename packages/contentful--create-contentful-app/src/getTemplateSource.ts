@@ -2,12 +2,12 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { CLIOptions, ContentfulExample, InvalidTemplateError } from './types';
 import { code, highlight, warn, wrapInBlanks } from './logger';
-import { EXAMPLES_PATH, IGNORED_EXAMPLE_FOLDERS } from './constants';
+import { CURRENT_VERSION, examples_path, templates_path } from './constants';
 import { isContentfulTemplate } from './utils';
 import { getGithubFolderNames } from './getGithubFolderNames';
 
-async function promptExampleSelection(): Promise<string> {
-  let template = 'typescript';
+async function promptExampleSelection(version: string): Promise<string> {
+  let fileName = 'typescript';
 
   // ask user whether to start with a blank template or use an example
   const { starter } = await inquirer.prompt([
@@ -25,58 +25,58 @@ async function promptExampleSelection(): Promise<string> {
 
   // if the user chose to use a template, ask which language they prefer
   if (starter === 'template') {
+    const availableTemplates = await getGithubFolderNames(version, false);
+     // filter out the the function templates
+    const filteredTemplates = availableTemplates.filter(
+      (template) => !template.includes('function-')
+    );
     const { language } = await inquirer.prompt([
       {
         name: 'language',
         message: 'Pick a template',
         type: 'list',
-        choices: [
-          { name: 'TypeScript', value: 'typescript' },
-          { name: 'JavaScript', value: 'javascript' },
-          { name: 'Next.js', value: 'nextjs' },
-          { name: 'React + Vite', value: 'vite-react' },
-          { name: 'Vue', value: 'vue' },
-        ],
+        choices: filteredTemplates,
         default: 'typescript',
       },
     ]);
-    template = language;
+    fileName = language;
   } else {
     // get available templates from examples
-    const availableTemplates = await getGithubFolderNames();
-    // filter out the ignored ones that are listed as templates instead of examples
-    const filteredTemplates = availableTemplates.filter(
-      (template) =>
-        !IGNORED_EXAMPLE_FOLDERS.includes(template as (typeof IGNORED_EXAMPLE_FOLDERS)[number])
+    const availableExamples = await getGithubFolderNames(version);
+    // filter out the function examples
+    const filteredExamples = availableExamples.filter(
+      (example) => !example.includes('function')
     );
-    console.log(availableTemplates.length, filteredTemplates.length);
 
-    // ask user to select a template from the available examples
+    // ask user to select from the available examples
     const { example } = await inquirer.prompt([
       {
         name: 'example',
-        message: 'Select a template',
+        message: 'Select an example:',
         type: 'list',
-        choices: filteredTemplates,
+        choices: filteredExamples,
       },
     ]);
 
-    template = example;
+    fileName = example;
   }
 
   // return the selected template
-  return selectTemplate(template);
+  return selectPath(fileName, starter == "example", version);
 }
 
-function selectTemplate(template: string) {
+function selectPath(template: string, isExample : boolean, version: string): string {
   wrapInBlanks(highlight(`---- Cloning the ${chalk.cyan(template)} template...`));
-  return EXAMPLES_PATH + template;
+  return isExample ? examples_path(version) + template : templates_path(version) + template;
 }
 
-export async function makeContentfulExampleSource(options: CLIOptions): Promise<string> {
+export async function generateSource(options: CLIOptions): Promise<string> {
+  if (!options.version) {
+    options.version = CURRENT_VERSION;
+  }
   if (options.example) {
     // check to see if the example is valid
-    const availableTemplates = await getGithubFolderNames();
+    const availableTemplates = await getGithubFolderNames(options.version);
     const isValidContentfulExample = availableTemplates.includes(options.example);
     if (!isValidContentfulExample) {
       throw new InvalidTemplateError(
@@ -88,27 +88,27 @@ export async function makeContentfulExampleSource(options: CLIOptions): Promise<
       );
     }
 
-    const templateSource = selectTemplate(options.example);
+    const templateSource = selectPath(options.example, true, options.version);
     return templateSource;
   }
 
   if (options.javascript) {
-    return selectTemplate(ContentfulExample.Javascript);
+    return selectPath(ContentfulExample.Javascript, false, options.version);
   }
 
   if (options.typescript) {
-    return selectTemplate(ContentfulExample.Typescript);
+    return selectPath(ContentfulExample.Typescript, false, options.version);
   }
 
   if (options.function || options.action) {
-    return selectTemplate(ContentfulExample.Typescript);
+    return selectPath(ContentfulExample.Typescript, false, options.version);
   }
 
-  return await promptExampleSelection();
+  return await promptExampleSelection(options.version);
 }
 
-export async function getTemplateSource(options: CLIOptions): Promise<string> {
-  const source = options.source ?? (await makeContentfulExampleSource(options));
+export async function getPathSource(options: CLIOptions): Promise<string> {
+  const source = options.source ?? (await generateSource(options));
 
   if (options.source && !isContentfulTemplate(source)) {
     warn(`Template at ${highlight(source)} is not an official Contentful app template!`);

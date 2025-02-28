@@ -3,7 +3,7 @@ import { existsSync, rmSync } from 'fs';
 import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
 import { CLIOptions, ContentfulExample } from './types';
-import { EXAMPLES_PATH } from './constants';
+import { CURRENT_VERSION, examples_path, LEGACY_VERSION, NEWEST_VERSION, NEXT_VERSION, templates_path } from './constants';
 
 const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'typescript', 'javascript'] as const;
 
@@ -49,6 +49,27 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     delete normalizedOptions.yarn;
   }
 
+  if (!normalizedOptions.version) { // version takes precedence over legacy
+    if (normalizedOptions.legacy) {
+      normalizedOptions.version = LEGACY_VERSION;
+    }  else if (normalizedOptions.next) {
+      normalizedOptions.version = NEXT_VERSION
+    } else {
+        normalizedOptions.version = CURRENT_VERSION;
+    }
+  } else {
+    const version = parseInt(normalizedOptions.version);
+    const newestVersion = parseInt(NEWEST_VERSION);
+    if (isNaN(version) || version > newestVersion || version <= 0) {
+    warn(
+      `Provided version ${highlight(normalizedOptions.version)} does not exist, using ${choice(
+        NEWEST_VERSION
+      )} instead.`
+    );
+    normalizedOptions.version = NEWEST_VERSION
+  }
+  }
+
   if (!normalizedOptions.yarn) {
     normalizedOptions.npm = true;
   }
@@ -92,5 +113,6 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
 }
 
 export function isContentfulTemplate(url: string) {
-  return Object.values(ContentfulExample).some((t) => url.includes(EXAMPLES_PATH + t));
+  return Object.values(ContentfulExample).some((t) => 
+    url.includes(templates_path("1") + t)) || url.includes(templates_path("2")) || url.includes(examples_path("1")) || url.includes(examples_path("2"));  
 }

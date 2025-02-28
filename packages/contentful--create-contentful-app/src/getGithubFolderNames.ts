@@ -7,12 +7,13 @@ interface ContentResponse {
   name: string;
 }
 
-export const CONTENTFUL_APPS_EXAMPLE_FOLDER =
-  'https://api.github.com/repos/contentful/apps/contents/examples';
-
-export async function getGithubFolderNames(): Promise<string[]> {
+export async function getGithubFolderNames(version : string, isExample = true): Promise<string[]> {
+  const CONTENTFUL_APPS_EXAMPLE_FOLDER =
+    `https://api.github.com/repos/contentful/create-contentful-app-examples/contents/v${version}/examples`;
+  const CONTENTFUL_APPS_TEMPLATE_FOLDER =
+    `https://api.github.com/repos/contentful/create-contentful-app-examples/contents/v${version}/templates`;
   try {
-    const response = await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER);
+    const response = isExample ? await fetch(CONTENTFUL_APPS_EXAMPLE_FOLDER) : await fetch(CONTENTFUL_APPS_TEMPLATE_FOLDER);
     if (!response.ok) {
       throw new HTTPResponseError(
         `${chalk.red('Error:')} Failed to fetch Contentful app templates: ${response.status} ${
