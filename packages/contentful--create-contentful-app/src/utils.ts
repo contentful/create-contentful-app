@@ -55,9 +55,9 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
 
   if (isNaN(version) || version > newestVersion || version <= 0) {
     warn(
-      `Provided version ${highlight(normalizedOptions.version)} does not exist, using ${choice(NEWEST_VERSION)} instead.`
+      `Provided version ${highlight(normalizedOptions.version)} does not exist, using ${choice(CURRENT_VERSION)} instead.`
     );
-    normalizedOptions.version = NEWEST_VERSION;
+    normalizedOptions.version = CURRENT_VERSION;
   }
 } else {
   // If no version is provided, set it based on legacy or next flags
