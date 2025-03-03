@@ -27,7 +27,16 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       functions,
     });
   } catch (err: any) {
-    showCreationError('app upload', err.message);
+    try {
+      const message = JSON.parse(err.message);
+      if (message['status'] == 403 && message.details?.reasons) {
+        showCreationError('app upload', message['details']['reasons']);
+      } else {
+        showCreationError('app upload', message);
+      }
+    } catch (e) {
+      showCreationError('app upload', err.message);
+    }
   }
   bundleSpinner.stop();
   return appBundle;
