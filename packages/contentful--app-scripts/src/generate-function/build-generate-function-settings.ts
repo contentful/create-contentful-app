@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import path from 'path';
 import { getGithubFolderNames } from './get-github-folder-names';
-import { ACCEPTED_EXAMPLE_FOLDERS, ACCEPTED_LANGUAGES, BANNED_FUNCTION_NAMES } from './constants';
+import { ACCEPTED_EXAMPLE_FOLDERS, ACCEPTED_LANGUAGES, ALL_VERSIONS, BANNED_FUNCTION_NAMES, CURRENT_VERSION, LEGACY_VERSION, NEXT_VERSION } from './constants';
 import { GenerateFunctionSettings, AcceptedFunctionExamples, SourceName, GenerateFunctionOptions, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
@@ -70,6 +70,7 @@ export async function buildGenerateFunctionSettings() : Promise<GenerateFunction
   }
     baseSettings.sourceName = sourceSpecificSettings.sourceName
     baseSettings.language = sourceSpecificSettings.language
+    baseSettings.version = CURRENT_VERSION
     return baseSettings
 }
 
@@ -79,6 +80,7 @@ function validateArguments(options: GenerateFunctionOptions) {
   if (BANNED_FUNCTION_NAMES.includes(options.name)) {
     throw new Error(`Invalid function name: ${options.name}`);
   }
+
   if ('template' in options) {
     if (!templateRequired.every((key) => key in options)) {
       throw new Error('You must specify a function name and a template');
@@ -90,6 +92,29 @@ function validateArguments(options: GenerateFunctionOptions) {
   } else {
     throw new Error('You must specify either --template or --example');
   }
+  // Validate version
+  if ('legacy' in options) {
+    options.version = LEGACY_VERSION
+  } else if ('next' in options) {
+    options.version = NEXT_VERSION
+  } else if ('version' in options) {
+    if (!options.version || !(options.version  in ALL_VERSIONS)) {
+      console.log(`Invalid version: ${options.version}. Defaulting to ${CURRENT_VERSION}.`);
+      options.version = CURRENT_VERSION
+    } else {
+      options.version = options.version
+    }
+  } else {
+    options.version = CURRENT_VERSION
+  }
+  for (const key of Object.keys(options)) {
+    const value = options[key as keyof GenerateFunctionOptions];
+    // Only if the value is a string, we do .toLowerCase().trim()
+    if (typeof value === 'string') {
+      // We can safely cast to string now:
+      (options as any)[key] = value.toLowerCase().trim();
+    }
+  }
 }
 
 export async function buildGenerateFunctionSettingsFromOptions(options: GenerateFunctionOptions) : Promise<GenerateFunctionSettings> {
@@ -97,10 +122,7 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
   const settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
     try {
       validateArguments(options);
-      for (const key in options) { // convert all options to lowercase and trim
-        const optionKey = key as keyof GenerateFunctionOptions;
-        options[optionKey] = options[optionKey].toLowerCase().trim();
-      }
+      console.debug('options', options);
 
       if ('example' in options) {
         if ('template' in options) {
@@ -135,6 +157,12 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
         }
         settings.sourceType = 'template';
         settings.name = options.name;
+      }
+
+      if ('version' in options) {
+        settings.version = options.version;
+      } else {
+        settings.version = CURRENT_VERSION
       }
 
       return settings;
