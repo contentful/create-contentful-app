@@ -15,8 +15,7 @@ import {
   upsertActions,
 } from './index';
 import { feedback } from './feedback';
-import chalk from 'chalk';
-import { CURRENT_VERSION, LEGACY_VERSION, NEXT_VERSION } from './generate-function/constants';
+import { CURRENT_VERSION, LEGACY_VERSION } from './generate-function/constants';
 
 type Command =
   | typeof createAppDefinition
@@ -127,7 +126,6 @@ async function runCommand(command: Command, options?: any) {
     .option('-t, --template <language>', 'Select a template and language for the function')
     .option('-e, --example <example_name>', 'Select an example function to generate')
     .option('-lang, --language <language>', 'Select a language for the function')
-    .option('-v <version>', `Select the function examples version to use. Default is the most current version (version ${CURRENT_VERSION})`)
     .option('--legacy', `Use the last version of the function examples (version ${LEGACY_VERSION})`)
     .option('--next', `Use the next version of the function examples, if it exists. Otherwise, use the most current version (version ${CURRENT_VERSION}).`)
     .action(async (options) => {

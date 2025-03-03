@@ -24,7 +24,11 @@ export async function cloneFunction(
     const { localTmpPath, localFunctionsPath } = resolvePaths(localPath);
 
     const cloneURL = getCloneURL(settings);
+    console.debug('cloneURL', cloneURL);
     await cloneAndResolveManifests(cloneURL, localTmpPath, localPath, localFunctionsPath);
+
+    // log all the items in the tmp directory
+    console.debug('tmp directory contents', fs.readdirSync(localTmpPath));
     
     // now rename the function file. Find the file with a .ts or .js extension
     const renameFunctionFile = renameClonedFiles(localTmpPath, settings);
@@ -41,9 +45,14 @@ export async function cloneFunction(
 }
 
 export function getCloneURL(settings: GenerateFunctionSettings) {
-  let cloneURL = `${REPO_URL}/${settings.sourceName}`; // this is the default for template
+  let cloneURL = `${REPO_URL}/v${settings.version}/templates/${settings.sourceName}`; // this is the default for template
   if (settings.sourceType === 'example') {
-    cloneURL = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
+    if (settings.language) {
+      cloneURL = `${REPO_URL}/v${settings.version}/examples/${settings.sourceName}/${settings.language}`;
+    } else {
+      cloneURL = `${REPO_URL}/v${settings.version}/examples/${settings.sourceName}`;
+
+    }
   }
   return cloneURL;
 }
@@ -89,6 +98,9 @@ export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: s
   // modify package.json build commands
   await updatePackageJsonWithBuild(localPath, localTmpPath);
 
+  console.debug('tmp directory contents', fs.readdirSync(localTmpPath));
+
+
   // check if a tsconfig.json file exists already
   const ignoredFiles = IGNORED_CLONED_FILES
   const tsconfigExists = await exists(`${localFunctionsPath}/tsconfig.json`);
@@ -103,15 +115,17 @@ export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: s
     });
 }
 
-export async function clone(cloneURL: string, localFunctionsPath: string) {
+export async function clone(cloneURL: string, path: string) {
   const tigedInstance = tiged(cloneURL, { mode: 'tar', disableCache: true, force: true });
-  await tigedInstance.clone(localFunctionsPath);
+  await tigedInstance.clone(path);
   return tigedInstance
 }
 
 export async function mergeAppManifest(localPath: string, localTmpPath: string) {
   const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
   const tmpAppManifestType = await whichExists(localTmpPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
+
+  console.debug('tmpAppManifestType', tmpAppManifestType);
 
   if (!finalAppManifestType) {
     await mergeJsonIntoFile({

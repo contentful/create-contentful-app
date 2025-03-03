@@ -1,13 +1,13 @@
 import inquirer from 'inquirer';
 import path from 'path';
-import { getGithubFolderNames } from './get-github-folder-names';
+import { checkIfExampleFolderHasLanguageOptions, getGithubFolderNames } from './get-github-folder-names';
 import { ACCEPTED_EXAMPLE_FOLDERS, ACCEPTED_LANGUAGES, ALL_VERSIONS, BANNED_FUNCTION_NAMES, CURRENT_VERSION, LEGACY_VERSION, NEXT_VERSION } from './constants';
-import { GenerateFunctionSettings, AcceptedFunctionExamples, SourceName, GenerateFunctionOptions, Language } from '../types';
+import { GenerateFunctionSettings, AcceptedFunctionExamples, GenerateFunctionOptions, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
 import { warn } from './logger';
 
-export async function buildGenerateFunctionSettings() : Promise<GenerateFunctionSettings> {
+export async function buildGenerateFunctionSettings(): Promise<GenerateFunctionSettings> {
   const baseSettings = await inquirer.prompt<GenerateFunctionSettings>([
     {
       name: 'name',
@@ -22,57 +22,72 @@ export async function buildGenerateFunctionSettings() : Promise<GenerateFunction
         { name: 'Example', value: 'example' },
       ],
       default: 'template',
-    }
+    },
   ]);
+
   if (BANNED_FUNCTION_NAMES.includes(baseSettings.name)) {
     throw new Error(`Invalid function name: ${baseSettings.name}`);
   }
-  let sourceSpecificSettings : GenerateFunctionSettings;
-  if (baseSettings.sourceType === 'template') {
-    sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
-        {
-            name: 'language',
-            message: 'Pick a template',
-            type: 'list',
-            choices: [
-                { name: 'TypeScript', value: 'typescript' },
-                { name: 'JavaScript', value: 'javascript' },
-            ],
-            default: 'typescript',
-        }
-    ])
-    sourceSpecificSettings.sourceName = sourceSpecificSettings.language.toLowerCase() as SourceName
-  } else {
-    const availableExamples = await getGithubFolderNames();
-    const filteredExamples = availableExamples.filter(
-      (template) =>
-        ACCEPTED_EXAMPLE_FOLDERS.includes(template as (typeof ACCEPTED_EXAMPLE_FOLDERS)[number])
-    );
 
-    sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
+  let sourceSpecificSettings: Partial<GenerateFunctionSettings> = {};
+
+  if (baseSettings.sourceType === 'template') {
+    const filteredExamples = await getGithubFolderNames(CURRENT_VERSION, false);
+    const templateSettings = await inquirer.prompt<Pick<GenerateFunctionSettings, 'language'>>([
+      {
+        name: 'language',
+        message: 'Pick a template',
+        type: 'list',
+        choices: filteredExamples,
+      },
+    ]);
+    sourceSpecificSettings = {
+      ...sourceSpecificSettings,
+      ...templateSettings,
+      sourceName: templateSettings.language.toLowerCase(),
+    };
+  } else {
+    const filteredExamples = await getGithubFolderNames(CURRENT_VERSION, true);
+    const exampleSettings = await inquirer.prompt<Pick<GenerateFunctionSettings, 'sourceName'>>([
+      {
+        name: 'sourceName',
+        message: 'Select an example:',
+        type: 'list',
+        choices: filteredExamples,
+      },
+    ]);
+    sourceSpecificSettings = {
+      ...sourceSpecificSettings,
+      ...exampleSettings,
+    };
+
+    const languageOptions = await checkIfExampleFolderHasLanguageOptions(CURRENT_VERSION, exampleSettings.sourceName);
+    if (languageOptions.length > 1) {
+      const languagePrompt = await inquirer.prompt<Pick<GenerateFunctionSettings, 'language'>>([
         {
-            name: 'sourceName',
-            message: 'Select an example:',
-            type: 'list',
-            choices: filteredExamples,
+          name: 'language',
+          message: 'Pick a language',
+          type: 'list',
+          choices: languageOptions,
         },
-        {
-            name: 'language',
-            message: 'Pick a template',
-            type: 'list',
-            choices: [
-                { name: 'TypeScript', value: 'typescript' },
-                { name: 'JavaScript', value: 'javascript' },
-            ],
-            default: 'typescript',
-        }
-    ])
+      ]);
+      sourceSpecificSettings = {
+        ...sourceSpecificSettings,
+        ...languagePrompt,
+      };
+    }
   }
-    baseSettings.sourceName = sourceSpecificSettings.sourceName
-    baseSettings.language = sourceSpecificSettings.language
-    baseSettings.version = CURRENT_VERSION
-    return baseSettings
+
+  const finalSettings: GenerateFunctionSettings = {
+    ...baseSettings,
+    ...sourceSpecificSettings,
+    version: CURRENT_VERSION,
+  };
+
+  return finalSettings;
 }
+
+
 
 function validateArguments(options: GenerateFunctionOptions) {
   const templateRequired = ['name', 'template'];
@@ -97,16 +112,10 @@ function validateArguments(options: GenerateFunctionOptions) {
     options.version = LEGACY_VERSION
   } else if ('next' in options) {
     options.version = NEXT_VERSION
-  } else if ('version' in options) {
-    if (!options.version || !(options.version  in ALL_VERSIONS)) {
-      console.log(`Invalid version: ${options.version}. Defaulting to ${CURRENT_VERSION}.`);
+  } else { 
       options.version = CURRENT_VERSION
-    } else {
-      options.version = options.version
-    }
-  } else {
-    options.version = CURRENT_VERSION
   }
+
   for (const key of Object.keys(options)) {
     const value = options[key as keyof GenerateFunctionOptions];
     // Only if the value is a string, we do .toLowerCase().trim()

@@ -85,14 +85,13 @@ export interface BuildFunctionsOptions {
 export type SourceType = 'template' | 'example';
 export type Language = 'javascript' | 'typescript';
 export type AcceptedFunctionExamples = 'appevent-handler'; // Union type of each accepted example folder name in apps/function-examples repo
-export type SourceName = Language | AcceptedFunctionExamples;
 
 export type Version = '1' | '2';
 
 export interface GenerateFunctionSettings {
   name: string;
   sourceType: SourceType;
-  sourceName: SourceName;
+  sourceName: string;
   language: Language;
   version?: Version;
 }
