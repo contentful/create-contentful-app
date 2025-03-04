@@ -122,7 +122,7 @@ async function runCommand(command: Command, options?: any) {
     .command('generate-function')
     .description('Generate a new Contentful Function')
     .option('-n, --name <name>', 'Name of the function')
-    .option('-s, --source <sourceName>', 'Name of the template')
+    .option('-e, --example <example>', 'Name of the reference example')
     .option('-l, --language <language>', 'Select a language for the function')
     .action(async (options) => {
       await runCommand(generateFunction, options);

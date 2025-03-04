@@ -85,6 +85,6 @@ export interface BuildFunctionsOptions {
 export type Language = 'javascript' | 'typescript';
 export interface GenerateFunctionSettings {
   name: string;
-  source: string;
+  example: string;
   language: Language;
 }

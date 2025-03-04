@@ -21,8 +21,8 @@ export async function buildGenerateFunctionSettings() : Promise<GenerateFunction
 
   const sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
       {
-          name: 'source',
-          message: 'Select a template:',
+          name: 'example',
+          message: 'Select an example:',
           type: 'list',
           choices: filteredSources,
       },
@@ -37,15 +37,15 @@ export async function buildGenerateFunctionSettings() : Promise<GenerateFunction
           default: 'typescript',
       }
   ])
-  baseSettings.source = sourceSpecificSettings.source
+  baseSettings.example = sourceSpecificSettings.example
   baseSettings.language = sourceSpecificSettings.language
   return baseSettings
 }
 
 function validateArguments(options: GenerateFunctionSettings) {
-  const requiredParams = ['name', 'source', 'language'];
+  const requiredParams = ['name', 'example', 'language'];
   if (!requiredParams.every((key) => key in options)) {
-      throw new Error('You must specify a function name, a source, and a language');
+      throw new Error('You must specify a function name, an example, and a language');
   } 
    if (BANNED_FUNCTION_NAMES.includes(options.name)) {
     throw new Error(`Invalid function name: ${options.name}`);
@@ -72,8 +72,8 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
         
       // Check if the source exists
       const filteredSources = await getGithubFolderNames();
-      if (!filteredSources.includes(options.source)) {
-        throw new Error(`Invalid source name: ${options.source}. Please choose from: ${filteredSources.join(', ')}`);
+      if (!filteredSources.includes(options.example)) {
+        throw new Error(`Invalid example name: ${options.example}. Please choose from: ${filteredSources.join(', ')}`);
       }
       
       // Check if the language is valid
@@ -84,7 +84,7 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
         settings.language = options.language;
       }
 
-      settings.source = options.source;
+      settings.example = options.example;
       settings.name = options.name;
       return settings;
     } catch (err: any) {
