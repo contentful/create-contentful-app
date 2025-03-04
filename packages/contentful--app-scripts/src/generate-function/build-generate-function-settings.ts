@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import path from 'path';
 import { getGithubFolderNames } from './get-github-folder-names';
-import { ACCEPTED_EXAMPLE_FOLDERS, ACCEPTED_LANGUAGES, BANNED_FUNCTION_NAMES } from './constants';
+import { ACCEPTED_LANGUAGES, BANNED_FUNCTION_NAMES } from './constants';
 import { GenerateFunctionSettings, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
@@ -17,30 +17,29 @@ export async function buildGenerateFunctionSettings() : Promise<GenerateFunction
   if (BANNED_FUNCTION_NAMES.includes(baseSettings.name)) {
     throw new Error(`Invalid function name: ${baseSettings.name}`);
   }
-  let sourceSpecificSettings : GenerateFunctionSettings;
   const filteredSources = await getGithubFolderNames();
 
-    sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
-        {
-            name: 'source',
-            message: 'Select an example:',
-            type: 'list',
-            choices: filteredSources,
-        },
-        {
-            name: 'language',
-            message: 'Pick a template',
-            type: 'list',
-            choices: [
-                { name: 'TypeScript', value: 'typescript' },
-                { name: 'JavaScript', value: 'javascript' },
-            ],
-            default: 'typescript',
-        }
-    ])
-    baseSettings.source = sourceSpecificSettings.source
-    baseSettings.language = sourceSpecificSettings.language
-    return baseSettings
+  const sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
+      {
+          name: 'source',
+          message: 'Select an example:',
+          type: 'list',
+          choices: filteredSources,
+      },
+      {
+          name: 'language',
+          message: 'Pick a template',
+          type: 'list',
+          choices: [
+              { name: 'TypeScript', value: 'typescript' },
+              { name: 'JavaScript', value: 'javascript' },
+          ],
+          default: 'typescript',
+      }
+  ])
+  baseSettings.source = sourceSpecificSettings.source
+  baseSettings.language = sourceSpecificSettings.language
+  return baseSettings
 }
 
 function validateArguments(options: GenerateFunctionSettings) {

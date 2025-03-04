@@ -41,8 +41,7 @@ export async function cloneFunction(
 }
 
 export function getCloneURL(settings: GenerateFunctionSettings) {
-  let cloneURL = `${REPO_URL}/${settings.source}/${settings.language}`; // this is the default for template
-  return cloneURL;
+  return `${REPO_URL}/${settings.source}/${settings.language}`; // this is the default for template
 }
 
 export async function touchupAppManifest(localPath: string, settings: GenerateFunctionSettings, renameFunctionFile: string) {

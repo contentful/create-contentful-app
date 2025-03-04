@@ -30,14 +30,14 @@ describe('Helper functions tests', () => {
   describe('getCloneURL', () => {
     it('should return default clone URL for non-example sourceType', () => {
       const settings = { ...dummySettings, sourceType: 'template' } as GenerateFunctionSettings;
-      const expected = `${REPO_URL}/${settings.sourceName}`;
+      const expected = `${REPO_URL}/${settings.source}/${settings.language}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
     });
 
     it('should return example clone URL when sourceType is example', () => {
       const settings = { ...dummySettings, sourceType: 'example' } as GenerateFunctionSettings;
-      const expected = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
+      const expected = `${REPO_URL}/${settings.source}/${settings.language}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
     });
