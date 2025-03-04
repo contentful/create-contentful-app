@@ -1,37 +1,21 @@
-import { GenerateFunctionOptions, GenerateFunctionSettings } from "../types";
+import { GenerateFunctionSettings } from "../types";
 import assert from 'node:assert'
-import { buildGenerateFunctionSettingsFromOptions } from './build-generate-function-settings';
+import { buildGenerateFunctionSettingsCLI } from './build-generate-function-settings';
 
-describe('buildGenerateFunctionSettingsFromOptions', () => {
+describe('buildGenerateFunctionSettingsCLI', () => {
     it('should return GenerateFunctionSettings - using minimum template', async () => {
         const options = {
             name: 'test',
-            template: 'typescript',
-        } as GenerateFunctionOptions
+            example: 'APPEVENT-HANDLER',
+            language: 'typescript'
+        } as GenerateFunctionSettings
         const expected = {
             name: 'test',
-            sourceType: 'template',
-            sourceName: 'typescript',
+            example: 'appevent-handler',
             language: 'typescript',
         } as GenerateFunctionSettings
         
-        const settings = await buildGenerateFunctionSettingsFromOptions(options);
-        assert.deepEqual(expected, settings);
-    });
-
-    it('should return GenerateFunctionSettings - using minimum example', async () => {
-        const options = {
-            name: 'test',
-            example: 'appevent-handler',
-            language: 'typescript'
-        } as GenerateFunctionOptions
-        const expected = {
-            name: 'test',
-            sourceType: 'example',
-            sourceName: 'appevent-handler',
-            language: 'typescript',
-        }
-        const settings = await buildGenerateFunctionSettingsFromOptions(options);
+        const settings = await buildGenerateFunctionSettingsCLI(options);
         assert.deepEqual(expected, settings);
     });
 })
