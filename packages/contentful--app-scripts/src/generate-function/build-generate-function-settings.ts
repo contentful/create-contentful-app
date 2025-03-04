@@ -7,7 +7,7 @@ import ora from 'ora';
 import chalk from 'chalk';
 import { warn } from './logger';
 
-export async function buildGenerateFunctionSettings() : Promise<GenerateFunctionSettings> {
+export async function buildGenerateFunctionSettingsInteractive() : Promise<GenerateFunctionSettings> {
   const baseSettings = await inquirer.prompt<GenerateFunctionSettings>([
     {
       name: 'name',
@@ -64,7 +64,7 @@ function validateArguments(options: GenerateFunctionSettings) {
   }
 }
 
-export async function buildGenerateFunctionSettingsFromOptions(options: GenerateFunctionSettings) : Promise<GenerateFunctionSettings> {
+export async function buildGenerateFunctionSettingsCLI(options: GenerateFunctionSettings) : Promise<GenerateFunctionSettings> {
   const validateSpinner = ora('Validating your input\n').start();
   const settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
     try {

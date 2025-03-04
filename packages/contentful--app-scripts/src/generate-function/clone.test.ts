@@ -20,21 +20,15 @@ import { GenerateFunctionSettings, Language } from '../types';
 
 let settings = {
   name: 'myFunction',
-  source: 'typescript',
+  example: 'typescript',
   language: 'typescript'
 } as GenerateFunctionSettings;
 
 describe('Helper functions tests', () => {
 
   describe('getCloneURL', () => {
-    it('should return default clone URL for non-example sourceType', () => {
-      const expected = `${REPO_URL}/${settings.source}/${settings.language}`;
-      const url = getCloneURL(settings);
-      assert.strictEqual(url, expected);
-    });
-
-    it('should return example clone URL when sourceType is example', () => {
-      const expected = `${REPO_URL}/${settings.source}/${settings.language}`;
+    it('should return example clone URL when exampleType is example', () => {
+      const expected = `${REPO_URL}/${settings.example}/${settings.language}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
     });
