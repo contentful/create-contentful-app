@@ -22,13 +22,13 @@ export async function buildGenerateFunctionSettings() : Promise<GenerateFunction
   const sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
       {
           name: 'source',
-          message: 'Select an example:',
+          message: 'Select a template:',
           type: 'list',
           choices: filteredSources,
       },
       {
           name: 'language',
-          message: 'Pick a template',
+          message: 'Select a language',
           type: 'list',
           choices: [
               { name: 'TypeScript', value: 'typescript' },
