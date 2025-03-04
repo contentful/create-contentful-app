@@ -49,8 +49,8 @@ export async function touchupAppManifest(localPath: string, settings: GenerateFu
   const entry = appManifest["functions"][appManifest["functions"].length - 1];
   entry.id = settings.name;
   // the path always has a .js extension
-  entry.path = `./functions/${renameFunctionFile.replace('.ts', '.js')}`;
-  entry.entryFile = `./functions/${renameFunctionFile}`;
+  entry.path = `functions/${renameFunctionFile.replace('.ts', '.js')}`;
+  entry.entryFile = `functions/${renameFunctionFile}`;
   await fs.writeFileSync(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(appManifest, null, 2));
 }
 
