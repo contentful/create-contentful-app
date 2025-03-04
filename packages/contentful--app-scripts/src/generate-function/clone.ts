@@ -41,10 +41,7 @@ export async function cloneFunction(
 }
 
 export function getCloneURL(settings: GenerateFunctionSettings) {
-  let cloneURL = `${REPO_URL}/${settings.sourceName}`; // this is the default for template
-  if (settings.sourceType === 'example') {
-    cloneURL = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
-  }
+  let cloneURL = `${REPO_URL}/${settings.source}/${settings.language}`; // this is the default for template
   return cloneURL;
 }
 
