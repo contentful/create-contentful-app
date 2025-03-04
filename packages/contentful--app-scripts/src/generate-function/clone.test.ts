@@ -18,26 +18,17 @@ import {
 import { REPO_URL, CONTENTFUL_APP_MANIFEST, APP_MANIFEST } from './constants';
 import { GenerateFunctionSettings, Language } from '../types';
 
-const dummySettings = {
+let settings = {
   name: 'myFunction',
-  sourceName: 'typescript',
-  sourceType: 'template',
+  example: 'typescript',
   language: 'typescript'
 } as GenerateFunctionSettings;
 
 describe('Helper functions tests', () => {
 
   describe('getCloneURL', () => {
-    it('should return default clone URL for non-example sourceType', () => {
-      const settings = { ...dummySettings, sourceType: 'template' } as GenerateFunctionSettings;
-      const expected = `${REPO_URL}/${settings.sourceName}`;
-      const url = getCloneURL(settings);
-      assert.strictEqual(url, expected);
-    });
-
-    it('should return example clone URL when sourceType is example', () => {
-      const settings = { ...dummySettings, sourceType: 'example' } as GenerateFunctionSettings;
-      const expected = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
+    it('should return example clone URL when exampleType is example', () => {
+      const expected = `${REPO_URL}/${settings.example}/${settings.language}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
     });
@@ -59,12 +50,12 @@ describe('Helper functions tests', () => {
 
     it('should update the manifest with new function id, path and entryFile', async () => {
       const renameFile = 'myFunction.ts';
-      await touchupAppManifest(tempDir, dummySettings, renameFile);
+      await touchupAppManifest(tempDir, settings, renameFile);
       const updatedManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
       const entry = updatedManifest.functions[updatedManifest.functions.length - 1];
 
       // The id should be the settings.name
-      assert.strictEqual(entry.id, dummySettings.name);
+      assert.strictEqual(entry.id, settings.name);
       // The path is updated to always have a .js extension
       assert.strictEqual(entry.path, `functions/${renameFile.replace('.ts', '.js')}`);
       // entryFile remains unchanged (uses the original renameFile)
@@ -111,7 +102,6 @@ describe('Helper functions tests', () => {
       const originalFilePath = path.join(tmpDir, originalName);
       fs.writeFileSync(originalFilePath, 'console.log("hello")', 'utf-8');
 
-      const settings = { ...dummySettings, language: 'typescript' } as GenerateFunctionSettings;
       const newName = renameClonedFiles(tmpDir, settings);
       const expectedName = `${settings.name}.ts`;
       assert.strictEqual(newName, expectedName);
@@ -121,7 +111,7 @@ describe('Helper functions tests', () => {
     });
 
     it('should throw an error if no function file is found', () => {
-      const settings = { ...dummySettings, language: 'javascript' } as GenerateFunctionSettings;
+      settings = { ...settings, language: 'javascript' } as GenerateFunctionSettings;
       assert.throws(() => renameClonedFiles(tmpDir, settings), /No function file found/);
     });
   });
