@@ -29,19 +29,32 @@ describe('Helper functions tests', () => {
 
   describe('getCloneURL', () => {
     it('should return default clone URL for non-example sourceType', () => {
-      const settings = { ...dummySettings, sourceType: 'template' } as GenerateFunctionSettings;
-      const expected = `${REPO_URL}/${settings.sourceName}`;
+      const settings = { ...dummySettings, sourceType: 'template', version: '1' } as GenerateFunctionSettings;
+      const expected = `${REPO_URL}/v${settings.version}/templates/${settings.sourceName}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
     });
 
-    it('should return example clone URL when sourceType is example', () => {
-      const settings = { ...dummySettings, sourceType: 'example' } as GenerateFunctionSettings;
-      const expected = `${REPO_URL}/${settings.sourceName}/${settings.language}`;
+    it('should return example clone URL when sourceType is example - has language', () => {
+      const settings = { ...dummySettings, sourceType: 'example', version: '1' } as GenerateFunctionSettings;
+      const expected = `${REPO_URL}/v${settings.version}/examples/${settings.language}/${settings.sourceName}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
     });
   });
+
+    it('should return example clone URL when sourceType is example - np language', () => {
+      const settings = {
+        name: 'myFunction',
+        sourceName: 'typescript',
+        sourceType: 'example',
+        version: '1'
+      } as GenerateFunctionSettings;
+
+      const expected = `${REPO_URL}/v${settings.version}/examples/${settings.sourceName}`;
+      const url = getCloneURL(settings);
+      assert.strictEqual(url, expected);
+    });
 
   describe('touchupAppManifest', () => {
     let tempDir, manifestPath;

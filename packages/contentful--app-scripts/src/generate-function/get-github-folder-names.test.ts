@@ -18,15 +18,15 @@ describe('getGithubFolderNames', () => {
     it('should return a list of available examples', async () => {
         const mockResponse = {
             data: [
-                { type: 'dir', name: 'example1' },
-                { type: 'dir', name: 'example2' },
+                { type: 'dir', name: 'function-example1' },
+                { type: 'dir', name: 'function-example2' },
                 { type: 'file', name: 'file1' }
             ]
         };
         axiosGetStub.resolves(mockResponse);
 
-        const result = await getGithubFolderNames();
-        assert.deepStrictEqual(result, ['example1', 'example2']);
+        const result = await getGithubFolderNames('1', true);
+        assert.deepStrictEqual(result, ['function-example1', 'function-example2']);
     });
 
     it('should throw an HTTPResponseError if axios throws an HTTPResponseError', async () => {
@@ -34,7 +34,7 @@ describe('getGithubFolderNames', () => {
         axiosGetStub.rejects(error);
 
         await assert.rejects(async () => {
-            await getGithubFolderNames();
+            await getGithubFolderNames('1', true);
         }, HTTPResponseError);
     });
 
@@ -43,7 +43,7 @@ describe('getGithubFolderNames', () => {
         axiosGetStub.rejects(error);
 
         await assert.rejects(async () => {
-            await getGithubFolderNames();
+            await getGithubFolderNames('1', true);
         }, new Error(`Failed to fetch Contentful app templates: ${error}`));
     });
 });

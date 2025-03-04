@@ -13,7 +13,7 @@ export async function getGithubFolderNames(version: string, isExample : boolean)
     const contents = response.data;
     let filteredContents = contents.filter((content: ContentResponse) => content.type === 'dir');
     filteredContents = filteredContents.map((content: ContentResponse) => content.name);
-    
+
     return filteredContents.filter(
          (template: string) => template.includes('function-')
       );
