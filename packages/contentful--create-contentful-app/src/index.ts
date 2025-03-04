@@ -15,7 +15,8 @@ import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants'
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
 import { cloneAppAction } from './includeAppAction';
-import { cloneFunction } from './includeFunction';
+import { generateFunction } from '@contentful/app-scripts';
+import { info } from 'console';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -137,12 +138,18 @@ async function initProject(appName: string, options: CLIOptions) {
         normalizedOptions.function = 'external-references';
       }
 
-      await cloneFunction(
-        fullAppFolder,
-        !!normalizedOptions.javascript,
-        normalizedOptions.function
+      process.chdir(fullAppFolder);
+      info(
+        `To add additional function templates to your app, use ${highlight(chalk.green(`
+          npx @contentful/app-scripts@latest generate-function \\
+            --ci \\
+            --name <name> \\
+            --example <example> \\
+            --language <typescript/javascript>`
+        ))}`
       );
-    }
+      await generateFunction.nonInteractive({example: normalizedOptions.function, language: 'typescript', name: normalizedOptions.function});
+  }
 
     updatePackageName(fullAppFolder);
 
