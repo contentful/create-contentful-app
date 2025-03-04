@@ -105,9 +105,9 @@ export type VersionOptions = ({
 export type GenerateFunctionOptions = {
   name: string;
   version?: Version;
+  language?: Language;
 } & ({
   example: AcceptedFunctionExamples;
-  language: Language
 } | {
   template: Language;
 }) & VersionOptions;

@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import path from 'path';
-import { checkIfExampleFolderHasLanguageOptions, getGithubFolderNames } from './get-github-folder-names';
-import { ACCEPTED_EXAMPLE_FOLDERS, ACCEPTED_LANGUAGES, ALL_VERSIONS, BANNED_FUNCTION_NAMES, CURRENT_VERSION, LEGACY_VERSION, NEXT_VERSION } from './constants';
+import { getGithubFolderNames, checkIfFolderHasLanguageOptions } from './get-github-folder-names';
+import { BANNED_FUNCTION_NAMES, CURRENT_VERSION, LEGACY_VERSION, NEXT_VERSION } from './constants';
 import { GenerateFunctionSettings, AcceptedFunctionExamples, GenerateFunctionOptions, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
@@ -61,7 +61,7 @@ export async function buildGenerateFunctionSettings(): Promise<GenerateFunctionS
       ...exampleSettings,
     };
 
-    const languageOptions = await checkIfExampleFolderHasLanguageOptions(CURRENT_VERSION, exampleSettings.sourceName);
+    const languageOptions = await checkIfFolderHasLanguageOptions(CURRENT_VERSION, exampleSettings.sourceName);
     if (languageOptions.length > 1) {
       const languagePrompt = await inquirer.prompt<Pick<GenerateFunctionSettings, 'language'>>([
         {
@@ -91,7 +91,7 @@ export async function buildGenerateFunctionSettings(): Promise<GenerateFunctionS
 
 function validateArguments(options: GenerateFunctionOptions) {
   const templateRequired = ['name', 'template'];
-  const exampleRequired = ['name', 'example', 'language'];
+  const exampleRequired = ['name', 'example'];
   if (BANNED_FUNCTION_NAMES.includes(options.name)) {
     throw new Error(`Invalid function name: ${options.name}`);
   }
@@ -131,22 +131,29 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
   const settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
     try {
       validateArguments(options);
-      console.debug('options', options);
 
       if ('example' in options) {
         if ('template' in options) {
           throw new Error('Cannot specify both --template and --example');
         }
-        
-        if (!ACCEPTED_EXAMPLE_FOLDERS.includes(options.example as AcceptedFunctionExamples)) {
-          throw new Error(`Invalid example name: ${options.example}`);
+
+        const filteredExamples = await getGithubFolderNames(options.version as string, true);
+        if (!filteredExamples.includes(options.example as AcceptedFunctionExamples)) {
+          throw new Error(`Invalid example name: ${options.example}. Please choose from: ${filteredExamples.join(', ')}`);
+        }
+
+        const languageOptions = await checkIfFolderHasLanguageOptions(options.version as string, options.example);
+        if (languageOptions.length > 1) {
+          if (!('language' in options)) {
+            throw new Error(`You must specify a language for the example ${options.example}. Available languages: ${languageOptions.join(', ')}`);
+          }
         }
         
-        if (!ACCEPTED_LANGUAGES.includes(options.language)) {
-          warn(`Invalid language: ${options.language}. Defaulting to TypeScript.`);
-          settings.language = 'typescript';
+        if (options.language && !languageOptions.includes(options.language)) {
+          warn(`Invalid language: ${options.language}. Defaulting to ${languageOptions[0]}`);
+          settings.language = languageOptions[0] as Language;
         } else {
-          settings.language = options.language;
+          settings.language = options.language as Language;
         }
         settings.sourceType = 'example';
         settings.sourceName = options.example;
@@ -156,10 +163,14 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
         if ('language' in options && options.language && options.language != options.template) {
           console.warn(`Ignoring language option: ${options.language}. Defaulting to ${options.template}.`);
         }
-        if (!ACCEPTED_LANGUAGES.includes(options.template as Language)) {
-          console.warn(`Invalid language: ${options.template}. Defaulting to TypeScript.`);
-          settings.language = 'typescript';
-          settings.sourceName = 'typescript';
+
+        const templateOptions = await getGithubFolderNames(options.version as string, false);
+        if (templateOptions.length === 0) {
+          throw new Error(`No options found for template ${options.template}`);
+        }
+
+        if (!templateOptions.includes(options.template as Language)) {
+          throw new Error(`Invalid template name: ${options.template}. Please choose from: ${templateOptions.join(', ')}`);
         } else {
           settings.language = options.template as Language;
           settings.sourceName = options.template;
@@ -171,9 +182,10 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
       if ('version' in options) {
         settings.version = options.version;
       } else {
-        settings.version = CURRENT_VERSION
+        settings.version = options.version
       }
 
+      validateSpinner.succeed('Input validated');
       return settings;
     } catch (err: any) {
       console.log(`

@@ -2,13 +2,9 @@ export const EXAMPLES_PATH = 'contentful/apps/function-examples/';
 export const APP_MANIFEST = 'app-manifest.json';
 export const CONTENTFUL_APP_MANIFEST = 'contentful-app-manifest.json';
 export const IGNORED_CLONED_FILES = [APP_MANIFEST, `package.json`];
-export const REPO_URL = 'https://github.com/contentful/create-contentful-app-examples/tree/main';
+export const REPO_URL = 'https://github.com/contentful/create-contentful-app-examples';
 
-export const ACCEPTED_EXAMPLE_FOLDERS = [
-    'appevent-handler',
-];
-
-export const ACCEPTED_LANGUAGES = ['javascript', 'typescript'];
+export const ACCEPTED_TEMPLATE_LANGUAGES = ['javascript', 'typescript'];
 
 export function examplePath(version = CURRENT_VERSION) {
   return  `https://api.github.com/repos/contentful/create-contentful-app-examples/contents/v${version}/examples`;

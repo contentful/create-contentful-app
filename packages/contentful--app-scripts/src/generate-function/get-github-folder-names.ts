@@ -1,4 +1,4 @@
-import { ACCEPTED_LANGUAGES, examplePath, templatePath } from './constants';
+import { ACCEPTED_TEMPLATE_LANGUAGES, examplePath, templatePath } from './constants';
 import axios from 'axios';
 import { HTTPResponseError } from './types';
 
@@ -13,8 +13,9 @@ export async function getGithubFolderNames(version: string, isExample : boolean)
     const contents = response.data;
     let filteredContents = contents.filter((content: ContentResponse) => content.type === 'dir');
     filteredContents = filteredContents.map((content: ContentResponse) => content.name);
+    
     return filteredContents.filter(
-         (template: string) => template.includes('function')
+         (template: string) => template.includes('function-')
       );
   } catch (err) {
     if (err instanceof HTTPResponseError) {
@@ -25,11 +26,13 @@ export async function getGithubFolderNames(version: string, isExample : boolean)
   }
 }
 
-export async function checkIfExampleFolderHasLanguageOptions(version: string, exampleFolder: string): Promise<string[]> {
+export async function checkIfFolderHasLanguageOptions(version: string, exampleFolder: string): Promise<string[]> {
   try {
     const response = await axios.get(`${examplePath(version)}/${exampleFolder}`);
     const contents = response.data;
-    return contents.filter((content: ContentResponse) => ACCEPTED_LANGUAGES.includes(content.name));  
+    return contents
+      .filter((content: ContentResponse) => ACCEPTED_TEMPLATE_LANGUAGES.includes(content.name))
+      .map((content: ContentResponse) => content.name);
   } catch (err) {
     if (err instanceof HTTPResponseError) {
       throw err;

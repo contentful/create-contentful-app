@@ -24,11 +24,7 @@ export async function cloneFunction(
     const { localTmpPath, localFunctionsPath } = resolvePaths(localPath);
 
     const cloneURL = getCloneURL(settings);
-    console.debug('cloneURL', cloneURL);
     await cloneAndResolveManifests(cloneURL, localTmpPath, localPath, localFunctionsPath);
-
-    // log all the items in the tmp directory
-    console.debug('tmp directory contents', fs.readdirSync(localTmpPath));
     
     // now rename the function file. Find the file with a .ts or .js extension
     const renameFunctionFile = renameClonedFiles(localTmpPath, settings);
@@ -51,7 +47,6 @@ export function getCloneURL(settings: GenerateFunctionSettings) {
       cloneURL = `${REPO_URL}/v${settings.version}/examples/${settings.sourceName}/${settings.language}`;
     } else {
       cloneURL = `${REPO_URL}/v${settings.version}/examples/${settings.sourceName}`;
-
     }
   }
   return cloneURL;
@@ -98,9 +93,6 @@ export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: s
   // modify package.json build commands
   await updatePackageJsonWithBuild(localPath, localTmpPath);
 
-  console.debug('tmp directory contents', fs.readdirSync(localTmpPath));
-
-
   // check if a tsconfig.json file exists already
   const ignoredFiles = IGNORED_CLONED_FILES
   const tsconfigExists = await exists(`${localFunctionsPath}/tsconfig.json`);
@@ -124,8 +116,6 @@ export async function clone(cloneURL: string, path: string) {
 export async function mergeAppManifest(localPath: string, localTmpPath: string) {
   const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
   const tmpAppManifestType = await whichExists(localTmpPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
-
-  console.debug('tmpAppManifestType', tmpAppManifestType);
 
   if (!finalAppManifestType) {
     await mergeJsonIntoFile({
