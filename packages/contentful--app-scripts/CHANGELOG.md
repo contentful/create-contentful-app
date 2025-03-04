@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.0...@contentful/app-scripts@2.1.1) (2025-03-04)
+
+### Bug Fixes
+
+- Simplified input and correct navigation in new structure [EXT-6255] ([#2368](https://github.com/contentful/create-contentful-app/issues/2368)) ([9f09f3f](https://github.com/contentful/create-contentful-app/commit/9f09f3f316eacbe87351dd2c0dd5e615d67f01c4))
+
+# [2.1.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.0.2...@contentful/app-scripts@2.1.0) (2025-03-03)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.47.2 to 11.47.3 ([#2360](https://github.com/contentful/create-contentful-app/issues/2360)) ([681a299](https://github.com/contentful/create-contentful-app/commit/681a299abf9e9f8745a69788395a99916c824019))
+
+### Features
+
+- pretty error message when app upload gets 403 [5872] ([#2359](https://github.com/contentful/create-contentful-app/issues/2359)) ([81c088d](https://github.com/contentful/create-contentful-app/commit/81c088d09126aa192b9e4e52fdf3db6ff8b1928e))
+
 ## [2.0.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.0.1...@contentful/app-scripts@2.0.2) (2025-02-27)
 
 ### Bug Fixes
