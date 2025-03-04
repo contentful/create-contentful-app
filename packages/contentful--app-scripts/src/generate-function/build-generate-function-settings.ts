@@ -46,7 +46,7 @@ export async function buildGenerateFunctionSettings(): Promise<GenerateFunctionS
       ...templateSettings,
       sourceName: templateSettings.language.toLowerCase(),
     };
-  } else {
+  } else { // sourceType === 'example'
     const filteredExamples = await getGithubFolderNames(CURRENT_VERSION, true);
     const exampleSettings = await inquirer.prompt<Pick<GenerateFunctionSettings, 'sourceName'>>([
       {
@@ -92,10 +92,13 @@ export async function buildGenerateFunctionSettings(): Promise<GenerateFunctionS
 function validateArguments(options: GenerateFunctionOptions) {
   const templateRequired = ['name', 'template'];
   const exampleRequired = ['name', 'example'];
+
+  // Ensure function name is not invalid
   if (BANNED_FUNCTION_NAMES.includes(options.name)) {
     throw new Error(`Invalid function name: ${options.name}`);
   }
 
+  // ensure required arguments are all present
   if ('template' in options) {
     if (!templateRequired.every((key) => key in options)) {
       throw new Error('You must specify a function name and a template');
@@ -107,6 +110,7 @@ function validateArguments(options: GenerateFunctionOptions) {
   } else {
     throw new Error('You must specify either --template or --example');
   }
+
   // Validate version
   if ('legacy' in options) {
     options.version = LEGACY_VERSION
@@ -116,11 +120,10 @@ function validateArguments(options: GenerateFunctionOptions) {
       options.version = CURRENT_VERSION
   }
 
+  // Ensure all string values are trimmed and lowercased
   for (const key of Object.keys(options)) {
     const value = options[key as keyof GenerateFunctionOptions];
-    // Only if the value is a string, we do .toLowerCase().trim()
     if (typeof value === 'string') {
-      // We can safely cast to string now:
       (options as any)[key] = value.toLowerCase().trim();
     }
   }
@@ -137,24 +140,28 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
           throw new Error('Cannot specify both --template and --example');
         }
 
+        // Validate example name
         const filteredExamples = await getGithubFolderNames(options.version as string, true);
         if (!filteredExamples.includes(options.example as AcceptedFunctionExamples)) {
           throw new Error(`Invalid example name: ${options.example}. Please choose from: ${filteredExamples.join(', ')}`);
         }
 
+        // Validate language option is present when it is needed
         const languageOptions = await checkIfFolderHasLanguageOptions(options.version as string, options.example);
         if (languageOptions.length > 1) {
           if (!('language' in options)) {
             throw new Error(`You must specify a language for the example ${options.example}. Available languages: ${languageOptions.join(', ')}`);
           }
         }
-        
+        // Validate language option is valid
         if (options.language && !languageOptions.includes(options.language)) {
           warn(`Invalid language: ${options.language}. Defaulting to ${languageOptions[0]}`);
           settings.language = languageOptions[0] as Language;
         } else {
           settings.language = options.language as Language;
         }
+
+        // Set other settings values
         settings.sourceType = 'example';
         settings.sourceName = options.example;
         settings.name = options.name;
@@ -164,25 +171,28 @@ export async function buildGenerateFunctionSettingsFromOptions(options: Generate
           console.warn(`Ignoring language option: ${options.language}. Defaulting to ${options.template}.`);
         }
 
+        // Validate template name
         const templateOptions = await getGithubFolderNames(options.version as string, false);
         if (templateOptions.length === 0) {
           throw new Error(`No options found for template ${options.template}`);
         }
 
+        // Validate template option is valid
         if (!templateOptions.includes(options.template as Language)) {
           throw new Error(`Invalid template name: ${options.template}. Please choose from: ${templateOptions.join(', ')}`);
         } else {
           settings.language = options.template as Language;
           settings.sourceName = options.template;
         }
+
+        // Set other settings values
         settings.sourceType = 'template';
         settings.name = options.name;
       }
 
-      if ('version' in options) {
+      
+      if ('version' in options) { // version will always be in options due to validateArguments()
         settings.version = options.version;
-      } else {
-        settings.version = options.version
       }
 
       validateSpinner.succeed('Input validated');
