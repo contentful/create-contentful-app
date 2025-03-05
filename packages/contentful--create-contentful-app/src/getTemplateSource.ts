@@ -100,7 +100,7 @@ export async function makeContentfulExampleSource(options: CLIOptions): Promise<
     return selectTemplate(ContentfulExample.Typescript);
   }
 
-  if (options.function || options.action) {
+  if (options.function) {
     return selectTemplate(ContentfulExample.Typescript);
   }
 
