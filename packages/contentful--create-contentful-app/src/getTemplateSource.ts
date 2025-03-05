@@ -48,7 +48,7 @@ async function promptExampleSelection(): Promise<string> {
     const filteredTemplates = availableTemplates.filter(
       (template) =>
         !IGNORED_EXAMPLE_FOLDERS.includes(template as (typeof IGNORED_EXAMPLE_FOLDERS)[number])
-    );
+    ).filter((template) => !template.includes('function'));
     console.log(availableTemplates.length, filteredTemplates.length);
 
     // ask user to select a template from the available examples
