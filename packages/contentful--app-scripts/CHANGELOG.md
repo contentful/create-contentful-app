@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.1...@contentful/app-scripts@2.1.2) (2025-03-05)
+
+### Bug Fixes
+
+- Better errors in create-app-bundle.ts [] ([#2371](https://github.com/contentful/create-contentful-app/issues/2371)) ([c5b43b7](https://github.com/contentful/create-contentful-app/commit/c5b43b7ec45ef1f2e885c45edfa4689e8a02092c))
+
 ## [2.1.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.0...@contentful/app-scripts@2.1.1) (2025-03-04)
 
 ### Bug Fixes
