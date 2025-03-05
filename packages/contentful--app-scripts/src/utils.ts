@@ -129,11 +129,7 @@ export function getFunctionsFromManifest(): Omit<ContentfulFunction, 'entryFile'
       return;
     }
 
-    logProgress(
-      `functions found in ${chalk.bold(
-        DEFAULT_MANIFEST_PATH
-      )}.`
-    );
+    logProgress(`functions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
 
     const items = (manifest['functions'] as ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
