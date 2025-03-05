@@ -3,19 +3,17 @@ import { selectOrganization, getOrganizationById } from './organization-api';
 import { createClient } from 'contentful-management';
 import { getManagementToken } from './get-management-token';
 
-export const getAppInfo = async (
-  {
-    organizationId,
-    definitionId,
-    token,
-    host,
-  }: {
-    organizationId?: string;
-    definitionId?: string;
-    token?: string;
-    host?: string;
-  },
-) => {
+export const getAppInfo = async ({
+  organizationId,
+  definitionId,
+  token,
+  host,
+}: {
+  organizationId?: string;
+  definitionId?: string;
+  token?: string;
+  host?: string;
+}) => {
   const accessToken = token || (await getManagementToken(host));
   const client = createClient({ accessToken, host });
 
