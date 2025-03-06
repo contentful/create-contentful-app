@@ -6,6 +6,7 @@ import { GenerateFunctionSettings, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
 import { warn } from './logger';
+import { error } from 'console';
 
 export async function buildGenerateFunctionSettingsInteractive() : Promise<GenerateFunctionSettings> {
   const baseSettings = await inquirer.prompt<GenerateFunctionSettings>([
@@ -14,8 +15,9 @@ export async function buildGenerateFunctionSettingsInteractive() : Promise<Gener
       message: `Function name (${path.basename(process.cwd())}):`,
     },
   ]);
-  if (BANNED_FUNCTION_NAMES.includes(baseSettings.name)) {
-    throw new Error(`Invalid function name: ${baseSettings.name}`);
+  if (BANNED_FUNCTION_NAMES.includes(baseSettings.name) || !(/^[a-z0-9]+$/i.test(baseSettings.name))) {
+   error(chalk.red(`Invalid function name: ${baseSettings.name}. Note that function names must be alphanumeric.`));
+   process.exit(1)
   }
   const filteredSources = await getGithubFolderNames();
 
@@ -45,11 +47,14 @@ export async function buildGenerateFunctionSettingsInteractive() : Promise<Gener
 function validateArguments(options: GenerateFunctionSettings) {
   const requiredParams = ['name', 'example', 'language'];
   if (!requiredParams.every((key) => key in options)) {
-      throw new Error('You must specify a function name, an example, and a language');
+     error(chalk.red('You must specify a function name, an example, and a language'));
+     process.exit(1)
   } 
-   if (BANNED_FUNCTION_NAMES.includes(options.name)) {
-    throw new Error(`Invalid function name: ${options.name}`);
+   if (BANNED_FUNCTION_NAMES.includes(options.name) || !(/^[a-z0-9]+$/i.test(options.name))) {
+    error(chalk.red(`Invalid function name: ${options.name}. Note that function names must be alphanumeric.`));
+    process.exit(1)
   }
+
   // Convert options to lowercase and trim whitespace
   for (const key in options) {
     const optionKey = key as keyof GenerateFunctionSettings;
