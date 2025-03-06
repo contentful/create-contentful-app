@@ -5,7 +5,6 @@ export type CLIOptions = Partial<{
   typescript: boolean;
   source: string;
   example: string;
-  action: boolean;
   function: string | boolean;
 }>;
 

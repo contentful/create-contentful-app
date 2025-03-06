@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "1.18.5",
+  "version": "2.0.0-alpha.0",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -14,8 +14,8 @@
     "directory": "packages/contentful--create-contentful-app"
   },
   "engines": {
-    "node": ">=14.15.0",
-    "npm": ">=6"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "main": "lib/index.js",
   "lint-staged": {
@@ -36,7 +36,7 @@
     "test": "mocha 'test/**/*.spec.{js,ts}'"
   },
   "dependencies": {
-    "@contentful/app-scripts": "2.1.1",
+    "@contentful/app-scripts": "2.1.2",
     "@segment/analytics-node": "^2.2.0",
     "chalk": "4.1.2",
     "commander": "12.1.0",
