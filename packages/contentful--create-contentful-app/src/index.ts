@@ -15,9 +15,6 @@ import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants'
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
 import { generateFunction } from '@contentful/app-scripts';
-import { info } from 'console';
-import { cloneFunction } from './includeFunction';
-
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
