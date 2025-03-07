@@ -45,17 +45,19 @@ export function getCloneURL(settings: GenerateFunctionSettings) {
 }
 
 export async function touchupAppManifest(localPath: string, settings: GenerateFunctionSettings, renameFunctionFile: string) {
-  const appManifest = JSON.parse(fs.readFileSync(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, 'utf-8'));
+  const appManifestPath = resolve(localPath, CONTENTFUL_APP_MANIFEST);
+  const appManifest = JSON.parse(fs.readFileSync(appManifestPath, 'utf-8'));
   const entry = appManifest["functions"][appManifest["functions"].length - 1];
   entry.id = settings.name;
   // the path always has a .js extension
+  // and path and entryFile are always POSIX style paths
   entry.path = `functions/${renameFunctionFile.replace('.ts', '.js')}`;
   entry.entryFile = `functions/${renameFunctionFile}`;
-  await fs.writeFileSync(`${localPath}/${CONTENTFUL_APP_MANIFEST}`, JSON.stringify(appManifest, null, 2));
+  await fs.writeFileSync(appManifestPath, JSON.stringify(appManifest, null, 2));
 }
 
 export function moveFilesToFinalDirectory(localTmpPath: string, localFunctionsPath: string) {
-  fs.cpSync(localTmpPath, localFunctionsPath, {recursive: true});
+  fs.cpSync(localTmpPath, localFunctionsPath, { recursive: true });
   fs.rmSync(localTmpPath, { recursive: true, force: true });
 }
 
@@ -66,13 +68,13 @@ export function renameClonedFiles(localTmpPath: string, settings: GenerateFuncti
     throw new Error(`No function file found in ${localTmpPath}`);
   }
   const newFunctionFile = `${settings.name}.${settings.language === 'typescript' ? 'ts' : 'js'}`;
-  fs.renameSync(`${localTmpPath}/${functionFile}`, `${localTmpPath}/${newFunctionFile}`);
+  fs.renameSync(resolve(localTmpPath, functionFile), resolve(localTmpPath, newFunctionFile));
   return newFunctionFile;
 }
 
 export function resolvePaths(localPath: string) {
-  const localTmpPath = resolve(`${localPath}/tmp`); // we require a tmp directory because tiged overwrites all files in the target directory
-  const localFunctionsPath = resolve(`${localPath}/functions`);
+  const localTmpPath = resolve(localPath, 'tmp'); // we require a tmp directory because tiged overwrites all files in the target directory
+  const localFunctionsPath = resolve(localPath, 'functions');
   return { localTmpPath, localFunctionsPath };
 }
 
@@ -87,7 +89,7 @@ export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: s
 
   // check if a tsconfig.json file exists already
   const ignoredFiles = IGNORED_CLONED_FILES
-  const tsconfigExists = await exists(`${localFunctionsPath}/tsconfig.json`);
+  const tsconfigExists = await exists(resolve(localFunctionsPath, 'tsconfig.json'));
   if (tsconfigExists) {
     ignoredFiles.push('tsconfig.json')
   } 
@@ -106,19 +108,19 @@ export async function clone(cloneURL: string, localFunctionsPath: string) {
 }
 
 export async function mergeAppManifest(localPath: string, localTmpPath: string) {
-  const finalAppManifestType = await exists(`${localPath}/${CONTENTFUL_APP_MANIFEST}`);
+  const finalAppManifestType = await exists(resolve(localPath, CONTENTFUL_APP_MANIFEST));
   const tmpAppManifestType = await whichExists(localTmpPath, [CONTENTFUL_APP_MANIFEST, APP_MANIFEST]); // find the app manifest in the cloned files
 
   if (!finalAppManifestType) {
     await mergeJsonIntoFile({
-      source: `${localTmpPath}/${tmpAppManifestType}`,
-      destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`, // always save as contentful-app-manifest.json
+      source: resolve(localTmpPath, tmpAppManifestType),
+      destination: resolve(localPath, CONTENTFUL_APP_MANIFEST), // always save as contentful-app-manifest.json
     });
   } else {
     // add the function to the json's "functions" array
     await mergeJsonIntoFile({
-      source: `${localTmpPath}/${tmpAppManifestType}`,
-      destination: `${localPath}/${CONTENTFUL_APP_MANIFEST}`,
+      source: resolve(localTmpPath, tmpAppManifestType),
+      destination: resolve(localPath, CONTENTFUL_APP_MANIFEST),
       mergeFn: (destinationJson = {}, sourceJson = {}) => {
         if (!destinationJson.functions) {
           destinationJson.functions = [];
@@ -133,11 +135,11 @@ export async function mergeAppManifest(localPath: string, localTmpPath: string) 
 }
 
 export async function updatePackageJsonWithBuild(localPath: string, localTmpPath: string) {
-  const packageJsonLocation = resolve(`${localPath}/package.json`);
+  const packageJsonLocation = resolve(localPath, 'package.json');
   const packageJsonExists = await exists(packageJsonLocation);
   if (packageJsonExists) {
     await mergeJsonIntoFile({
-      source: `${localTmpPath}/package.json`,
+      source: resolve(localTmpPath, 'package.json'),
       destination: packageJsonLocation,
       mergeFn: addBuildCommand,
     });

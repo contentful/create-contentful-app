@@ -1,11 +1,12 @@
 import chalk from 'chalk';
 import AdmZip from 'adm-zip';
 import { showCreationError } from '../utils';
+import { resolve } from 'node:path';
 
 export async function createZipFileFromDirectory(path: string) {
   try {
     const zip = new AdmZip();
-    zip.addLocalFolder(path);
+    zip.addLocalFolder(resolve(path));
     console.log("");
     console.log(`  ----------------------------
 

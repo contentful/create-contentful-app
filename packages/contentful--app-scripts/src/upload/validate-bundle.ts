@@ -1,5 +1,5 @@
-import Path from 'path';
-import fs from 'fs';
+import Path from 'node:path';
+import fs from 'node:fs';
 import chalk from 'chalk';
 import { UploadSettings } from '../types';
 
@@ -16,7 +16,7 @@ export const validateBundle = (
   path: string,
   { functions }: Pick<UploadSettings, 'functions'>
 ) => {
-  const buildFolder = Path.join('./', path);
+  const buildFolder = Path.resolve('.', path);
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });
   const entry = getEntryFile(files);
 
