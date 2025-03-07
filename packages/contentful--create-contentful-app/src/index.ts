@@ -142,7 +142,6 @@ async function initProject(appName: string, options: CLIOptions) {
       const functionName = normalizedOptions.function
         .toLowerCase()
         .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
-      console.log(functionName);
       await generateFunction.nonInteractive({
         example: normalizedOptions.function,
         language: 'typescript',
