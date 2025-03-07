@@ -19,7 +19,7 @@ export async function createAppUpload(settings: UploadSettings) {
   validateBundle(settings.bundleDirectory || '.', settings);
   let appUpload = null;
   const zipFileSpinner = ora('Preparing your files for upload...').start();
-  const zipFile = await createZipFileFromDirectory(settings.bundleDirectory || '../types');
+  const zipFile = await createZipFileFromDirectory(settings.bundleDirectory || '.');
   zipFileSpinner.stop();
 
   if (!zipFile) return;
