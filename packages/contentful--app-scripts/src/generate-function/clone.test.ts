@@ -12,11 +12,12 @@ import {
   renameClonedFiles,
   resolvePaths,
   mergeAppManifest,
-  updatePackageJsonWithBuild
-} from './clone'; // adjust the path as needed
+  updatePackageJsonWithBuild,
+} from './clone'; 
+import proxyquire from 'proxyquire';
 
-import { REPO_URL, CONTENTFUL_APP_MANIFEST, APP_MANIFEST } from './constants';
-import { GenerateFunctionSettings, Language } from '../types';
+import { REPO_URL, CONTENTFUL_APP_MANIFEST } from './constants';
+import { GenerateFunctionSettings } from '../types';
 
 let settings = {
   name: 'myFunction',
@@ -27,7 +28,7 @@ let settings = {
 describe('Helper functions tests', () => {
 
   describe('getCloneURL', () => {
-    it('should return example clone URL when exampleType is example', () => {
+    it('should return example clone URL', () => {
       const expected = `${REPO_URL}/${settings.example}/${settings.language}`;
       const url = getCloneURL(settings);
       assert.strictEqual(url, expected);
@@ -125,107 +126,184 @@ describe('Helper functions tests', () => {
     });
 })
 
-    describe('mergeAppManifest', () => {
-        let tempDir, functionsDir;
-        beforeEach(() => {
-            tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'merge-manifest-test-'));
-            functionsDir = fs.mkdtempSync(path.join(tempDir, 'merge-functions-test-'));
-        });
+  describe('mergeAppManifest', () => {
+    let tempDir, functionsDir;
+    beforeEach(() => {
+        tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'merge-manifest-test-'));
+        functionsDir = fs.mkdtempSync(path.join(tempDir, 'merge-functions-test-'));
+    });
 
-        afterEach(() => {
-            fs.rmSync(tempDir, { recursive: true, force: true });
-            fs.rmSync(functionsDir, { recursive: true, force: true });
-        });
+    afterEach(() => {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+        fs.rmSync(functionsDir, { recursive: true, force: true });
+    });
 
-        it('should create a new manifest if none exists in the local path', async () => {
-            const tmpManifest = { functions: [{ id: 'tmpFunction' }] };
-            fs.writeFileSync(path.join(functionsDir, CONTENTFUL_APP_MANIFEST), JSON.stringify(tmpManifest, null, 2), 'utf-8');
+    it('should create a new manifest if none exists in the local path', async () => {
+      const tmpManifest = { functions: [{ id: 'tmpFunction' }] };
+      fs.writeFileSync(path.join(functionsDir, CONTENTFUL_APP_MANIFEST), JSON.stringify(tmpManifest, null, 2), 'utf-8');
 
-            sinon.stub(fs, 'writeFileSync').callThrough();
+      sinon.stub(fs, 'writeFileSync').callThrough();
 
-            await mergeAppManifest(tempDir, functionsDir);
+      await mergeAppManifest(tempDir, functionsDir);
 
-            const finalManifestPath = path.join(tempDir, CONTENTFUL_APP_MANIFEST);
-            assert.ok(fs.existsSync(finalManifestPath));
+      const finalManifestPath = path.join(tempDir, CONTENTFUL_APP_MANIFEST);
+      assert.ok(fs.existsSync(finalManifestPath));
 
-            const finalManifest = JSON.parse(fs.readFileSync(finalManifestPath, 'utf-8'));
-            assert.strictEqual(finalManifest.functions.length, 1);
-            assert.strictEqual(finalManifest.functions[0].id, 'tmpFunction');
+      const finalManifest = JSON.parse(fs.readFileSync(finalManifestPath, 'utf-8'));
+      assert.strictEqual(finalManifest.functions.length, 1);
+      assert.strictEqual(finalManifest.functions[0].id, 'tmpFunction');
 
-            sinon.restore();
-        });
+      sinon.restore();
+    });
 
-        it('should merge function into existing manifest', async () => {
-            const existingManifest = { functions: [{ id: 'existingFunction' }] };
-            fs.writeFileSync(path.join(tempDir, CONTENTFUL_APP_MANIFEST), JSON.stringify(existingManifest, null, 2), 'utf-8');
+    it('should merge function into existing manifest', async () => {
+      const existingManifest = { functions: [{ id: 'existingFunction' }] };
+      fs.writeFileSync(path.join(tempDir, CONTENTFUL_APP_MANIFEST), JSON.stringify(existingManifest, null, 2), 'utf-8');
 
-            const tmpManifest = { functions: [{ id: 'tmpFunction' }] };
-            fs.writeFileSync(path.join(functionsDir, CONTENTFUL_APP_MANIFEST), JSON.stringify(tmpManifest, null, 2), 'utf-8');
+      const tmpManifest = { functions: [{ id: 'tmpFunction' }] };
+      fs.writeFileSync(path.join(functionsDir, CONTENTFUL_APP_MANIFEST), JSON.stringify(tmpManifest, null, 2), 'utf-8');
 
-            sinon.stub(fs, 'existsSync').returns(true);
-            sinon.stub(fs, 'writeFileSync').callThrough();
+      sinon.stub(fs, 'existsSync').returns(true);
+      sinon.stub(fs, 'writeFileSync').callThrough();
 
-            await mergeAppManifest(tempDir, functionsDir);
+      await mergeAppManifest(tempDir, functionsDir);
 
-            const finalManifestPath = path.join(tempDir, CONTENTFUL_APP_MANIFEST);
-            assert.ok(fs.existsSync(finalManifestPath));
+      const finalManifestPath = path.join(tempDir, CONTENTFUL_APP_MANIFEST);
+      assert.ok(fs.existsSync(finalManifestPath));
 
-            const finalManifest = JSON.parse(fs.readFileSync(finalManifestPath, 'utf-8'));
-            assert.strictEqual(finalManifest.functions.length, 2);
-            assert.strictEqual(finalManifest.functions[0].id, 'existingFunction');
-            assert.strictEqual(finalManifest.functions[1].id, 'tmpFunction');
+      const finalManifest = JSON.parse(fs.readFileSync(finalManifestPath, 'utf-8'));
+      assert.strictEqual(finalManifest.functions.length, 2);
+      assert.strictEqual(finalManifest.functions[0].id, 'existingFunction');
+      assert.strictEqual(finalManifest.functions[1].id, 'tmpFunction');
 
-            sinon.restore();
-        });
-    
+      sinon.restore();
+    });
   });
 
-        describe('updatePackageJsonWithBuild', () => {
-            let tempDir, functionsDir, packageJsonPath, functionsPackageJsonPath;
+  describe('updatePackageJsonWithBuild', () => {
+    let tempDir, functionsDir, packageJsonPath, functionsPackageJsonPath;
 
-            beforeEach(() => {
-                tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'update-package-json-test-'));
-                functionsDir = fs.mkdtempSync(path.join(tempDir, 'functions'));
-                packageJsonPath = path.join(tempDir, 'package.json');
-                functionsPackageJsonPath = path.join(functionsDir, 'package.json');
+    beforeEach(() => {
+        tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'update-package-json-test-'));
+        functionsDir = fs.mkdtempSync(path.join(tempDir, 'functions'));
+        packageJsonPath = path.join(tempDir, 'package.json');
+        functionsPackageJsonPath = path.join(functionsDir, 'package.json');
 
-                // Create dummy package.json files
-                const dummyPackageJson = { scripts: {} };
-                fs.writeFileSync(packageJsonPath, JSON.stringify(dummyPackageJson, null, 2), 'utf-8');
-                fs.writeFileSync(functionsPackageJsonPath, JSON.stringify(dummyPackageJson, null, 2), 'utf-8');
-            });
+        // Create dummy package.json files
+        const dummyPackageJson = { scripts: {} };
+        fs.writeFileSync(packageJsonPath, JSON.stringify(dummyPackageJson, null, 2), 'utf-8');
+        fs.writeFileSync(functionsPackageJsonPath, JSON.stringify(dummyPackageJson, null, 2), 'utf-8');
+    });
 
-            afterEach(() => {
-                fs.rmSync(tempDir, { recursive: true, force: true });
-                fs.rmSync(functionsDir, { recursive: true, force: true });
-            });
+    afterEach(() => {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+        fs.rmSync(functionsDir, { recursive: true, force: true });
+    });
 
-            it('should update package.json with build command if it exists', async () => {
-                const mergeJsonIntoFileSpy = sinon.stub(fileUtils, "mergeJsonIntoFile").resolves()
+    it('should update package.json with build command if it exists', async () => {
+        const mergeJsonIntoFileSpy = sinon.stub(fileUtils, "mergeJsonIntoFile").resolves()
 
-                await updatePackageJsonWithBuild(tempDir, functionsDir);
+        await updatePackageJsonWithBuild(tempDir, functionsDir);
 
-                assert.ok(mergeJsonIntoFileSpy);
-                assert.ok(mergeJsonIntoFileSpy.calledWith({
-                    source: functionsPackageJsonPath,
-                    destination: packageJsonPath,
-                    mergeFn: sinon.match.func,
-                }));
+        assert.ok(mergeJsonIntoFileSpy);
+        assert.ok(mergeJsonIntoFileSpy.calledWith({
+            source: functionsPackageJsonPath,
+            destination: packageJsonPath,
+            mergeFn: sinon.match.func,
+        }));
 
-                sinon.restore();
-            });
+        sinon.restore();
+    });
 
-            it('should log a warning if package.json does not exist', async () => {
-                const warnStub = sinon.stub(logger, 'warn');
-                sinon.stub(fileUtils, 'exists').resolves(false);
+    it('should log a warning if package.json does not exist', async () => {
+        const warnStub = sinon.stub(logger, 'warn');
+        sinon.stub(fileUtils, 'exists').resolves(false);
 
-                await updatePackageJsonWithBuild(tempDir, functionsDir);
+        await updatePackageJsonWithBuild(tempDir, functionsDir);
 
-                assert.ok(warnStub.calledOnce);
+        assert.ok(warnStub.calledOnce);
 
-                warnStub.restore();
-                sinon.restore();
-            });
+        warnStub.restore();
+        sinon.restore();
+    });
+  });
+
+  describe('Core cloning functionality', () => {
+    let tigedStub;
+    let cloneInstanceStub;
+    let fsStub;
+    let existsStub;
+    let loggerStub;
+    let whichExistsStub;
+
+    beforeEach(() => {
+      // Create stubs for all dependencies
+      cloneInstanceStub = {
+        clone: sinon.stub().resolves(),
+        remove: sinon.stub().resolves()
+      };
+      
+      tigedStub = sinon.stub().returns(cloneInstanceStub);
+      
+      fsStub = {
+        mkdtempSync: fs.mkdtempSync,
+        writeFileSync: sinon.stub(),
+        readFileSync: sinon.stub(),
+        readdirSync: sinon.stub().returns(['index.ts', 'package.json']),
+        renameSync: sinon.stub(),
+        cpSync: sinon.stub(),
+        rmSync: sinon.stub()
+      };
+      
+      existsStub = sinon.stub(fileUtils, 'exists');
+      whichExistsStub = sinon.stub(fileUtils, 'whichExists');
+      
+      loggerStub = {
+        highlight: sinon.stub(logger, 'highlight').callsFake(msg => msg),
+        error: sinon.stub(logger, 'error'),
+        warn: sinon.stub(logger, 'warn')
+      };
+
+      // Set default behavior for stubs
+      existsStub.withArgs(sinon.match(/package\.json/)).resolves(true);
+      existsStub.resolves(false);
+      whichExistsStub.resolves(CONTENTFUL_APP_MANIFEST);
+      fsStub.readFileSync.returns('{"functions":[{}]}');
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    describe('clone', () => {
+      it('should create tiged instance with correct parameters', async () => {
+        // Replace the tiged require with our stub
+        const { clone } = proxyquire('./clone', {
+          tiged: tigedStub
         });
-
+        
+        const cloneURL = 'test/repo';
+        const localPath = '/test/path';
+        
+        await clone(cloneURL, localPath);
+        
+        assert.ok(tigedStub.calledOnce);
+        assert.ok(tigedStub.calledWith(cloneURL, { 
+          mode: 'tar', 
+          disableCache: true, 
+          force: true 
+        }));
+        assert.ok(cloneInstanceStub.clone.calledWith(localPath));
+      });
+      
+      it('should return the tiged instance', async () => {
+        const { clone } = proxyquire('./clone', {
+          tiged: tigedStub
+        });
+        
+        const result = await clone('url', 'path');
+        assert.strictEqual(result, cloneInstanceStub);
+      });
+    });
+  });
 });

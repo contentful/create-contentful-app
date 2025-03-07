@@ -6,6 +6,7 @@ import { GenerateFunctionSettings, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
 import { warn } from './logger';
+import { ValidationError } from './types';
 
 export async function buildGenerateFunctionSettingsInteractive() : Promise<GenerateFunctionSettings> {
   const baseSettings = await inquirer.prompt<GenerateFunctionSettings>([
@@ -14,9 +15,9 @@ export async function buildGenerateFunctionSettingsInteractive() : Promise<Gener
       message: `Function name (${path.basename(process.cwd())}):`,
     },
   ]);
-  if (BANNED_FUNCTION_NAMES.includes(baseSettings.name)) {
-    throw new Error(`Invalid function name: ${baseSettings.name}`);
-  }
+
+  validateFunctionName(baseSettings);
+
   const filteredSources = await getGithubFolderNames();
 
   const sourceSpecificSettings = await inquirer.prompt<GenerateFunctionSettings>([
@@ -42,24 +43,38 @@ export async function buildGenerateFunctionSettingsInteractive() : Promise<Gener
   return baseSettings
 }
 
-function validateArguments(options: GenerateFunctionSettings) {
+function validateFunctionName(baseSettings: GenerateFunctionSettings) {
+  if (BANNED_FUNCTION_NAMES.includes(baseSettings.name)) {
+    throw new ValidationError(chalk.red(`Invalid function name: ${baseSettings.name} is not allowed.`));
+  } else if (!(/^[a-z0-9]+$/i.test(baseSettings.name))) {
+      throw new ValidationError(chalk.red(`Invalid function name: ${baseSettings.name}. Note that function names must be alphanumeric.`));
+  }
+}
+
+export function validateArguments(options: GenerateFunctionSettings) {
   const requiredParams = ['name', 'example', 'language'];
   if (!requiredParams.every((key) => key in options)) {
-      throw new Error('You must specify a function name, an example, and a language');
+     throw new ValidationError(chalk.red('You must specify a function name, an example, and a language'));
   } 
-   if (BANNED_FUNCTION_NAMES.includes(options.name)) {
-    throw new Error(`Invalid function name: ${options.name}`);
+  validateFunctionName(options);
+
+   // Check if the language is valid
+  if (!ACCEPTED_LANGUAGES.includes(options.language)) {
+    warn(`Invalid language: ${options.language}. Defaulting to TypeScript.`);
+    options.language = 'typescript';
   }
+
   // Convert options to lowercase and trim whitespace
   for (const key in options) {
     const optionKey = key as keyof GenerateFunctionSettings;
     const value = options[optionKey].toLowerCase().trim();
     
     if (optionKey === 'language') {
-      // Assert that the value is of type Language
       options[optionKey] = value as Language;
-    } else {
+    } else if (optionKey === 'example') {
       options[optionKey] = value;
+    } else { // don't want to lowercase function names
+      options[optionKey] = options[optionKey].trim();
     }
   }
 }
@@ -73,27 +88,18 @@ export async function buildGenerateFunctionSettingsCLI(options: GenerateFunction
       // Check if the source exists
       const filteredSources = await getGithubFolderNames();
       if (!filteredSources.includes(options.example)) {
-        throw new Error(`Invalid example name: ${options.example}. Please choose from: ${filteredSources.join(', ')}`);
+        throw new ValidationError(`Invalid example name: ${options.example}. Please choose from: ${filteredSources.join(', ')}`);
       }
-      
-      // Check if the language is valid
-      if (!ACCEPTED_LANGUAGES.includes(options.language)) {
-        warn(`Invalid language: ${options.language}. Defaulting to TypeScript.`);
-        settings.language = 'typescript';
-      } else {
-        settings.language = options.language;
-      }
-
+      settings.language = options.language;
       settings.example = options.example;
       settings.name = options.name;
       return settings;
     } catch (err: any) {
       console.log(`
         ${chalk.red('Validation failed')}
-        ${err.message}
       `);
       // eslint-disable-next-line no-process-exit
-      process.exit(1);
+      throw err;
     } finally {
       validateSpinner.stop();
     }
