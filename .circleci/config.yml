@@ -108,6 +108,13 @@ jobs:
       - run: npm run version:canary
       - run: npm run publish-packages:canary
 
+  release-patch:
+    executor: node-container-18
+    steps:
+      - prepare-release
+      # Version bumps should be generated manually
+      - run: npm run publish-packages:patch
+
   lint-and-test-18:
     executor: node-container-18
     steps:
@@ -196,7 +203,6 @@ workflows:
             branches:
               only:
                 - main
-                - app-scripts-v1
           requires:
             - test-built-app-18
             - test-built-app-18-actions-functions
@@ -211,6 +217,21 @@ workflows:
           filters:
             branches:
               only: canary
+          requires:
+            - test-built-app-18
+            - test-built-app-18-actions-functions
+            - test-built-app-20
+            - test-built-app-20-actions-functions
+            - test-built-app-22
+            - test-built-app-22-actions-functions
+
+      - release-patch:
+          context:
+            - vault
+          filters:
+            branches:
+              only:
+                - app-scripts-v1
           requires:
             - test-built-app-18
             - test-built-app-18-actions-functions
