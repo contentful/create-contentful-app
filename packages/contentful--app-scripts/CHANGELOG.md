@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.33.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.33.0...@contentful/app-scripts@1.33.1) (2025-03-07)
+
+### Bug Fixes
+
+- no duplicate app manifests and better function name validation generate-function and more thorough testing ([#2373](https://github.com/contentful/create-contentful-app/issues/2373)) ([f869587](https://github.com/contentful/create-contentful-app/commit/f869587d24baf019cee2205ff41e9c18525a7e62))
+- Removed unneeded './' at start of entry path and entry entryFile ([#2357](https://github.com/contentful/create-contentful-app/issues/2357)) ([3586f55](https://github.com/contentful/create-contentful-app/commit/3586f55bb86dd7ea51af00b87cfd7f48956964e0))
+- Simplified input and correct navigation in new structure ([#2369](https://github.com/contentful/create-contentful-app/issues/2369)) ([3cd54ac](https://github.com/contentful/create-contentful-app/commit/3cd54ac4845ca7e690ed373ee521cd973780f15b))
+
 # [1.33.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.3...@contentful/app-scripts@1.33.0) (2025-02-26)
 
 ### Bug Fixes
