@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import assert from 'assert';
-import path from 'path';
+import path from 'node:path';
 import { type BuildFunctionsOptions } from '../../types';
 import { resolveEsBuildConfig, validateFunctions } from '../build-functions';
 
@@ -31,7 +31,7 @@ describe('resolveEsBuildConfig', () => {
       minify: true,
     });
   });
-
+  
   it('should resolve the esbuild config at the provided path if present', async () => {
     const options: BuildFunctionsOptions = {
       esbuildConfig: 'esbuild.config.js',

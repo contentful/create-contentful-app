@@ -6,7 +6,7 @@ import {
   InstallationParameterType,
 } from 'contentful-management';
 import inquirer from 'inquirer';
-import path from 'path';
+import path from 'node:path';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { buildAppParameterSettings } from './build-app-parameter-settings';
 

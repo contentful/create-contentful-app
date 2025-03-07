@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import path from 'path';
+import path from 'node:path';
 import { getGithubFolderNames } from './get-github-folder-names';
 import { ACCEPTED_LANGUAGES, BANNED_FUNCTION_NAMES } from './constants';
 import { GenerateFunctionSettings, Language } from '../types';

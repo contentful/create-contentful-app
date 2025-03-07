@@ -34,7 +34,7 @@ const mockFs = () => {
   };
 };
 const mockedFs = mockFs();
-const { cacheEnvVars } = proxyquire('./index', { fs: mockedFs });
+const { cacheEnvVars } = proxyquire('./index', { 'node:fs': mockedFs });
 
 describe('Caching environment variables', () => {
   beforeEach(() => {

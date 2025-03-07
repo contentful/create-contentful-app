@@ -118,7 +118,7 @@ describe('get functions from manifest', () => {
     red: stub(),
   };
 
-  const { getFunctionsFromManifest } = proxyquire('./utils', { fs, chalk });
+  const { getFunctionsFromManifest } = proxyquire('./utils', { 'node:fs': fs, chalk });
 
   beforeEach(() => {
     exitStub = stub(process, 'exit');

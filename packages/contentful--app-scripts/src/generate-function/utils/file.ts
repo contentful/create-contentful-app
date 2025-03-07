@@ -1,6 +1,6 @@
 import mergeOptions from 'merge-options';
 import { readFile, writeFile, access } from 'fs/promises';
-import { join, resolve } from 'path';
+import { join, resolve } from 'node:path';
 
 export async function getJsonData(
   path: string | undefined,

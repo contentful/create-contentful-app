@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import { ClientAPI, createClient } from 'contentful-management';
 import chalk from 'chalk';

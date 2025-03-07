@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import esbuild from 'esbuild';
-import path, { join, parse, resolve } from 'path';
+import path, { join, parse, resolve } from 'node:path';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { type BuildFunctionsOptions, type ContentfulFunction } from '../types';
@@ -58,19 +58,30 @@ export const validateFunctions = (manifest: Record<string, any>) => {
     if (acceptsSet.size !== accepts.length) {
       throw new Error(`Duplicate values found in 'accepts' for function with id '${id}'.`);
     }
+
+    // Validate POSIX style paths
+    if (path.includes('\\')) {
+      throw new Error(`Function path must use POSIX style forward slashes, got: '${path}'`);
+    }
+    if (entryFile.includes('\\')) {
+      throw new Error(`Function entryFile must use POSIX style forward slashes, got: '${entryFile}'`);
+    }
   });
 };
 
+/**
+ * Returns a map of function file names to their entry file paths, resolved with POSIX style paths expected by esbuild.
+ */
 const getEntryPoints = (
   manifest: { functions: ContentfulFunctionToBuild[] },
   cwd = process.cwd()
 ) => {
   return manifest.functions.reduce(
     (result: Record<string, string>, contentfulFunction: ContentfulFunctionToBuild) => {
-      const fileProperties = parse(contentfulFunction.path);
-      const fileName = join(fileProperties.dir, fileProperties.name);
+      const fileProperties = path.posix.parse(contentfulFunction.path);
+      const fileName = path.posix.join(fileProperties.dir, fileProperties.name);
 
-      result[fileName] = resolve(cwd, contentfulFunction.entryFile);
+      result[fileName] = path.posix.resolve(cwd, contentfulFunction.entryFile);
 
       return result;
     },
@@ -83,21 +94,37 @@ export const resolveEsBuildConfig = (
   manifest: { functions: ContentfulFunctionToBuild[] },
   cwd = process.cwd()
 ) => {
-  return options.esbuildConfig
-    ? require(resolve(cwd, options.esbuildConfig))
-    : {
-        entryPoints: getEntryPoints(manifest, cwd),
-        bundle: true,
-        outdir: 'build',
-        format: 'esm',
-        target: 'es2022',
-        minify: true,
-        define: {
-          global: 'globalThis',
-        },
-        plugins: [NodeModulesPolyfillPlugin(), NodeGlobalsPolyfillPlugin()],
-        logLevel: 'info',
-      };
+  if (options.esbuildConfig) {
+    // Parse the config path into its components
+    const esbuildConfigProperties = parse(options.esbuildConfig);
+    // Get the directory, defaulting to cwd if empty
+    const dir = esbuildConfigProperties.dir === '' ? cwd : esbuildConfigProperties.dir;
+    
+    // Create an absolute path using the platform-specific join
+    const absolutePath = resolve(dir, esbuildConfigProperties.base);
+    
+    // Convert the absolute path to a module path that require() can use
+    // On Windows, this means:
+    // 1. Convert C:\path\to\file.js to C:/path/to/file.js
+    // 2. Handle UNC paths if present
+    const modulePath = absolutePath.split(path.sep).join('/');
+    
+    return require(modulePath);
+  }
+  
+  return {
+    entryPoints: getEntryPoints(manifest, cwd),
+    bundle: true,
+    outdir: 'build',
+    format: 'esm',
+    target: 'es2022',
+    minify: true,
+    define: {
+      global: 'globalThis',
+    },
+    plugins: [NodeModulesPolyfillPlugin(), NodeGlobalsPolyfillPlugin()],
+    logLevel: 'info',
+  };
 };
 
 export async function buildFunctions(options: BuildFunctionsOptions) {

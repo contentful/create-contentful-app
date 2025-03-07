@@ -2,6 +2,7 @@ import sinon, { SinonStub } from 'sinon';
 import proxyquire from 'proxyquire';
 import assert from 'assert';
 import { UploadSettings } from '../types';
+import path from 'node:path';
 
 describe('validateBundle', () => {
   beforeEach(() => {
@@ -13,7 +14,7 @@ describe('validateBundle', () => {
 
   it('throws when there is no index.html & no functions or actions', () => {
     const fsstub = { readdirSync: () => [] };
-    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
     try {
       validateBundle('build', {});
     } catch (e: any) {
@@ -28,9 +29,9 @@ describe('validateBundle', () => {
       functions: [{ id: 'myFunc', path: 'functions/myFunc.js' }],
     } as Pick<UploadSettings, 'functions'>;
     const fsstub = {
-      readdirSync: () => ['functions', 'functions/myFunc.js'],
+      readdirSync: () => ['functions', path.join('functions', 'myFunc.js')],
     };
-    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
     validateBundle('build', mockedSettings);
   });
 
@@ -39,7 +40,7 @@ describe('validateBundle', () => {
       readdirSync: () => ['index.html'],
       readFileSync: () => '<html><script src="/absolute/path"></script></html>',
     };
-    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
     validateBundle('build', {});
     assert((console.warn as SinonStub).calledWith(sinon.match(/absolute paths/)));
   });
@@ -49,7 +50,7 @@ describe('validateBundle', () => {
       readdirSync: () => ['index.html'],
       readFileSync: () => '<html><script src="./relative/path"></script></html>',
     };
-    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
     validateBundle('build', {});
     sinon.assert.notCalled(console.warn as SinonStub);
   });
@@ -62,10 +63,10 @@ describe('validateBundle', () => {
       ],
     } as Pick<UploadSettings, 'functions'>;
     const fsstub = {
-      readdirSync: () => ['index.html', 'functions', 'functions/myFunc.js'],
+      readdirSync: () => ['index.html', 'functions', path.join('functions', 'myFunc.js')],
       readFileSync: () => '<html><script src="./relative/path"></script></html>',
     };
-    const { validateBundle } = proxyquire('./validate-bundle', { fs: fsstub });
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
     try {
       validateBundle('build', mockedSettings);
     } catch (e: any) {
