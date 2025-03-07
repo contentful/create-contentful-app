@@ -36,12 +36,12 @@ export async function cloneFunction(
     await touchupAppManifest(localPath, settings, renameFunctionFile);
   } catch (e) {
     error(`Failed to clone function ${highlight(chalk.cyan(settings.name))}`, e);
-    process.exit(1);
+    throw Error(chalk.red('Failed to clone function ') + highlight(chalk.cyan(settings.name)));
   }
 }
 
 export function getCloneURL(settings: GenerateFunctionSettings) {
-  return `${REPO_URL}/${settings.example}/${settings.language}`; // this is the default for template
+  return `${REPO_URL}/${settings.example}/${settings.language}`;
 }
 
 export async function touchupAppManifest(localPath: string, settings: GenerateFunctionSettings, renameFunctionFile: string) {
