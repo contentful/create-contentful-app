@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.7](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.18.6...@contentful/create-contentful-app@1.18.7) (2025-03-07)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.47.3 to 11.48.0 ([#2374](https://github.com/contentful/create-contentful-app/issues/2374)) ([4aa960b](https://github.com/contentful/create-contentful-app/commit/4aa960b58afabecbf6fa14b448ca6668ea92638d))
+
 ## [1.18.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.18.5...@contentful/create-contentful-app@1.18.6) (2025-03-05)
 
 **Note:** Version bump only for package @contentful/create-contentful-app

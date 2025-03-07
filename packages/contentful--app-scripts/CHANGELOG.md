@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.2...@contentful/app-scripts@2.1.3) (2025-03-07)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.47.3 to 11.48.0 ([#2374](https://github.com/contentful/create-contentful-app/issues/2374)) ([4aa960b](https://github.com/contentful/create-contentful-app/commit/4aa960b58afabecbf6fa14b448ca6668ea92638d))
+- no duplicate app manifests and better function name validation generate-function and more thorough testing ([#2373](https://github.com/contentful/create-contentful-app/issues/2373)) ([c39316c](https://github.com/contentful/create-contentful-app/commit/c39316c4ac8932c2c2b0f718cfc601d1701b3682))
+
 ## [2.1.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.1...@contentful/app-scripts@2.1.2) (2025-03-05)
 
 ### Bug Fixes
