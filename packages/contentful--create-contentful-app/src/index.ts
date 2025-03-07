@@ -131,19 +131,24 @@ async function initProject(appName: string, options: CLIOptions) {
         normalizedOptions.function = 'external-references';
       }
       process.chdir(fullAppFolder);
-      (
-        `To add additional function templates to your app, use ${highlight(chalk.green(`
+      `To add additional function templates to your app, use ${highlight(
+        chalk.green(`
           npx @contentful/app-scripts@latest generate-function \\
             --ci \\
             --name <name> \\
             --example <example> \\
-            --language <typescript/javascript>`
-        ))}`
-      );
-      const functionName = normalizedOptions.function.toLowerCase().replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
-      console.log(functionName)
-      await generateFunction.nonInteractive({example: normalizedOptions.function, language: 'typescript', name: functionName});
-  }
+            --language <typescript/javascript>`)
+      )}`;
+      const functionName = normalizedOptions.function
+        .toLowerCase()
+        .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+      console.log(functionName);
+      await generateFunction.nonInteractive({
+        example: normalizedOptions.function,
+        language: 'typescript',
+        name: functionName,
+      });
+    }
 
     updatePackageName(fullAppFolder);
 
