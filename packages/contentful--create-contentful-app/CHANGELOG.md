@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.0.0-alpha.0...@contentful/create-contentful-app@2.0.1-alpha.0) (2025-03-07)
+
+### Bug Fixes
+
+- Clone functions through function-examples [EXT-6257] ([#2370](https://github.com/contentful/create-contentful-app/issues/2370)) ([297e47a](https://github.com/contentful/create-contentful-app/commit/297e47a888697cd3433c13ad9e8be6e46a8e2954))
+
 # [2.0.0-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.18.6...@contentful/create-contentful-app@2.0.0-alpha.0) (2025-03-05)
 
 - feat!: [BREAKING CHANGE] Remove actions option from CCA [EXT-6023] (#2358) ([e0fec0f](https://github.com/contentful/create-contentful-app/commit/e0fec0f8510331f9e46fed6e4b3e86503c0eb66b)), closes [#2358](https://github.com/contentful/create-contentful-app/issues/2358)
