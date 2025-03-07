@@ -28,7 +28,7 @@
     "create-contentful-app": "lib/index.js"
   },
   "scripts": {
-    "prettier": "prettier **/*.js --write --ignore-path .gitignore",
+    "prettier": "prettier **/*.ts --write --ignore-path .gitignore",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "pre-commit": "lint-staged",

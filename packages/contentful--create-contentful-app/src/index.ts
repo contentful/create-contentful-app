@@ -14,7 +14,7 @@ import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
-import { cloneFunction } from './includeFunction';
+import { generateFunction } from '@contentful/app-scripts';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -130,12 +130,23 @@ async function initProject(appName: string, options: CLIOptions) {
       if (normalizedOptions.function === true) {
         normalizedOptions.function = 'external-references';
       }
-
-      await cloneFunction(
-        fullAppFolder,
-        !!normalizedOptions.javascript,
-        normalizedOptions.function
-      );
+      process.chdir(fullAppFolder);
+      `To add additional function templates to your app, use ${highlight(
+        chalk.green(`
+          npx @contentful/app-scripts@latest generate-function \\
+            --ci \\
+            --name <name> \\
+            --example <example> \\
+            --language <typescript/javascript>`)
+      )}`;
+      const functionName = normalizedOptions.function
+        .toLowerCase()
+        .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+      await generateFunction.nonInteractive({
+        example: normalizedOptions.function,
+        language: 'typescript',
+        name: functionName,
+      });
     }
 
     updatePackageName(fullAppFolder);
