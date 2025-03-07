@@ -71,14 +71,14 @@ commands:
       - install-deps
       - build
       - run:
-          name: Run build with actions and functions
+          name: Run build with functions
           command: |
             FORMER_CWD="$(pwd)"
             PROJECT=test-$(date +%s)
             mkdir "/tmp/${PROJECT}"
             cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-action-function --action --function external-references
-            cd my-action-function   
+            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-function --function external-references
+            cd my-function   
             npm run build
 
   prepare-release:
