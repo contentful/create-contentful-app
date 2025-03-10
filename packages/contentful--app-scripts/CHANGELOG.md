@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.4](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.3...@contentful/app-scripts@2.1.4) (2025-03-10)
+
+### Bug Fixes
+
+- bump app-scripts to publish ([#2388](https://github.com/contentful/create-contentful-app/issues/2388)) ([1a05a21](https://github.com/contentful/create-contentful-app/commit/1a05a210327bcb28b5706c36d042b763a473abb9))
+- **deps:** bump axios from 1.8.1 to 1.8.2 ([#2376](https://github.com/contentful/create-contentful-app/issues/2376)) ([e22d49b](https://github.com/contentful/create-contentful-app/commit/e22d49bb34a33ad96c4d8b1201f349309d2173d6))
+- **deps:** bump esbuild from 0.25.0 to 0.25.1 ([#2386](https://github.com/contentful/create-contentful-app/issues/2386)) ([bdceb26](https://github.com/contentful/create-contentful-app/commit/bdceb26529b3fa57bb142db2f93ad281cc4a56ad))
+
 ## [2.1.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.2...@contentful/app-scripts@2.1.3) (2025-03-07)
 
 ### Bug Fixes
