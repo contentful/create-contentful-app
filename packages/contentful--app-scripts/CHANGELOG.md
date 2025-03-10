@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.33.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.33.0...@contentful/app-scripts@1.33.2) (2025-03-10)
+
+* **deps:** bump axios from 1.8.1 to 1.8.2 ([#2376](https://github.com/contentful/create-contentful-app/issues/2376)) ([82f839a](https://github.com/contentful/create-contentful-app/commit/82f839a59410cd16c7667094c317f6599a0af930))
+* **deps:** bump esbuild from 0.25.0 to 0.25.1 ([#2386](https://github.com/contentful/create-contentful-app/issues/2386)) ([c0ec3e7](https://github.com/contentful/create-contentful-app/commit/c0ec3e7508cd484fe55df9ec120286c08d364db5))
+* no duplicate app manifests and better function name validation generate-function and more thorough testing ([#2373](https://github.com/contentful/create-contentful-app/issues/2373)) ([0f875f0](https://github.com/contentful/create-contentful-app/commit/0f875f0d4f75abec2ff0c49e069f6249cefcddb4))
+* Removed unneeded './' at start of entry path and entry entryFile ([#2357](https://github.com/contentful/create-contentful-app/issues/2357)) ([7cf2a37](https://github.com/contentful/create-contentful-app/commit/7cf2a378785ed75d4ecb6d0a38d560ec14781b12))
+* Simplified input and correct navigation in new structure ([#2369](https://github.com/contentful/create-contentful-app/issues/2369)) ([e9f123f](https://github.com/contentful/create-contentful-app/commit/e9f123f955da8929a1c21eb10080373873552902))
+
 # [1.33.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@1.32.3...@contentful/app-scripts@1.33.0) (2025-02-26)
 
 ### Bug Fixes
