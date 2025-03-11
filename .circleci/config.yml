@@ -24,12 +24,65 @@ executors:
       - image: cimg/node:22.11
         environment: *base-env
 
+  windows:
+    machine:
+      image: 'windows-server-2022-gui:current'
+      shell: 'powershell.exe -ExecutionPolicy Bypass'
+    resource_class: windows.medium
+    environment:
+      *base-env
+
 commands:
   install-deps:
+    parameters:
+      os:
+        type: string
+        default: linux
+    steps:
+      - when:
+          condition:
+            not:
+              equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Install Dependencies (Linux)
+                command: npm ci && npm run bootstrap
+      - when:
+          condition:
+            equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Install Dependencies (Windows)
+                command: |
+                  npm ci
+                  if ($LASTEXITCODE -eq 0) {
+                    npm run bootstrap
+                  } else {
+                    exit $LASTEXITCODE
+                  }
+
+  install-node-windows:
     steps:
       - run:
-          name: Install Dependencies
-          command: npm ci && npm run bootstrap
+          name: Install Node.js 22
+          command: |
+            Write-Host "Downloading Node.js 22.11.0..."
+            $webClient = New-Object System.Net.WebClient
+            $nodeUrl = "https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
+            $nodeMsi = Join-Path $env:TEMP "node-install.msi"
+            $webClient.DownloadFile($nodeUrl, $nodeMsi)
+            
+            Write-Host "Installing Node.js..."
+            Start-Process msiexec.exe -ArgumentList "/i `"$nodeMsi`" /qn /norestart" -Wait
+            Remove-Item $nodeMsi -Force
+            
+            Write-Host "Refreshing PATH..."
+            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+            
+            Write-Host "Node.js version:"
+            node --version
+            Write-Host "NPM version:"
+            npm --version
 
   build:
     steps:
@@ -38,48 +91,110 @@ commands:
           command: npm run build
 
   lint-and-test:
+    parameters:
+      os:
+        type: string
+        default: linux
     steps:
       - checkout
-      - install-deps
+      - install-deps:
+          os: << parameters.os >>
       - build
-      - run:
-          name: Run Linter
-          command: npm run lint
+      - when:
+          condition:
+            not:
+              equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Run Linter
+                command: npm run lint
       - run:
           name: Run Tests
           command: npm run test
 
   test-built-app:
+    parameters:
+      os:
+        type: string
+        default: linux
     steps:
       - checkout
-      - install-deps
+      - install-deps:
+          os: << parameters.os >>
       - build
-      - run:
-          name: Run Tests
-          command: |
-            FORMER_CWD="$(pwd)"
-            PROJECT=test-$(date +%s)
-            mkdir "/tmp/${PROJECT}"
-            cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" --typescript test
-            cd test
-            npm t
+      - when:
+          condition:
+            not:
+              equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Run Tests (Unix)
+                command: |
+                  FORMER_CWD="$(pwd)"
+                  PROJECT=test-$(date +%s)
+                  mkdir "/tmp/${PROJECT}"
+                  cd "/tmp/${PROJECT}"
+                  node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" --typescript test
+                  cd test
+                  npm t
+      - when:
+          condition:
+            equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Run Tests (Windows)
+                command: |
+                  $FORMER_CWD = (Get-Location).Path
+                  $PROJECT = "test-" + [DateTimeOffset]::Now.ToUnixTimeSeconds()
+                  $TEMP_DIR = [System.IO.Path]::GetTempPath()
+                  $PROJECT_PATH = Join-Path $TEMP_DIR $PROJECT
+                  New-Item -ItemType Directory -Path $PROJECT_PATH
+                  Set-Location $PROJECT_PATH
+                  node (Join-Path $FORMER_CWD "packages/contentful--create-contentful-app/lib/index.js") --typescript test
+                  Set-Location test
+                  npm t
 
-  test-built-actions-functions:
+  test-built-functions:
+    parameters:
+      os:
+        type: string
+        default: linux
     steps:
       - checkout
-      - install-deps
+      - install-deps:
+          os: << parameters.os >>
       - build
-      - run:
-          name: Run build with functions
-          command: |
-            FORMER_CWD="$(pwd)"
-            PROJECT=test-$(date +%s)
-            mkdir "/tmp/${PROJECT}"
-            cd "/tmp/${PROJECT}"
-            node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-function --function external-references
-            cd my-function   
-            npm run build
+      - when:
+          condition:
+            not:
+              equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Run build with functions (Unix)
+                command: |
+                  FORMER_CWD="$(pwd)"
+                  PROJECT=test-$(date +%s)
+                  mkdir "/tmp/${PROJECT}"
+                  cd "/tmp/${PROJECT}"
+                  node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-function --function external-references
+                  cd my-function   
+                  npm run build
+      - when:
+          condition:
+            equal: [windows, << parameters.os >>]
+          steps:
+            - run:
+                name: Run build with functions (Windows)
+                command: |
+                  $FORMER_CWD = (Get-Location).Path
+                  $PROJECT = "test-" + [DateTimeOffset]::Now.ToUnixTimeSeconds()
+                  $TEMP_DIR = [System.IO.Path]::GetTempPath()
+                  $PROJECT_PATH = Join-Path $TEMP_DIR $PROJECT
+                  New-Item -ItemType Directory -Path $PROJECT_PATH
+                  Set-Location $PROJECT_PATH
+                  node (Join-Path $FORMER_CWD "packages/contentful--create-contentful-app/lib/index.js") my-function --function external-references
+                  Set-Location my-function
+                  npm run build
 
   prepare-release:
     steps:
@@ -90,7 +205,8 @@ commands:
       - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
       - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
-      - install-deps
+      - install-deps:
+          os: linux
       - build
 
 jobs:
@@ -138,20 +254,41 @@ jobs:
     steps:
       - test-built-app
 
-  test-built-app-18-actions-functions:
+  test-built-app-18-functions:
     executor: node-container-18
     steps:
-      - test-built-actions-functions
+      - test-built-functions
 
-  test-built-app-20-actions-functions:
+  test-built-app-20-functions:
     executor: node-container-20
     steps:
-      - test-built-actions-functions
+      - test-built-functions
 
-  test-built-app-22-actions-functions:
+  test-built-app-22-functions:
     executor: node-container-22
     steps:
-      - test-built-actions-functions
+      - test-built-functions
+
+  lint-and-test-22-windows:
+    executor: windows
+    steps:
+      - install-node-windows
+      - lint-and-test:
+          os: windows
+
+  test-built-app-22-windows:
+    executor: windows
+    steps:
+      - install-node-windows
+      - test-built-app:
+          os: windows
+
+  test-built-app-22-functions-windows:
+    executor: windows
+    steps:
+      - install-node-windows
+      - test-built-functions:
+          os: windows
 
 workflows:
   test:
@@ -164,7 +301,7 @@ workflows:
             - vault
           requires:
             - lint-and-test-18
-      - test-built-app-18-actions-functions:
+      - test-built-app-18-functions:
           context:
             - vault
       - lint-and-test-20:
@@ -175,7 +312,7 @@ workflows:
             - vault
           requires:
             - lint-and-test-20
-      - test-built-app-20-actions-functions:
+      - test-built-app-20-functions:
           context:
             - vault
       - lint-and-test-22:
@@ -186,7 +323,19 @@ workflows:
             - vault
           requires:
             - lint-and-test-22
-      - test-built-app-22-actions-functions:
+      - test-built-app-22-functions:
+          context:
+            - vault
+      # Windows jobs - Node 22 only
+      - lint-and-test-22-windows:
+          context:
+            - vault
+      - test-built-app-22-windows:
+          context:
+            - vault
+          requires:
+            - lint-and-test-22-windows
+      - test-built-app-22-functions-windows:
           context:
             - vault
       - release:
@@ -197,11 +346,13 @@ workflows:
               only: main
           requires:
             - test-built-app-18
-            - test-built-app-18-actions-functions
+            - test-built-app-18-functions
             - test-built-app-20
-            - test-built-app-20-actions-functions
+            - test-built-app-20-functions
             - test-built-app-22
-            - test-built-app-22-actions-functions
+            - test-built-app-22-functions
+            - test-built-app-22-windows
+            - test-built-app-22-functions-windows
 
       - release-canary:
           context:
@@ -211,8 +362,10 @@ workflows:
               only: canary
           requires:
             - test-built-app-18
-            - test-built-app-18-actions-functions
+            - test-built-app-18-functions
             - test-built-app-20
-            - test-built-app-20-actions-functions
+            - test-built-app-20-functions
             - test-built-app-22
-            - test-built-app-22-actions-functions
+            - test-built-app-22-functions
+            - test-built-app-22-windows
+            - test-built-app-22-functions-windows

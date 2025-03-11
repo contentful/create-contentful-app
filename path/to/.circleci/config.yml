@@ -1,0 +1,21 @@
+lint-and-test:
+  parameters:
+    os:
+      type: string
+      default: linux
+  steps:
+    - checkout
+    - install-deps:
+        os: << parameters.os >>
+    - build
+    - when:
+        condition:
+          not:
+            equal: [windows, << parameters.os >>]
+        steps:
+          - run:
+              name: Run Linter
+              command: npm run lint
+    - run:
+        name: Run Tests
+        command: npm run test 
