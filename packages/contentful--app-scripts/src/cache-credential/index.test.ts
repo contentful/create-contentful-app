@@ -1,6 +1,6 @@
 import proxyquire from 'proxyquire';
 import { DOTENV_FILE, ACCESS_TOKEN_ENV_KEY } from '../constants';
-import assert from 'assert';
+import assert from 'node:assert';
 
 const mockFs = () => {
   let data = {} as Record<string, string>;
@@ -49,7 +49,7 @@ describe('Caching environment variables', () => {
   });
 
   it('should replace old variable in .env file if it exists', async () => {
-    const envData = `CONTENTFUL_APP_DEF_ID=some_app_def_id\n
+    const envData = `CONTENTFUL_APP_DEF_ID=some_app_def_id
 ${ACCESS_TOKEN_ENV_KEY}=old_value`;
     const expectedData = `CONTENTFUL_APP_DEF_ID=some_app_def_id
 ${ACCESS_TOKEN_ENV_KEY}=new_value`;
@@ -57,8 +57,9 @@ ${ACCESS_TOKEN_ENV_KEY}=new_value`;
     await mockedFs.promises.writeFile(DOTENV_FILE, envData);
 
     await cacheEnvVars({ [ACCESS_TOKEN_ENV_KEY]: 'new_value' });
-    const fileData = await mockedFs.promises.readFile(DOTENV_FILE);
-    assert.strictEqual(fileData, expectedData);
+    // normalize line endings for windows
+    const fileData = (await mockedFs.promises.readFile(DOTENV_FILE)).replace(/\r\n/g, '\n');
+    assert.strictEqual(fileData, expectedData.replace(/\r\n/g, '\n'));
   });
 
   it('should add variable in .env file if variable is missing', async () => {
@@ -69,7 +70,8 @@ ${ACCESS_TOKEN_ENV_KEY}=new_value_2`;
     await mockedFs.promises.writeFile(DOTENV_FILE, envData);
 
     await cacheEnvVars({ [ACCESS_TOKEN_ENV_KEY]: 'new_value_2' });
-    const fileData = await mockedFs.promises.readFile(DOTENV_FILE);
-    assert.strictEqual(fileData, expectedData);
+    // normalize line endings for windows
+    const fileData = (await mockedFs.promises.readFile(DOTENV_FILE)).replace(/\r\n/g, '\n');
+    assert.strictEqual(fileData, expectedData.replace(/\r\n/g, '\n'));
   });
 });

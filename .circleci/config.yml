@@ -178,7 +178,7 @@ commands:
                   cd "/tmp/${PROJECT}"
                   node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-function --function external-references
                   cd my-function   
-                  npm run build
+                  node "${FORMER_CWD}/packages/contentful--app-scripts/lib/bin.js" build-functions --ci
       - when:
           condition:
             equal: [windows, << parameters.os >>]
@@ -194,7 +194,7 @@ commands:
                   Set-Location $PROJECT_PATH
                   node (Join-Path $FORMER_CWD "packages/contentful--create-contentful-app/lib/index.js") my-function --function external-references
                   Set-Location my-function
-                  npm run build
+                  node (Join-Path $FORMER_CWD "packages/contentful--app-scripts/lib/bin.js") build-functions --ci
 
   prepare-release:
     steps:

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import assert from 'assert';
-import path from 'node:path';
 import { type BuildFunctionsOptions } from '../../types';
 import { resolveEsBuildConfig, validateFunctions } from '../build-functions';
 
@@ -22,7 +21,7 @@ describe('resolveEsBuildConfig', () => {
     assert.strictEqual(Boolean(esbuildConfig), true);
     assertPartialObject(esbuildConfig, {
       entryPoints: {
-        'fixtures/function': `${path.resolve(__dirname, manifest.functions[0].entryFile)}`,
+        'fixtures/function': `./fixtures/function.ts`,
       },
       bundle: true,
       outdir: 'build',

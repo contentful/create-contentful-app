@@ -27,19 +27,6 @@ export type MergeJsonIntoFileOptions = {
   ) => Record<string, any>;
 };
 
-export async function mergeJsonIntoFile({
-  source,
-  destination,
-  mergeFn = mergeOptions.bind({ concatArrays: false }),
-}: MergeJsonIntoFileOptions): Promise<void> {
-  const sourceJson = await getJsonData(source);
-  const destinationJson = await getJsonData(destination);
-
-  const mergedJson = mergeFn(destinationJson, sourceJson);
-
-  await writeFile(resolve(destination), JSON.stringify(mergedJson, null, '  '));
-}
-
 export function exists(path: string): Promise<boolean> {
   return access(path)
     .then(() => true)

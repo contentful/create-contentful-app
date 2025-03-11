@@ -41,7 +41,8 @@ export const validateBundle = (
   }
 
   if (functions) {
-    const functionWithoutEntryFile = functions.find(({ path }) => !files.includes(path));
+    const posixFormattedFiles = new Set(files.map((file) => file.replace(/\\/g, '/')));
+    const functionWithoutEntryFile = functions.find(({ path }) => !posixFormattedFiles.has(path));
     if (functionWithoutEntryFile) {
       throw new Error(
         `Function "${functionWithoutEntryFile.id}" is missing its entry file at "${Path.join(

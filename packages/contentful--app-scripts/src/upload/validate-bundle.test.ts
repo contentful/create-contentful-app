@@ -72,7 +72,7 @@ describe('validateBundle', () => {
     } catch (e: any) {
       assert.strictEqual(
         e.message,
-        'Function "myOtherFunc" is missing its entry file at "build/functions/myOtherFunc.js".'
+        `Function "myOtherFunc" is missing its entry file at "${path.join('build', 'functions', 'myOtherFunc.js')}".`
       );
     }
   });
