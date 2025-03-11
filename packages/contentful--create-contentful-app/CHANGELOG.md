@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.18.8...@contentful/create-contentful-app@2.0.0) (2025-03-11)
+
+- feat!: [BREAKING CHANGE] version 2 [] (#2390) ([b9ef602](https://github.com/contentful/create-contentful-app/commit/b9ef6026d90c7d91ab6ec5d6e611a9adafb8212b)), closes [#2390](https://github.com/contentful/create-contentful-app/issues/2390) [#2358](https://github.com/contentful/create-contentful-app/issues/2358) [#2370](https://github.com/contentful/create-contentful-app/issues/2370)
+
+### BREAKING CHANGES
+
+- remove app actions and bump engines
+
 ## [1.18.8](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.18.7...@contentful/create-contentful-app@1.18.8) (2025-03-10)
 
 **Note:** Version bump only for package @contentful/create-contentful-app
