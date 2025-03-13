@@ -1,5 +1,4 @@
-import mergeOptions from 'merge-options';
-import { readFile, writeFile, access } from 'fs/promises';
+import { readFile, access } from 'fs/promises';
 import { resolve } from 'path';
 
 export async function getJsonData(
@@ -26,19 +25,6 @@ export type MergeJsonIntoFileOptions = {
     sourceJson?: Record<string, any>,
   ) => Record<string, any>;
 };
-
-export async function mergeJsonIntoFile({
-  source,
-  destination,
-  mergeFn = mergeOptions.bind({ concatArrays: false }),
-}: MergeJsonIntoFileOptions): Promise<void> {
-  const sourceJson = await getJsonData(source);
-  const destinationJson = await getJsonData(destination);
-
-  const mergedJson = mergeFn(destinationJson, sourceJson);
-
-  await writeFile(resolve(destination), JSON.stringify(mergedJson, null, '  '));
-}
 
 export function exists(path: string): Promise<boolean> {
   return access(path)

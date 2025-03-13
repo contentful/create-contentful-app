@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import esbuild from 'esbuild';
-import path, { join, parse, resolve } from 'path';
+import path, { join, parse, relative, resolve } from 'node:path';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { type BuildFunctionsOptions, type ContentfulFunction } from '../types';
@@ -58,19 +58,35 @@ export const validateFunctions = (manifest: Record<string, any>) => {
     if (acceptsSet.size !== accepts.length) {
       throw new Error(`Duplicate values found in 'accepts' for function with id '${id}'.`);
     }
+
+    // Validate POSIX style paths
+    if (path.includes('\\')) {
+      throw new Error(`Function path must use POSIX style forward slashes, got: '${path}'`);
+    }
+    if (entryFile.includes('\\')) {
+      throw new Error(`Function entryFile must use POSIX style forward slashes, got: '${entryFile}'`);
+    }
   });
 };
 
+/**
+ * Build the esbuild config `entryPoints` object from the functions manifest.
+ * Uses posix style paths for consistency with the app manifest.
+ */
 const getEntryPoints = (
   manifest: { functions: ContentfulFunctionToBuild[] },
-  cwd = process.cwd()
 ) => {
   return manifest.functions.reduce(
     (result: Record<string, string>, contentfulFunction: ContentfulFunctionToBuild) => {
-      const fileProperties = parse(contentfulFunction.path);
-      const fileName = join(fileProperties.dir, fileProperties.name);
+      const fileProperties = path.posix.parse(contentfulFunction.entryFile);
+      const buildAlias = path.posix.join(fileProperties.dir, fileProperties.name);
 
-      result[fileName] = resolve(cwd, contentfulFunction.entryFile);
+      const resolvedPath = path.posix.resolve('.', contentfulFunction.entryFile);
+      let relativePath = path.posix.relative('.', resolvedPath)
+      if (!relativePath.startsWith('.')) {
+        relativePath = `./${relativePath}`;
+      }
+      result[buildAlias] = relativePath;
 
       return result;
     },
@@ -83,21 +99,35 @@ export const resolveEsBuildConfig = (
   manifest: { functions: ContentfulFunctionToBuild[] },
   cwd = process.cwd()
 ) => {
-  return options.esbuildConfig
-    ? require(resolve(cwd, options.esbuildConfig))
-    : {
-        entryPoints: getEntryPoints(manifest, cwd),
-        bundle: true,
-        outdir: 'build',
-        format: 'esm',
-        target: 'es2022',
-        minify: true,
-        define: {
-          global: 'globalThis',
-        },
-        plugins: [NodeModulesPolyfillPlugin(), NodeGlobalsPolyfillPlugin()],
-        logLevel: 'info',
-      };
+  if (options.esbuildConfig) {
+    const esbuildConfigFileProperties = parse(options.esbuildConfig);
+    const dir = esbuildConfigFileProperties.dir === '' ? cwd : esbuildConfigFileProperties.dir;
+    const absolutePath = resolve(dir, esbuildConfigFileProperties.base);
+    const relativePath = relative(__dirname, absolutePath);
+
+    // Convert the relative path to a module path that require() can use
+    // On Windows, this means convert ..\path\to\file.js to ../path/to/file.js
+    let modulePath = relativePath.replaceAll("\\", '/');
+    if (!modulePath.startsWith('./')) {
+      modulePath = `./${modulePath}`;
+    }
+
+    return require(modulePath);
+  }
+
+  return {
+    entryPoints: getEntryPoints(manifest),
+    bundle: true,
+    outdir: 'build',
+    format: 'esm',
+    target: 'es2022',
+    minify: true,
+    define: {
+      global: 'globalThis',
+    },
+    plugins: [NodeModulesPolyfillPlugin(), NodeGlobalsPolyfillPlugin()],
+    logLevel: 'info',
+  };
 };
 
 export async function buildFunctions(options: BuildFunctionsOptions) {

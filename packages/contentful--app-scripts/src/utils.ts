@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
@@ -8,7 +8,7 @@ import { ContentfulFunction } from './types';
 import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
 import { resolve } from 'node:path';
 
-const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
+const DEFAULT_MANIFEST_PATH = resolve('.', 'contentful-app-manifest.json');
 
 const functionEvents = {
   appActionCall: 'appaction.call',
@@ -191,9 +191,10 @@ export function getWebAppHostname(host: string | undefined): string {
 }
 
 export const resolveManifestFile = (options: { manifestFile?: string }, cwd = process.cwd()) => {
-  return require(options.manifestFile
+  const manifestPath = options.manifestFile
     ? resolve(cwd, options.manifestFile)
-    : resolve(cwd, 'contentful-app-manifest.json'));
+    : resolve(cwd, 'contentful-app-manifest.json');
+  return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
 };
 
 export const ID_REGEX = /^[a-zA-Z0-9]+$/;

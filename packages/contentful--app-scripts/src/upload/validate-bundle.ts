@@ -1,5 +1,5 @@
-import Path from 'path';
-import fs from 'fs';
+import Path from 'node:path';
+import fs from 'node:fs';
 import chalk from 'chalk';
 import { UploadSettings } from '../types';
 
@@ -16,7 +16,7 @@ export const validateBundle = (
   path: string,
   { functions }: Pick<UploadSettings, 'functions'>
 ) => {
-  const buildFolder = Path.join('./', path);
+  const buildFolder = Path.join('.', path);
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });
   const entry = getEntryFile(files);
 
@@ -41,7 +41,8 @@ export const validateBundle = (
   }
 
   if (functions) {
-    const functionWithoutEntryFile = functions.find(({ path }) => !files.includes(path));
+    const posixFormattedFiles = new Set(files.map((file) => file.replace(/\\/g, '/')));
+    const functionWithoutEntryFile = functions.find(({ path }) => !posixFormattedFiles.has(path));
     if (functionWithoutEntryFile) {
       throw new Error(
         `Function "${functionWithoutEntryFile.id}" is missing its entry file at "${Path.join(

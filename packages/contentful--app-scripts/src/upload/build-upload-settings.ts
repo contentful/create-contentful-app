@@ -3,6 +3,7 @@ import { getAppInfo } from '../get-app-info';
 import { getFunctionsFromManifest } from '../utils';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { UploadOptions, UploadSettings } from '../types';
+import path from 'node:path';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
   const functionManifest = getFunctionsFromManifest();
@@ -13,7 +14,7 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     prompts.push({
       name: 'bundleDirectory',
       message: `Bundle directory, if not default:`,
-      default: './build',
+      default: path.resolve('.', 'build'),
     });
   }
   if (!comment) {

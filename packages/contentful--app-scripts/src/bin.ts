@@ -147,5 +147,6 @@ async function runCommand(command: Command, options?: any) {
   await program.parseAsync(process.argv);
 })().catch((e) => {
   console.error(e);
-  throw e
+  // eslint-disable-next-line no-process-exit
+  process.exit(1)
 });
