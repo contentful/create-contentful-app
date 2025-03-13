@@ -1,5 +1,4 @@
-import mergeOptions from 'merge-options';
-import { readFile, writeFile, access } from 'fs/promises';
+import { readFile, access } from 'fs/promises';
 import { resolve } from 'path';
 
 export async function getJsonData(
