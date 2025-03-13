@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.4...@contentful/app-scripts@2.2.0) (2025-03-13)
+
+### Bug Fixes
+
+- **deps:** bump axios from 1.8.2 to 1.8.3 ([#2393](https://github.com/contentful/create-contentful-app/issues/2393)) ([91c837b](https://github.com/contentful/create-contentful-app/commit/91c837be70bba8ac783f0970cfecc62d663316ad))
+
+### Features
+
+- **app-scripts:** windows compatibility ([#2389](https://github.com/contentful/create-contentful-app/issues/2389)) ([1003d79](https://github.com/contentful/create-contentful-app/commit/1003d7994aefa71bbcfb9b9af294638618cec13e))
+
 ## [2.1.4](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.3...@contentful/app-scripts@2.1.4) (2025-03-10)
 
 ### Bug Fixes

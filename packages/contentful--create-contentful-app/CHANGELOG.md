@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.0.0...@contentful/create-contentful-app@2.1.0) (2025-03-13)
+
+### Features
+
+- **app-scripts:** windows compatibility ([#2389](https://github.com/contentful/create-contentful-app/issues/2389)) ([1003d79](https://github.com/contentful/create-contentful-app/commit/1003d7994aefa71bbcfb9b9af294638618cec13e))
+
 # [2.0.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@1.18.8...@contentful/create-contentful-app@2.0.0) (2025-03-11)
 
 - feat!: [BREAKING CHANGE] version 2 [] (#2390) ([b9ef602](https://github.com/contentful/create-contentful-app/commit/b9ef6026d90c7d91ab6ec5d6e611a9adafb8212b)), closes [#2390](https://github.com/contentful/create-contentful-app/issues/2390) [#2358](https://github.com/contentful/create-contentful-app/issues/2358) [#2370](https://github.com/contentful/create-contentful-app/issues/2370)
