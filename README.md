@@ -53,7 +53,7 @@ When creating or editing an example in the apps repo on a branch other than main
 
 ##### Fetching Examples from the apps Branch
 
-In the packages/contentful--create-contentful-app/srcgetGithubFolderNames.ts file change:
+In the packages/contentful--create-contentful-app/src/getGithubFolderNames.ts file change:
 
 ``` javascript
 export const CONTENTFUL_APPS_EXAMPLE_FOLDER = 'https://api.github.com/repos/contentful/apps/contents/examples';
