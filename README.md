@@ -41,3 +41,66 @@ Changes on the `canary` branch are automatically published. However, you can sti
 The default and stable releases are always published under the `latest` tag (as per npm convention).
 The release under the `canary` tag is to be considered unstable and potentially breaking.
 You should not rely on it in production.
+
+#### Local testing of an examples in the apps repo
+When creating or editing an example in the apps repo on a branch other than main, follow these steps to use that branch as a source for the CCA CLI:
+
+- Fetching Examples from the apps Branch
+- Cloning Examples from the apps Branch using tiged
+- Building the create-contentful-app package
+- Linking the create-contentful-app package
+- Running the create-contentful-app interactively
+
+##### Fetching Examples from the apps Branch
+
+In the packages/contentful--create-contentful-app/srcgetGithubFolderNames.ts file change:
+
+``` javascript
+export const CONTENTFUL_APPS_EXAMPLE_FOLDER = 'https://api.github.com/repos/contentful/apps/contents/examples';
+```
+TO 
+``` javascript
+export const CONTENTFUL_APPS_EXAMPLE_FOLDER = 'https://api.github.com/repos/contentful/apps/contents/examples?ref=<branchname>';
+``` 
+Where <branchname> is the branch with the example under development
+
+
+##### Cloning Examples from the apps Branch using tiged
+
+In the packages/contentful--create-contentful-app/template.ts file change:
+
+``` javascript
+const d = tiged(source, { mode: 'tar', disableCache: true });
+```
+TO 
+``` javascript
+const d = tiged(`${source}#<branchname>`, { mode: 'tar', disableCache: true });
+```
+Where <branchname> is the branch with the example under development
+
+
+##### Building the create-contentful-app package
+
+From root
+``` sh
+cd packages/contentful--create-contentful-app
+npm run build
+```
+
+
+##### Linking the create-contentful-app package
+From packages/contentful--create-contentful-app
+
+``` sh
+npm link
+cd ../create-contentful-app
+npm link @contentful/create-contentful-app
+```
+
+
+##### Running the create-contentful-app interactively
+From packages/create-contentful-app
+
+``` sh
+node index
+```
