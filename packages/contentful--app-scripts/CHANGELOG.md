@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.2.0...@contentful/app-scripts@2.3.0) (2025-03-19)
+
+### Features
+
+- add locations script [EXT-6267] ([#2399](https://github.com/contentful/create-contentful-app/issues/2399)) ([777069c](https://github.com/contentful/create-contentful-app/commit/777069ca866d9c55621f22b8f811ce7045bdb743))
+
 # [2.2.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.1.4...@contentful/app-scripts@2.2.0) (2025-03-13)
 
 ### Bug Fixes
