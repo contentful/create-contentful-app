@@ -9,3 +9,4 @@ export { install } from './install';
 export { buildFunctions } from './build-functions';
 export { generateFunction } from './generate-function';
 export { upsertActions } from './upsert-actions';
+export { addLocations } from './add-locations';

@@ -6,6 +6,7 @@ import { AppDefinition, ClientAPI } from 'contentful-management';
 export interface Definition {
   name: string;
   value: string;
+  locations: string[];
 }
 
 async function fetchDefinitions(client: ClientAPI, orgId: string): Promise<Definition[]> {
@@ -28,6 +29,7 @@ async function fetchDefinitions(client: ClientAPI, orgId: string): Promise<Defin
     return batchedAppDefinitions.map((def) => ({
       name: def.name,
       value: def.sys.id,
+      locations: def.locations ? def.locations.map((location) => location.location) : [],
     }));
   } catch (err: any) {
     return throwError(
@@ -56,6 +58,7 @@ export async function getDefinitionById(
     return {
       name: definition.name,
       value: definition.sys.id,
+      locations: definition.locations ? definition.locations.map((location) => location.location) : [],
     };
   } catch (err: any) {
     return throwError(

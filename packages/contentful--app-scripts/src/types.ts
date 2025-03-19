@@ -1,3 +1,4 @@
+import { AppLocation, FieldType, InstallationParameterType, ParameterDefinition } from 'contentful-management';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
 
@@ -87,4 +88,35 @@ export interface GenerateFunctionSettings {
   name: string;
   example: string;
   language: Language;
+}
+
+export interface AddLocationsOptions {
+  organizationId?: string;
+  definitionId?: string;
+  token?: string;
+  host?: string;
+}
+
+export interface LocationsSettings {
+  locations: AppLocation['location'][];
+  fields?: FieldType[];
+  pageNav?: boolean;
+  pageNavLinkName?: string;
+  pageNavLinkPath?: string;
+}
+export interface AddLocationsSettings extends LocationsSettings {
+  organization: Organization;
+  definition: Definition;
+  accessToken: string;
+  host?: string;
+}
+
+export interface AppDefinitionSettings extends LocationsSettings {
+  name: string;
+  host?: string;
+  buildAppParameters: boolean;
+  parameters?: {
+    instance: ParameterDefinition[];
+    installation: ParameterDefinition<InstallationParameterType>[];
+  };
 }

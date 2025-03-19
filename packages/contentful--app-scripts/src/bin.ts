@@ -13,6 +13,7 @@ import {
   buildFunctions,
   generateFunction,
   upsertActions,
+  addLocations,
 } from './index';
 import { feedback } from './feedback';
 
@@ -25,7 +26,8 @@ type Command =
   | typeof install
   | typeof buildFunctions
   | typeof generateFunction
-  | typeof upsertActions;
+  | typeof upsertActions
+  | typeof addLocations;
 
 async function runCommand(command: Command, options?: any) {
   const { ci } = program.opts();
@@ -138,6 +140,17 @@ async function runCommand(command: Command, options?: any) {
     .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
     .action(async (options) => {
       await runCommand(upsertActions, options);
+    });
+
+  program
+    .command('add-locations')
+    .description('Add locations(s) to an App')
+    .option('--organization-id [orgId]', 'The id of your organization')
+    .option('--definition-id  [defId]', "The id of your app's definition")
+    .option('--token [accessToken]', 'Your content management access token')
+    .option('--host [host]', 'Contentful subdomain to use, e.g. "api.contentful.com"')
+    .action(async (options) => {
+      await runCommand(addLocations, options);
     });
 
   program.hook('preAction', (thisCommand) => {

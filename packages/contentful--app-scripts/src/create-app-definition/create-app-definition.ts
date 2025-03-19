@@ -7,7 +7,8 @@ import { isString, isPlainObject, has } from 'lodash';
 import { throwValidationException, selectFromList, getWebAppHostname } from '../utils';
 import { cacheEnvVars } from '../cache-credential';
 import { ORG_ID_ENV_KEY, APP_DEF_ENV_KEY } from '../constants';
-import { AppDefinitionSettings } from './build-app-definition-settings';
+import { AppDefinitionSettings } from '../types';
+import { createTypeSafeLocations } from '../create-type-safe-locations';
 
 async function fetchOrganizations(client: ClientAPI) {
   try {
@@ -74,34 +75,7 @@ export async function createAppDefinition(
   const organizationId = selectedOrg.value;
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
-  const locations = appDefinitionSettings.locations.map((location) => {
-    if (location === 'entry-field') {
-      return {
-        location,
-        fieldTypes: appDefinitionSettings.fields || [],
-      };
-    }
-
-    if (location === 'page') {
-      const { pageNav, pageNavLinkName, pageNavLinkPath } = appDefinitionSettings;
-
-      return {
-        location,
-        ...(pageNav
-          ? {
-              navigationItem: {
-                name: pageNavLinkName,
-                path: pageNavLinkPath,
-              },
-            }
-          : {}),
-      };
-    }
-
-    return {
-      location,
-    };
-  });
+  const locations = createTypeSafeLocations(appDefinitionSettings)
   const hasFrontendLocation = locations.some(({ location }) => location !== 'dialog');
   const body = {
     name: appName,
