@@ -1,4 +1,9 @@
-import { AppLocation, FieldType, InstallationParameterType, ParameterDefinition } from 'contentful-management';
+import {
+  AppLocation,
+  FieldType,
+  InstallationParameterType,
+  ParameterDefinition,
+} from 'contentful-management';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
 

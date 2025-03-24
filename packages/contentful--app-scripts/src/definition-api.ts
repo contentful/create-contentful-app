@@ -58,7 +58,9 @@ export async function getDefinitionById(
     return {
       name: definition.name,
       value: definition.sys.id,
-      locations: definition.locations ? definition.locations.map((location) => location.location) : [],
+      locations: definition.locations
+        ? definition.locations.map((location) => location.location)
+        : [],
     };
   } catch (err: any) {
     return throwError(
