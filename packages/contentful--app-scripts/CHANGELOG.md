@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.3.0...@contentful/app-scripts@2.3.1) (2025-03-25)
+
+### Bug Fixes
+
+- bump axios and contentful-management to fix vuln [ZEND-6126] ([#2408](https://github.com/contentful/create-contentful-app/issues/2408)) ([71f58e8](https://github.com/contentful/create-contentful-app/commit/71f58e8ee054d759d7d9c544408f07e6fedf741f))
+- bump new release ([#2409](https://github.com/contentful/create-contentful-app/issues/2409)) ([efbd3eb](https://github.com/contentful/create-contentful-app/commit/efbd3eb91a4438bfa80b58a24d04e9b11883cbf8))
+- **deps:** bump contentful-management from 11.48.0 to 11.48.1 ([#2404](https://github.com/contentful/create-contentful-app/issues/2404)) ([a385608](https://github.com/contentful/create-contentful-app/commit/a385608011ecfd2b464f698ceb68f48a058870c5))
+
 # [2.3.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.2.0...@contentful/app-scripts@2.3.0) (2025-03-19)
 
 ### Features
