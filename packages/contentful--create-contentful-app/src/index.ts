@@ -146,7 +146,7 @@ async function initProject(appName: string, options: CLIOptions) {
         .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
       await generateFunction.nonInteractive({
         example: normalizedOptions.function,
-        language: 'typescript',
+        language: normalizedOptions.typescript ? 'typescript' : 'javascript',
         name: functionName,
       });
     }
