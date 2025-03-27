@@ -9,7 +9,6 @@ export const IGNORED_EXAMPLE_FOLDERS = [
   'vue',
   'vite-react',
   'nextjs',
-  'hosted-app-action-templates',
 ] as const;
 export const EXAMPLES_PATH = 'contentful/apps/examples/';
 export const CONTENTFUL_APP_MANIFEST = 'contentful-app-manifest.json';
