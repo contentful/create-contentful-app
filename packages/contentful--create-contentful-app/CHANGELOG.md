@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.3...@contentful/create-contentful-app@2.1.4) (2025-03-27)
+
+### Bug Fixes
+
+- filtering examples [EXT-6293] ([#2416](https://github.com/contentful/create-contentful-app/issues/2416)) ([8ba72c8](https://github.com/contentful/create-contentful-app/commit/8ba72c8cd941420e120f4cb6f7a5d09886c046a1))
+
 ## [2.1.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.2...@contentful/create-contentful-app@2.1.3) (2025-03-26)
 
 ### Bug Fixes
