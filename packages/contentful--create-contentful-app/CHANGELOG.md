@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.5](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.4...@contentful/create-contentful-app@2.1.5) (2025-03-27)
+
+### Bug Fixes
+
+- remove-haa-templates-from-ignored [] ([#2417](https://github.com/contentful/create-contentful-app/issues/2417)) ([02d118b](https://github.com/contentful/create-contentful-app/commit/02d118b6b52063b1a4ef2aca40a782f64b10dbce))
+
 ## [2.1.4](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.3...@contentful/create-contentful-app@2.1.4) (2025-03-27)
 
 ### Bug Fixes
