@@ -126,6 +126,10 @@ async function runCommand(command: Command, options?: any) {
     .option('-n, --name <name>', 'Name of the function')
     .option('-e, --example <example>', 'Name of the reference example')
     .option('-l, --language <language>', 'Select a language for the function')
+    .option(
+      '--keep-package-json',
+      'The package.json file will create or overwrite the existing package.json file in the main directory'
+    )
     .action(async (options) => {
       await runCommand(generateFunction, options);
     });

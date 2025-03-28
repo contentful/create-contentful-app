@@ -1,4 +1,4 @@
-import { GenerateFunctionSettings } from "../types";
+import { GenerateFunctionSettings, GenerateFunctionSettingsCLI } from "../types";
 import { buildGenerateFunctionSettingsInteractive, buildGenerateFunctionSettingsCLI } from "./build-generate-function-settings";
 import { create } from "./create-function";
 import { ValidationError } from "./types";
@@ -16,7 +16,7 @@ const interactive = async () => {
   }
 };
 
-const nonInteractive = async (options: GenerateFunctionSettings) => {
+const nonInteractive = async (options: GenerateFunctionSettingsCLI) => {
   try {
     const generateFunctionSettings = await buildGenerateFunctionSettingsCLI(options);
     return create(generateFunctionSettings);

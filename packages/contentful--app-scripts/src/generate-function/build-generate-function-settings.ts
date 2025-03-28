@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import path from 'node:path';
 import { getGithubFolderNames } from './get-github-folder-names';
 import { ACCEPTED_LANGUAGES, BANNED_FUNCTION_NAMES } from './constants';
-import { GenerateFunctionSettings, Language } from '../types';
+import { GenerateFunctionSettings, GenerateFunctionSettingsCLI, Language } from '../types';
 import ora from 'ora';
 import chalk from 'chalk';
 import { warn } from './logger';
@@ -51,7 +51,7 @@ function validateFunctionName(baseSettings: GenerateFunctionSettings) {
   }
 }
 
-export function validateArguments(options: GenerateFunctionSettings) {
+export function validateArguments(options: GenerateFunctionSettingsCLI) {
   const requiredParams = ['name', 'example', 'language'];
   if (!requiredParams.every((key) => key in options)) {
      throw new ValidationError(chalk.red('You must specify a function name, an example, and a language'));
@@ -66,6 +66,8 @@ export function validateArguments(options: GenerateFunctionSettings) {
 
   // Convert options to lowercase and trim whitespace
   for (const key in options) {
+    if (key === 'keepPackageJson') continue;
+    
     const optionKey = key as keyof GenerateFunctionSettings;
     const value = options[optionKey].toLowerCase().trim();
     
@@ -79,9 +81,9 @@ export function validateArguments(options: GenerateFunctionSettings) {
   }
 }
 
-export async function buildGenerateFunctionSettingsCLI(options: GenerateFunctionSettings) : Promise<GenerateFunctionSettings> {
+export async function buildGenerateFunctionSettingsCLI(options: GenerateFunctionSettingsCLI) : Promise<GenerateFunctionSettingsCLI> {
   const validateSpinner = ora('Validating your input\n').start();
-  const settings: GenerateFunctionSettings = {} as GenerateFunctionSettings;
+  const settings: GenerateFunctionSettingsCLI = {} as GenerateFunctionSettingsCLI;
     try {
       validateArguments(options);
         
@@ -93,6 +95,11 @@ export async function buildGenerateFunctionSettingsCLI(options: GenerateFunction
       settings.language = options.language;
       settings.example = options.example;
       settings.name = options.name;
+      
+      if (options.keepPackageJson !== undefined) {
+        settings.keepPackageJson = options.keepPackageJson;
+      }
+      
       return settings;
     } catch (err: any) {
       console.log(`
