@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.3.1...@contentful/app-scripts@2.4.0-alpha.0) (2025-03-28)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.48.1 to 11.48.3 ([#2413](https://github.com/contentful/create-contentful-app/issues/2413)) ([e85ea7f](https://github.com/contentful/create-contentful-app/commit/e85ea7f1a2ca71ec2d0d56ebfabc1465a5ba273a))
+- **deps:** bump contentful-management from 11.48.3 to 11.49.0 ([#2418](https://github.com/contentful/create-contentful-app/issues/2418)) ([11d952e](https://github.com/contentful/create-contentful-app/commit/11d952e650395eb94c22c796a9ad7468b116bbe4))
+
+### Features
+
+- generate-function accepts keepPackageJson flag ([8d03937](https://github.com/contentful/create-contentful-app/commit/8d0393797a613d0f7ad07a652b097dc01d1cb3ae))
+
 ## [2.3.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.3.0...@contentful/app-scripts@2.3.1) (2025-03-25)
 
 ### Bug Fixes

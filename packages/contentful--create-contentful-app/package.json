@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "2.1.5",
+  "version": "2.1.6-alpha.0",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -36,7 +36,7 @@
     "test": "mocha 'test/**/*.spec.{js,ts}'"
   },
   "dependencies": {
-    "@contentful/app-scripts": "2.3.1",
+    "@contentful/app-scripts": "2.4.0-alpha.0",
     "@segment/analytics-node": "^2.2.0",
     "chalk": "4.1.2",
     "commander": "12.1.0",
