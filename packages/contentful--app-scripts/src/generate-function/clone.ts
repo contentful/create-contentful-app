@@ -8,7 +8,7 @@ import { APP_MANIFEST, CONTENTFUL_APP_MANIFEST, IGNORED_CLONED_FILES, REPO_URL }
 import { error, highlight, warn } from './logger';
 import { exists, mergeJsonIntoFile, whichExists } from './utils/file';
 import { getAddBuildCommandFn } from './utils/package';
-import { GenerateFunctionSettings } from '../types';
+import { GenerateFunctionSettingsInput } from '../types';
 
 const addBuildCommand = getAddBuildCommandFn({
   name: 'build:functions',
@@ -17,7 +17,7 @@ const addBuildCommand = getAddBuildCommandFn({
 
 export async function cloneFunction(
   localPath: string,
-  settings: GenerateFunctionSettings
+  settings: GenerateFunctionSettingsInput
 ) {
   try {
     console.log(highlight(`---- Cloning function ${chalk.cyan(settings.name)}...`));
@@ -25,7 +25,7 @@ export async function cloneFunction(
 
     const cloneURL = getCloneURL(settings);
     // Pass keepPackageJson if available in settings (from GenerateFunctionSettingsCLI)
-    const keepPackageJson = 'keepPackageJson' in settings ? (settings as any).keepPackageJson : undefined;
+    const keepPackageJson = 'keepPackageJson' in settings && typeof settings.keepPackageJson === 'boolean' ? settings.keepPackageJson : false;
     await cloneAndResolveManifests(cloneURL, localTmpPath, localPath, localFunctionsPath, keepPackageJson);
     
     // now rename the function file. Find the file with a .ts or .js extension
@@ -42,11 +42,11 @@ export async function cloneFunction(
   }
 }
 
-export function getCloneURL(settings: GenerateFunctionSettings) {
+export function getCloneURL(settings: GenerateFunctionSettingsInput) {
   return `${REPO_URL}/${settings.example}/${settings.language}`;
 }
 
-export async function touchupAppManifest(localPath: string, settings: GenerateFunctionSettings, renameFunctionFile: string) {
+export async function touchupAppManifest(localPath: string, settings: GenerateFunctionSettingsInput, renameFunctionFile: string) {
   const appManifestPath = resolve(localPath, CONTENTFUL_APP_MANIFEST);
   const appManifest = JSON.parse(fs.readFileSync(appManifestPath, 'utf-8'));
   const entry = appManifest["functions"][appManifest["functions"].length - 1];
@@ -83,7 +83,7 @@ export function moveFilesToFinalDirectory(localTmpPath: string, localFunctionsPa
   fs.rmSync(localTmpPath, { recursive: true, force: true });
 }
 
-export function renameClonedFiles(localTmpPath: string, settings: GenerateFunctionSettings) {
+export function renameClonedFiles(localTmpPath: string, settings: GenerateFunctionSettingsInput) {
   const files = fs.readdirSync(localTmpPath);
   const functionFile: string | undefined = files.find((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
   if (!functionFile) {
@@ -100,24 +100,21 @@ export function resolvePaths(localPath: string) {
   return { localTmpPath, localFunctionsPath };
 }
 
-export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: string, localPath: string, localFunctionsPath: string, keepPackageJson?: boolean) {
+export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: string, localPath: string, localFunctionsPath: string, keepPackageJson = false) {
   const tigedInstance = await clone(cloneURL, localTmpPath);
 
   // merge the manifest from the template folder to the root folder
   await mergeAppManifest(localPath, localTmpPath);
 
-  // modify package.json build commands
+  // create a deep copy of the IGNORED_CLONED_FILES array
+  const ignoredFiles = Array.from(IGNORED_CLONED_FILES) 
   if (!keepPackageJson) {
+    // modify package.json build commands
     await updatePackageJsonWithBuild(localPath, localTmpPath);
+    ignoredFiles.push('package.json');
   }
 
   // check if a tsconfig.json file exists already
-  const ignoredFiles = [...IGNORED_CLONED_FILES]
-  
-  if (!keepPackageJson) {
-    ignoredFiles.push('package.json');
-  }
-  
   const tsconfigExists = await exists(resolve(localFunctionsPath, 'tsconfig.json'));
   if (tsconfigExists) {
     ignoredFiles.push('tsconfig.json')
