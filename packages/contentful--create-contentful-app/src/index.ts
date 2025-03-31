@@ -101,7 +101,6 @@ async function validateAppName(appName: string): Promise<string> {
 async function initProject(appName: string, options: CLIOptions) {
   const normalizedOptions = normalizeOptions(options);
   try {
-    console.log()
     appName = await validateAppName(appName);
 
     const fullAppFolder = resolve(process.cwd(), appName);
