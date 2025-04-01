@@ -96,6 +96,7 @@ Options:
   -s, --source <url>                            provide a template by its source repository.
                                                 format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
   -f, --function <function-template-name>       include the specified function template
+  --skip-ui                                     use with --function to clone the template without a user interface (UI).
   -h, --help                                    shows all available CLI options
 ```
 

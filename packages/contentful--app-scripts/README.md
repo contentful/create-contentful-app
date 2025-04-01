@@ -60,6 +60,40 @@ interface Script<Result, Options> {
 >
 > Both interactive and nonInteractive version of the same script is meant to return the same result.
 
+### Generate Function
+Allows generating a new function template from our [function examples](https://github.com/contentful/apps/tree/master/function-examples). Automatically updates `contentful-app-manifest.json` and merges scripts/dependencies from `package.json` into existing project.
+
+#### Interactive mode:
+
+In the interactive mode, the CLI will ask for all required options.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts generate-function
+> ```
+
+#### Non-interactive mode:
+
+When passing the `--ci` argument the command will fail when the required variables are not set as arguments.
+
+> **Example**
+>
+> ```shell
+> $ npx --no-install @contentful/app-scripts generate-function --ci \
+>     --name <name> \
+>     --example <example> \
+>     --language <javascript/typescript> \
+> ```
+
+**Options:**
+
+| Argument            | Description                                                                                                                                | Default value        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
+| `--name`      | The name of your function.                                                                                      |                      |
+| `--example` | The name of the example as listed in our [function examples](https://github.com/contentful/apps/tree/master/function-examples)                                                                                                            |                      |
+| `--language`   | Choice of javascript or typescript                                                                                          |                      |
+
 ### Create App Definition
 
 Allows creating a new [AppDefinition](https://www.contentful.com/developers/docs/extensibility/app-framework/app-definition/)
