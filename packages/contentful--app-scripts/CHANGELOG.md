@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.3.1...@contentful/app-scripts@2.4.0) (2025-04-01)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.48.1 to 11.48.3 ([#2413](https://github.com/contentful/create-contentful-app/issues/2413)) ([e85ea7f](https://github.com/contentful/create-contentful-app/commit/e85ea7f1a2ca71ec2d0d56ebfabc1465a5ba273a))
+- **deps:** bump contentful-management from 11.48.3 to 11.49.0 ([#2418](https://github.com/contentful/create-contentful-app/issues/2418)) ([11d952e](https://github.com/contentful/create-contentful-app/commit/11d952e650395eb94c22c796a9ad7468b116bbe4))
+- **deps:** bump contentful-management from 11.49.0 to 11.50.1 ([#2425](https://github.com/contentful/create-contentful-app/issues/2425)) ([d84fa23](https://github.com/contentful/create-contentful-app/commit/d84fa230190f1ca5995a599e4f9458f8002ddc32))
+- **deps:** bump esbuild from 0.25.1 to 0.25.2 ([#2420](https://github.com/contentful/create-contentful-app/issues/2420)) ([1706171](https://github.com/contentful/create-contentful-app/commit/1706171ae6d2f7a9463a4d592ac81b7168683d3e))
+
+### Features
+
+- generate-function accepts keepPackageJson flag [EXT-6292] ([#2419](https://github.com/contentful/create-contentful-app/issues/2419)) ([a526d14](https://github.com/contentful/create-contentful-app/commit/a526d147b59aaa7e4f76141852a02367847b761d))
+
 ## [2.3.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.3.0...@contentful/app-scripts@2.3.1) (2025-03-25)
 
 ### Bug Fixes
