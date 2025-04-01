@@ -95,6 +95,12 @@ export interface GenerateFunctionSettings {
   language: Language;
 }
 
+export interface GenerateFunctionSettingsCLI extends GenerateFunctionSettings {
+  keepPackageJson?: boolean;
+}
+
+export type GenerateFunctionSettingsInput = GenerateFunctionSettings | GenerateFunctionSettingsCLI;
+
 export interface AddLocationsOptions {
   organizationId?: string;
   definitionId?: string;
