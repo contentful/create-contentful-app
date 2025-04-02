@@ -15,6 +15,7 @@ import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants'
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
 import { generateFunction } from '@contentful/app-scripts';
+import fs from 'fs';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
@@ -99,7 +100,6 @@ async function validateAppName(appName: string): Promise<string> {
 
 async function initProject(appName: string, options: CLIOptions) {
   const normalizedOptions = normalizeOptions(options);
-
   try {
     appName = await validateAppName(appName);
 
@@ -107,48 +107,10 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
-    const isInteractive =
-      !normalizedOptions.example &&
-      !normalizedOptions.source &&
-      !normalizedOptions.javascript &&
-      !normalizedOptions.typescript &&
-      !normalizedOptions.function;
-
-    const templateSource = await getTemplateSource(options);
-
-    track({
-      template: templateSource,
-      manager: normalizedOptions.npm ? 'npm' : 'yarn',
-      interactive: isInteractive,
-    });
-
-    await cloneTemplateIn(fullAppFolder, templateSource);
-
-    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
-      // If function flag is specified, but no function name is provided, we default to external-references
-      // for legacy support
-      if (normalizedOptions.function === true) {
-        normalizedOptions.function = 'external-references';
-      }
-      process.chdir(fullAppFolder);
-      wrapInBlanks(
-        `To add additional function templates to your app, use ${highlight(
-          chalk.green(`
-          npx @contentful/app-scripts@latest generate-function \\
-            --ci \\
-            --name <name> \\
-            --example <example> \\
-            --language <typescript/javascript>`)
-        )}`
-      );
-      const functionName = normalizedOptions.function
-        .toLowerCase()
-        .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
-      await generateFunction.nonInteractive({
-        example: normalizedOptions.function,
-        language: normalizedOptions.javascript ? 'javascript' : 'typescript',
-        name: functionName,
-      });
+    if (normalizedOptions.function && normalizedOptions.skipUi) {
+      await addFunctionTemplate(fullAppFolder);
+    } else {
+      await addAppExample(fullAppFolder);
     }
 
     updatePackageName(fullAppFolder);
@@ -171,6 +133,63 @@ async function initProject(appName: string, options: CLIOptions) {
   } catch (err) {
     error(`Failed to create ${highlight(chalk.cyan(appName))}`, err);
     process.exit(1);
+  }
+
+  async function addAppExample(fullAppFolder: string) {
+    const isInteractive = !normalizedOptions.example &&
+      !normalizedOptions.source &&
+      !normalizedOptions.javascript &&
+      !normalizedOptions.typescript &&
+      !normalizedOptions.function;
+
+    const templateSource = await getTemplateSource(options);
+
+    track({
+      template: templateSource,
+      manager: normalizedOptions.npm ? 'npm' : 'yarn',
+      interactive: isInteractive,
+    });
+
+    await cloneTemplateIn(fullAppFolder, templateSource);
+
+    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
+      // If function flag is specified, but no function name is provided, we default to external-references
+      // for legacy support
+      if (normalizedOptions.function === true) {
+        normalizedOptions.function = 'external-references';
+      }
+      await addFunctionTemplate(fullAppFolder);
+    }
+  }
+
+  async function addFunctionTemplate(fullAppFolder: string) {
+  if (!fs.existsSync(fullAppFolder)) {
+      fs.mkdirSync(fullAppFolder, { recursive: true });
+    }
+
+    process.chdir(fullAppFolder);
+    wrapInBlanks(
+      `To add additional function templates to your app, use ${highlight(
+        chalk.green(`
+          npx @contentful/app-scripts@latest generate-function \\
+            --ci \\
+            --name <n> \\
+            --example <example> \\
+            --language <typescript/javascript>`)
+      )}`
+    );
+    if (typeof normalizedOptions.function !== 'string') {
+      throw new Error('Function template name is required');
+    }
+    const functionName = normalizedOptions.function
+      .toLowerCase()
+      .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+    await generateFunction.nonInteractive({
+      example: normalizedOptions.function,
+      language: normalizedOptions.javascript ? 'javascript' : 'typescript',
+      name: functionName,
+      keepPackageJson: normalizedOptions.skipUi === true
+    } as any);
   }
 }
 
@@ -207,6 +226,7 @@ async function initProject(appName: string, options: CLIOptions) {
       ].join('\n')
     )
     .option('-f, --function [function-template-name]', 'include the specified function template')
+    .option('--skip-ui', 'use with --function to clone the template without a user interface (UI).')
     .action(initProject);
   await program.parseAsync();
 })();
