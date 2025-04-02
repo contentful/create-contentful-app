@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.7](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.6...@contentful/create-contentful-app@2.1.7) (2025-04-02)
+
+### Bug Fixes
+
+- add frontendless flag [EXT-6292] ([#2423](https://github.com/contentful/create-contentful-app/issues/2423)) ([7574af9](https://github.com/contentful/create-contentful-app/commit/7574af9d0e8e49e10fcaf65152ecbdab7532a4be))
+
 ## [2.1.6](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.5...@contentful/create-contentful-app@2.1.6) (2025-04-01)
 
 ### Bug Fixes
