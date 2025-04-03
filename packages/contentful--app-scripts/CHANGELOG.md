@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.4.0...@contentful/app-scripts@2.5.0) (2025-04-03)
+
+### Bug Fixes
+
+- add frontendless flag [EXT-6292] ([#2423](https://github.com/contentful/create-contentful-app/issues/2423)) ([7574af9](https://github.com/contentful/create-contentful-app/commit/7574af9d0e8e49e10fcaf65152ecbdab7532a4be))
+- **deps:** bump contentful-management from 11.50.1 to 11.51.0 ([#2432](https://github.com/contentful/create-contentful-app/issues/2432)) ([9e0d539](https://github.com/contentful/create-contentful-app/commit/9e0d539bf082675988a9f80b5678f20903536205))
+
+### Features
+
+- remove reference to App Functions in Beta ([#2429](https://github.com/contentful/create-contentful-app/issues/2429)) ([ff45891](https://github.com/contentful/create-contentful-app/commit/ff458917026a844c430432d7ec312f491d42847a))
+
 # [2.4.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.3.1...@contentful/app-scripts@2.4.0) (2025-04-01)
 
 ### Bug Fixes
