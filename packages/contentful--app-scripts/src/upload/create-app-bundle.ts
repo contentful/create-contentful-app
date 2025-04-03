@@ -27,7 +27,7 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       functions,
     });
   } catch (err: any) {
-    showCreationError('app upload', processCreateAppBundleError(err))
+    showCreationError('app upload', processCreateAppBundleError(err));
   }
   bundleSpinner.stop();
   return appBundle;
@@ -38,21 +38,19 @@ export function processCreateAppBundleError(err: any) {
     const message = JSON.parse(err.message);
     const reasons = message.details?.reasons;
     if (message.status !== 403 || !reasons) {
-      return err.message
+      return err.message;
     }
     if (message['status'] == 403 && message.details?.reasons) {
       if (reasons.includes('Not entitled to App Functions.')) {
-       return 'Your app seems to be using App Functions, which your organization is not entitled to. Remove your app function, or upgrade your account to proceed with your app upload.'
-      } else if (reasons.includes('App Functions beta not enabled.')) {
-        return 'Your app seems to be using App Functions, which your organization has not enabled in the Preview Center. In the Contentful web app, go to the Account Menu → Preview Center → App Functions to enable and proceed with your app upload.'
+        return 'Your app seems to be using App Functions, which your organization is not entitled to. Remove your app function, or upgrade your account to proceed with your app upload.';
       } else {
-        return reasons
+        return reasons;
       }
     } else {
-      return reasons
+      return reasons;
     }
   } catch (e) {
-    return err.message
+    return err.message;
   }
 }
 

@@ -123,23 +123,24 @@ describe('processCreateAppBundleError', () => {
     const err = new Error('{"status": 404, "message": "Not found"}');
     const returnedErr = processCreateAppBundleError(err);
     assert.strictEqual(returnedErr, err.message);
-  })
+  });
 
   it('shows creation error when status is 403 and reason is not entitled', () => {
-    const err = new Error('{"status": 403, "message": "Forbidden", "details": {"reasons": ["Not entitled to App Functions."]}}');
+    const err = new Error(
+      '{"status": 403, "message": "Forbidden", "details": {"reasons": ["Not entitled to App Functions."]}}'
+    );
     const returnedErr = processCreateAppBundleError(err);
-    assert.strictEqual(returnedErr, 'Your app seems to be using App Functions, which your organization is not entitled to. Remove your app function, or upgrade your account to proceed with your app upload.');
-  })
-
-  it('shows creation error when status is 403 and reason is feature flag is not enabled', () => {
-    const err = new Error('{"status": 403, "message": "Forbidden", "details": {"reasons": ["App Functions beta not enabled."]}}');
-    const returnedErr = processCreateAppBundleError(err);
-    assert.strictEqual(returnedErr, 'Your app seems to be using App Functions, which your organization has not enabled in the Preview Center. In the Contentful web app, go to the Account Menu → Preview Center → App Functions to enable and proceed with your app upload.');
-  })
+    assert.strictEqual(
+      returnedErr,
+      'Your app seems to be using App Functions, which your organization is not entitled to. Remove your app function, or upgrade your account to proceed with your app upload.'
+    );
+  });
 
   it('shows creation error when status is 403 and reason is unknown', () => {
-    const err = new Error('{"status": 403, "message": "Forbidden", "details": {"reasons": ["Unknown reason."]}}');
+    const err = new Error(
+      '{"status": 403, "message": "Forbidden", "details": {"reasons": ["Unknown reason."]}}'
+    );
     const returnedErr = processCreateAppBundleError(err);
     assert.deepEqual(returnedErr, ['Unknown reason.']);
-  })
+  });
 });
