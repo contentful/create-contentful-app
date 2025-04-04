@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.0...@contentful/app-scripts@2.5.1) (2025-04-04)
+
+### Bug Fixes
+
+- support bundles without frontend in upload and activate scripts [EXT-6304] ([#2434](https://github.com/contentful/create-contentful-app/issues/2434)) ([fac57da](https://github.com/contentful/create-contentful-app/commit/fac57daf6d663f56333051c3f66e8fc6188eedfb))
+
 # [2.5.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.4.0...@contentful/app-scripts@2.5.0) (2025-04-03)
 
 ### Bug Fixes
