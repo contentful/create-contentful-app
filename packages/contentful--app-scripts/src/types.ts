@@ -31,6 +31,7 @@ export interface ActivateSettings {
   definition: Definition;
   accessToken: string;
   host?: string;
+  hasFrontend?: boolean;
 }
 
 export interface CleanupOptions {

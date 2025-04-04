@@ -20,7 +20,8 @@ async function uploadAndActivate(settings: UploadSettings) {
     );
   }
   if (!settings.skipActivation && bundle) {
-    await activateBundle({ ...settings, bundleId: bundle.sys.id });
+    const hasFrontend = bundle.files.length > 0;
+    await activateBundle({ ...settings, bundleId: bundle.sys.id, hasFrontend });
     logFeedbackNudge();
   }
 }
