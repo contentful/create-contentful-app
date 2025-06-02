@@ -58,7 +58,7 @@
     "contentful-management": "^11.48.1",
     "dotenv": "16.5.0",
     "esbuild": "^0.25.1",
-    "ignore": "7.0.4",
+    "ignore": "7.0.5",
     "inquirer": "8.2.6",
     "lodash": "4.17.21",
     "merge-options": "^3.0.4",
