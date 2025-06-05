@@ -143,7 +143,7 @@ export async function mergeAppManifest(localPath: string, localTmpPath: string) 
       destination: resolve(localPath, CONTENTFUL_APP_MANIFEST), // always save as contentful-app-manifest.json
     });
   } else {
-    // add the function to the json's "functions" array
+    // add the function to the json's "functions" array 
     await mergeJsonIntoFile({
       source: resolve(localTmpPath, tmpAppManifestType),
       destination: resolve(localPath, CONTENTFUL_APP_MANIFEST),
