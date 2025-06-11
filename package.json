@@ -47,5 +47,9 @@
   },
   "dependencies": {
     "open": "^10.1.0"
+  },
+  "overrides": {
+    "rimraf": "^5.0.0",
+    "glob": "^10.0.0"
   }
 }
