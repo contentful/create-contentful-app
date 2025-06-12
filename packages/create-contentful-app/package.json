@@ -31,6 +31,9 @@
   "dependencies": {
     "@contentful/create-contentful-app": "2.1.11"
   },
+  "overrides": {
+    "rimraf": "^5.0.0"
+  },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
   },
