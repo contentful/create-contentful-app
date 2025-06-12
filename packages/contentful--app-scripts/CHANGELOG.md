@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.2...@contentful/app-scripts@2.5.3) (2025-06-12)
+
+### Bug Fixes
+
+- **deps:** bump zod from 3.25.55 to 3.25.56 ([#2522](https://github.com/contentful/create-contentful-app/issues/2522)) ([aa1c39b](https://github.com/contentful/create-contentful-app/commit/aa1c39b98587373d152c4e82945ff762b610f90a))
+- **deps:** bump zod from 3.25.56 to 3.25.57 ([#2524](https://github.com/contentful/create-contentful-app/issues/2524)) ([7f04aaa](https://github.com/contentful/create-contentful-app/commit/7f04aaaee896bd04c897c07c6b355dbc9d82a628))
+- **deps:** bump zod from 3.25.57 to 3.25.61 ([#2528](https://github.com/contentful/create-contentful-app/issues/2528)) ([dbe810b](https://github.com/contentful/create-contentful-app/commit/dbe810bca4ebe47b40465ff653ab0bfafa327486))
+- **deps:** bump zod from 3.25.61 to 3.25.63 ([#2532](https://github.com/contentful/create-contentful-app/issues/2532)) ([5e23eb3](https://github.com/contentful/create-contentful-app/commit/5e23eb3cb3430b5d8c02a81afba74cd5ba326aa9))
+- remove all references to inflight ([#2530](https://github.com/contentful/create-contentful-app/issues/2530)) ([a53b6b6](https://github.com/contentful/create-contentful-app/commit/a53b6b6fbab4cbfe31fc30020657026be1a4e9d5))
+
 ## [2.5.2](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.1...@contentful/app-scripts@2.5.2) (2025-06-06)
 
 ### Bug Fixes
