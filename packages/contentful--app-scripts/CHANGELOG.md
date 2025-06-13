@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.5](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.4...@contentful/app-scripts@2.5.5) (2025-06-13)
+
+### Bug Fixes
+
+- revert inflight overwrites [EXT-6447] ([#2537](https://github.com/contentful/create-contentful-app/issues/2537)) ([ae7e078](https://github.com/contentful/create-contentful-app/commit/ae7e078dfb13acbb1e991b364e892c4c5486dfe6)), closes [#2530](https://github.com/contentful/create-contentful-app/issues/2530) [#2536](https://github.com/contentful/create-contentful-app/issues/2536) [#2533](https://github.com/contentful/create-contentful-app/issues/2533)
+
 ## [2.5.4](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.3...@contentful/app-scripts@2.5.4) (2025-06-13)
 
 ### Bug Fixes
