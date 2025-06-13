@@ -67,11 +67,6 @@
     "tiged": "^2.12.7",
     "zod": "^3.24.1"
   },
-  "overrides": {
-    "tiged": {
-      "rimraf": "^5.0.0"
-    }
-  },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42",
   "devDependencies": {
     "@types/adm-zip": "0.5.7",
