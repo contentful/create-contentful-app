@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.4](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.3...@contentful/app-scripts@2.5.4) (2025-06-13)
+
+### Bug Fixes
+
+- **deps:** bump zod from 3.25.63 to 3.25.64 ([#2535](https://github.com/contentful/create-contentful-app/issues/2535)) ([888605b](https://github.com/contentful/create-contentful-app/commit/888605b6e9cda4f99408034196e401bbae26d2f0))
+- rebump all packages [EXT-6447] ([#2536](https://github.com/contentful/create-contentful-app/issues/2536)) ([c7192fd](https://github.com/contentful/create-contentful-app/commit/c7192fd2a390605b3c320f74e0b3f850e241c4ab))
+
 ## [2.5.3](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.2...@contentful/app-scripts@2.5.3) (2025-06-12)
 
 ### Bug Fixes
