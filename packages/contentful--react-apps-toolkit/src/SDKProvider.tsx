@@ -10,7 +10,7 @@ interface SDKProviderProps {
 const DELAY_TIMEOUT = 4 * 1000;
 
 /**
- * The Component providing the AppSdk, the useSDK hook can only be used within this Provider 
+ * The Component providing the AppSdk, the useSDK hook can only be used within this Provider
  * @param props.loading an optional loading element that gets rendered while initializing the app
  */
 export const SDKProvider: FC<PropsWithChildren<SDKProviderProps>> = (props) => {
