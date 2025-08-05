@@ -7,8 +7,14 @@ import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
 import { cloneTemplateIn } from './template';
-import { detectManager, exec, normalizeOptions, isContentfulTemplate } from './utils';
-import { CLIOptions } from './types';
+import {
+  detectActivePackageManager,
+  getNormalizedPackageManager,
+  exec,
+  normalizeOptions,
+  isContentfulTemplate,
+} from './utils';
+import type { CLIOptions, PackageManager } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
@@ -19,7 +25,15 @@ import fs from 'fs';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
-function successMessage(folder: string, useYarn: boolean) {
+function successMessage(folder: string, packageManager: PackageManager) {
+  let command = '';
+  if (packageManager === 'yarn') {
+    command = 'yarn create-app-definition';
+  } else if (packageManager === 'pnpm') {
+    command = 'pnpm create-app-definition';
+  } else {
+    command = 'npm run create-app-definition';
+  }
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`);
 
@@ -28,7 +42,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
   console.log(`Now create an app definition for your app by running
 
     ${code(`cd ${tildify(folder)}`)}
-    ${code(useYarn ? 'yarn create-app-definition' : 'npm run create-app-definition')}
+    ${code(command)}
 
     or you can create it manually in web app:
     ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
@@ -37,7 +51,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
   console.log(`Then kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
-    ${code(`${useYarn ? 'yarn' : 'npm'} start`)}
+    ${code(`${packageManager} start`)}
   `);
 }
 
@@ -100,6 +114,9 @@ async function validateAppName(appName: string): Promise<string> {
 
 async function initProject(appName: string, options: CLIOptions) {
   const normalizedOptions = normalizeOptions(options);
+  const activePackageManager = detectActivePackageManager();
+  const packageManager = getNormalizedPackageManager(normalizedOptions, activePackageManager);
+
   try {
     appName = await validateAppName(appName);
 
@@ -115,28 +132,28 @@ async function initProject(appName: string, options: CLIOptions) {
 
     updatePackageName(fullAppFolder);
 
-    const useYarn = normalizedOptions.yarn || detectManager() === 'yarn';
-
     wrapInBlanks(
       highlight(
-        `---- Installing the dependencies for your app (using ${chalk.cyan(
-          useYarn ? 'yarn' : 'npm'
-        )})...`
+        `---- Installing the dependencies for your app (using ${chalk.cyan(packageManager)})...`
       )
     );
-    if (useYarn) {
+
+    if (packageManager === 'yarn') {
       await exec('yarn', [], { cwd: fullAppFolder });
+    } else if (packageManager === 'pnpm') {
+      await exec('pnpm', ['install'], { cwd: fullAppFolder });
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
-    successMessage(fullAppFolder, useYarn);
+    successMessage(fullAppFolder, packageManager);
   } catch (err) {
     error(`Failed to create ${highlight(chalk.cyan(appName))}`, err);
     process.exit(1);
   }
 
   async function addAppExample(fullAppFolder: string) {
-    const isInteractive = !normalizedOptions.example &&
+    const isInteractive =
+      !normalizedOptions.example &&
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
       !normalizedOptions.typescript &&
@@ -146,7 +163,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     track({
       template: templateSource,
-      manager: normalizedOptions.npm ? 'npm' : 'yarn',
+      manager: packageManager,
       interactive: isInteractive,
     });
 
@@ -163,7 +180,7 @@ async function initProject(appName: string, options: CLIOptions) {
   }
 
   async function addFunctionTemplate(fullAppFolder: string) {
-  if (!fs.existsSync(fullAppFolder)) {
+    if (!fs.existsSync(fullAppFolder)) {
       fs.mkdirSync(fullAppFolder, { recursive: true });
     }
 
@@ -188,7 +205,7 @@ async function initProject(appName: string, options: CLIOptions) {
       example: normalizedOptions.function,
       language: normalizedOptions.javascript ? 'javascript' : 'typescript',
       name: functionName,
-      keepPackageJson: normalizedOptions.skipUi === true
+      keepPackageJson: normalizedOptions.skipUi === true,
     } as any);
   }
 }
@@ -212,6 +229,7 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .argument('[app-name]', 'app name')
     .option('--npm', 'use npm')
+    .option('--pnpm', 'use pnpm')
     .option('--yarn', 'use Yarn')
     .option('-ts, --typescript', 'use TypeScript template (default)')
     .option('-js, --javascript', 'use JavaScript template')

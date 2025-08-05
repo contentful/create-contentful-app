@@ -2,7 +2,7 @@ import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
 import { existsSync, rmSync } from 'fs';
 import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
-import { CLIOptions, ContentfulExample } from './types';
+import { CLIOptions, ContentfulExample, PackageManager } from './types';
 import { EXAMPLES_PATH } from './constants';
 
 const MUTUALLY_EXCLUSIVE_OPTIONS = ['source', 'example', 'typescript', 'javascript'] as const;
@@ -26,10 +26,12 @@ export function rmIfExists(path: string) {
   }
 }
 
-export function detectManager() {
+export function detectActivePackageManager(): PackageManager {
   switch (basename(process.env.npm_execpath || '')) {
     case 'yarn.js':
       return 'yarn';
+    case 'pnpm.cjs':
+      return 'pnpm';
     case 'npx-cli.js':
     case 'npm-cli.js':
     default:
@@ -37,20 +39,52 @@ export function detectManager() {
   }
 }
 
+// By the time this function is called, the options have already been normalized
+// so we would not need to consider multiple package manager flags at once
+export function getNormalizedPackageManager(
+  options: CLIOptions,
+  activePackageManager: PackageManager
+): PackageManager {
+  // Prefer to get the package manager from options
+  if (options.pnpm) {
+    return 'pnpm';
+  } else if (options.yarn) {
+    return 'yarn';
+  } else if (options.npm) {
+    return 'npm';
+  }
+
+  // Fallback to active package manager
+  return activePackageManager;
+}
+
 export function normalizeOptions(options: CLIOptions): CLIOptions {
   const normalizedOptions: CLIOptions = { ...options };
 
-  if (normalizedOptions.npm && normalizedOptions.yarn) {
+  const selectedPackageManagers = [
+    ['npm', normalizedOptions.npm],
+    ['pnpm', normalizedOptions.pnpm],
+    ['yarn', normalizedOptions.yarn],
+  ].filter(([, n]) => n);
+  const activePackageManager = detectActivePackageManager();
+
+  if (selectedPackageManagers.length > 1) {
     warn(
-      `Provided both ${highlight('--yarn')} and ${highlight('--npm')} flags, using ${choice(
-        '--npm'
-      )}.`
+      `Too many package manager flags were provided, we will use ${choice(`--${activePackageManager}`)}.`
     );
-    delete normalizedOptions.yarn;
+
+    // Delete all package manager options
+    selectedPackageManagers.forEach(([packageManager]) => {
+      delete normalizedOptions[packageManager as keyof CLIOptions];
+    });
+
+    // Select active package manager
+    (normalizedOptions as Record<string, boolean>)[activePackageManager] = true;
   }
 
-  if (!normalizedOptions.yarn) {
-    normalizedOptions.npm = true;
+  // No package manager flags were provided, use active package manager
+  if (selectedPackageManagers.length === 0) {
+    (normalizedOptions as Record<string, boolean>)[activePackageManager] = true;
   }
 
   let fallbackOption = '--typescript';

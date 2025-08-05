@@ -36,6 +36,7 @@ function validate(destination: string): void {
 }
 
 function cleanUp(destination: string) {
+  rmIfExists(resolve(destination, 'pnpm-lock.json'));
   rmIfExists(resolve(destination, 'package-lock.json'));
   rmIfExists(resolve(destination, 'yarn.lock'));
 }
