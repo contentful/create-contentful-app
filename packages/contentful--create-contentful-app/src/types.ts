@@ -1,6 +1,7 @@
 export type CLIOptions = Partial<{
   npm: boolean;
   yarn: boolean;
+  pnpm: boolean;
   javascript: boolean;
   typescript: boolean;
   source: string;
@@ -8,6 +9,8 @@ export type CLIOptions = Partial<{
   function: string | boolean;
   skipUi: boolean;
 }>;
+
+export type PackageManager = 'npm' | 'yarn' | 'pnpm';
 
 export const ContentfulExample = {
   Javascript: 'javascript',
