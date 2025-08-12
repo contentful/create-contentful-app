@@ -1,11 +1,12 @@
 import { Analytics } from '@segment/analytics-node';
+import type { PackageManager } from './types';
 
 // Public write key scoped to data source
 const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
 
 interface CCAEventProperties {
   template?: string; // can be example, source, or JS or TS
-  manager: 'npm' | 'yarn';
+  manager: PackageManager;
   interactive: boolean;
 }
 
