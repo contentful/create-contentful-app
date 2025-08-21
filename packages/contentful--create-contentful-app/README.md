@@ -30,6 +30,9 @@ npx create-contentful-app <app-name>
 # npm
 npm init contentful-app <app-name>
 
+# pnpm
+pnpm init contentful-app <app-name>
+
 # Yarn
 yarn create contentful-app <app-name>
 ```
@@ -38,11 +41,9 @@ yarn create contentful-app <app-name>
 
 ### Package Manager
 
-`--npm` or `--yarn`
+`--npm` or `--pnpm` or `--yarn`
 
-Use npm or Yarn to manage dependencies. If omitted, defaults to the manager used to run `create-contentful-app`.
-
-Both flags are mutually exclusive.
+Use npm, pnpm, or Yarn to manage dependencies. If omitted, or if more than one flag is passed, will default to the manager used to run `create-contentful-app`.
 
 ### Template
 
