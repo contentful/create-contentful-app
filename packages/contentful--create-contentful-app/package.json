@@ -72,7 +72,7 @@
     "@types/sinon-chai": "^3.2.9",
     "@types/tildify": "2.0.2",
     "@types/validate-npm-package-name": "4.0.2",
-    "chai": "^4.3.7",
+    "chai": "^6.0.0",
     "chai-as-promised": "^7.1.1",
     "contentful-management": "11.54.4",
     "mocha": "^11.2.2",
