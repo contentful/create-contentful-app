@@ -45,11 +45,10 @@ async function promptExampleSelection(): Promise<string> {
     // get available templates from examples
     const availableTemplates = await getGithubFolderNames();
     // filter out the ignored ones that are listed as templates instead of examples
-    const filteredTemplates = availableTemplates
-      .filter(
-        (template) =>
-          !IGNORED_EXAMPLE_FOLDERS.includes(template as (typeof IGNORED_EXAMPLE_FOLDERS)[number])
-      )
+    const filteredTemplates = availableTemplates.filter(
+      (template) =>
+        !IGNORED_EXAMPLE_FOLDERS.includes(template as (typeof IGNORED_EXAMPLE_FOLDERS)[number])
+    );
     console.log(availableTemplates.length, filteredTemplates.length);
 
     // ask user to select a template from the available examples

@@ -1,5 +1,5 @@
 import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
-import { existsSync, rmSync } from 'fs';
+import { existsSync, readFileSync, rmSync } from 'fs';
 import { basename } from 'path';
 import { choice, highlight, warn } from './logger';
 import { CLIOptions, ContentfulExample, PackageManager } from './types';
@@ -27,6 +27,21 @@ export function rmIfExists(path: string) {
 }
 
 export function detectActivePackageManager(): PackageManager {
+  if (existsSync('pnpm-lock.yaml')) return 'pnpm';
+  if (existsSync('yarn.lock')) return 'yarn';
+  if (existsSync('package-lock.json')) return 'npm';
+  warn('No lock files found, we will try to detect the active package manager from package.json.');
+  try {
+    const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+    if (pkg.packageManager?.startsWith('pnpm')) return 'pnpm';
+    if (pkg.packageManager?.startsWith('yarn')) return 'yarn';
+    if (pkg.packageManager?.startsWith('npm')) return 'npm';
+  } catch {
+    warn(
+      `Unable to determine active package manager from package.json. We will try to detect it from npm_execpath.`
+    );
+  }
+
   switch (basename(process.env.npm_execpath || '')) {
     case 'yarn.js':
       return 'yarn';
@@ -70,7 +85,9 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
 
   if (selectedPackageManagers.length > 1) {
     warn(
-      `Too many package manager flags were provided, we will use ${choice(`--${activePackageManager}`)}.`
+      `Too many package manager flags were provided, we will use ${choice(
+        `--${activePackageManager}`
+      )}.`
     );
 
     // Delete all package manager options
@@ -79,12 +96,12 @@ export function normalizeOptions(options: CLIOptions): CLIOptions {
     });
 
     // Select active package manager
-    (normalizedOptions as Record<string, boolean>)[activePackageManager] = true;
+    (normalizedOptions as CLIOptions)[activePackageManager] = true;
   }
 
   // No package manager flags were provided, use active package manager
   if (selectedPackageManagers.length === 0) {
-    (normalizedOptions as Record<string, boolean>)[activePackageManager] = true;
+    (normalizedOptions as CLIOptions)[activePackageManager] = true;
   }
 
   let fallbackOption = '--typescript';
