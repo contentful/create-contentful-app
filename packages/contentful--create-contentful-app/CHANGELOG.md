@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.13...@contentful/create-contentful-app@2.2.0-alpha.0) (2025-08-22)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.52.2 to 11.53.0 ([#2542](https://github.com/contentful/create-contentful-app/issues/2542)) ([abd029a](https://github.com/contentful/create-contentful-app/commit/abd029a83deb489e6e15c21597db9bc26c0b084e))
+- **deps:** bump contentful-management from 11.53.0 to 11.54.0 ([#2556](https://github.com/contentful/create-contentful-app/issues/2556)) ([8aa241a](https://github.com/contentful/create-contentful-app/commit/8aa241ab57a8b9ce6015167ee9e4f5ded8a7c4ce))
+- **deps:** bump contentful-management from 11.54.0 to 11.54.1 ([#2563](https://github.com/contentful/create-contentful-app/issues/2563)) ([ba9b1c7](https://github.com/contentful/create-contentful-app/commit/ba9b1c750172f384e8ce104cce0f586d4ca45347))
+- **deps:** bump contentful-management from 11.54.1 to 11.54.2 ([#2593](https://github.com/contentful/create-contentful-app/issues/2593)) ([6c38ffb](https://github.com/contentful/create-contentful-app/commit/6c38ffb262d3686a7464ba0d50ecb7ce55814959))
+- **deps:** bump contentful-management from 11.54.2 to 11.54.3 ([#2602](https://github.com/contentful/create-contentful-app/issues/2602)) ([67d0b24](https://github.com/contentful/create-contentful-app/commit/67d0b240273c16905d61488c1088b3271d002b64))
+- **deps:** bump contentful-management from 11.54.3 to 11.54.4 ([#2614](https://github.com/contentful/create-contentful-app/issues/2614)) ([9fb4c08](https://github.com/contentful/create-contentful-app/commit/9fb4c08262c066b926aac5af996742840437a977))
+- **deps:** bump form-data from 4.0.0 to 4.0.4 ([#2598](https://github.com/contentful/create-contentful-app/issues/2598)) ([fee6bca](https://github.com/contentful/create-contentful-app/commit/fee6bcaa3b4d6d7e7d5c03750e2c7891c241560f))
+- **deps:** bump validate-npm-package-name from 6.0.1 to 6.0.2 ([#2599](https://github.com/contentful/create-contentful-app/issues/2599)) ([dc4ceaa](https://github.com/contentful/create-contentful-app/commit/dc4ceaa5950ab533e6a82daa56a164283abe8a24))
+
+### Features
+
+- support-pnpm-package-manager [ZEND-6808] ([#2654](https://github.com/contentful/create-contentful-app/issues/2654)) ([bd0a6b6](https://github.com/contentful/create-contentful-app/commit/bd0a6b6f6046c49b4b4af80629b0ef5a7f265704))
+
 ## [2.1.13](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.1.12...@contentful/create-contentful-app@2.1.13) (2025-06-13)
 
 ### Bug Fixes
