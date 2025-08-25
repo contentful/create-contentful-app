@@ -7,6 +7,9 @@ import {
   normalizeOptions,
 } from '../src/utils';
 import type { CLIOptions, PackageManager } from '../src/types';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 describe('utils', () => {
   const packageManagers = ['npm', 'pnpm', 'yarn'];
@@ -21,9 +24,6 @@ describe('utils', () => {
       originalCwd = process.cwd();
 
       // Create temporary directory for each test
-      const fs = require('fs');
-      const os = require('os');
-      const path = require('path');
       tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pm-test-'));
       process.chdir(tempDir);
     });
@@ -39,7 +39,6 @@ describe('utils', () => {
       // Restore working directory and cleanup
       process.chdir(originalCwd);
       try {
-        const fs = require('fs');
         fs.rmSync(tempDir, { recursive: true, force: true });
       } catch (error) {
         // Ignore cleanup errors
@@ -48,25 +47,21 @@ describe('utils', () => {
 
     describe('lock file detection', () => {
       it('should detect pnpm from pnpm-lock.yaml', () => {
-        const fs = require('fs');
         fs.writeFileSync('pnpm-lock.yaml', 'lockfileVersion: 5.4');
         expect(detectActivePackageManager()).to.equal('pnpm');
       });
 
       it('should detect yarn from yarn.lock', () => {
-        const fs = require('fs');
         fs.writeFileSync('yarn.lock', '# yarn lockfile v1');
         expect(detectActivePackageManager()).to.equal('yarn');
       });
 
       it('should detect npm from package-lock.json', () => {
-        const fs = require('fs');
         fs.writeFileSync('package-lock.json', '{"lockfileVersion": 2}');
         expect(detectActivePackageManager()).to.equal('npm');
       });
 
       it('should prioritize pnpm-lock.yaml over other lock files', () => {
-        const fs = require('fs');
         fs.writeFileSync('pnpm-lock.yaml', 'lockfileVersion: 5.4');
         fs.writeFileSync('yarn.lock', '# yarn lockfile v1');
         fs.writeFileSync('package-lock.json', '{"lockfileVersion": 2}');
@@ -74,7 +69,6 @@ describe('utils', () => {
       });
 
       it('should prioritize yarn.lock over package-lock.json', () => {
-        const fs = require('fs');
         fs.writeFileSync('yarn.lock', '# yarn lockfile v1');
         fs.writeFileSync('package-lock.json', '{"lockfileVersion": 2}');
         expect(detectActivePackageManager()).to.equal('yarn');
@@ -83,28 +77,24 @@ describe('utils', () => {
 
     describe('package.json packageManager field detection', () => {
       it('should detect pnpm from package.json packageManager field', () => {
-        const fs = require('fs');
         const packageJson = { packageManager: 'pnpm@8.6.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
         expect(detectActivePackageManager()).to.equal('pnpm');
       });
 
       it('should detect yarn from package.json packageManager field', () => {
-        const fs = require('fs');
         const packageJson = { packageManager: 'yarn@1.22.19' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
         expect(detectActivePackageManager()).to.equal('yarn');
       });
 
       it('should detect npm from package.json packageManager field', () => {
-        const fs = require('fs');
         const packageJson = { packageManager: 'npm@9.8.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
         expect(detectActivePackageManager()).to.equal('npm');
       });
 
       it('should prioritize lock files over package.json packageManager field', () => {
-        const fs = require('fs');
         fs.writeFileSync('yarn.lock', '# yarn lockfile v1');
         const packageJson = { packageManager: 'pnpm@8.6.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
@@ -141,14 +131,12 @@ describe('utils', () => {
       });
 
       it('should fall back to npm_execpath when package.json is invalid', () => {
-        const fs = require('fs');
         fs.writeFileSync('package.json', 'invalid json');
         process.env.npm_execpath = '/path/to/yarn.js';
         expect(detectActivePackageManager()).to.equal('yarn');
       });
 
       it('should fall back to npm_execpath when package.json has no packageManager field', () => {
-        const fs = require('fs');
         const packageJson = { name: 'test-app', version: '1.0.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
         process.env.npm_execpath = '/path/to/pnpm.cjs';
@@ -158,7 +146,6 @@ describe('utils', () => {
 
     describe('priority and edge cases', () => {
       it('should prioritize lock files over package.json over npm_execpath', () => {
-        const fs = require('fs');
         fs.writeFileSync('yarn.lock', '# yarn lockfile v1');
         const packageJson = { packageManager: 'pnpm@8.6.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
@@ -167,7 +154,6 @@ describe('utils', () => {
       });
 
       it('should prioritize package.json over npm_execpath when no lock files exist', () => {
-        const fs = require('fs');
         const packageJson = { packageManager: 'pnpm@8.6.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
         process.env.npm_execpath = '/path/to/yarn.js';
@@ -228,9 +214,6 @@ describe('utils', () => {
       originalCwd = process.cwd();
 
       // Create temporary directory for each test
-      const fs = require('fs');
-      const os = require('os');
-      const path = require('path');
       tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'normalize-test-'));
       process.chdir(tempDir);
     });
@@ -246,7 +229,6 @@ describe('utils', () => {
       // Restore working directory and cleanup
       process.chdir(originalCwd);
       try {
-        const fs = require('fs');
         fs.rmSync(tempDir, { recursive: true, force: true });
       } catch (error) {
         // Ignore cleanup errors
@@ -275,7 +257,6 @@ describe('utils', () => {
       });
 
       it('falls back to detected package manager from lock files', () => {
-        const fs = require('fs');
         fs.writeFileSync('yarn.lock', '# yarn lockfile v1');
 
         const options: CLIOptions = {};
@@ -287,7 +268,6 @@ describe('utils', () => {
       });
 
       it('falls back to detected package manager from package.json', () => {
-        const fs = require('fs');
         const packageJson = { packageManager: 'pnpm@8.6.0' };
         fs.writeFileSync('package.json', JSON.stringify(packageJson));
 
