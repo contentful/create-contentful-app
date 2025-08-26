@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.16](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@2.0.15...create-contentful-app@2.0.16) (2025-08-26)
+
+### Bug Fixes
+
+- **deps:** bump form-data from 4.0.0 to 4.0.4 ([#2598](https://github.com/contentful/create-contentful-app/issues/2598)) ([fee6bca](https://github.com/contentful/create-contentful-app/commit/fee6bcaa3b4d6d7e7d5c03750e2c7891c241560f))
+
 ## [2.0.15](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@2.0.14...create-contentful-app@2.0.15) (2025-06-13)
 
 ### Bug Fixes
