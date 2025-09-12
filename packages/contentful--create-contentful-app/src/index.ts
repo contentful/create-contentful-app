@@ -167,7 +167,7 @@ async function initProject(appName: string, options: CLIOptions) {
       interactive: isInteractive,
     });
 
-    await cloneTemplateIn(templateSource, fullAppFolder);
+    cloneTemplateIn(templateSource, fullAppFolder);
 
     if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
       // If function flag is specified, but no function name is provided, we default to external-references

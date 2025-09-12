@@ -2,30 +2,33 @@ import { resolve, dirname, basename } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import { tmpdir } from 'os';
 import * as rimraf from 'rimraf';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { execSync } from 'child_process';
 import { success } from './logger';
 import { rmIfExists } from './utils';
 
-const execAsync = promisify(exec);
-
-async function clone(source: string, destination: string) {
+function clone(source: string, destination: string) {
   try {
-    // Check if destination exists and is not empty
     if (existsSync(destination)) {
-      const files = await execAsync(`ls -la "${destination}"`).catch(() => ({ stdout: '' }));
-      if (files.stdout.split('\n').length > 3) {
-        // More than just ., .., and empty line
-        throw new Error('Destination directory is not empty.');
+      try {
+        const files = execSync(`ls -la "${destination}"`, { encoding: 'utf8' });
+        if (files.split('\n').length > 3) {
+          throw new Error('Destination directory is not empty.');
+        }
+      } catch {
+        // Ignore
       }
     }
 
     if (isContentfulTemplate(source)) {
-      await cloneContentfulTemplate(source, destination);
+      cloneContentfulTemplate(source, destination);
     } else {
       // Try to handle external repositories
-      await execAsync(`git clone --depth 1 "${source}" "${destination}"`);
-      await execAsync(`rm -rf "${destination}/.git"`);
+      execSync(`git clone --depth 1 "${source}" "${destination}"`, { stdio: 'ignore' });
+      try {
+        execSync(`rm -rf "${destination}/.git"`);
+      } catch {
+        // Ignore
+      }
     }
   } catch (e: any) {
     if (e.message?.includes('Destination directory is not empty')) {
@@ -38,38 +41,56 @@ async function clone(source: string, destination: string) {
   }
 }
 
-async function cloneContentfulTemplate(source: string, destination: string) {
+function cloneContentfulTemplate(source: string, destination: string) {
   const templatePath = source.replace('contentful/apps/', '');
 
-  // Create temp directory in system temp folder (completely out of sight)
   const tempDir = resolve(
     tmpdir(),
     `contentful-clone-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
   );
 
   try {
-    await execAsync(`git clone --depth 1 https://github.com/contentful/apps.git "${tempDir}"`);
+     execSync(`git clone --depth 1 https://github.com/contentful/apps.git "${tempDir}"`, {
+       stdio: 'ignore',
+     });
 
-    // Create destination directory
-    await execAsync(`mkdir -p "${destination}"`).catch(() => {
-      return execAsync(`mkdir "${destination}"`); // windows fallback
-    });
+    try {
+      execSync(`mkdir -p "${destination}"`);
+    } catch {
+      // Windows fallback
+      try {
+        execSync(`mkdir "${destination}"`);
+      } catch {
+        // Ignore
+      }
+    }
 
-    // Copy files
     const sourcePath = resolve(tempDir, templatePath);
-    await execAsync(`cp -r "${sourcePath}"/* "${destination}"/`).catch(() => {
-      return execAsync(`xcopy "${sourcePath}\\*" "${destination}\\" /E /I /Y`);
-    });
+    try {
+      execSync(`cp -r "${sourcePath}"/* "${destination}"/`);
+    } catch {
+      execSync(`xcopy "${sourcePath}\\*" "${destination}\\" /E /I /Y`);
+    }
 
-    // Clean up temp directory
-    await execAsync(`rm -rf "${tempDir}"`).catch(() => {
-      return execAsync(`rmdir /S /Q "${tempDir}"`);
-    });
+    try {
+      execSync(`rm -rf "${tempDir}"`);
+    } catch {
+      try {
+        execSync(`rmdir /S /Q "${tempDir}"`);
+      } catch {
+        // Ignore
+      }
+    }
   } catch (error) {
-    // Clean up temp directory on error
-    await execAsync(`rm -rf "${tempDir}"`).catch(() => {
-      return execAsync(`rmdir /S /Q "${tempDir}"`)
-    });
+    try {
+      execSync(`rm -rf "${tempDir}"`);
+    } catch {
+      try {
+        execSync(`rmdir /S /Q "${tempDir}"`);
+      } catch {
+        // Ignore
+      }
+    }
     throw error;
   }
 }
@@ -97,8 +118,8 @@ function cleanUp(destination: string) {
   rmIfExists(resolve(destination, 'yarn.lock'));
 }
 
-export async function cloneTemplateIn(source: string, destination: string) {
-  await clone(source, destination);
+export function cloneTemplateIn(source: string, destination: string) {
+  clone(source, destination);
 
   try {
     validate(destination);
