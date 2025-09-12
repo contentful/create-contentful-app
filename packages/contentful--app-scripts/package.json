@@ -59,7 +59,7 @@
     "dotenv": "17.2.2",
     "esbuild": "^0.25.1",
     "ignore": "7.0.5",
-    "inquirer": "8.2.7",
+    "inquirer": "12.9.4",
     "lodash": "4.17.21",
     "merge-options": "^3.0.4",
     "open": "8.4.2",
