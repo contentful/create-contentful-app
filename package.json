@@ -34,7 +34,7 @@
     "fs-extra": "11.3.2",
     "husky": "9.1.7",
     "lerna": "6.6.2",
-    "lint-staged": "16.2.3",
+    "lint-staged": "16.2.4",
     "mocha": "11.7.4",
     "nx": "21.6.3",
     "prettier": "2.8.8",
