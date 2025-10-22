@@ -121,8 +121,6 @@ export const resolveEsBuildConfig = (
     outdir: 'build',
     format: 'esm',
     target: 'es2022',
-    // platform: 'node',
-    // target: ['node20'],
     minify: options.minify ?? true,
     define: {
       global: 'globalThis',

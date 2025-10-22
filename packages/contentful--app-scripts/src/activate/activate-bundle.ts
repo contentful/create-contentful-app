@@ -65,8 +65,6 @@ export async function activateBundle({
       currentDefinition
     );
   } catch (err: any) {
-    activationSpinner.stop();
-
     let errorData: any;
     try {
       errorData = JSON.parse(err.message);
@@ -106,6 +104,8 @@ export async function activateBundle({
       err,
       'Something went wrong activating your bundle. Make sure you used the correct definition-id.'
     );
+  } finally {
+    activationSpinner.stop();
   }
 
   console.log(`
