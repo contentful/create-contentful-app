@@ -87,6 +87,7 @@ export interface BuildFunctionsOptions {
   manifestFile?: string;
   esbuildConfig?: string;
   watch?: boolean;
+  minify?: boolean;
 }
 
 export type Language = 'javascript' | 'typescript';

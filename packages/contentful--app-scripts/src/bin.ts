@@ -116,6 +116,7 @@ async function runCommand(command: Command, options?: any) {
     .option('-e, --esbuild-config <path>', 'custom esbuild config file path')
     .option('-m, --manifest-file <path>', 'Contentful app manifest file path')
     .option('-w, --watch', 'watch for changes')
+    .option('--no-minify', 'disable minification for debugging (not recommended for production)')
     .action(async (options) => {
       await runCommand(buildFunctions, options);
     });
