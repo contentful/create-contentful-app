@@ -91,9 +91,9 @@ export async function activateBundle({
       }
 
       console.error(
-        `\n${cyan('💡 Tip:')} Line numbers reference minified code. Rebuild with ${bold(
+        `\n${cyan('💡 Tip:')} Line numbers may reference minified code, rebuild with ${bold(
           '--no-minify'
-        )} to pinpoint the issue in your source:`
+        )} to debug your source code:`
       );
       console.error(`   ${bold('npm run build:functions -- --no-minify && npm run upload')}\n`);
 
