@@ -65,6 +65,41 @@ export async function activateBundle({
       currentDefinition
     );
   } catch (err: any) {
+    let errorData: any;
+    try {
+      errorData = JSON.parse(err.message);
+    } catch {
+      errorData = null;
+    }
+
+    if (errorData?.status === 400 && errorData?.message?.includes('Function upload failed')) {
+      // Extract first line of error message (the actual error type)
+      const firstLine = errorData.message.split('\n')[0];
+      const errorType = firstLine.replace('Function upload failed: ', '');
+
+      // Clean display
+      console.error(`\n${bold(yellow('❌ Function Upload Failed'))}\n`);
+      console.error(`${bold('Error:')} ${errorType}\n`);
+
+      if (errorData.details?.errors?.[0]) {
+        // Show just the first few lines of stack trace
+        const firstError = errorData.details.errors[0];
+        const lines = firstError.split('\n').slice(0, 3);
+        console.error(lines.join('\n'));
+      }
+
+      console.error(
+        `\n${cyan('💡 Tip:')} Line numbers may reference minified code, rebuild with ${bold(
+          '--no-minify'
+        )} to debug your source code:`
+      );
+      console.error(`   ${bold('npm run build:functions -- --no-minify && npm run upload')}\n`);
+
+      // Don't re-throw (prevents Commander duplicate display)
+      process.exit(1);
+    }
+
+    // Default error handling for other errors
     throwError(
       err,
       'Something went wrong activating your bundle. Make sure you used the correct definition-id.'
