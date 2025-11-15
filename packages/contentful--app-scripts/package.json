@@ -57,7 +57,7 @@
     "commander": "12.1.0",
     "contentful-management": "^11.48.1",
     "dotenv": "17.2.2",
-    "esbuild": "^0.25.1",
+    "esbuild": "^0.27.0",
     "ignore": "7.0.5",
     "inquirer": "8.2.7",
     "lodash": "4.17.21",
