@@ -4,6 +4,10 @@ permissions:
   contents: read
   actions: read
 
+env:
+  NPM_CONFIG_PROGRESS: 'false'
+  NPM_CONFIG_LOGLEVEL: warn
+
 on:
   push:
     branches: [main, canary]
@@ -11,9 +15,33 @@ on:
     branches: [main, canary]
 
 jobs:
-  lint-and-test:
-    uses: ./.github/workflows/lint-and-test.yml
-  test-app:
-    uses: ./.github/workflows/test-app.yml
-  test-functions:
-    uses: ./.github/workflows/test-functions.yml
+  test:
+    strategy:
+      matrix:
+        node-version: ['18.20', '20.18', '22.11']
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install dependencies and build
+        uses: ./.github/actions/install-and-build
+        with:
+          os: ${{ matrix.os }}
+          node-version: ${{ matrix.node-version }}
+
+      - name: Lint and test
+        uses: ./.github/actions/lint-and-test
+        with:
+          os: ${{ matrix.os }}
+
+      - name: Test built wrapper app
+        uses: ./.github/actions/test-app
+        with:
+          os: ${{ matrix.os }}
+
+      - name: Test built functions
+        uses: ./.github/actions/test-functions
+        with:
+          os: ${{ matrix.os }}

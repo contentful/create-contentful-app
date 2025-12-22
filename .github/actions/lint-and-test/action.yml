@@ -1,0 +1,15 @@
+name: 'Optionally lint and test'
+inputs:
+  os:
+    description: 'Operating system'
+    required: false
+    default: 'linux'
+runs:
+  using: 'composite'
+  steps:
+    - name: Lint (Linux only)
+      if: ${{ inputs.os }} == 'ubuntu-latest'
+      run: npm run lint
+
+    - name: Run tests
+      run: npm test
