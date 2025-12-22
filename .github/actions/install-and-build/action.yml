@@ -16,7 +16,6 @@ runs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node-version }}
-        cache: 'npm'
 
     - name: Install Dependencies (Linux)
       if: inputs.os != 'windows-latest'
