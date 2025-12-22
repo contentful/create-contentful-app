@@ -17,7 +17,3 @@ env:
 jobs:
   lint-and-test:
     uses: ./.github/workflows/lint-and-test.yml
-  # test-app:
-  #   uses: ./.github/workflows/test-app.yml
-  # test-functions:
-  #   uses: ./.github/workflows/test-functions.yml
