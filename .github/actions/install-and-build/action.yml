@@ -42,10 +42,10 @@ runs:
     - name: Build (Windows)
       if: inputs.os == 'windows-latest'
       shell: pwsh
-      timeout-minutes: 10
       env:
         NODE_OPTIONS: '--max-old-space-size=4096'
       run: |
         # Enable long paths and limit concurrency
         git config --system core.longpaths true
         npm run build -- --concurrency=1
+      timeout-minutes: 10
