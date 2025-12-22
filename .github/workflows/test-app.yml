@@ -3,6 +3,10 @@ name: Test wrapper app
 on:
   workflow_call:
 
+env:
+  NPM_CONFIG_PROGRESS: 'false'
+  NPM_CONFIG_LOGLEVEL: warn
+
 jobs:
   test-app:
     strategy:
