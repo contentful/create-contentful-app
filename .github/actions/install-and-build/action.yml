@@ -48,4 +48,3 @@ runs:
         # Enable long paths and limit concurrency
         git config --system core.longpaths true
         npm run build -- --concurrency=1
-      timeout-minutes: 10
