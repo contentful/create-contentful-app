@@ -1,0 +1,139 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches:
+      - main
+      - canary
+  workflow_dispatch:
+
+jobs:
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+      actions: read
+
+    steps:
+      - name: Retrieve Secrets from Vault
+        id: vault
+        uses: hashicorp/vault-action@v3.4.0
+        with:
+          url: ${{ secrets.VAULT_URL }}
+          role: ${{ github.event.repository.name }}-github-action
+          method: jwt
+          path: github-actions
+          exportEnv: false
+          secrets: |
+            github/token/${{ github.event.repository.name }}-semantic-release token | GITHUB_TOKEN;
+            secret/data/github/automation-app-user GH_USER_NAME | GIT_COMMITTER_NAME ;
+            secret/data/github/automation-app-user GH_USER_EMAIL | GIT_COMMITTER_EMAIL ;
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+          token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Get Automation Bot User ID
+        id: get-user-id
+        run: |
+          USER_ID=$(gh api "/users/contentful-automation[bot]" --jq .id)
+          if [ -z "$USER_ID" ] || [ "$USER_ID" = "null" ]; then
+            echo "Error: Failed to retrieve bot user ID"
+            exit 1
+          fi
+          echo "user-id=$USER_ID" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Setting up Git User Credentials
+        run: |
+          git config --global user.name 'contentful-automation[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+contentful-automation[bot]@users.noreply.github.com'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '18'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install latest npm
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Version (main branch)
+        if: github.ref == 'refs/heads/main'
+        run: npm run version
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Publish (main branch)
+        if: github.ref == 'refs/heads/main'
+        run: npm run publish-packages
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Version (canary branch)
+        if: github.ref == 'refs/heads/canary'
+        run: npm run version:canary
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Publish (canary branch)
+        if: github.ref == 'refs/heads/canary'
+        run: npm run publish-packages:canary
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Get latest release tag
+        id: get-tag
+        run: |
+          # Fetch latest release, handling 404 when no release exists
+          RESPONSE=$(gh api repos/${{ github.repository }}/releases/latest 2>&1) || EXIT_CODE=$?
+          
+          if [ "${EXIT_CODE:-0}" -ne 0 ]; then
+            echo "No existing release found (API returned error). Skipping tag export."
+            echo "tag=" >> $GITHUB_OUTPUT
+          else
+            TAG=$(echo "$RESPONSE" | jq -r '.tag_name // empty')
+            if [ -n "$TAG" ]; then
+              echo "Found latest release tag: $TAG"
+              echo "tag=$TAG" >> $GITHUB_OUTPUT
+            else
+              echo "No tag_name found in API response. Skipping tag export."
+              echo "tag=" >> $GITHUB_OUTPUT
+            fi
+          fi
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          TAG="${{ steps.get-tag.outputs.tag }}"
+          
+          if [ -z "$TAG" ]; then
+            echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **No release was created or found.** This may be expected if lerna determined no release was needed." >> $GITHUB_STEP_SUMMARY
+          else
+            VERSION=$(echo "$TAG" | sed 's/^v//')
+            echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **Tag**: $TAG" >> $GITHUB_STEP_SUMMARY
+            echo "- **Version**: $VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "- **GitHub Release**: https://github.com/${{ github.repository }}/releases/tag/$TAG" >> $GITHUB_STEP_SUMMARY
+          fi

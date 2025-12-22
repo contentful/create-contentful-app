@@ -31,7 +31,7 @@
     "test": "ts-mocha \"./{,!(node_modules)/**/}*.test.ts\"",
     "test:watch": "npm t -- --watch",
     "pre-commit": "lint-staged",
-    "build": "rm -rf lib && tsc"
+    "build": "rimraf lib && tsc"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -69,6 +69,7 @@
   },
   "gitHead": "4c3506be3f52c7a8aae17deaa75acefc9a805b42",
   "devDependencies": {
+    "rimraf": "5.0.8",
     "@types/adm-zip": "0.5.7",
     "@types/analytics-node": "3.1.14",
     "@types/chai": "4.3.16",
