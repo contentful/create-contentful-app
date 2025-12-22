@@ -10,10 +10,6 @@ on:
   pull_request:
     branches: [main, canary]
 
-env:
-  NPM_CONFIG_PROGRESS: 'false'
-  NPM_CONFIG_LOGLEVEL: warn
-
 jobs:
   lint-and-test:
     uses: ./.github/workflows/lint-and-test.yml
