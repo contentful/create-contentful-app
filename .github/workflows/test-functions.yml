@@ -1,7 +1,7 @@
 name: Test functions
 
 on:
-  workflow_call:`
+  workflow_call:
 
 jobs:
   test-functions:

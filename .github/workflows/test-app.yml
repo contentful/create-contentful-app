@@ -1,7 +1,7 @@
 name: Test wrapper app
 
 on:
-  workflow_call:`
+  workflow_call:
 
 jobs:
   test-app:
