@@ -19,10 +19,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/install-and-build
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
         with:
-          os: ${{ matrix.os }}
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies (Linux)
+        if: matrix.os != 'windows-latest'
+        shell: bash
+        run: npm ci && npm run bootstrap
+      
+      - name: Install Dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          npm ci
+          if ($LASTEXITCODE -eq 0) {
+            npm run bootstrap
+          } else {
+            exit $LASTEXITCODE
+          }
+
+      - name: Build
+        run: npm run build
+      # - uses: ./.github/actions/install-and-build
+      #   with:
+      #     os: ${{ matrix.os }}
+      #     node-version: ${{ matrix.node-version }}
 
       - name: Lint (Linux only)
         if: matrix.os == 'ubuntu-latest'
