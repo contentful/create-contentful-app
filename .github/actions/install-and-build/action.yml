@@ -34,5 +34,13 @@ runs:
           exit $LASTEXITCODE
         }
 
-    - name: Build
+    - name: Build (Linux)
+      if: inputs.os != 'windows-latest'
+      shell: bash
       run: npm run build
+    
+    - name: Build (Windows)
+      if: inputs.os == 'windows-latest'
+      shell: pwsh
+      run: |
+        npm run build
