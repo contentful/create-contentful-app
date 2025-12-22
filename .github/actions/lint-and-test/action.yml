@@ -9,7 +9,15 @@ runs:
   steps:
     - name: Lint (Linux only)
       if: ${{ inputs.os }} == 'ubuntu-latest'
+      shell: bash
       run: npm run lint
 
-    - name: Run tests
+    - name: Run tests (Linux only)
+      if: ${{ inputs.os }} == 'ubuntu-latest'
+      shell: bash
+      run: npm test
+
+    - name: Run tests (Windows)
+      if: ${{ inputs.os }} == 'windows-latest'
+      shell: pwsh
       run: npm test
