@@ -1,0 +1,29 @@
+name: Lint and Test
+
+on:
+  workflow_call:`
+
+jobs:
+  lint-and-test:
+    strategy:
+      matrix:
+        node-version: [18.20, 20.18, 22.11]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+      actions: read
+
+    steps:
+      - uses: ./.github/actions/install-and-build
+        with:
+          os: ${{ matrix.os }}
+          node-version: ${{ matrix.node-version }}
+
+      - name: Lint (Linux only)
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
