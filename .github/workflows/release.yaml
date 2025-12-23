@@ -119,7 +119,7 @@ jobs:
           if [ -z "$TAG" ]; then
             echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "⚠️ **No release was created or found.** This may be expected if semantic-release determined no release was needed." >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **No release was created or found.** This may be expected if lerna determined no release was needed." >> $GITHUB_STEP_SUMMARY
           else
             VERSION=$(echo "$TAG" | sed 's/^v//')
             echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
