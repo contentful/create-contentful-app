@@ -1,0 +1,49 @@
+name: 'Install Dependencies and build'
+description: 'Install npm dependencies and bootstrap and build'
+inputs:
+  os:
+    description: 'Operating system'
+    required: false
+    default: 'linux'
+  node-version:
+    description: 'Node.js version'
+    required: true
+    type: string
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install Dependencies (Linux)
+      if: inputs.os != 'windows-latest'
+      shell: bash
+      run: npm ci && npm run bootstrap
+    
+    - name: Install Dependencies (Windows)
+      if: inputs.os == 'windows-latest'
+      shell: pwsh
+      run: |
+        npm ci
+        if ($LASTEXITCODE -eq 0) {
+          npm run bootstrap
+        } else {
+          exit $LASTEXITCODE
+        }
+
+    - name: Build (Linux)
+      if: inputs.os != 'windows-latest'
+      shell: bash
+      run: npm run build
+    
+    - name: Build (Windows)
+      if: inputs.os == 'windows-latest'
+      shell: pwsh
+      env:
+        NODE_OPTIONS: '--max-old-space-size=4096'
+      run: |
+        # Enable long paths and limit concurrency
+        git config --system core.longpaths true
+        npm run build -- --concurrency=1
