@@ -12,6 +12,7 @@ metadata:
   annotations:
     github.com/project-slug: contentful/create-contentful-app 
     contentful.com/service-tier: "unknown" #1, 2, 3, 4
+    contentful.com/ci-alert-slack: prd-extensibility-bots
 
   tags:
     - update-me
