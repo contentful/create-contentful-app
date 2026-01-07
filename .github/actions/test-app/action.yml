@@ -1,0 +1,34 @@
+name: 'Test wrapper app'
+inputs:
+  os:
+    description: 'Operating system'
+    required: false
+    default: 'linux'
+runs:
+  using: 'composite'
+  steps:
+    - name: Test built wrapper app (Unix)
+      if: ${{ inputs.os }} == 'ubuntu-latest'
+      shell: bash
+      run: |
+        FORMER_CWD="$(pwd)"
+        PROJECT=test-$(date +%s)
+        mkdir "/tmp/${PROJECT}"
+        cd "/tmp/${PROJECT}"
+        node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" --typescript test
+        cd test
+        npm t
+
+    - name: Test built wrapper app (Windows)  
+      if: ${{ inputs.os }} == 'windows-latest'
+      shell: pwsh
+      run: |
+        $FORMER_CWD = (Get-Location).Path
+        $PROJECT = "test-" + [DateTimeOffset]::Now.ToUnixTimeSeconds()
+        $TEMP_DIR = [System.IO.Path]::GetTempPath()
+        $PROJECT_PATH = Join-Path $TEMP_DIR $PROJECT
+        New-Item -ItemType Directory -Path $PROJECT_PATH
+        Set-Location $PROJECT_PATH
+        node (Join-Path $FORMER_CWD "packages/contentful--create-contentful-app/lib/index.js") --typescript test
+        Set-Location test
+        npm t

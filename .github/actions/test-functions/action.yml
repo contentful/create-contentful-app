@@ -1,0 +1,34 @@
+name: 'Test build functions'
+inputs:
+  os:
+    description: 'Operating system'
+    required: false
+    default: 'linux'
+runs:
+  using: 'composite'
+  steps:
+    - name: Test built functions (Unix)
+      if: ${{ inputs.os }} == 'ubuntu-latest'
+      shell: bash
+      run: |
+        FORMER_CWD="$(pwd)"
+        PROJECT=test-$(date +%s)
+        mkdir "/tmp/${PROJECT}"
+        cd "/tmp/${PROJECT}"
+        node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-function --function external-references
+        cd my-function   
+        node "${FORMER_CWD}/packages/contentful--app-scripts/lib/bin.js" build-functions --ci
+
+    - name: Test built functions (Windows)
+      if: ${{ inputs.os }} == 'windows-latest'
+      shell: pwsh
+      run: |
+        $FORMER_CWD = (Get-Location).Path
+        $PROJECT = "test-" + [DateTimeOffset]::Now.ToUnixTimeSeconds()
+        $TEMP_DIR = [System.IO.Path]::GetTempPath()
+        $PROJECT_PATH = Join-Path $TEMP_DIR $PROJECT
+        New-Item -ItemType Directory -Path $PROJECT_PATH
+        Set-Location $PROJECT_PATH
+        node (Join-Path $FORMER_CWD "packages/contentful--create-contentful-app/lib/index.js") my-function --function external-references
+        Set-Location my-function
+        node (Join-Path $FORMER_CWD "packages/contentful--app-scripts/lib/bin.js") build-functions --ci
