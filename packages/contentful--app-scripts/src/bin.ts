@@ -158,8 +158,8 @@ async function runCommand(command: Command, options?: any) {
       await runCommand(addLocations, options);
     });
 
-  program.hook('preAction', (thisCommand) => {
-    track({ command: thisCommand.args[0], ci: thisCommand.opts().ci });
+  program.hook('preAction', async (thisCommand) => {
+    await track({ command: thisCommand.args[0], ci: thisCommand.opts().ci });
   });
 
   await program.parseAsync(process.argv);
