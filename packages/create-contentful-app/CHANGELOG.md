@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.19](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@2.0.18...create-contentful-app@2.0.19) (2026-01-12)
+
+### Bug Fixes
+
+- **deps:** bump glob from 10.4.5 to 10.5.0 ([#2801](https://github.com/contentful/create-contentful-app/issues/2801)) ([6ae998e](https://github.com/contentful/create-contentful-app/commit/6ae998e28ef6081fbcb76ecb09cb839699aec839))
+
 ## [2.0.18](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@2.0.17...create-contentful-app@2.0.18) (2025-10-23)
 
 **Note:** Version bump only for package create-contentful-app

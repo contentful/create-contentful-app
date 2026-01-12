@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.6...@contentful/app-scripts@2.5.7) (2026-01-12)
+
+### Bug Fixes
+
+- close and flush client to send events immediately and allow process to exit [] ([#2870](https://github.com/contentful/create-contentful-app/issues/2870)) ([1135cd9](https://github.com/contentful/create-contentful-app/commit/1135cd9bcd6f5d72317d935b49af2e35a46becb0))
+- **deps:** bump axios from 1.12.2 to 1.13.2 ([#2776](https://github.com/contentful/create-contentful-app/issues/2776)) ([6edc61e](https://github.com/contentful/create-contentful-app/commit/6edc61efd20014d14aaa83237a80e49d1df8204f))
+- **deps:** bump contentful-management from 11.61.0 to 11.63.1 ([#2789](https://github.com/contentful/create-contentful-app/issues/2789)) ([0d487b0](https://github.com/contentful/create-contentful-app/commit/0d487b0e4c6acffae71f2fc9c55688280872a4c1))
+- **deps:** bump contentful-management from 11.63.1 to 11.66.0 ([#2833](https://github.com/contentful/create-contentful-app/issues/2833)) ([224dd6c](https://github.com/contentful/create-contentful-app/commit/224dd6c41aa3f86599492f14e79c417c0fd78cf5))
+- **deps:** bump esbuild from 0.25.10 to 0.27.0 ([#2778](https://github.com/contentful/create-contentful-app/issues/2778)) ([9b9cd06](https://github.com/contentful/create-contentful-app/commit/9b9cd069042dd898013ba56815e313e0a19dfde3))
+- **deps:** bump esbuild from 0.27.0 to 0.27.2 ([#2842](https://github.com/contentful/create-contentful-app/issues/2842)) ([5921b8a](https://github.com/contentful/create-contentful-app/commit/5921b8ab53c96fc8718d247be3035d7513d3ac43))
+- **deps:** bump esbuild from 0.27.0 to 0.27.2 ([#2868](https://github.com/contentful/create-contentful-app/issues/2868)) ([ad3e442](https://github.com/contentful/create-contentful-app/commit/ad3e442348bb550570c69e3ef9ab50d8bbc2b699))
+- **deps:** bump glob from 10.4.5 to 10.5.0 ([#2801](https://github.com/contentful/create-contentful-app/issues/2801)) ([6ae998e](https://github.com/contentful/create-contentful-app/commit/6ae998e28ef6081fbcb76ecb09cb839699aec839))
+- **deps:** bump inquirer from 8.2.6 to 13.1.0 ([#2831](https://github.com/contentful/create-contentful-app/issues/2831)) ([c662039](https://github.com/contentful/create-contentful-app/commit/c6620397e0f0d3e418b09e3d57d2025c4a7fbf1d))
+- **deps:** bump zod from 3.25.76 to 4.2.1 ([#2840](https://github.com/contentful/create-contentful-app/issues/2840)) ([11d5c6b](https://github.com/contentful/create-contentful-app/commit/11d5c6b0751a0952c9cffc0adad43fd7612e8c4d))
+
 ## [2.5.6](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.5...@contentful/app-scripts@2.5.6) (2025-10-23)
 
 ### Bug Fixes
