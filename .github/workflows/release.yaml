@@ -99,6 +99,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
+      - name: Print lerna debug log
+        if: always()
+        run: |
+          if [ -f lerna-debug.log ]; then
+            echo "=== lerna-debug.log ==="
+            cat lerna-debug.log
+          else
+            echo "No lerna-debug.log found"
+          fi
+
       - name: Get latest release tag
         id: get-tag
         run: |
