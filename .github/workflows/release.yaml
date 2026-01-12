@@ -76,28 +76,38 @@ jobs:
         run: npm run build
 
       - name: Version (main branch)
-        if: github.ref == 'refs/heads/main'
+        if: (github.event.workflow_run.head_branch || github.ref_name) == 'main'
         run: npm run version
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
       - name: Publish (main branch)
-        if: github.ref == 'refs/heads/main'
+        if: (github.event.workflow_run.head_branch || github.ref_name) == 'main'
         run: npm run publish-packages
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
       - name: Version (canary branch)
-        if: github.ref == 'refs/heads/canary'
+        if: (github.event.workflow_run.head_branch || github.ref_name) == 'canary'
         run: npm run version:canary
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
       - name: Publish (canary branch)
-        if: github.ref == 'refs/heads/canary'
+        if: (github.event.workflow_run.head_branch || github.ref_name) == 'canary'
         run: npm run publish-packages:canary
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Print lerna debug log
+        if: always()
+        run: |
+          if [ -f lerna-debug.log ]; then
+            echo "=== lerna-debug.log ==="
+            cat lerna-debug.log
+          else
+            echo "No lerna-debug.log found"
+          fi
 
       - name: Get latest release tag
         id: get-tag
