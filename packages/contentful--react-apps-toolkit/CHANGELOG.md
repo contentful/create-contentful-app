@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.19-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.18...@contentful/react-apps-toolkit@1.2.19-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- **deps:** bump contentful-management from 11.52.2 to 11.53.0 ([#2542](https://github.com/contentful/create-contentful-app/issues/2542)) ([abd029a](https://github.com/contentful/create-contentful-app/commit/abd029a83deb489e6e15c21597db9bc26c0b084e))
+- **deps:** bump contentful-management from 11.53.0 to 11.54.0 ([#2556](https://github.com/contentful/create-contentful-app/issues/2556)) ([8aa241a](https://github.com/contentful/create-contentful-app/commit/8aa241ab57a8b9ce6015167ee9e4f5ded8a7c4ce))
+- **deps:** bump contentful-management from 11.54.0 to 11.54.1 ([#2563](https://github.com/contentful/create-contentful-app/issues/2563)) ([ba9b1c7](https://github.com/contentful/create-contentful-app/commit/ba9b1c750172f384e8ce104cce0f586d4ca45347))
+- **deps:** bump contentful-management from 11.54.1 to 11.54.2 ([#2593](https://github.com/contentful/create-contentful-app/issues/2593)) ([6c38ffb](https://github.com/contentful/create-contentful-app/commit/6c38ffb262d3686a7464ba0d50ecb7ce55814959))
+- **deps:** bump contentful-management from 11.54.2 to 11.54.3 ([#2602](https://github.com/contentful/create-contentful-app/issues/2602)) ([67d0b24](https://github.com/contentful/create-contentful-app/commit/67d0b240273c16905d61488c1088b3271d002b64))
+- **deps:** bump contentful-management from 11.54.3 to 11.54.4 ([#2614](https://github.com/contentful/create-contentful-app/issues/2614)) ([9fb4c08](https://github.com/contentful/create-contentful-app/commit/9fb4c08262c066b926aac5af996742840437a977))
+- **deps:** bump contentful-management from 11.54.4 to 11.57.2 ([#2694](https://github.com/contentful/create-contentful-app/issues/2694)) ([936f9d1](https://github.com/contentful/create-contentful-app/commit/936f9d1c1dc57b0fb00b2237aa35dd2696f11fa5))
+- **deps:** bump contentful-management from 11.57.2 to 11.57.3 ([#2698](https://github.com/contentful/create-contentful-app/issues/2698)) ([4fcc06b](https://github.com/contentful/create-contentful-app/commit/4fcc06be690c0dcbd28af164f8911459a786d820))
+- **deps:** bump contentful-management from 11.57.3 to 11.57.4 ([#2704](https://github.com/contentful/create-contentful-app/issues/2704)) ([be00e2c](https://github.com/contentful/create-contentful-app/commit/be00e2c91368fbcf403c36bd94297a2ac9c08860))
+- **deps:** bump contentful-management from 11.57.4 to 11.61.0 ([#2759](https://github.com/contentful/create-contentful-app/issues/2759)) ([71c3dff](https://github.com/contentful/create-contentful-app/commit/71c3dffc49d106b70e5dffacd90ed176fba3f2f7))
+- **deps:** bump contentful-management from 11.61.0 to 11.63.1 ([#2789](https://github.com/contentful/create-contentful-app/issues/2789)) ([0d487b0](https://github.com/contentful/create-contentful-app/commit/0d487b0e4c6acffae71f2fc9c55688280872a4c1))
+- **deps:** bump contentful-management from 11.63.1 to 11.66.0 ([#2833](https://github.com/contentful/create-contentful-app/issues/2833)) ([224dd6c](https://github.com/contentful/create-contentful-app/commit/224dd6c41aa3f86599492f14e79c417c0fd78cf5))
+- **deps:** bump form-data from 4.0.0 to 4.0.4 ([#2598](https://github.com/contentful/create-contentful-app/issues/2598)) ([fee6bca](https://github.com/contentful/create-contentful-app/commit/fee6bcaa3b4d6d7e7d5c03750e2c7891c241560f))
+- **deps:** bump glob from 10.4.5 to 10.5.0 ([#2801](https://github.com/contentful/create-contentful-app/issues/2801)) ([6ae998e](https://github.com/contentful/create-contentful-app/commit/6ae998e28ef6081fbcb76ecb09cb839699aec839))
+- revert inflight overwrites [EXT-6447] ([#2537](https://github.com/contentful/create-contentful-app/issues/2537)) ([ae7e078](https://github.com/contentful/create-contentful-app/commit/ae7e078dfb13acbb1e991b364e892c4c5486dfe6)), closes [#2530](https://github.com/contentful/create-contentful-app/issues/2530) [#2536](https://github.com/contentful/create-contentful-app/issues/2536) [#2533](https://github.com/contentful/create-contentful-app/issues/2533)
+- some logging ([43faceb](https://github.com/contentful/create-contentful-app/commit/43facebd3df53d20f41868ca3bbf0ca81812b6f4))
+
 ## [1.2.18](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.17...@contentful/react-apps-toolkit@1.2.18) (2025-06-13)
 
 ### Bug Fixes

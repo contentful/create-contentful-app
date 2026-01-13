@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.8-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.7...@contentful/app-scripts@2.5.8-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- some logging ([43faceb](https://github.com/contentful/create-contentful-app/commit/43facebd3df53d20f41868ca3bbf0ca81812b6f4))
+
 ## [2.5.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.6...@contentful/app-scripts@2.5.7) (2026-01-12)
 
 ### Bug Fixes
