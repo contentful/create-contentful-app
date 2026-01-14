@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.11-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.10-alpha.0...@contentful/app-scripts@2.5.11-alpha.0) (2026-01-14)
+
+### Bug Fixes
+
+- publish config ([ed6ad5a](https://github.com/contentful/create-contentful-app/commit/ed6ad5a147cbac1066247435662c98947d816bdc))
+
 ## [2.5.10-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.9-alpha.0...@contentful/app-scripts@2.5.10-alpha.0) (2026-01-13)
 
 ### Bug Fixes

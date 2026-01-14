@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.22-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.21-alpha.0...@contentful/react-apps-toolkit@1.2.22-alpha.0) (2026-01-14)
+
+### Bug Fixes
+
+- publish config ([ed6ad5a](https://github.com/contentful/create-contentful-app/commit/ed6ad5a147cbac1066247435662c98947d816bdc))
+
 ## [1.2.21-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/react-apps-toolkit@1.2.20-alpha.0...@contentful/react-apps-toolkit@1.2.21-alpha.0) (2026-01-13)
 
 ### Bug Fixes
