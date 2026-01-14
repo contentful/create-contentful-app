@@ -1,0 +1,50 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@contentful/create-contentful-app",
+  "projectType": "library",
+  "sourceRoot": "packages/contentful--create-contentful-app/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run build",
+        "cwd": "packages/contentful--create-contentful-app"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run test",
+        "cwd": "packages/contentful--create-contentful-app"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run lint",
+        "cwd": "packages/contentful--create-contentful-app"
+      }
+    },
+    "pre-commit": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run pre-commit",
+        "cwd": "packages/contentful--create-contentful-app"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npm publish --access public",
+        "cwd": "packages/contentful--create-contentful-app"
+      },
+      "configurations": {
+        "dry-run": {
+          "command": "npm publish --access public --dry-run"
+        }
+      }
+    }
+  }
+}
+
