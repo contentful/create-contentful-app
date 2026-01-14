@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.24-alpha.0](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@2.0.23-alpha.0...create-contentful-app@2.0.24-alpha.0) (2026-01-14)
+
+### Bug Fixes
+
+- publish config ([775346e](https://github.com/contentful/create-contentful-app/commit/775346e2424a7299b8abc0f55027fb602d06b2df))
+
 ## [2.0.23-alpha.0](https://github.com/contentful/create-contentful-app/compare/create-contentful-app@2.0.22-alpha.0...create-contentful-app@2.0.23-alpha.0) (2026-01-14)
 
 **Note:** Version bump only for package create-contentful-app
