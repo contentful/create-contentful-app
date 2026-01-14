@@ -32,5 +32,23 @@
       "!{projectRoot}/**/*.test.ts",
       "!{projectRoot}/jest.config.js"
     ]
+  },
+  "release": {
+    "projects": [
+      "packages/*"
+    ],
+    "projectsRelationship": "independent",
+    "changelog": {
+      "projectChangelogs": true,
+      "automaticFromRef": true
+    },
+    "version": {
+      "conventionalCommits": true
+    },
+    "git": {
+      "commit": true,
+      "tag": true,
+      "commitMessage": "chore(release): release {version} [skip ci]"
+    }
   }
 }
