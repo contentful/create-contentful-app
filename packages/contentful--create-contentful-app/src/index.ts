@@ -45,7 +45,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
     ${code(command)}
 
     or you can create it manually in web app:
-    ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}.
+    ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
   `);
 
   console.log(`Then kick it off by running
