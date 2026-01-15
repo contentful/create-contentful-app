@@ -17,7 +17,7 @@
     "lint": "nx run-many -t lint",
     "build": "nx run-many -t build",
     "version": "nx release version",
-    "version:canary": "nx release version --preid alpha --verbose",
+    "version:canary": "nx release version --preid alpha --verbose --skip-publish",
     "publish-packages": "nx release publish",
     "publish-packages:canary": "nx release publish --tag canary --dry-run --verbose",
     "publish-packages:dry-run": "nx release publish --dry-run",
