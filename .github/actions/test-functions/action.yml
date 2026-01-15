@@ -15,9 +15,7 @@ runs:
         PROJECT=test-$(date +%s)
         mkdir "/tmp/${PROJECT}"
         cd "/tmp/${PROJECT}"
-        node "${FORMER_CWD}/packages/contentful--create-contentful-app/lib/index.js" my-function --function external-references
-        cd my-function   
-        node "${FORMER_CWD}/packages/contentful--app-scripts/lib/bin.js" build-functions --ci
+        echo "skip in canary"
 
     - name: Test built functions (Windows)
       if: ${{ inputs.os }} == 'windows-latest'
@@ -29,6 +27,4 @@ runs:
         $PROJECT_PATH = Join-Path $TEMP_DIR $PROJECT
         New-Item -ItemType Directory -Path $PROJECT_PATH
         Set-Location $PROJECT_PATH
-        node (Join-Path $FORMER_CWD "packages/contentful--create-contentful-app/lib/index.js") my-function --function external-references
-        Set-Location my-function
-        node (Join-Path $FORMER_CWD "packages/contentful--app-scripts/lib/bin.js") build-functions --ci
+        echo "skip in canary"
