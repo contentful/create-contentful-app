@@ -65,6 +65,7 @@
     "git": {
       "commit": true,
       "tag": true,
+      "push": true,
       "commitMessage": "chore(release): publish {version} [skip ci]"
     }
   }
