@@ -4,26 +4,27 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "test": "lerna run test",
-    "lint": "lerna run lint",
-    "build": "lerna run build",
-    "version": "lerna version --no-private --conventional-commits --create-release github --yes --exact --loglevel verbose",
-    "publish-packages": "lerna publish from-git --yes --conventional-commits --loglevel verbose",
-    "version:canary": "npm run version -- --conventional-prerelease --conventional-bump-prerelease --force-git-tag",
-    "publish-packages:canary": "npm run publish-packages -- --canary",
-    "pre-commit": "lerna run pre-commit",
+    "test": "nx run-many -t test",
+    "lint": "nx run-many -t lint",
+    "build": "nx run-many -t build",
+    "prepare-release": "nx release --verbose --skip-publish",
+    "prepare-release:canary": "nx release --preid alpha --verbose --skip-publish",
+    "publish-packages": "nx release publish --dry-run",
+    "publish-packages:canary": "nx release publish --tag canary --verbose",
+    "publish-packages:dry-run": "nx release publish --dry-run",
+    "pre-commit": "nx run-many -t pre-commit",
     "prepare": "husky"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "devDependencies": {
+    "@nx/js": "22.3.3",
     "@types/mocha": "10.0.10",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
@@ -33,7 +34,6 @@
     "eslint-plugin-node": "11.1.0",
     "fs-extra": "11.3.3",
     "husky": "9.1.7",
-    "lerna": "6.6.2",
     "lint-staged": "16.2.7",
     "mocha": "11.7.5",
     "nx": "22.3.3",

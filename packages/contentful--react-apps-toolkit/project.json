@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@contentful/react-apps-toolkit",
+  "projectType": "library",
+  "sourceRoot": "packages/contentful--react-apps-toolkit/src",
+  "targets": {
+    "nx-release-publish": {
+      "options": {
+        "registry": "https://npm.pkg.github.com/"
+      }
+    }
+  }
+}
