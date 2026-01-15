@@ -55,8 +55,7 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",

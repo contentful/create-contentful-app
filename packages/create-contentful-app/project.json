@@ -17,6 +17,11 @@
         "command": "npm run pre-commit",
         "cwd": "packages/create-contentful-app"
       }
+    },
+    "nx-release-publish": {
+      "options": {
+        "registry": "https://registry.npmjs.org/"
+      }
     }
   },
   "implicitDependencies": ["@contentful/create-contentful-app"]

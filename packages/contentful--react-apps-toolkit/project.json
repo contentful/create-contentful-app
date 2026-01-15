@@ -24,6 +24,11 @@
         "command": "npm run pre-commit",
         "cwd": "packages/contentful--react-apps-toolkit"
       }
+    },
+    "nx-release-publish": {
+      "options": {
+        "registry": "https://npm.pkg.github.com/"
+      }
     }
   }
 }
