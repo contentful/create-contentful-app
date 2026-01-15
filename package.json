@@ -19,7 +19,7 @@
     "version": "echo 'Version Not implemented'",
     "version:canary": "echo 'Version CanaryNot implemented'",
     "publish-packages": "nx release",
-    "publish-packages:canary": "nx release --tag alpha",
+    "publish-packages:canary": "nx release --preid alpha --dry-run",
     "publish-packages:dry-run": "nx release --dry-run",
     "pre-commit": "nx run-many -t pre-commit",
     "prepare": "husky"
