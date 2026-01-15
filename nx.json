@@ -58,15 +58,14 @@
     "changelog": {
       "projectChangelogs": true,
       "automaticFromRef": true,
-      "git": {
-        "commit": true,
-        "tag": true,
-        "push": true,
-        "commitMessage": "chore(release): publish {version} [skip ci]"
-      }
     },
     "version": {
       "conventionalCommits": true
+    },
+    "git": {
+      "commit": true,
+      "tag": true,
+      "commitMessage": "chore(release): publish {version} [skip ci]"
     }
   }
 }
