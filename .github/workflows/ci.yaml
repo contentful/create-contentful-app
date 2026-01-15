@@ -12,7 +12,7 @@ on:
   push:
     branches: [main, canary]
   pull_request:
-    branches: [main, canary]
+    branches: [main]
 
 jobs:
   test:

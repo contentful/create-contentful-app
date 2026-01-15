@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.7-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.2.6-alpha.0...@contentful/create-contentful-app@2.2.7-alpha.0) (2026-01-14)
+
+### Bug Fixes
+
+- publish config ([ed6ad5a](https://github.com/contentful/create-contentful-app/commit/ed6ad5a147cbac1066247435662c98947d816bdc))
+
+## [2.2.6-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.2.5-alpha.0...@contentful/create-contentful-app@2.2.6-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- publish config ([b2f08ce](https://github.com/contentful/create-contentful-app/commit/b2f08ce8e5a5ff992a1d538005008959209adb8e))
+
+## [2.2.5-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.2.4-alpha.0...@contentful/create-contentful-app@2.2.5-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- update logging ([0c80224](https://github.com/contentful/create-contentful-app/commit/0c80224514dadb1098da59e737ee4aec47fc7dd9))
+
+## [2.2.4-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.2.3...@contentful/create-contentful-app@2.2.4-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- some logging ([43faceb](https://github.com/contentful/create-contentful-app/commit/43facebd3df53d20f41868ca3bbf0ca81812b6f4))
+
 ## [2.2.3](https://github.com/contentful/create-contentful-app/compare/@contentful/create-contentful-app@2.2.2...@contentful/create-contentful-app@2.2.3) (2026-01-12)
 
 ### Bug Fixes

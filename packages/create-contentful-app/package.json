@@ -1,6 +1,6 @@
 {
   "name": "create-contentful-app",
-  "version": "2.0.19",
+  "version": "2.0.23-alpha.0",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -29,7 +29,7 @@
     "create-contentful-app": "index.js"
   },
   "dependencies": {
-    "@contentful/create-contentful-app": "2.2.3"
+    "@contentful/create-contentful-app": "2.2.7-alpha.0"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
@@ -39,7 +39,8 @@
     "index.js"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "pre-commit": "lint-staged",

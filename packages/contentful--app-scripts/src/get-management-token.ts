@@ -37,7 +37,7 @@ export async function getManagementToken(host?: string) {
   try {
     open(oauthUrl);
   } catch (err: any) {
-    console.log(`${chalk.red('Error:')} Failed to open browser`);
+    console.log(`${chalk.red('Error:')} Failed to open browser.`);
     console.log(err.message);
     throw err;
   }
