@@ -31,19 +31,6 @@
         "command": "npm run pre-commit",
         "cwd": "packages/contentful--create-contentful-app"
       }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["build"],
-      "options": {
-        "command": "npm publish --access public",
-        "cwd": "packages/contentful--create-contentful-app"
-      },
-      "configurations": {
-        "dry-run": {
-          "command": "npm publish --access public --dry-run"
-        }
-      }
     }
   }
 }

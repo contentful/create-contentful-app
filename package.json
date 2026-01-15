@@ -12,17 +12,15 @@
     "url": "https://github.com/contentful/create-contentful-app.git"
   },
   "scripts": {
+    "bootstrap": "echo 'Not implemented'",
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
     "build": "nx run-many -t build",
     "version": "nx release version",
-    "version:canary": "nx release version --preid canary",
-    "version:alpha": "nx release version --preid alpha",
+    "version:canary": "nx release version --preid alpha",
     "publish-packages": "nx release publish",
+    "publish-packages:canary": "nx release publish --tag alpha",
     "publish-packages:dry-run": "nx release publish --dry-run",
-    "release": "nx release",
-    "release:dry-run": "nx release --dry-run",
-    "release:canary": "nx release --preid canary",
     "pre-commit": "nx run-many -t pre-commit",
     "prepare": "husky"
   },
