@@ -1,7 +1,57 @@
+## 2.5.12-alpha.6 (2026-01-15)
+
+### 🚀 Features
+
+- publish ([54b02e6f](https://github.com/contentful/create-contentful-app/commit/54b02e6f))
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
+## 2.5.12-alpha.5 (2026-01-15)
+
+### 🚀 Features
+
+- test push skip publish ([5904d9b8](https://github.com/contentful/create-contentful-app/commit/5904d9b8))
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.5.12-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.11-alpha.0...@contentful/app-scripts@2.5.12-alpha.0) (2026-01-14)
+
+### Bug Fixes
+
+- publish config ([775346e](https://github.com/contentful/create-contentful-app/commit/775346e2424a7299b8abc0f55027fb602d06b2df))
+
+## [2.5.11-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.10-alpha.0...@contentful/app-scripts@2.5.11-alpha.0) (2026-01-14)
+
+### Bug Fixes
+
+- publish config ([ed6ad5a](https://github.com/contentful/create-contentful-app/commit/ed6ad5a147cbac1066247435662c98947d816bdc))
+
+## [2.5.10-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.9-alpha.0...@contentful/app-scripts@2.5.10-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- publish config ([b2f08ce](https://github.com/contentful/create-contentful-app/commit/b2f08ce8e5a5ff992a1d538005008959209adb8e))
+
+## [2.5.9-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.8-alpha.0...@contentful/app-scripts@2.5.9-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- update logging ([0c80224](https://github.com/contentful/create-contentful-app/commit/0c80224514dadb1098da59e737ee4aec47fc7dd9))
+
+## [2.5.8-alpha.0](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.7...@contentful/app-scripts@2.5.8-alpha.0) (2026-01-13)
+
+### Bug Fixes
+
+- some logging ([43faceb](https://github.com/contentful/create-contentful-app/commit/43facebd3df53d20f41868ca3bbf0ca81812b6f4))
 
 ## [2.5.7](https://github.com/contentful/create-contentful-app/compare/@contentful/app-scripts@2.5.6...@contentful/app-scripts@2.5.7) (2026-01-12)
 
