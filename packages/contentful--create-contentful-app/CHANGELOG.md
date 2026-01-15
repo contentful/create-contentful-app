@@ -1,3 +1,17 @@
+## 2.2.8-alpha.5 (2026-01-15)
+
+### 🚀 Features
+
+- test push skip publish ([5904d9b8](https://github.com/contentful/create-contentful-app/commit/5904d9b8))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.12-alpha.5
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
