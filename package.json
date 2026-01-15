@@ -19,7 +19,7 @@
     "version": "nx release version",
     "version:canary": "nx release --preid alpha --verbose --skip-publish && git push --follow-tags --no-verify --atomic",
     "publish-packages": "nx release publish",
-    "publish-packages:canary": "nx release publish --tag canary --verbose --dry-run",
+    "publish-packages:canary": "nx release publish --tag canary --verbose",
     "publish-packages:dry-run": "nx release publish --dry-run",
     "pre-commit": "nx run-many -t pre-commit",
     "prepare": "husky"
