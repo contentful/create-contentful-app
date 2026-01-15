@@ -116,6 +116,12 @@ jobs:
           GIT_COMMITTER_NAME: ${{ steps.vault.outputs.GIT_COMMITTER_NAME }}
           GIT_COMMITTER_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
 
+      - name: Push release commit + tags (canary)
+        if: (github.event.workflow_run.head_branch || github.ref_name) == 'canary'
+        run: |
+          git push origin HEAD:canary
+          git push origin --tags
+
       - name: Publish (canary branch)
         if: (github.event.workflow_run.head_branch || github.ref_name) == 'canary'
         run: npm run publish-packages:canary
