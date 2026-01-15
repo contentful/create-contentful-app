@@ -17,21 +17,38 @@
       "dependsOn": [
         "^build"
       ]
-    },
-    "publish": {
-      "dependsOn": [
-        "build"
-      ],
-      "cache": false
     }
   },
   "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
+      "!{projectRoot}/test/**/*",
       "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.spec.tsx",
+      "!{projectRoot}/**/*.spec.js",
       "!{projectRoot}/**/*.test.ts",
-      "!{projectRoot}/jest.config.js"
-    ]
+      "!{projectRoot}/**/*.test.tsx",
+      "!{projectRoot}/**/*.test.js",
+      "!{projectRoot}/jest.config.js",
+      "!{projectRoot}/jest.config.ts",
+      "!{projectRoot}/.eslintrc",
+      "!{projectRoot}/.eslintrc.*",
+      "!{projectRoot}/eslint.config.*",
+      "!{projectRoot}/.eslintignore",
+      "!{projectRoot}/mocha-setup.js",
+      "!{projectRoot}/.mocharc",
+      "!{projectRoot}/.mocharc.*",
+      "!{projectRoot}/mocha.opts",
+      "!{projectRoot}/.gitignore",
+      "!{projectRoot}/.npmignore",
+      "!{projectRoot}/.prettierignore",
+      "!{projectRoot}/.prettierrc",
+      "!{projectRoot}/.prettierrc.*",
+      "!{projectRoot}/CHANGELOG.md",
+      "!{projectRoot}/docs/**/*"
+    ],
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yaml"]
   },
   "release": {
     "projects": [
@@ -48,7 +65,7 @@
     "git": {
       "commit": true,
       "tag": true,
-      "commitMessage": "chore(release): release {version} [skip ci]"
+      "commitMessage": "chore(release): publish {version} [skip ci]"
     }
   }
 }
