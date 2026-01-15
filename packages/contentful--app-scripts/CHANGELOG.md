@@ -1,3 +1,13 @@
+## 2.5.12-alpha.6 (2026-01-15)
+
+### 🚀 Features
+
+- publish ([54b02e6f](https://github.com/contentful/create-contentful-app/commit/54b02e6f))
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 ## 2.5.12-alpha.5 (2026-01-15)
 
 ### 🚀 Features
