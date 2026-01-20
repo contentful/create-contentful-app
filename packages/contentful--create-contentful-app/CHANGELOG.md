@@ -1,3 +1,13 @@
+## 2.2.4 (2026-01-20)
+
+### 🩹 Fixes
+
+- **deps:** bump validate-npm-package-name from 6.0.2 to 7.0.1 ([#2848](https://github.com/contentful/create-contentful-app/pull/2848))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.8
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

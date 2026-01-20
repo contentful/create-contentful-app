@@ -1,3 +1,9 @@
+## 2.0.20 (2026-01-20)
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/create-contentful-app to 2.2.4
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

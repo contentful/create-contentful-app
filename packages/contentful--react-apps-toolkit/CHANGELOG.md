@@ -1,3 +1,22 @@
+## 1.2.19 (2026-01-20)
+
+### 🩹 Fixes
+
+- **deps:** bump contentful-management from 11.63.1 to 11.66.0 ([#2833](https://github.com/contentful/create-contentful-app/pull/2833))
+- **deps:** bump glob from 10.4.5 to 10.5.0 ([#2801](https://github.com/contentful/create-contentful-app/pull/2801))
+- **deps:** bump contentful-management from 11.61.0 to 11.63.1 ([#2789](https://github.com/contentful/create-contentful-app/pull/2789))
+- **deps:** bump contentful-management from 11.57.4 to 11.61.0 ([#2759](https://github.com/contentful/create-contentful-app/pull/2759))
+- **deps:** bump contentful-management from 11.57.3 to 11.57.4 ([#2704](https://github.com/contentful/create-contentful-app/pull/2704))
+- **deps:** bump contentful-management from 11.57.2 to 11.57.3 ([#2698](https://github.com/contentful/create-contentful-app/pull/2698))
+- **deps:** bump contentful-management from 11.54.4 to 11.57.2 ([#2694](https://github.com/contentful/create-contentful-app/pull/2694))
+- **deps:** bump contentful-management from 11.54.3 to 11.54.4 ([#2614](https://github.com/contentful/create-contentful-app/pull/2614))
+- **deps:** bump contentful-management from 11.54.2 to 11.54.3 ([#2602](https://github.com/contentful/create-contentful-app/pull/2602))
+- **deps:** bump form-data from 4.0.0 to 4.0.4 ([#2598](https://github.com/contentful/create-contentful-app/pull/2598))
+- **deps:** bump contentful-management from 11.54.1 to 11.54.2 ([#2593](https://github.com/contentful/create-contentful-app/pull/2593))
+- **deps:** bump contentful-management from 11.54.0 to 11.54.1 ([#2563](https://github.com/contentful/create-contentful-app/pull/2563))
+- **deps:** bump contentful-management from 11.53.0 to 11.54.0 ([#2556](https://github.com/contentful/create-contentful-app/pull/2556))
+- **deps:** bump contentful-management from 11.52.2 to 11.53.0 ([#2542](https://github.com/contentful/create-contentful-app/pull/2542))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

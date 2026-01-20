@@ -1,3 +1,7 @@
+## 2.5.8 (2026-01-20)
+
+This was a version bump only for @contentful/app-scripts to align it with other projects, there were no code changes.
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
