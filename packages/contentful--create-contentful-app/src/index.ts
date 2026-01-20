@@ -45,7 +45,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
     ${code(command)}
 
     or you can create it manually in web app:
-    ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
+    ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}.
   `);
 
   console.log(`Then kick it off by running
@@ -122,7 +122,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     const fullAppFolder = resolve(process.cwd(), appName);
 
-    console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
+    console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}`);
 
     if (normalizedOptions.function && normalizedOptions.skipUi) {
       await addFunctionTemplate(fullAppFolder);
