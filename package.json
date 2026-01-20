@@ -17,7 +17,7 @@
     "build": "nx run-many -t build",
     "prepare-release": "nx release --verbose --skip-publish",
     "prepare-release:canary": "nx release --preid alpha --verbose --skip-publish",
-    "publish-packages": "nx release publish --dry-run",
+    "publish-packages": "nx release publish --verbose",
     "publish-packages:canary": "nx release publish --tag canary --verbose",
     "publish-packages:dry-run": "nx release publish --dry-run",
     "pre-commit": "nx run-many -t pre-commit",
