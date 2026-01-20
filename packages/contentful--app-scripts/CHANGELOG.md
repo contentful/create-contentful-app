@@ -1,3 +1,13 @@
+## 2.5.12-alpha.7 (2026-01-20)
+
+### 🩹 Fixes
+
+- logging [EXT-7081] ([6c2ff559](https://github.com/contentful/create-contentful-app/commit/6c2ff559))
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 ## 2.5.12-alpha.6 (2026-01-15)
 
 ### 🚀 Features

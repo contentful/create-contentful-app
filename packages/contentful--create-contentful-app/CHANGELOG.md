@@ -1,3 +1,18 @@
+## 2.2.8-alpha.7 (2026-01-20)
+
+### 🩹 Fixes
+
+- logging [EXT-7081] ([6c2ff559](https://github.com/contentful/create-contentful-app/commit/6c2ff559))
+- **deps:** bump validate-npm-package-name from 6.0.2 to 7.0.1 ([#2848](https://github.com/contentful/create-contentful-app/pull/2848))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.12-alpha.7
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 ## 2.2.8-alpha.6 (2026-01-15)
 
 ### 🚀 Features
