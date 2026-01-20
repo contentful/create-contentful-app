@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "create-contentful-app",
+  "projectType": "library",
+  "sourceRoot": "packages/create-contentful-app",
+  "targets": {
+    "nx-release-publish": {
+      "options": {
+        "registry": "https://registry.npmjs.org/"
+      }
+    }
+  },
+  "implicitDependencies": ["@contentful/create-contentful-app"]
+}
