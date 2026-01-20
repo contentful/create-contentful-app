@@ -95,6 +95,13 @@ jobs:
           GIT_COMMITTER_NAME: ${{ steps.vault.outputs.GIT_COMMITTER_NAME }}
           GIT_COMMITTER_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
 
+      - name: Push release commit + tags (main)
+        if: (github.event.workflow_run.head_branch || github.ref_name) == 'main'
+        run: |
+          git push --follow-tags --no-verify --atomic
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
       - name: Push release commit + tags (canary)
         if: (github.event.workflow_run.head_branch || github.ref_name) == 'canary'
         run: |
