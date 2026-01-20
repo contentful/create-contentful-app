@@ -122,7 +122,7 @@ async function initProject(appName: string, options: CLIOptions) {
 
     const fullAppFolder = resolve(process.cwd(), appName);
 
-    console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
+    console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}`);
 
     if (normalizedOptions.function && normalizedOptions.skipUi) {
       await addFunctionTemplate(fullAppFolder);
