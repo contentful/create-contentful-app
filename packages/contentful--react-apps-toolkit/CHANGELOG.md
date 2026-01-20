@@ -1,3 +1,13 @@
+## 1.2.23-alpha.9 (2026-01-20)
+
+### 🩹 Fixes
+
+- logging again 3[EXT-7081] ([7ec70187](https://github.com/contentful/create-contentful-app/commit/7ec70187))
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 ## 1.2.23-alpha.8 (2026-01-20)
 
 ### 🩹 Fixes

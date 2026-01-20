@@ -1,3 +1,17 @@
+## 2.2.8-alpha.9 (2026-01-20)
+
+### 🩹 Fixes
+
+- logging again 3[EXT-7081] ([7ec70187](https://github.com/contentful/create-contentful-app/commit/7ec70187))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.12-alpha.9
+
+### ❤️ Thank You
+
+- Bob Hemphill
+
 ## 2.2.8-alpha.8 (2026-01-20)
 
 ### 🩹 Fixes
