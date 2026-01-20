@@ -4,27 +4,6 @@
   "projectType": "library",
   "sourceRoot": "packages/contentful--react-apps-toolkit/src",
   "targets": {
-    "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm run build",
-        "cwd": "packages/contentful--react-apps-toolkit"
-      }
-    },
-    "test": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm run test",
-        "cwd": "packages/contentful--react-apps-toolkit"
-      }
-    },
-    "pre-commit": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm run pre-commit",
-        "cwd": "packages/contentful--react-apps-toolkit"
-      }
-    },
     "nx-release-publish": {
       "options": {
         "registry": "https://npm.pkg.github.com/"
@@ -32,4 +11,3 @@
     }
   }
 }
-

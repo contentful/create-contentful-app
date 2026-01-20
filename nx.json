@@ -57,7 +57,7 @@
     "projectsRelationship": "independent",
     "changelog": {
       "projectChangelogs": true,
-      "automaticFromRef": true,
+      "automaticFromRef": true
     },
     "version": {
       "conventionalCommits": true
