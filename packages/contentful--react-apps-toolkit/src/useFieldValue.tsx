@@ -14,7 +14,7 @@ export type UseFieldValueReturnValue<Value = unknown> = [
  *
  * @param {string=} fieldId Id of the field to read and update. Can be omitted when app is rendered in field location.
  * @param {string=} locale Locale to read and update. When omitted, default locale is used.
- * @returns {UseFieldValueReturnValue} Field value, function to update it
+ * @returns {UseFieldValueReturnValue} Field value, function to update it.
  */
 export function useFieldValue<Value = unknown>(
   fieldId?: string,
