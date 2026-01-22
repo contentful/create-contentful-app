@@ -45,7 +45,7 @@
     "node-fetch": "2.6.7",
     "rimraf": "5.0.8",
     "tildify": "2.0.0",
-    "validate-npm-package-name": "7.0.1"
+    "validate-npm-package-name": "7.0.2"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
