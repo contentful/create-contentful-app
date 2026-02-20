@@ -1,3 +1,18 @@
+## 2.2.5 (2026-02-20)
+
+### 🩹 Fixes
+
+- **deps:** bump contentful-management from 11.66.0 to 11.68.1 ([#2924](https://github.com/contentful/create-contentful-app/pull/2924))
+- **deps:** bump contentful-management from 11.66.0 to 11.68.0 ([#2903](https://github.com/contentful/create-contentful-app/pull/2903))
+- **deps:** bump contentful-management from 11.66.0 to 11.67.2 ([#2899](https://github.com/contentful/create-contentful-app/pull/2899))
+- **deps:** bump contentful-management from 11.66.0 to 11.67.1 ([#2898](https://github.com/contentful/create-contentful-app/pull/2898))
+- **deps:** bump contentful-management from 11.66.0 to 11.67.0 ([#2887](https://github.com/contentful/create-contentful-app/pull/2887))
+- **deps:** bump validate-npm-package-name from 6.0.2 to 7.0.2 ([#2893](https://github.com/contentful/create-contentful-app/pull/2893))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.9
+
 ## 2.2.4 (2026-01-20)
 
 ### 🩹 Fixes

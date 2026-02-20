@@ -1,3 +1,9 @@
+## 2.5.9 (2026-02-20)
+
+### 🩹 Fixes
+
+- **deps:** bump lodash from 4.17.21 to 4.17.23 ([#2892](https://github.com/contentful/create-contentful-app/pull/2892))
+
 ## 2.5.8 (2026-01-20)
 
 This was a version bump only for @contentful/app-scripts to align it with other projects, there were no code changes.
