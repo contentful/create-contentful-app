@@ -51,7 +51,7 @@
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@segment/analytics-node": "^2.0.0",
     "adm-zip": "0.5.16",
-    "axios": "^1.8.4",
+    "axios": "^1.13.5",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
     "commander": "12.1.0",
