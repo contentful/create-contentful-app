@@ -70,6 +70,31 @@ describe('isValidIpAddress', () => {
     const result = isValidNetwork('*');
     assert.strictEqual(result, false);
   });
+
+  it('returns true for a domain with a TLD longer than 6 characters', () => {
+    // .hosting is 7 chars — previously rejected by the {2,6} limit.
+    // Customers using long gTLDs (e.g. akzonobel.hosting) were blocked from
+    // uploading custom apps even though the address is perfectly valid.
+    const result = isValidNetwork('qa-gql-gateway.akzonobel.hosting');
+    assert.strictEqual(result, true);
+  });
+
+  it('returns true for a wildcard domain with a TLD longer than 6 characters', () => {
+    const result = isValidNetwork('*.akzonobel.hosting');
+    assert.strictEqual(result, true);
+  });
+
+  it('returns true for a domain with a TLD at the maximum DNS label length of 63 characters', () => {
+    const maxLengthTld = 'a'.repeat(63);
+    const result = isValidNetwork(`example.${maxLengthTld}`);
+    assert.strictEqual(result, true);
+  });
+
+  it('returns false for a domain with a TLD exceeding the maximum DNS label length of 63 characters', () => {
+    const tooLongTld = 'a'.repeat(64);
+    const result = isValidNetwork(`example.${tooLongTld}`);
+    assert.strictEqual(result, false);
+  });
 });
 
 describe('removeProtocolFromUrl', () => {

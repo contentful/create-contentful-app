@@ -37,10 +37,10 @@ export const isValidNetwork = (address: string): boolean => {
       '(?:' + // Start of the non-capturing group for domain names
       '(?:\\*\\.)' + // Matches wildcard domains like *.example.com
       '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)' + // Matches a single subdomain
-      '[a-zA-Z]{2,6}' + // Matches the top-level domain (TLD)
+      '[a-zA-Z]{2,63}' + // Matches the top-level domain (TLD). Upper bound of 63 follows RFC 1035 §2.3.4, which defines the maximum length of a single DNS label. ICANN began delegating long gTLDs (e.g. .hosting, .international) from 2012 onwards, making the previous limit of 6 too restrictive.
       '|' + // OR
       '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+' + // Matches standard domains with one or more subdomains
-      '[a-zA-Z]{2,6}' + // Matches the top-level domain (TLD)
+      '[a-zA-Z]{2,63}' + // Matches the top-level domain (TLD). Upper bound of 63 follows RFC 1035 §2.3.4, which defines the maximum length of a single DNS label. ICANN began delegating long gTLDs (e.g. .hosting, .international) from 2012 onwards, making the previous limit of 6 too restrictive.
       ')|' + // End of the non-capturing group for domain names, OR
       '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' + // Matches the first three octets of an IPv4 address
       '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|' + // Matches the last octet of an IPv4 address
