@@ -1,3 +1,16 @@
+## 2.5.10 (2026-03-10)
+
+### 🩹 Fixes
+
+- **app-scripts:** raise TLD character limit in allowNetworks validation from 6 to 63 ([#2972](https://github.com/contentful/create-contentful-app/pull/2972))
+- **deps:** bump rimraf from 5.0.8 to 6.1.3 ([#2959](https://github.com/contentful/create-contentful-app/pull/2959))
+- **deps:** bump dotenv from 17.2.4 to 17.3.1 ([#2958](https://github.com/contentful/create-contentful-app/pull/2958))
+- **deps:** bump dotenv from 17.2.2 to 17.2.4 ([#2944](https://github.com/contentful/create-contentful-app/pull/2944))
+
+### ❤️ Thank You
+
+- Tyler
+
 ## 2.5.9 (2026-02-20)
 
 ### 🩹 Fixes

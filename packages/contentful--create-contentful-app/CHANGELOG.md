@@ -1,3 +1,18 @@
+## 2.2.6 (2026-03-10)
+
+### 🩹 Fixes
+
+- **deps:** bump contentful-management from 11.66.0 to 11.72.0 ([#2967](https://github.com/contentful/create-contentful-app/pull/2967))
+- **deps:** bump contentful-management from 11.66.0 to 11.71.0 ([#2965](https://github.com/contentful/create-contentful-app/pull/2965))
+- **deps:** bump contentful-management from 11.66.0 to 11.69.3 ([#2964](https://github.com/contentful/create-contentful-app/pull/2964))
+- **deps:** bump rimraf from 5.0.8 to 6.1.3 ([#2959](https://github.com/contentful/create-contentful-app/pull/2959))
+- **deps:** bump contentful-management from 11.66.0 to 11.69.2 ([#2952](https://github.com/contentful/create-contentful-app/pull/2952))
+- **deps:** bump contentful-management from 11.66.0 to 11.69.1 ([#2942](https://github.com/contentful/create-contentful-app/pull/2942))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.10
+
 ## 2.2.5 (2026-02-20)
 
 ### 🩹 Fixes
