@@ -49,7 +49,7 @@
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
-    "@segment/analytics-node": "^2.0.0",
+    "@segment/analytics-node": "^3.0.0",
     "adm-zip": "0.5.16",
     "axios": "^1.13.5",
     "bottleneck": "2.19.5",
