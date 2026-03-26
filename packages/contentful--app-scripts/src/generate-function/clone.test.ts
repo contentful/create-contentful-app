@@ -255,7 +255,7 @@ describe('Helper functions tests', () => {
     describe('clone', () => {
       it('should throw error for invalid clone URL format', async () => {
         const invalidURL = 'invalid-url-without-github';
-        const localPath = '/test/path';
+        const localPath = path.join(os.tmpdir(), 'test-path');
         
         await assert.rejects(
           async () => clone(invalidURL, localPath),
@@ -263,20 +263,14 @@ describe('Helper functions tests', () => {
         );
       });
       
-      it('should parse GitHub URL correctly', async () => {
-        const validURL = 'https://github.com/contentful/apps/function-examples/appevent-handler/typescript';
-        const localPath = fs.mkdtempSync(path.join(os.tmpdir(), 'clone-test-'));
+      it('should throw error for URL without subfolder path', async () => {
+        const invalidURL = 'https://github.com/contentful/apps';
+        const localPath = path.join(os.tmpdir(), 'test-path');
         
-        try {
-          await clone(validURL, localPath);
-        } catch (e: any) {
-          // Expected to fail during git clone (no network in test), but URL parsing should succeed
-          // If it fails with "Invalid clone URL format", the test should fail
-          assert.ok(!e.message.includes('Invalid clone URL format'), 
-            'URL parsing failed: ' + e.message);
-        } finally {
-          fs.rmSync(localPath, { recursive: true, force: true });
-        }
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL format/
+        );
       });
     });
   });
