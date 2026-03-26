@@ -253,23 +253,43 @@ describe('Helper functions tests', () => {
     });
 
     describe('clone', () => {
-      it('should throw error for invalid clone URL format', async () => {
-        const invalidURL = 'invalid-url-without-github';
+      it('should throw error for URL not starting with REPO_URL', async () => {
+        const invalidURL = 'https://github.com/malicious/repo/some/path';
         const localPath = path.join(os.tmpdir(), 'test-path');
         
         await assert.rejects(
           async () => clone(invalidURL, localPath),
-          /Invalid clone URL format/
+          /Invalid clone URL: must start with/
         );
       });
       
-      it('should throw error for URL without subfolder path', async () => {
-        const invalidURL = 'https://github.com/contentful/apps';
+      it('should throw error for URL with missing example/language path', async () => {
+        const invalidURL = REPO_URL; // Just the base URL without example/language
         const localPath = path.join(os.tmpdir(), 'test-path');
         
         await assert.rejects(
           async () => clone(invalidURL, localPath),
-          /Invalid clone URL format/
+          /Invalid clone URL: missing example\/language path/
+        );
+      });
+
+      it('should throw error for URL with unsafe characters in path', async () => {
+        const invalidURL = `${REPO_URL}/example/../../../etc/passwd`;
+        const localPath = path.join(os.tmpdir(), 'test-path');
+        
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL: path segment .* contains unsafe characters/
+        );
+      });
+
+      it('should throw error for URL with shell metacharacters', async () => {
+        const invalidURL = `${REPO_URL}/example;rm -rf /`;
+        const localPath = path.join(os.tmpdir(), 'test-path');
+        
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL: path segment .* contains unsafe characters/
         );
       });
     });
