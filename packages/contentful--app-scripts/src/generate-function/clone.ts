@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 
 import chalk from 'chalk';
@@ -152,7 +152,8 @@ export async function clone(cloneURL: string, localFunctionsPath: string) {
 
   try {
     // Clone the full repository with depth 1 for speed
-    execSync(`git clone --depth 1 "${repoUrl}" "${tempDir}"`, { stdio: 'ignore' });
+    // Using execFileSync with array args prevents shell injection
+    execFileSync('git', ['clone', '--depth', '1', repoUrl, tempDir], { stdio: 'ignore' });
 
     // Create destination directory
     if (!fs.existsSync(localFunctionsPath)) {
@@ -166,29 +167,26 @@ export async function clone(cloneURL: string, localFunctionsPath: string) {
       throw new Error(`Subfolder not found: ${subfolderPath}`);
     }
 
-    // Copy files using platform-appropriate commands
-    try {
-      execSync(`cp -r "${sourcePath}"/* "${localFunctionsPath}"/`, { stdio: 'ignore' });
-    } catch {
-      // Windows fallback
-      execSync(`xcopy "${sourcePath}\\*" "${localFunctionsPath}\\" /E /I /Y`, { stdio: 'ignore' });
-    }
+    // Copy files using native fs.cpSync (Node 16.7+, safe from injection)
+    copyDirectoryContents(sourcePath, localFunctionsPath);
   } finally {
-    // Clean up temp directory
+    // Clean up temp directory using native fs (Node 14.14+)
     try {
       fs.rmSync(tempDir, { recursive: true, force: true });
     } catch {
-      // Fallback for older Node versions or permission issues
-      try {
-        execSync(`rm -rf "${tempDir}"`, { stdio: 'ignore' });
-      } catch {
-        try {
-          execSync(`rmdir /S /Q "${tempDir}"`, { stdio: 'ignore' });
-        } catch {
-          // Ignore cleanup errors
-        }
-      }
+      // Ignore cleanup errors - temp directory will be cleaned by OS eventually
     }
+  }
+}
+
+function copyDirectoryContents(sourcePath: string, destPath: string) {
+  const entries = fs.readdirSync(sourcePath, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const srcFile = resolve(sourcePath, entry.name);
+    const destFile = resolve(destPath, entry.name);
+    
+    fs.cpSync(srcFile, destFile, { recursive: true });
   }
 }
 
