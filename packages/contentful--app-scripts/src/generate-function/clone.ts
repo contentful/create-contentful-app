@@ -133,17 +133,44 @@ export function removeIgnoredFiles(localTmpPath: string, ignoredFiles: string[])
   }
 }
 
+// Parse the trusted REPO_URL constant to extract canonical owner, repo, and base path
+// REPO_URL format: https://github.com/contentful/apps/function-examples
+const REPO_URL_MATCH = REPO_URL.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/(.+)$/);
+if (!REPO_URL_MATCH) {
+  throw new Error('Invalid REPO_URL constant configuration');
+}
+const [, CANONICAL_OWNER, CANONICAL_REPO, CANONICAL_BASE_PATH] = REPO_URL_MATCH;
+const CANONICAL_REPO_URL = `https://github.com/${CANONICAL_OWNER}/${CANONICAL_REPO}.git`;
+
+// Strict validation regex for subfolder path segments (alphanumeric, dash, underscore only)
+const SAFE_PATH_SEGMENT_REGEX = /^[a-zA-Z0-9_-]+$/;
+
 export async function clone(cloneURL: string, localFunctionsPath: string) {
-  // Parse the GitHub URL to extract the subfolder path
-  // URL format: https://github.com/contentful/apps/function-examples/{example}/{language}
-  const match = cloneURL.match(/github\.com\/([^/]+)\/([^/]+)\/(.+)/);
-  
-  if (!match) {
-    throw new Error(`Invalid clone URL format: ${cloneURL}`);
+  // Validate that cloneURL starts with the trusted REPO_URL
+  if (!cloneURL.startsWith(REPO_URL)) {
+    throw new Error(`Invalid clone URL: must start with ${REPO_URL}`);
   }
 
-  const [, owner, repo, subfolderPath] = match;
-  const repoUrl = `https://github.com/${owner}/${repo}.git`;
+  // Extract only the user-supplied portion (example/language) after REPO_URL
+  const userSuppliedPath = cloneURL.slice(REPO_URL.length);
+  
+  // Remove leading slash if present and validate format
+  const trimmedPath = userSuppliedPath.startsWith('/') ? userSuppliedPath.slice(1) : userSuppliedPath;
+  
+  if (!trimmedPath) {
+    throw new Error('Invalid clone URL: missing example/language path');
+  }
+
+  // Validate each path segment for safe characters only
+  const pathSegments = trimmedPath.split('/');
+  for (const segment of pathSegments) {
+    if (!segment || !SAFE_PATH_SEGMENT_REGEX.test(segment)) {
+      throw new Error(`Invalid clone URL: path segment "${segment}" contains unsafe characters`);
+    }
+  }
+
+  // Build the full subfolder path from the trusted base + validated user path
+  const subfolderPath = `${CANONICAL_BASE_PATH}/${trimmedPath}`;
 
   const tempDir = resolve(
     tmpdir(),
@@ -151,9 +178,9 @@ export async function clone(cloneURL: string, localFunctionsPath: string) {
   );
 
   try {
-    // Clone the full repository with depth 1 for speed
-    // Using execFileSync with array args prevents shell injection
-    execFileSync('git', ['clone', '--depth', '1', repoUrl, tempDir], { stdio: 'ignore' });
+    // Clone using ONLY the canonical repo URL derived from trusted REPO_URL constant
+    // execFileSync with array args prevents shell injection
+    execFileSync('git', ['clone', '--depth', '1', CANONICAL_REPO_URL, tempDir], { stdio: 'ignore' });
 
     // Create destination directory
     if (!fs.existsSync(localFunctionsPath)) {
