@@ -1,6 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const tiged = require('tiged');
 import fs from 'node:fs'
+import { execSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
 
 import chalk from 'chalk';
 import { resolve } from 'node:path';
@@ -95,13 +95,13 @@ export function renameClonedFiles(localTmpPath: string, settings: GenerateFuncti
 }
 
 export function resolvePaths(localPath: string) {
-  const localTmpPath = resolve(localPath, 'tmp'); // we require a tmp directory because tiged overwrites all files in the target directory
+  const localTmpPath = resolve(localPath, 'tmp');
   const localFunctionsPath = resolve(localPath, 'functions');
   return { localTmpPath, localFunctionsPath };
 }
 
 export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: string, localPath: string, localFunctionsPath: string, keepPackageJson = false) {
-  const tigedInstance = await clone(cloneURL, localTmpPath);
+  await clone(cloneURL, localTmpPath);
 
   // merge the manifest from the template folder to the root folder
   await mergeAppManifest(localPath, localTmpPath);
@@ -121,16 +121,75 @@ export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: s
   } 
 
   // remove the cloned files that we've already merged
-  await tigedInstance.remove("unused_param", localTmpPath, {
-      action: 'remove',
-      files: ignoredFiles.map((fileName) => `${localTmpPath}/${fileName}`),
-    });
+  removeIgnoredFiles(localTmpPath, ignoredFiles);
+}
+
+export function removeIgnoredFiles(localTmpPath: string, ignoredFiles: string[]) {
+  for (const fileName of ignoredFiles) {
+    const filePath = resolve(localTmpPath, fileName);
+    if (fs.existsSync(filePath)) {
+      fs.rmSync(filePath, { recursive: true, force: true });
+    }
+  }
 }
 
 export async function clone(cloneURL: string, localFunctionsPath: string) {
-  const tigedInstance = tiged(cloneURL, { mode: 'tar', disableCache: true, force: true });
-  await tigedInstance.clone(localFunctionsPath);
-  return tigedInstance
+  // Parse the GitHub URL to extract the subfolder path
+  // URL format: https://github.com/contentful/apps/function-examples/{example}/{language}
+  const match = cloneURL.match(/github\.com\/([^/]+)\/([^/]+)\/(.+)/);
+  
+  if (!match) {
+    throw new Error(`Invalid clone URL format: ${cloneURL}`);
+  }
+
+  const [, owner, repo, subfolderPath] = match;
+  const repoUrl = `https://github.com/${owner}/${repo}.git`;
+
+  const tempDir = resolve(
+    tmpdir(),
+    `contentful-clone-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
+  );
+
+  try {
+    // Clone the full repository with depth 1 for speed
+    execSync(`git clone --depth 1 "${repoUrl}" "${tempDir}"`, { stdio: 'ignore' });
+
+    // Create destination directory
+    if (!fs.existsSync(localFunctionsPath)) {
+      fs.mkdirSync(localFunctionsPath, { recursive: true });
+    }
+
+    // Copy the subfolder contents to destination
+    const sourcePath = resolve(tempDir, subfolderPath);
+    
+    if (!fs.existsSync(sourcePath)) {
+      throw new Error(`Subfolder not found: ${subfolderPath}`);
+    }
+
+    // Copy files using platform-appropriate commands
+    try {
+      execSync(`cp -r "${sourcePath}"/* "${localFunctionsPath}"/`, { stdio: 'ignore' });
+    } catch {
+      // Windows fallback
+      execSync(`xcopy "${sourcePath}\\*" "${localFunctionsPath}\\" /E /I /Y`, { stdio: 'ignore' });
+    }
+  } finally {
+    // Clean up temp directory
+    try {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    } catch {
+      // Fallback for older Node versions or permission issues
+      try {
+        execSync(`rm -rf "${tempDir}"`, { stdio: 'ignore' });
+      } catch {
+        try {
+          execSync(`rmdir /S /Q "${tempDir}"`, { stdio: 'ignore' });
+        } catch {
+          // Ignore cleanup errors
+        }
+      }
+    }
+  }
 }
 
 export async function mergeAppManifest(localPath: string, localTmpPath: string) {
