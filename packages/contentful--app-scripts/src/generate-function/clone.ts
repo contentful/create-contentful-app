@@ -1,6 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const tiged = require('tiged');
 import fs from 'node:fs'
+import { execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
 
 import chalk from 'chalk';
 import { resolve } from 'node:path';
@@ -95,13 +95,13 @@ export function renameClonedFiles(localTmpPath: string, settings: GenerateFuncti
 }
 
 export function resolvePaths(localPath: string) {
-  const localTmpPath = resolve(localPath, 'tmp'); // we require a tmp directory because tiged overwrites all files in the target directory
+  const localTmpPath = resolve(localPath, 'tmp');
   const localFunctionsPath = resolve(localPath, 'functions');
   return { localTmpPath, localFunctionsPath };
 }
 
 export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: string, localPath: string, localFunctionsPath: string, keepPackageJson = false) {
-  const tigedInstance = await clone(cloneURL, localTmpPath);
+  await clone(cloneURL, localTmpPath);
 
   // merge the manifest from the template folder to the root folder
   await mergeAppManifest(localPath, localTmpPath);
@@ -121,16 +121,100 @@ export async function cloneAndResolveManifests(cloneURL: string, localTmpPath: s
   } 
 
   // remove the cloned files that we've already merged
-  await tigedInstance.remove("unused_param", localTmpPath, {
-      action: 'remove',
-      files: ignoredFiles.map((fileName) => `${localTmpPath}/${fileName}`),
-    });
+  removeIgnoredFiles(localTmpPath, ignoredFiles);
 }
 
+export function removeIgnoredFiles(localTmpPath: string, ignoredFiles: string[]) {
+  for (const fileName of ignoredFiles) {
+    const filePath = resolve(localTmpPath, fileName);
+    if (fs.existsSync(filePath)) {
+      fs.rmSync(filePath, { recursive: true, force: true });
+    }
+  }
+}
+
+// Parse the trusted REPO_URL constant to extract canonical owner, repo, and base path
+// REPO_URL format: https://github.com/contentful/apps/function-examples
+const REPO_URL_MATCH = REPO_URL.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/(.+)$/);
+if (!REPO_URL_MATCH) {
+  throw new Error('Invalid REPO_URL constant configuration');
+}
+const [, CANONICAL_OWNER, CANONICAL_REPO, CANONICAL_BASE_PATH] = REPO_URL_MATCH;
+const CANONICAL_REPO_URL = `https://github.com/${CANONICAL_OWNER}/${CANONICAL_REPO}.git`;
+
+// Strict validation regex for subfolder path segments (alphanumeric, dash, underscore only)
+const SAFE_PATH_SEGMENT_REGEX = /^[a-zA-Z0-9_-]+$/;
+
 export async function clone(cloneURL: string, localFunctionsPath: string) {
-  const tigedInstance = tiged(cloneURL, { mode: 'tar', disableCache: true, force: true });
-  await tigedInstance.clone(localFunctionsPath);
-  return tigedInstance
+  // Validate that cloneURL starts with the trusted REPO_URL
+  if (!cloneURL.startsWith(REPO_URL)) {
+    throw new Error(`Invalid clone URL: must start with ${REPO_URL}`);
+  }
+
+  // Extract only the user-supplied portion (example/language) after REPO_URL
+  const userSuppliedPath = cloneURL.slice(REPO_URL.length);
+  
+  // Remove leading slash if present and validate format
+  const trimmedPath = userSuppliedPath.startsWith('/') ? userSuppliedPath.slice(1) : userSuppliedPath;
+  
+  if (!trimmedPath) {
+    throw new Error('Invalid clone URL: missing example/language path');
+  }
+
+  // Validate each path segment for safe characters only
+  const pathSegments = trimmedPath.split('/');
+  for (const segment of pathSegments) {
+    if (!segment || !SAFE_PATH_SEGMENT_REGEX.test(segment)) {
+      throw new Error(`Invalid clone URL: path segment "${segment}" contains unsafe characters`);
+    }
+  }
+
+  // Build the full subfolder path from the trusted base + validated user path
+  const subfolderPath = `${CANONICAL_BASE_PATH}/${trimmedPath}`;
+
+  const tempDir = resolve(
+    tmpdir(),
+    `contentful-clone-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
+  );
+
+  try {
+    // Clone using ONLY the canonical repo URL derived from trusted REPO_URL constant
+    // execFileSync with array args prevents shell injection
+    execFileSync('git', ['clone', '--depth', '1', CANONICAL_REPO_URL, tempDir], { stdio: 'ignore' });
+
+    // Create destination directory
+    if (!fs.existsSync(localFunctionsPath)) {
+      fs.mkdirSync(localFunctionsPath, { recursive: true });
+    }
+
+    // Copy the subfolder contents to destination
+    const sourcePath = resolve(tempDir, subfolderPath);
+    
+    if (!fs.existsSync(sourcePath)) {
+      throw new Error(`Subfolder not found: ${subfolderPath}`);
+    }
+
+    // Copy files using native fs.cpSync (Node 16.7+, safe from injection)
+    copyDirectoryContents(sourcePath, localFunctionsPath);
+  } finally {
+    // Clean up temp directory using native fs (Node 14.14+)
+    try {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    } catch {
+      // Ignore cleanup errors - temp directory will be cleaned by OS eventually
+    }
+  }
+}
+
+function copyDirectoryContents(sourcePath: string, destPath: string) {
+  const entries = fs.readdirSync(sourcePath, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const srcFile = resolve(sourcePath, entry.name);
+    const destFile = resolve(destPath, entry.name);
+    
+    fs.cpSync(srcFile, destFile, { recursive: true });
+  }
 }
 
 export async function mergeAppManifest(localPath: string, localTmpPath: string) {

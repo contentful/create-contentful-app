@@ -13,8 +13,8 @@ import {
   resolvePaths,
   mergeAppManifest,
   updatePackageJsonWithBuild,
+  clone,
 } from './clone'; 
-import proxyquire from 'proxyquire';
 
 import { REPO_URL, CONTENTFUL_APP_MANIFEST } from './constants';
 import { GenerateFunctionSettings } from '../types';
@@ -229,32 +229,11 @@ describe('Helper functions tests', () => {
   });
 
   describe('Core cloning functionality', () => {
-    let tigedStub;
-    let cloneInstanceStub;
-    let fsStub;
     let existsStub;
     let loggerStub;
     let whichExistsStub;
 
     beforeEach(() => {
-      // Create stubs for all dependencies
-      cloneInstanceStub = {
-        clone: sinon.stub().resolves(),
-        remove: sinon.stub().resolves()
-      };
-      
-      tigedStub = sinon.stub().returns(cloneInstanceStub);
-      
-      fsStub = {
-        mkdtempSync: fs.mkdtempSync,
-        writeFileSync: sinon.stub(),
-        readFileSync: sinon.stub(),
-        readdirSync: sinon.stub().returns(['index.ts', 'package.json']),
-        renameSync: sinon.stub(),
-        cpSync: sinon.stub(),
-        rmSync: sinon.stub()
-      };
-      
       existsStub = sinon.stub(fileUtils, 'exists');
       whichExistsStub = sinon.stub(fileUtils, 'whichExists');
       
@@ -264,11 +243,9 @@ describe('Helper functions tests', () => {
         warn: sinon.stub(logger, 'warn')
       };
 
-      // Set default behavior for stubs
       existsStub.withArgs(sinon.match(/package\.json/)).resolves(true);
       existsStub.resolves(false);
       whichExistsStub.resolves(CONTENTFUL_APP_MANIFEST);
-      fsStub.readFileSync.returns('{"functions":[{}]}');
     });
 
     afterEach(() => {
@@ -276,33 +253,44 @@ describe('Helper functions tests', () => {
     });
 
     describe('clone', () => {
-      it('should create tiged instance with correct parameters', async () => {
-        // Replace the tiged require with our stub
-        const { clone } = proxyquire('./clone', {
-          tiged: tigedStub
-        });
+      it('should throw error for URL not starting with REPO_URL', async () => {
+        const invalidURL = 'https://github.com/malicious/repo/some/path';
+        const localPath = path.join(os.tmpdir(), 'test-path');
         
-        const cloneURL = 'test/repo';
-        const localPath = '/test/path';
-        
-        await clone(cloneURL, localPath);
-        
-        assert.ok(tigedStub.calledOnce);
-        assert.ok(tigedStub.calledWith(cloneURL, { 
-          mode: 'tar', 
-          disableCache: true, 
-          force: true 
-        }));
-        assert.ok(cloneInstanceStub.clone.calledWith(localPath));
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL: must start with/
+        );
       });
       
-      it('should return the tiged instance', async () => {
-        const { clone } = proxyquire('./clone', {
-          tiged: tigedStub
-        });
+      it('should throw error for URL with missing example/language path', async () => {
+        const invalidURL = REPO_URL; // Just the base URL without example/language
+        const localPath = path.join(os.tmpdir(), 'test-path');
         
-        const result = await clone('url', 'path');
-        assert.strictEqual(result, cloneInstanceStub);
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL: missing example\/language path/
+        );
+      });
+
+      it('should throw error for URL with unsafe characters in path', async () => {
+        const invalidURL = `${REPO_URL}/example/../../../etc/passwd`;
+        const localPath = path.join(os.tmpdir(), 'test-path');
+        
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL: path segment .* contains unsafe characters/
+        );
+      });
+
+      it('should throw error for URL with shell metacharacters', async () => {
+        const invalidURL = `${REPO_URL}/example;rm -rf /`;
+        const localPath = path.join(os.tmpdir(), 'test-path');
+        
+        await assert.rejects(
+          async () => clone(invalidURL, localPath),
+          /Invalid clone URL: path segment .* contains unsafe characters/
+        );
       });
     });
   });
