@@ -1,3 +1,11 @@
+## 2.5.11 (2026-04-07)
+
+### 🩹 Fixes
+
+- **deps:** bump lodash from 4.17.23 to 4.18.1 ([#3013](https://github.com/contentful/create-contentful-app/pull/3013))
+- **deps:** bump esbuild from 0.27.2 to 0.27.4 ([#3006](https://github.com/contentful/create-contentful-app/pull/3006))
+- **deps:** bump @segment/analytics-node from 2.2.1 to 3.0.0 ([#2990](https://github.com/contentful/create-contentful-app/pull/2990))
+
 ## 2.5.10 (2026-03-10)
 
 ### 🩹 Fixes

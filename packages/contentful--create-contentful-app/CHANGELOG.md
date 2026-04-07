@@ -1,3 +1,18 @@
+## 2.2.7 (2026-04-07)
+
+### 🩹 Fixes
+
+- **deps:** bump contentful-management from 11.66.0 to 11.74.0 ([#2993](https://github.com/contentful/create-contentful-app/pull/2993))
+- **deps:** bump @segment/analytics-node from 2.2.1 to 3.0.0 ([#2990](https://github.com/contentful/create-contentful-app/pull/2990))
+- **deps:** bump contentful-management from 11.66.0 to 11.73.1 ([#2984](https://github.com/contentful/create-contentful-app/pull/2984))
+- **deps:** bump contentful-management from 11.66.0 to 11.73.0 ([#2983](https://github.com/contentful/create-contentful-app/pull/2983))
+- **deps:** bump contentful-management from 11.66.0 to 11.72.2 ([#2978](https://github.com/contentful/create-contentful-app/pull/2978))
+- **deps:** bump contentful-management from 11.66.0 to 11.72.1 ([#2973](https://github.com/contentful/create-contentful-app/pull/2973))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.11
+
 ## 2.2.6 (2026-03-10)
 
 ### 🩹 Fixes

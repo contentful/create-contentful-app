@@ -1,3 +1,7 @@
+## 1.2.22 (2026-04-07)
+
+This was a version bump only for @contentful/react-apps-toolkit to align it with other projects, there were no code changes.
+
 ## 1.2.21 (2026-03-10)
 
 This was a version bump only for @contentful/react-apps-toolkit to align it with other projects, there were no code changes.
