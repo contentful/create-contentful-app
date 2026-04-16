@@ -50,7 +50,7 @@
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@segment/analytics-node": "^3.0.0",
-    "adm-zip": "0.5.16",
+    "adm-zip": "0.5.17",
     "axios": "^1.15.0",
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
