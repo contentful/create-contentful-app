@@ -55,7 +55,7 @@
     "bottleneck": "2.19.5",
     "chalk": "4.1.2",
     "commander": "12.1.0",
-    "contentful-management": "^11.75.0",
+    "contentful-management": "^12.2.0",
     "dotenv": "17.4.0",
     "esbuild": "^0.27.5",
     "ignore": "7.0.5",
