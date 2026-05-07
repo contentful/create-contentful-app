@@ -23,7 +23,7 @@ npm test   # lerna run test — runs Mocha tests across all packages
 
 Tests use **Mocha + Chai + Sinon**. Test files are in `packages/<pkg>/test/`.
 
-The CI suite also runs integration tests that scaffold a real app and run its full build + test cycle — these run in CircleCI and require credentials.
+The CI suite also runs integration tests that scaffold a real app and run its full build + test cycle — these run in CircleCI only.
 
 ## Building
 

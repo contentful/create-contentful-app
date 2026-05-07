@@ -7,7 +7,7 @@ Scaffolding toolkit for Contentful apps. Three published packages:
 - `@contentful/react-apps-toolkit` — React hooks for app development (`useSDK`, `useAutoResizer`, `useFieldValue`, `useCMA`)
 
 ## Ownership
-`@contentful/team-marketplace` (full, co-owned with `@contentful/team-extensibility` and `@contentful/team-developer-experience`)
+`@contentful/team-marketplace` (full, co-owned — see CODEOWNERS)
 
 ## Structure
 
