@@ -13,7 +13,6 @@
 git clone https://github.com/contentful/create-contentful-app.git
 cd create-contentful-app
 npm ci
-npm run bootstrap   # lerna bootstrap — links packages and installs deps
 ```
 
 ## Running Tests
@@ -73,9 +72,6 @@ Releases are automated via semantic-release on the `master` branch. Do not manua
 - **Feature branches** — PR against `master`
 
 ## Troubleshooting
-
-**`npm run bootstrap` fails**
-Run `npm install` directly in the failing package directory for the raw npm error.
 
 **CLI doesn't pick up local changes**
 Run `npm run build` in the package, then `npm link` to test globally.

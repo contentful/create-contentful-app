@@ -95,4 +95,4 @@ Canary releases publish from the `canary` branch with `X.Y.Z-alpha.N` format und
 | `commander` | CLI argument parsing |
 | `inquirer` | Interactive prompts |
 | `validate-npm-package-name` | App name validation |
-| `analytics-node` | Telemetry (disable with `DISABLE_ANALYTICS=true`) |
+| `analytics-node` | Telemetry |
