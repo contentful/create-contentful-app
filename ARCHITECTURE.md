@@ -70,7 +70,7 @@ React hooks all apps should use:
 
 - **Lerna 6 + Nx** — Nx caches build outputs; Lerna handles versioning and publishing
 - **Independent versioning** — each package has its own semver
-- **Node ≥ 18** — CI tests on Node 18 and 20
+- **Node ≥ 18** — CI tests on multiple Node LTS versions (see `.circleci/config.yml`)
 - **CircleCI** — lint-and-test → test-built-app (real scaffold + build + test) → release
 
 ## CI / Release
