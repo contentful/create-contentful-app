@@ -25,3 +25,6 @@ updates:
       prefix-development: chore
       include: scope
     directory: '/'
+
+    cooldown:
+      default-days: 15

@@ -1,7 +1,7 @@
 import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
-import { AppDefinitionProps, PlainClientAPI } from 'contentful-management';
+import { AppBundleProps, AppDefinitionProps, PlainClientAPI } from 'contentful-management';
 import { ActivateSettings } from '../types';
 
 const mockedSettings = {
@@ -15,7 +15,9 @@ describe('activate-bundle', () => {
   let activateBundle: typeof import('./activate-bundle').activateBundle,
     clientMock: PlainClientAPI,
     updateStub: SinonStub,
-    createClientArgs: any[];
+    appBundleGetStub: SinonStub,
+    createClientArgs: any[],
+    definitionMock: AppDefinitionProps;
 
   beforeEach(() => {
     stub(console, 'log');
@@ -26,19 +28,48 @@ describe('activate-bundle', () => {
   });
 
   const throwErrorStub = stub();
-  const definitionMock = {
+  const defaultDefinitionMock = {
     src: 'src',
     bundle: undefined,
     locations: [],
   } as unknown as AppDefinitionProps;
+  const bundleMock = {
+    comment: 'my bundle',
+    sys: {
+      id: 'bundle-id',
+      type: 'AppBundle',
+      appDefinition: {
+        sys: { id: 'app-def-id', type: 'Link', linkType: 'AppDefinition' },
+      },
+      organization: {
+        sys: { type: 'Link', linkType: 'Organization', id: 'org-id' },
+      },
+    },
+    files: [    { name: 'index.html', size: 2080, md5: 'fs7GaL66rRYCZm8VkQLiNP==' },],
+    functions: [
+      {
+        name: 'Example App Event Handler Function',
+        allowNetworks: [],
+        description: 'This is an example to help you learn how App Event handler functions work.',
+        path: 'functions/appevent-handler-example.js',
+        id: 'appeventHandlerExample',
+        accepts: ['appevent.handler'],
+      },
+    ],
+  } as unknown as AppBundleProps;
 
   beforeEach(() => {
+    definitionMock = { ...defaultDefinitionMock };
     updateStub = stub();
+    appBundleGetStub = stub().resolves(bundleMock);
     clientMock = {
       appDefinition: {
         get: () => definitionMock,
         update: () => updateStub(),
       },
+      appBundle: {
+        get: () => appBundleGetStub()
+      }
     } as unknown as PlainClientAPI;
 
     ({ activateBundle } = proxyquire('./activate-bundle', {
@@ -54,11 +85,30 @@ describe('activate-bundle', () => {
     }));
   });
 
-  it('updates definition with bundle, sets default location, and sets src to undefined', async () => {
-    await activateBundle(mockedSettings);
+  it('updates definition with bundle, sets default location, and sets src to undefined when bundle has a frontend', async () => {
+    await activateBundle({...mockedSettings, hasFrontend: true});
     assert.strictEqual(definitionMock.bundle?.sys.id, mockedSettings.bundleId);
     assert.strictEqual(definitionMock.locations?.length, 1);
     assert.strictEqual(definitionMock.src, undefined);
+    assert.strictEqual(updateStub.called, true);
+    assert((console.log as SinonStub).calledWith(match(/Your app bundle was activated/)));
+  });
+  it('updates definition with bundle, does not set default location, and retains src when bundle does not have a frontend', async () => {
+    await activateBundle({...mockedSettings, hasFrontend: false});
+    assert.strictEqual(definitionMock.bundle?.sys.id, mockedSettings.bundleId);
+    assert.strictEqual(definitionMock.locations?.length, 0);
+    assert.strictEqual(definitionMock.src, 'src');
+    assert.strictEqual(updateStub.called, true);
+    assert((console.log as SinonStub).calledWith(match(/Your app bundle was activated/)));
+  });
+  it('retrieves the app bundle when `hasFrontend` is not passed in', async () => {
+    await activateBundle({
+      ...mockedSettings, hasFrontend: undefined
+    });
+    assert.strictEqual(definitionMock.bundle?.sys.id, mockedSettings.bundleId);
+    assert.strictEqual(definitionMock.locations?.length, 1);
+    assert.strictEqual(definitionMock.src, undefined);
+    assert.strictEqual(appBundleGetStub.called, true);
     assert.strictEqual(updateStub.called, true);
     assert((console.log as SinonStub).calledWith(match(/Your app bundle was activated/)));
   });

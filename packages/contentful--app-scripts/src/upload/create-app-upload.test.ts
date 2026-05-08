@@ -42,6 +42,7 @@ describe('createAppUpload', () => {
     const appUpload = await createAppUpload(mockedSettings);
     assert.strictEqual(appUpload, uploadMock);
   });
+
   it('shows creation error when createAppUpload throws', async () => {
     clientMock = {
       getOrganization: () => ({

@@ -4,8 +4,8 @@ import { ORG_ID_ENV_KEY } from './constants';
 import { ClientAPI } from 'contentful-management';
 
 export interface Organization {
-  name: string,
-  value: string,
+  name: string;
+  value: string;
 }
 
 async function fetchOrganizations(client: ClientAPI): Promise<Organization[]> {

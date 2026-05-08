@@ -1,11 +1,12 @@
-import Analytics from 'analytics-node';
+import { Analytics } from '@segment/analytics-node';
+import type { PackageManager } from './types';
 
 // Public write key scoped to data source
 const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
 
 interface CCAEventProperties {
-  template?: string; // can be example, source or JS or TS
-  manager: 'npm' | 'yarn';
+  template?: string; // can be example, source, or JS or TS
+  manager: PackageManager;
   interactive: boolean;
 }
 
@@ -15,16 +16,15 @@ export function track(properties: CCAEventProperties) {
   }
 
   try {
-    const client = new Analytics(SEGMENT_WRITE_KEY, {
-      errorHandler: () => {
-        // noop
-      },
+    const client = new Analytics({ writeKey: SEGMENT_WRITE_KEY });
+    client.on('error', () => {
+      // noop
     });
     client.track({
       event: 'app-cli-cca-creation',
       properties,
       timestamp: new Date(),
-      anonymousId: Date.now(), // generate a random id
+      anonymousId: Date.now().toString(), // generate a random id
     });
     // eslint-disable-next-line no-empty
   } catch (e) {

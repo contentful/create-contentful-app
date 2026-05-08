@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, resolve } from 'path';
 import { EOL } from 'os';
@@ -7,21 +6,34 @@ import validateNPMPackageName from 'validate-npm-package-name';
 import { program } from 'commander';
 import inquirer from 'inquirer';
 import tildify from 'tildify';
-
 import { cloneTemplateIn } from './template';
-import { detectManager, exec, normalizeOptions, isContentfulTemplate } from './utils';
-import { CLIOptions } from './types';
+import {
+  detectActivePackageManager,
+  getNormalizedPackageManager,
+  exec,
+  normalizeOptions,
+  isContentfulTemplate,
+} from './utils';
+import type { CLIOptions, PackageManager } from './types';
 import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
 import { track } from './analytics';
-import { cloneAppAction } from './includeAppAction';
-import { cloneFunction } from './includeFunction';
+import { generateFunction } from '@contentful/app-scripts';
+import fs from 'fs';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
-function successMessage(folder: string, useYarn: boolean) {
+function successMessage(folder: string, packageManager: PackageManager) {
+  let command = '';
+  if (packageManager === 'yarn') {
+    command = 'yarn create-app-definition';
+  } else if (packageManager === 'pnpm') {
+    command = 'pnpm create-app-definition';
+  } else {
+    command = 'npm run create-app-definition';
+  }
   console.log(`
 ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folder))}.`);
 
@@ -30,7 +42,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
   console.log(`Now create an app definition for your app by running
 
     ${code(`cd ${tildify(folder)}`)}
-    ${code(useYarn ? 'yarn create-app-definition' : 'npm run create-app-definition')}
+    ${code(command)}
 
     or you can create it manually in web app:
     ${highlight(CREATE_APP_DEFINITION_GUIDE_URL)}
@@ -39,7 +51,7 @@ ${success('Success!')} Created a new Contentful app in ${highlight(tildify(folde
   console.log(`Then kick it off by running
 
     ${code(`cd ${tildify(folder)}`)}
-    ${code(`${useYarn ? 'yarn' : 'npm'} start`)}
+    ${code(`${packageManager} start`)}
   `);
 }
 
@@ -70,18 +82,18 @@ async function validateAppName(appName: string): Promise<string> {
   if (appName === 'create-definition') {
     throw new Error(
       `The ${code('create-definition')} command has been removed from ${code(
-        'create-contentful-app',
+        'create-contentful-app'
       )}.\nTo create a new app definition first run ${code(
-        'npx create-contentful-app',
-      )} and then ${code('npm run create-app-definition')} within the new folder.`,
+        'npx create-contentful-app'
+      )} and then ${code('npm run create-app-definition')} within the new folder.`
     );
   }
 
   if (appName === 'init') {
     warn(
       `The ${code('init')} command has been removed from ${code(
-        'create-contentful-app',
-      )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`,
+        'create-contentful-app'
+      )}. You can now create new apps running ${code('npx create-contentful-app')} directly.`
     );
     appName = '';
   }
@@ -93,7 +105,7 @@ async function validateAppName(appName: string): Promise<string> {
 
   if (!validateNPMPackageName(appName).validForNewPackages) {
     throw new Error(
-      `Cannot create an app named "${appName}". Please choose a different name for your app.`,
+      `Cannot create an app named "${appName}". Please choose a different name for your app.`
     );
   }
 
@@ -102,6 +114,8 @@ async function validateAppName(appName: string): Promise<string> {
 
 async function initProject(appName: string, options: CLIOptions) {
   const normalizedOptions = normalizeOptions(options);
+  const activePackageManager = detectActivePackageManager();
+  const packageManager = getNormalizedPackageManager(normalizedOptions, activePackageManager);
 
   try {
     appName = await validateAppName(appName);
@@ -110,56 +124,89 @@ async function initProject(appName: string, options: CLIOptions) {
 
     console.log(`Creating a Contentful app in ${highlight(tildify(fullAppFolder))}.`);
 
+    if (normalizedOptions.function && normalizedOptions.skipUi) {
+      await addFunctionTemplate(fullAppFolder);
+    } else {
+      await addAppExample(fullAppFolder);
+    }
+
+    updatePackageName(fullAppFolder);
+
+    wrapInBlanks(
+      highlight(
+        `---- Installing the dependencies for your app (using ${chalk.cyan(packageManager)})...`
+      )
+    );
+
+    if (packageManager === 'yarn') {
+      await exec('yarn', [], { cwd: fullAppFolder });
+    } else if (packageManager === 'pnpm') {
+      await exec('pnpm', ['install'], { cwd: fullAppFolder });
+    } else {
+      await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
+    }
+    successMessage(fullAppFolder, packageManager);
+  } catch (err) {
+    error(`Failed to create ${highlight(chalk.cyan(appName))}`, err);
+    process.exit(1);
+  }
+
+  async function addAppExample(fullAppFolder: string) {
     const isInteractive =
       !normalizedOptions.example &&
       !normalizedOptions.source &&
       !normalizedOptions.javascript &&
       !normalizedOptions.typescript &&
-      !normalizedOptions.function &&
-      !normalizedOptions.action;
+      !normalizedOptions.function;
 
     const templateSource = await getTemplateSource(options);
 
     track({
       template: templateSource,
-      manager: normalizedOptions.npm ? 'npm' : 'yarn',
+      manager: packageManager,
       interactive: isInteractive,
     });
 
-    await cloneTemplateIn(fullAppFolder, templateSource);
+    cloneTemplateIn(templateSource, fullAppFolder);
 
-    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.action) {
-      await cloneAppAction(fullAppFolder, !!normalizedOptions.javascript);
+    if (!isInteractive && isContentfulTemplate(templateSource) && normalizedOptions.function) {
+      // If function flag is specified, but no function name is provided, we default to external-references
+      // for legacy support
+      if (normalizedOptions.function === true) {
+        normalizedOptions.function = 'external-references';
+      }
+      await addFunctionTemplate(fullAppFolder);
+    }
+  }
+
+  async function addFunctionTemplate(fullAppFolder: string) {
+    if (!fs.existsSync(fullAppFolder)) {
+      fs.mkdirSync(fullAppFolder, { recursive: true });
     }
 
-    if (
-      !isInteractive &&
-      isContentfulTemplate(templateSource) &&
-      normalizedOptions.function
-    ) {
-      await cloneFunction(fullAppFolder, !!normalizedOptions.javascript);
-    }
-
-    updatePackageName(fullAppFolder);
-
-    const useYarn = normalizedOptions.yarn || detectManager() === 'yarn';
-
+    process.chdir(fullAppFolder);
     wrapInBlanks(
-      highlight(
-        `---- Installing the dependencies for your app (using ${chalk.cyan(
-          useYarn ? 'yarn' : 'npm',
-        )})...`,
-      ),
+      `To add additional function templates to your app, use ${highlight(
+        chalk.green(`
+          npx @contentful/app-scripts@latest generate-function \\
+            --ci \\
+            --name <n> \\
+            --example <example> \\
+            --language <typescript/javascript>`)
+      )}`
     );
-    if (useYarn) {
-      await exec('yarn', [], { cwd: fullAppFolder });
-    } else {
-      await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
+    if (typeof normalizedOptions.function !== 'string') {
+      throw new Error('Function template name is required');
     }
-    successMessage(fullAppFolder, useYarn);
-  } catch (err) {
-    error(`Failed to create ${appName}`, err);
-    process.exit(1);
+    const functionName = normalizedOptions.function
+      .toLowerCase()
+      .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+    await generateFunction.nonInteractive({
+      example: normalizedOptions.function,
+      language: normalizedOptions.javascript ? 'javascript' : 'typescript',
+      name: functionName,
+      keepPackageJson: normalizedOptions.skipUi === true,
+    } as any);
   }
 }
 
@@ -178,10 +225,11 @@ async function initProject(appName: string, options: CLIOptions) {
         code('  create-contentful-app my-app --source "github:user/repo"'),
         '',
         `Official Contentful templates and examples are hosted at ${highlight(EXAMPLES_REPO_URL)}.`,
-      ].join('\n'),
+      ].join('\n')
     )
     .argument('[app-name]', 'app name')
     .option('--npm', 'use npm')
+    .option('--pnpm', 'use pnpm')
     .option('--yarn', 'use Yarn')
     .option('-ts, --typescript', 'use TypeScript template (default)')
     .option('-js, --javascript', 'use JavaScript template')
@@ -191,15 +239,12 @@ async function initProject(appName: string, options: CLIOptions) {
       [
         `provide a template by its source repository.`,
         `format: URL (HTTPS or SSH) or ${code('vendor:user/repo')} (e.g., ${code(
-          'github:user/repo',
+          'github:user/repo'
         )})`,
-      ].join('\n'),
+      ].join('\n')
     )
-    .option('-a, --action', 'include a hosted app action in the ts or js template')
-    .option(
-      '-f, --function',
-      'include a function template',
-    )
+    .option('-f, --function [function-template-name]', 'include the specified function template')
+    .option('--skip-ui', 'use with --function to clone the template without a user interface (UI).')
     .action(initProject);
   await program.parseAsync();
 })();

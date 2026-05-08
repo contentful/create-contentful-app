@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@contentful/app-scripts",
+  "projectType": "library",
+  "sourceRoot": "packages/contentful--app-scripts/src",
+  "targets": {
+    "nx-release-publish": {
+      "options": {
+        "registry": "https://npm.pkg.github.com/"
+      }
+    }
+  }
+}
+  

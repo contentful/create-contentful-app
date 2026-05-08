@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import fs from 'fs';
+import fs from 'node:fs';
 import { EOL } from 'os';
 import ignore  from 'ignore';
 import chalk from 'chalk';

@@ -1,12 +1,26 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
-import { ContentfulFunction, FunctionAppAction } from './types';
+import { ContentfulFunction } from './types';
+import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
+import { resolve } from 'node:path';
 
-const DEFAULT_MANIFEST_PATH = './contentful-app-manifest.json';
+const DEFAULT_MANIFEST_PATH = resolve('.', 'contentful-app-manifest.json');
+
+const functionEvents = {
+  appActionCall: 'appaction.call',
+  appEventFilter: 'appevent.filter',
+  appEventHandler: 'appevent.handler',
+  appEventTransformation: 'appevent.transformation',
+  fieldMappingEvent: 'graphql.field.mapping',
+  resourceTypeMappingEvent: 'graphql.resourcetype.mapping',
+  queryEvent: 'graphql.query',
+  resourceLinksSearchEvent: 'resources.search',
+  resourceLinksLookupEvent: 'resources.lookup',
+};
 
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);
@@ -16,9 +30,24 @@ export const throwValidationException = (subject: string, message?: string, deta
   throw new TypeError(message);
 };
 
-export const isValidNetwork = (address: string) => {
-  const addressRegex =
-    /^(?:localhost|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\]|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}))(?::\d{1,5})?$/;
+export const isValidNetwork = (address: string): boolean => {
+  // Regular expression to validate network addresses
+  const addressRegex = new RegExp(
+    '^(?:' + // Start of the non-capturing group for the entire address
+      '(?:' + // Start of the non-capturing group for domain names
+      '(?:\\*\\.)' + // Matches wildcard domains like *.example.com
+      '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)' + // Matches a single subdomain
+      '[a-zA-Z]{2,63}' + // Matches the top-level domain (TLD). Upper bound of 63 follows RFC 1035 §2.3.4, which defines the maximum length of a single DNS label. ICANN began delegating long gTLDs (e.g. .hosting, .international) from 2012 onwards, making the previous limit of 6 too restrictive.
+      '|' + // OR
+      '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+' + // Matches standard domains with one or more subdomains
+      '[a-zA-Z]{2,63}' + // Matches the top-level domain (TLD). Upper bound of 63 follows RFC 1035 §2.3.4, which defines the maximum length of a single DNS label. ICANN began delegating long gTLDs (e.g. .hosting, .international) from 2012 onwards, making the previous limit of 6 too restrictive.
+      ')|' + // End of the non-capturing group for domain names, OR
+      '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' + // Matches the first three octets of an IPv4 address
+      '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|' + // Matches the last octet of an IPv4 address
+      '(\\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\\]' + // Matches IPv6 addresses in square brackets
+      '|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})' + // Matches IPv6 addresses without square brackets
+      ')(?::\\d{1,5})?$' // Matches an optional port number (1 to 5 digits)
+  );
   return addressRegex.test(address);
 };
 
@@ -56,10 +85,10 @@ ${err.message}
   throw err;
 };
 
-export const selectFromList = async <T extends (Definition | Organization)>(
+export const selectFromList = async <T extends Definition | Organization>(
   list: T[],
   message: string,
-  cachedOptionEnvVar: string,
+  cachedOptionEnvVar: string
 ): Promise<T> => {
   const cachedEnvVar = process.env[cachedOptionEnvVar];
   const cachedElement = list.find((item) => item.value === cachedEnvVar);
@@ -86,9 +115,7 @@ export const selectFromList = async <T extends (Definition | Organization)>(
   }
 };
 
-type Entities<Type> = Type extends 'actions' ? Omit<FunctionAppAction, 'entryFile'>[] : Omit<ContentfulFunction, 'entryFile'>[];
-
-export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type: Type): Entities<Type> | undefined {
+export function getFunctionsFromManifest(): Omit<ContentfulFunction, 'entryFile'>[] | undefined {
   const isManifestExists = fs.existsSync(DEFAULT_MANIFEST_PATH);
 
   if (!isManifestExists) {
@@ -98,47 +125,39 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
   try {
     const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
 
-    if (!Array.isArray(manifest[type]) || manifest[type].length === 0) {
+    if (!Array.isArray(manifest['functions']) || manifest['functions'].length === 0) {
       return;
     }
 
-    logProgress(
-      `${type === 'actions' ? 'App Actions' : 'functions'} found in ${chalk.bold(
-        DEFAULT_MANIFEST_PATH,
-      )}.`,
-    );
+    logProgress(`functions found in ${chalk.bold(DEFAULT_MANIFEST_PATH)}.`);
 
-    const fieldMappingEvent = "graphql.field.mapping";
-    const queryEvent =  "graphql.query";
-    const appEventFilter = 'appevent.filter';
-
-    const items = (manifest[type] as FunctionAppAction[] | ContentfulFunction[]).map((item) => {
+    const items = (manifest['functions'] as ContentfulFunction[]).map((item) => {
       const allowNetworks = Array.isArray(item.allowNetworks)
         ? item.allowNetworks.map(stripProtocol)
         : [];
 
       const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
-      const hasInvalidEvent = accepts?.some((event) => ![fieldMappingEvent, queryEvent, appEventFilter].includes(event));
+      const hasInvalidEvent = accepts?.some(
+        (event) => !Object.values(functionEvents).includes(event)
+      );
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {
         console.log(
           `${chalk.red(
-            'Error:',
-          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for ${type} "${
+            'Error:'
+          )} Invalid IP address ${hasInvalidNetwork} found in the allowNetworks array for Function "${
             item.name
-          }".`,
+          }".`
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
       }
       if (hasInvalidEvent) {
         console.log(
-          `${chalk.red(
-            'Error:',
-          )} Invalid events ${hasInvalidEvent} found in the accepts array for ${type} "${
+          `${chalk.red('Error:')} Invalid events found in the accepts array for Function "${
             item.name
-          }".`,
+          }".`
         );
         // eslint-disable-next-line no-process-exit
         process.exit(1);
@@ -155,14 +174,27 @@ export function getEntityFromManifest<Type extends 'actions' | 'functions'>(type
       };
     });
 
-    return items as Entities<Type>;
+    return items;
   } catch {
     console.log(
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
-        DEFAULT_MANIFEST_PATH,
-      )}.`,
+        DEFAULT_MANIFEST_PATH
+      )}.`
     );
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 }
+
+export function getWebAppHostname(host: string | undefined): string {
+  return host && host.includes('api') ? host.replace('api', 'app') : DEFAULT_CONTENTFUL_APP_HOST;
+}
+
+export const resolveManifestFile = (options: { manifestFile?: string }, cwd = process.cwd()) => {
+  const manifestPath = options.manifestFile
+    ? resolve(cwd, options.manifestFile)
+    : resolve(cwd, 'contentful-app-manifest.json');
+  return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+};
+
+export const ID_REGEX = /^[a-zA-Z0-9]+$/;

@@ -1,0 +1,31 @@
+name: 'Optionally lint and test'
+inputs:
+  os:
+    description: 'Operating system'
+    required: false
+    default: 'linux'
+  github-token:
+    description: 'GitHub token for API requests'
+    required: false
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+    - name: Lint (Linux only)
+      if: ${{ inputs.os }} == 'ubuntu-latest'
+      shell: bash
+      run: npm run lint
+
+    - name: Run tests (Linux only)
+      if: ${{ inputs.os }} == 'ubuntu-latest'
+      shell: bash
+      run: npm test
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+
+    - name: Run tests (Windows)
+      if: ${{ inputs.os }} == 'windows-latest'
+      shell: pwsh
+      run: npm test
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}

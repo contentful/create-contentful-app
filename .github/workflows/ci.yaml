@@ -1,0 +1,63 @@
+name: CI
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  NPM_CONFIG_PROGRESS: 'false'
+  NPM_CONFIG_LOGLEVEL: warn
+
+on:
+  push:
+    branches: [main, canary]
+  pull_request:
+    branches: [main, canary]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        node-version: ['18.20', '20.18', '22.11']
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install dependencies and build
+        uses: ./.github/actions/install-and-build
+        with:
+          os: ${{ matrix.os }}
+          node-version: ${{ matrix.node-version }}
+
+      - name: Lint and test
+        uses: ./.github/actions/lint-and-test
+        with:
+          os: ${{ matrix.os }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test built wrapper app
+        uses: ./.github/actions/test-app
+        with:
+          os: ${{ matrix.os }}
+
+      - name: Test built functions
+        uses: ./.github/actions/test-functions
+        with:
+          os: ${{ matrix.os }}
+
+  # Single status check that represents all matrix jobs
+  ci-status:
+    name: CI Status
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check matrix job results
+        run: |
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "Matrix jobs failed or were cancelled"
+            exit 1
+          fi
+          echo "All matrix jobs passed!"

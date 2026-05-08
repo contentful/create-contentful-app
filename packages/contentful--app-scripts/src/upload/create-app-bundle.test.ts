@@ -3,6 +3,7 @@ import assert from 'assert';
 import proxyquire from 'proxyquire';
 import { AppUpload, ClientAPI } from 'contentful-management';
 import { UploadSettings } from '../types';
+import { processCreateAppBundleError } from './create-app-bundle';
 
 const bundleMock = { sys: { id: 'mocked_bundle' } };
 const mockedSettings = {
@@ -114,5 +115,32 @@ describe('createAppBundleFromSettings', () => {
   it('supports custom defined host domain creating appbundle from settings', async () => {
     await createAppBundleFromSettings({ ...mockedSettings, host: 'jane.doe.com' });
     assert.strictEqual(createClientArgs[0].host, 'jane.doe.com');
+  });
+});
+
+describe('processCreateAppBundleError', () => {
+  it('shows creation error when status is not 403', () => {
+    const err = new Error('{"status": 404, "message": "Not found"}');
+    const returnedErr = processCreateAppBundleError(err);
+    assert.strictEqual(returnedErr, err.message);
+  });
+
+  it('shows creation error when status is 403 and reason is not entitled', () => {
+    const err = new Error(
+      '{"status": 403, "message": "Forbidden", "details": {"reasons": ["Not entitled to App Functions."]}}'
+    );
+    const returnedErr = processCreateAppBundleError(err);
+    assert.strictEqual(
+      returnedErr,
+      'Your app seems to be using App Functions, which your organization is not entitled to. Remove your app function, or upgrade your account to proceed with your app upload.'
+    );
+  });
+
+  it('shows creation error when status is 403 and reason is unknown', () => {
+    const err = new Error(
+      '{"status": 403, "message": "Forbidden", "details": {"reasons": ["Unknown reason."]}}'
+    );
+    const returnedErr = processCreateAppBundleError(err);
+    assert.deepEqual(returnedErr, ['Unknown reason.']);
   });
 });

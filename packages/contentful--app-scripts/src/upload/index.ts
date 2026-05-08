@@ -3,11 +3,26 @@ import { getUploadSettingsArgs } from './get-upload-settings-args';
 import { createAppBundleFromSettings } from './create-app-bundle';
 import { buildAppUploadSettings } from './build-upload-settings';
 import { UploadOptions, UploadSettings } from '../types';
+import { logFeedbackNudge } from '../feedback/feedback';
+
+function uploadSettingsHaveAppEventFunction(settings: UploadSettings) {
+  return (
+    settings.functions &&
+    settings.functions.some((fn) => fn.accepts.some((fnType) => fnType.startsWith('appevent')))
+  );
+}
 
 async function uploadAndActivate(settings: UploadSettings) {
   const bundle = await createAppBundleFromSettings(settings);
+  if (uploadSettingsHaveAppEventFunction(settings)) {
+    console.log(
+      'Remember that in order to be invoked, your App Event function(s) must be linked to your App Event subscription using the CMA or the Events tab of the App Details page.'
+    );
+  }
   if (!settings.skipActivation && bundle) {
-    await activateBundle({ ...settings, bundleId: bundle.sys.id });
+    const hasFrontend = bundle.files.length > 0;
+    await activateBundle({ ...settings, bundleId: bundle.sys.id, hasFrontend });
+    logFeedbackNudge();
   }
 }
 

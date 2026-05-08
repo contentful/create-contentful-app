@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@contentful/create-contentful-app",
+  "projectType": "library",
+  "sourceRoot": "packages/contentful--create-contentful-app/src",
+  "targets": {
+    "nx-release-publish": {
+      "options": {
+        "registry": "https://npm.pkg.github.com/"
+      }
+    }
+  }
+}

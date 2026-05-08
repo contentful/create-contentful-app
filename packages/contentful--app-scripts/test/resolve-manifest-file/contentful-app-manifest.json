@@ -1,0 +1,17 @@
+{
+  "functions": [
+    {
+      "id": "example",
+      "name": "default",
+      "description": "my app manifest file with the default name in the default location (relative to where the build-functions command is run)",
+      "path": "fixtures/function.js",
+      "entryFile": "fixtures/function.ts",
+      "allowNetworks": [
+        "api.contentful.com"
+      ],
+      "accepts": [
+        "appaction.call"
+      ]
+    }
+  ]
+}

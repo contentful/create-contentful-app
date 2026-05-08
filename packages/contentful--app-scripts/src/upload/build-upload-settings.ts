@@ -1,20 +1,20 @@
 import { prompt } from 'inquirer';
 import { getAppInfo } from '../get-app-info';
-import { getEntityFromManifest } from '../utils';
+import { getFunctionsFromManifest } from '../utils';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { UploadOptions, UploadSettings } from '../types';
+import path from 'node:path';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
-  const actionsManifest = getEntityFromManifest('actions');
-  const functionManifest = getEntityFromManifest('functions');
+  const functionManifest = getFunctionsFromManifest();
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
-  if (! bundleDir) {
+  if (!bundleDir) {
     prompts.push({
       name: 'bundleDirectory',
       message: `Bundle directory, if not default:`,
-      default: './build',
+      default: path.resolve('.', 'build'),
     });
   }
   if (!comment) {
@@ -37,21 +37,25 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
       name: 'host',
       message: `Contentful CMA endpoint URL:`,
       default: DEFAULT_CONTENTFUL_API_HOST,
+      filter: hostProtocolFilter,
     });
   }
 
-  const { activateBundle, ...appUploadSettings } = await prompt(prompts);
-
-  const appInfo = await getAppInfo(options);
+  const { activateBundle, host: interactiveHost, ...appUploadSettings } = await prompt(prompts);
+  const hostValue = host || interactiveHost;
+  const appInfo = await getAppInfo({ ...options, host: hostValue });
 
   return {
     bundleDirectory: bundleDir,
     skipActivation: skipActivation === undefined ? !activateBundle : skipActivation,
     comment,
-    host,
-    actions: actionsManifest,
+    host: hostValue,
     functions: functionManifest,
     ...appUploadSettings,
     ...appInfo,
   };
+}
+
+export function hostProtocolFilter(input: string) {
+  return input.replace(/^https?:\/\//, '');
 }

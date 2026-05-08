@@ -1,4 +1,4 @@
-import { Analytics } from '@segment/analytics-node'
+import { Analytics } from '@segment/analytics-node';
 
 // Public write key scoped to data source
 const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
@@ -10,7 +10,7 @@ const SEGMENT_WRITE_KEY = 'IzCq3j4dQlTAgLdMykRW9oBHQKUy1xMm';
  * @param {boolean} properties.ci value if --ci flag has been set
  * @returns
  */
-export function track({ command, ci }: { command: string; ci: boolean; }) {
+export async function track({ command, ci }: { command: string; ci: boolean }) {
   if (process.env.DISABLE_ANALYTICS) {
     return;
   }
@@ -18,8 +18,10 @@ export function track({ command, ci }: { command: string; ci: boolean; }) {
   try {
     const client = new Analytics({
       writeKey: SEGMENT_WRITE_KEY,
-    })
-    client.on('error', (err) => { /* noop */ })
+    });
+    client.on('error', (err) => {
+      /* noop */
+    });
     client.track({
       event: 'app-cli-app-scripts',
       properties: {
@@ -29,6 +31,8 @@ export function track({ command, ci }: { command: string; ci: boolean; }) {
       anonymousId: Date.now().toString(), // generate a random id
       timestamp: new Date(),
     });
+    
+    await client.closeAndFlush();
     // eslint-disable-next-line no-empty
   } catch (e) {
     // ignore any error, to not block the call

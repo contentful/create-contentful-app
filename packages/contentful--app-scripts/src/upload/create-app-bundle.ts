@@ -1,13 +1,13 @@
 import chalk from 'chalk';
 import ora from 'ora';
-import { showCreationError } from '../utils';
+import { getWebAppHostname, showCreationError } from '../utils';
 import { createClient } from 'contentful-management';
 
 import { createAppUpload } from './create-app-upload';
 import { UploadSettings } from '../types';
 
 export async function createAppBundleFromUpload(settings: UploadSettings, appUploadId: string) {
-  const { accessToken, host, userAgentApplication, comment, actions, functions } = settings;
+  const { accessToken, host, userAgentApplication, comment, functions } = settings;
   const clientSpinner = ora('Verifying your upload...').start();
   const client = createClient({
     accessToken,
@@ -24,14 +24,34 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
     appBundle = await appDefinition.createAppBundle({
       appUploadId,
       comment: comment && comment.length > 0 ? comment : undefined,
-      actions,
       functions,
     });
   } catch (err: any) {
-    showCreationError('app upload', err.message);
+    showCreationError('app upload', processCreateAppBundleError(err));
   }
   bundleSpinner.stop();
   return appBundle;
+}
+
+export function processCreateAppBundleError(err: any) {
+  try {
+    const message = JSON.parse(err.message);
+    const reasons = message.details?.reasons;
+    if (message.status !== 403 || !reasons) {
+      return err.message;
+    }
+    if (message['status'] == 403 && message.details?.reasons) {
+      if (reasons.includes('Not entitled to App Functions.')) {
+        return 'Your app seems to be using App Functions, which your organization is not entitled to. Remove your app function, or upgrade your account to proceed with your app upload.';
+      } else {
+        return reasons;
+      }
+    } else {
+      return reasons;
+    }
+  } catch (e) {
+    return err.message;
+  }
 }
 
 export async function createAppBundleFromSettings(settings: UploadSettings) {
@@ -43,7 +63,7 @@ export async function createAppBundleFromSettings(settings: UploadSettings) {
 
     console.log(`
   ${chalk.yellow('Done!')} Your files were successfully uploaded and a new AppUpload (${chalk.dim(
-      appUpload.sys.id,
+      appUpload.sys.id
     )}) has been created.`);
   } catch (err: any) {
     return showCreationError('app upload', err.message);
@@ -57,11 +77,13 @@ export async function createAppBundleFromSettings(settings: UploadSettings) {
 
   console.log(`
   ${chalk.cyan('Success!')} Created a new app bundle for ${chalk.cyan(
-    settings.definition.name,
+    settings.definition.name
   )} in ${chalk.bold(settings.organization.name)}.
 
   Bundle Id: ${chalk.yellow(appBundle.sys.id)}
   `);
+
+  const webApp = getWebAppHostname(settings.host);
 
   if (settings.skipActivation) {
     console.log(`
@@ -69,7 +91,7 @@ export async function createAppBundleFromSettings(settings: UploadSettings) {
 
     ${chalk.bold('You can activate this app bundle in your apps settings:')}
 
-      ${chalk.underline('https://app.contentful.com/deeplink?link=app-definition-list')}
+      ${chalk.underline(`https://${webApp}/deeplink?link=app-definition-list`)}
 
     ${chalk.bold('or by simply running the cli command:')}
 

@@ -17,7 +17,7 @@ To start developing your first app, run:
 npx create-contentful-app my-first-app
 ```
 
-![Screenshot of `npx create-contentful-app my-app`](https://raw.githubusercontent.com/contentful/create-contentful-app/master/packages/contentful--create-contentful-app/docs/screenshot.png)
+![Screenshot of `npx create-contentful-app my-app`](https://raw.githubusercontent.com/contentful/create-contentful-app/main/packages/contentful--create-contentful-app/docs/screenshot.png)
 
 ## Bootstrap
 
@@ -30,6 +30,9 @@ npx create-contentful-app <app-name>
 # npm
 npm init contentful-app <app-name>
 
+# pnpm
+pnpm init contentful-app <app-name>
+
 # Yarn
 yarn create contentful-app <app-name>
 ```
@@ -38,11 +41,9 @@ yarn create contentful-app <app-name>
 
 ### Package Manager
 
-`--npm` or `--yarn`
+`--npm` or `--pnpm` or `--yarn`
 
-Use npm or Yarn to manage dependencies. If omitted, defaults to the manager used to run `create-contentful-app`.
-
-Both flags are mutually exclusive.
+Use npm, pnpm, or Yarn to manage dependencies. If omitted, or if more than one flag is passed, will default to the manager used to run `create-contentful-app`.
 
 ### Template
 
@@ -85,19 +86,22 @@ or specify your own template
 Official Contentful templates are hosted at https://github.com/contentful/apps/tree/master/examples.
 
 Arguments:
-  app-name                      app name
+  app-name                                      app name
 
 Options:
-  --npm                         use npm
-  --yarn                        use Yarn
-  -js, --javascript             use default JavaScript template
-  -ts, --typescript             use default TypeScript template
-  -e, --example <example-name>  bootstrap an example app from https://github.com/contentful/apps/tree/master/examples
-  -s, --source <url>            provide a template by its source repository.
-                                format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
-  -a, --actions                 includes a hosted app action in ts or js template
-  -h, --help                    shows all available CLI options
+  --npm                                         use npm
+  --yarn                                        use Yarn
+  -js, --javascript                             use default JavaScript template
+  -ts, --typescript                             use default TypeScript template
+  -e, --example <example-name>                  bootstrap an example app from https://github.com/contentful/apps/tree/master/examples
+  -s, --source <url>                            provide a template by its source repository.
+                                                format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
+  -f, --function <function-template-name>       include the specified function template
+  --skip-ui                                     use with --function to clone the template without a user interface (UI).
+  -h, --help                                    shows all available CLI options
 ```
+
+In order to run the app within Contentful run `npm run create-app-definition` within your app directory to create an app definition.
 
 ### Tracking
 

@@ -3,7 +3,7 @@ import { getAppInfo } from '../get-app-info';
 import { ActivateOptions, ActivateSettings } from '../types';
 
 export async function buildBundleActivateSettings(
-  options: ActivateOptions,
+  options: ActivateOptions
 ): Promise<ActivateSettings> {
   const { bundleId, host } = options;
   const prompts = [];
@@ -23,12 +23,13 @@ export async function buildBundleActivateSettings(
     });
   }
 
-  const appActivateSettings = await inquirer.prompt(prompts);
-  const appInfo = await getAppInfo(options);
+  const { host: interactiveHost, ...appActivateSettings } = await inquirer.prompt(prompts);
+  const hostValue = host || interactiveHost;
+  const appInfo = await getAppInfo({ ...options, host: hostValue });
 
   return {
     bundleId,
-    host,
+    host: hostValue,
     ...appActivateSettings,
     ...appInfo,
   };

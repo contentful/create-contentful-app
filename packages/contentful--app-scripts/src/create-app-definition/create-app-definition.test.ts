@@ -65,12 +65,16 @@ describe('createAppDefinition', () => {
     selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await assert.rejects(() => subject(token, { locations: [] }));
-    assert((console.log as SinonStub).calledWith(match(/Something went wrong while creating the app definition/)));
+    assert(
+      (console.log as SinonStub).calledWith(
+        match(/Something went wrong while creating the app definition/)
+      )
+    );
   });
 
-  it('logs success message', async () => {
+  it('logs success message with default host', async () => {
     const appId = 'appId';
-    const orgSettingsLink = 'https://app.contentful.com/deeplink?link=org';
+    const orgSettingsLink = 'https://app.contentful.com/deeplink?link=app-definition-list';
     const appLink = `https://app.contentful.com/deeplink?link=apps&id=${appId}`;
     const tutorialLink = 'https://ctfl.io/app-tutorial';
 
@@ -91,5 +95,60 @@ describe('createAppDefinition', () => {
     assert(loggedMessage.includes(appLink));
     assert(loggedMessage.includes(tutorialLink));
     assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], { [APP_DEF_ENV_KEY]: 'appId' });
+  });
+
+  it('logs success message with EU host option', async () => {
+    const appId = 'appId';
+    const orgSettingsLink = 'https://app.eu.contentful.com/deeplink?link=app-definition-list';
+    const appLink = `https://app.eu.contentful.com/deeplink?link=apps&id=${appId}`;
+    const tutorialLink = 'https://ctfl.io/app-tutorial';
+
+    clientMock.getOrganization = stub().resolves({
+      createAppDefinition: stub().resolves({ sys: { id: 'appId' } }),
+    });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
+
+    await assert.doesNotReject(() =>
+      subject(token, { locations: [], host: 'api.eu.contentful.com' })
+    );
+
+    const loggedMessage = (console.log as SinonStub).getCall(0).args[0];
+
+    assert(loggedMessage.includes('Success'));
+    assert(loggedMessage.includes(orgSettingsLink));
+    assert(loggedMessage.includes(appLink));
+    assert(loggedMessage.includes(tutorialLink));
+    assert.deepStrictEqual(cachedEnvVarsMock.args[0][0], { [APP_DEF_ENV_KEY]: 'appId' });
+  });
+
+  it('sets default src if any frontend location is specified', async () => {
+    const createAppDefinitionStub = stub().resolves({ sys: { id: 'testId' } });
+    clientMock.getOrganization = stub().resolves({
+      createAppDefinition: createAppDefinitionStub,
+    });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
+
+    await subject(token, { locations: ['entry-field', 'dialog'] });
+    assert(createAppDefinitionStub.calledWithMatch({ src: 'http://localhost:3000' }));
+  });
+
+  it('does not set default src if only location is dialog', async () => {
+    const createAppDefinitionStub = stub().resolves({ sys: { id: 'testId' } });
+    clientMock.getOrganization = stub().resolves({
+      createAppDefinition: createAppDefinitionStub,
+    });
+    clientMock.getOrganizations = stub().resolves({
+      items: [{ name: 'name', sys: { id: organizationId } }],
+    });
+    selectFromListMock.returns({ name: 'name', value: organizationId });
+
+    await subject(token, { locations: ['dialog'] });
+    assert(createAppDefinitionStub.calledWithMatch({ src: undefined }));
   });
 });
