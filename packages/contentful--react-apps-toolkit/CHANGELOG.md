@@ -1,3 +1,9 @@
+## 1.2.23 (2026-05-12)
+
+### 🩹 Fixes
+
+- **deps:** bump contentful-management from 11.74.0 to 11.75.0 ([#3026](https://github.com/contentful/create-contentful-app/pull/3026))
+
 ## 1.2.22 (2026-04-07)
 
 This was a version bump only for @contentful/react-apps-toolkit to align it with other projects, there were no code changes.

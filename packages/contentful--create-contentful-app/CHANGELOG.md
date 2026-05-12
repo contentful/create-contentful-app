@@ -1,3 +1,13 @@
+## 2.2.8 (2026-05-12)
+
+### 🩹 Fixes
+
+- **deps:** bump contentful-management from 11.74.0 to 11.75.0 ([#3026](https://github.com/contentful/create-contentful-app/pull/3026))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 2.5.12
+
 ## 2.2.7 (2026-04-07)
 
 ### 🩹 Fixes
