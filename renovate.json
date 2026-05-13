@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>contentful/renovate-config"],
+  "npm": {
+    "enabled": true
+  },
+  "registryAliases": {
+    "npm-github": "https://npm.pkg.github.com"
+  },
+  "hostRules": [
+    {
+      "matchHost": "npm.pkg.github.com",
+      "hostType": "npm",
+      "encrypted": {
+        "token": "{{secrets.NPM_REGISTRY_REGISTRY_GH_ORG_TOKEN}}"
+      }
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<15.0.0"
+    },
+    {
+      "matchPackageNames": ["prettier"],
+      "allowedVersions": "<3.0.0"
+    }
+  ]
+}

@@ -1,3 +1,18 @@
+## 2.5.12 (2026-05-12)
+
+### 🩹 Fixes
+
+- **deps:** bump axios from 1.15.1 to 1.15.2 ([#3070](https://github.com/contentful/create-contentful-app/pull/3070))
+- **deps:** bump axios from 1.15.0 to 1.15.1 ([#3068](https://github.com/contentful/create-contentful-app/pull/3068))
+- **deps:** bump dotenv from 17.4.1 to 17.4.2 ([#3061](https://github.com/contentful/create-contentful-app/pull/3061))
+- **deps:** bump dotenv from 17.4.0 to 17.4.1 ([#3049](https://github.com/contentful/create-contentful-app/pull/3049))
+- **deps:** bump esbuild from 0.27.5 to 0.28.0 ([#3047](https://github.com/contentful/create-contentful-app/pull/3047))
+- **deps:** bump dotenv from 17.3.1 to 17.4.0 ([#3039](https://github.com/contentful/create-contentful-app/pull/3039))
+- **deps:** bump esbuild from 0.27.4 to 0.27.5 ([#3038](https://github.com/contentful/create-contentful-app/pull/3038))
+- **deps:** bump adm-zip from 0.5.16 to 0.5.17 ([#3036](https://github.com/contentful/create-contentful-app/pull/3036))
+- **deps:** bump axios from 1.13.6 to 1.15.0 ([#3027](https://github.com/contentful/create-contentful-app/pull/3027))
+- **deps:** bump contentful-management from 11.74.0 to 11.75.0 ([#3026](https://github.com/contentful/create-contentful-app/pull/3026))
+
 ## 2.5.11 (2026-04-07)
 
 ### 🩹 Fixes
