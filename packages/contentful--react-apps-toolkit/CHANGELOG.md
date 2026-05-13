@@ -1,3 +1,18 @@
+# 2.0.0 (2026-05-13)
+
+### 🩹 Fixes
+
+- ⚠️  bump react toolkit cma dependency to v12 ([#3082](https://github.com/contentful/create-contentful-app/pull/3082))
+
+### ⚠️  Breaking Changes
+
+- bump react toolkit cma dependency to v12  ([#3082](https://github.com/contentful/create-contentful-app/pull/3082))
+  @contentful/react-apps-toolkit now requires @contentful/app-sdk >=4.54.0 and contentful-management v12.
+
+### ❤️ Thank You
+
+- Jared Jolton @jjolton-contentful
+
 ## 1.2.23 (2026-05-12)
 
 ### 🩹 Fixes
