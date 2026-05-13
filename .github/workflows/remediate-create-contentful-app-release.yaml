@@ -1,0 +1,23 @@
+name: Remediate create-contentful-app release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  restore-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.1'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Restore public latest tag
+        run: |
+          npm dist-tag add create-contentful-app@2.0.24 latest
+          npm deprecate create-contentful-app@3.0.0 "Accidental release. Use create-contentful-app@2.0.24 while we correct the release configuration."
+          npm dist-tag ls create-contentful-app
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_REGISTRY_NPMJS_ORG_TOKEN }}
