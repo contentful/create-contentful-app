@@ -1,3 +1,13 @@
+## 3.0.1 (2026-05-21)
+
+### 🩹 Fixes
+
+- point wrapper at published @contentful/create-contentful-app [] ([#3085](https://github.com/contentful/create-contentful-app/pull/3085))
+
+### ❤️ Thank You
+
+- Josh Lewis
+
 # 3.0.0 (2026-05-13)
 
 ### 🧱 Updated Dependencies
