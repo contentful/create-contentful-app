@@ -14,7 +14,7 @@
     "directory": "packages/contentful--create-contentful-app"
   },
   "engines": {
-    "node": ">=18",
+    "node": ">=20",
     "npm": ">=9"
   },
   "main": "lib/index.js",
