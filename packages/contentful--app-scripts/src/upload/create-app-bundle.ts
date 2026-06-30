@@ -9,11 +9,14 @@ import { UploadSettings } from '../types';
 export async function createAppBundleFromUpload(settings: UploadSettings, appUploadId: string) {
   const { accessToken, host, userAgentApplication, comment, functions } = settings;
   const clientSpinner = ora('Verifying your upload...').start();
-  const client = createClient({
-    accessToken,
-    host,
-    application: userAgentApplication ? userAgentApplication : 'contentful.app-scripts',
-  });
+  const client = createClient(
+    {
+      accessToken,
+      host,
+      application: userAgentApplication ? userAgentApplication : 'contentful.app-scripts',
+    },
+    { type: 'legacy' }
+  );
   const organization = await client.getOrganization(settings.organization.value);
   const appDefinition = await organization.getAppDefinition(settings.definition.value);
   clientSpinner.stop();

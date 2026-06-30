@@ -9,7 +9,7 @@ import { ACCESS_TOKEN_ENV_KEY } from './constants';
 
 const checkTokenValidity = async (accessToken = '', host?: string) => {
   try {
-    const client = createClient({ accessToken, host });
+    const client = createClient({ accessToken, host }, { type: 'legacy' });
     await client.getCurrentUser();
     return true;
   } catch (err) {

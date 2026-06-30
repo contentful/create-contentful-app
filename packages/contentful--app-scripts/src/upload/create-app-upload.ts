@@ -6,11 +6,14 @@ import { createClient } from 'contentful-management';
 import { UploadSettings } from '../types';
 
 async function createAppBundleFromFile(orgId: string, token: string, zip: Buffer, host = '') {
-  const client = createClient({
-    accessToken: token,
-    host,
-    hostUpload: host.replace(/^api/i, 'upload'),
-  });
+  const client = createClient(
+    {
+      accessToken: token,
+      host,
+      hostUpload: host.replace(/^api/i, 'upload'),
+    },
+    { type: 'legacy' }
+  );
   const org = await client.getOrganization(orgId);
   return await org.createAppUpload(zip);
 }

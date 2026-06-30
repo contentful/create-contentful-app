@@ -64,7 +64,7 @@ export async function createAppDefinition(
   assertValidArguments(accessToken, appDefinitionSettings);
 
   const host = appDefinitionSettings.host;
-  const client = createClient({ accessToken, host });
+  const client = createClient({ accessToken, host }, { type: 'legacy' });
   const organizations = await fetchOrganizations(client);
 
   const selectedOrg = await selectFromList(
@@ -75,7 +75,7 @@ export async function createAppDefinition(
   const organizationId = selectedOrg.value;
 
   const appName = appDefinitionSettings.name || path.basename(process.cwd());
-  const locations = createTypeSafeLocations(appDefinitionSettings)
+  const locations = createTypeSafeLocations(appDefinitionSettings);
   const hasFrontendLocation = locations.some(({ location }) => location !== 'dialog');
   const body = {
     name: appName,
