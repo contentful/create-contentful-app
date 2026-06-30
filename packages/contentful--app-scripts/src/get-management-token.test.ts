@@ -26,8 +26,10 @@ describe('getManagementToken-js', () => {
         'contentful-management': {
           createClient() {
             return {
-              async getOrganizations() {
-                throw new Error();
+              user: {
+                async getCurrent() {
+                  throw new Error();
+                },
               },
             };
           },

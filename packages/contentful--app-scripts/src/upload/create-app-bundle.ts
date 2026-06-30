@@ -15,20 +15,28 @@ export async function createAppBundleFromUpload(settings: UploadSettings, appUpl
       host,
       application: userAgentApplication ? userAgentApplication : 'contentful.app-scripts',
     },
-    { type: 'legacy' }
+    { type: 'plain' }
   );
-  const organization = await client.getOrganization(settings.organization.value);
-  const appDefinition = await organization.getAppDefinition(settings.definition.value);
+  await client.appDefinition.get({
+    organizationId: settings.organization.value,
+    appDefinitionId: settings.definition.value,
+  });
   clientSpinner.stop();
 
   let appBundle = null;
   const bundleSpinner = ora('Creating the app bundle...').start();
   try {
-    appBundle = await appDefinition.createAppBundle({
-      appUploadId,
-      comment: comment && comment.length > 0 ? comment : undefined,
-      functions,
-    });
+    appBundle = await client.appBundle.create(
+      {
+        organizationId: settings.organization.value,
+        appDefinitionId: settings.definition.value,
+      },
+      {
+        appUploadId,
+        comment: comment && comment.length > 0 ? comment : undefined,
+        functions,
+      }
+    );
   } catch (err: any) {
     showCreationError('app upload', processCreateAppBundleError(err));
   }

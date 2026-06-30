@@ -9,8 +9,8 @@ import { ACCESS_TOKEN_ENV_KEY } from './constants';
 
 const checkTokenValidity = async (accessToken = '', host?: string) => {
   try {
-    const client = createClient({ accessToken, host }, { type: 'legacy' });
-    await client.getCurrentUser();
+    const client = createClient({ accessToken, host }, { type: 'plain' });
+    await client.user.getCurrent();
     return true;
   } catch (err) {
     return false;

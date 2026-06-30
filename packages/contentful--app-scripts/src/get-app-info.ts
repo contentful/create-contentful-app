@@ -15,7 +15,7 @@ export const getAppInfo = async ({
   host?: string;
 }) => {
   const accessToken = token || (await getManagementToken(host));
-  const client = createClient({ accessToken, host }, { type: 'legacy' });
+  const client = createClient({ accessToken, host }, { type: 'plain' });
 
   const organization = organizationId
     ? await getOrganizationById(client, organizationId)

@@ -12,10 +12,9 @@ async function createAppBundleFromFile(orgId: string, token: string, zip: Buffer
       host,
       hostUpload: host.replace(/^api/i, 'upload'),
     },
-    { type: 'legacy' }
+    { type: 'plain' }
   );
-  const org = await client.getOrganization(orgId);
-  return await org.createAppUpload(zip);
+  return await client.appUpload.create({ organizationId: orgId }, { file: zip });
 }
 
 export async function createAppUpload(settings: UploadSettings) {

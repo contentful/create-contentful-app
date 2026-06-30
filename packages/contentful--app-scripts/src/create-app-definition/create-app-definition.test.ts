@@ -2,14 +2,14 @@ import proxyquire from 'proxyquire';
 import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import { APP_DEF_ENV_KEY } from '../constants';
-import { ClientAPI } from 'contentful-management';
+import { PlainClientAPI } from 'contentful-management';
 
 const organizationId = 'orgId';
 const token = 'token';
 
 describe('createAppDefinition', () => {
   let subject: (accessToken?: string, appDefinitionSettings?: any) => Promise<void>,
-    clientMock: ClientAPI,
+    clientMock: PlainClientAPI,
     selectFromListMock: SinonStub,
     cachedEnvVarsMock: SinonStub;
 
@@ -23,9 +23,9 @@ describe('createAppDefinition', () => {
 
   beforeEach(() => {
     clientMock = {
-      getOrganization: stub(),
-      getOrganizations: stub(),
-    } as unknown as ClientAPI;
+      organization: { getAll: stub() },
+      appDefinition: { create: stub() },
+    } as unknown as PlainClientAPI;
 
     cachedEnvVarsMock = stub().resolves(undefined);
 
@@ -49,17 +49,15 @@ describe('createAppDefinition', () => {
   it('throws with invalid options', () => assert.rejects(() => subject(), /TypeError/));
 
   it('throws if unable to fetch organizations', async () => {
-    clientMock.getOrganizations = stub().rejects(new Error());
+    clientMock.organization.getAll = stub().rejects(new Error());
 
     await assert.rejects(() => subject(token, { locations: [] }));
     assert((console.log as SinonStub).calledWith(match(/Could not fetch your organizations/)));
   });
 
   it('throws if unable to create definition', async () => {
-    clientMock.getOrganization = stub().resolves({
-      createAppDefinition: stub().rejects(new Error()),
-    });
-    clientMock.getOrganizations = stub().resolves({
+    clientMock.appDefinition.create = stub().rejects(new Error());
+    clientMock.organization.getAll = stub().resolves({
       items: [{ name: 'name', sys: { id: organizationId } }],
     });
     selectFromListMock.returns({ name: 'name', value: organizationId });
@@ -78,10 +76,8 @@ describe('createAppDefinition', () => {
     const appLink = `https://app.contentful.com/deeplink?link=apps&id=${appId}`;
     const tutorialLink = 'https://ctfl.io/app-tutorial';
 
-    clientMock.getOrganization = stub().resolves({
-      createAppDefinition: stub().resolves({ sys: { id: 'appId' } }),
-    });
-    clientMock.getOrganizations = stub().resolves({
+    clientMock.appDefinition.create = stub().resolves({ sys: { id: 'appId' } });
+    clientMock.organization.getAll = stub().resolves({
       items: [{ name: 'name', sys: { id: organizationId } }],
     });
     selectFromListMock.returns({ name: 'name', value: organizationId });
@@ -103,10 +99,8 @@ describe('createAppDefinition', () => {
     const appLink = `https://app.eu.contentful.com/deeplink?link=apps&id=${appId}`;
     const tutorialLink = 'https://ctfl.io/app-tutorial';
 
-    clientMock.getOrganization = stub().resolves({
-      createAppDefinition: stub().resolves({ sys: { id: 'appId' } }),
-    });
-    clientMock.getOrganizations = stub().resolves({
+    clientMock.appDefinition.create = stub().resolves({ sys: { id: 'appId' } });
+    clientMock.organization.getAll = stub().resolves({
       items: [{ name: 'name', sys: { id: organizationId } }],
     });
     selectFromListMock.returns({ name: 'name', value: organizationId });
@@ -126,29 +120,25 @@ describe('createAppDefinition', () => {
 
   it('sets default src if any frontend location is specified', async () => {
     const createAppDefinitionStub = stub().resolves({ sys: { id: 'testId' } });
-    clientMock.getOrganization = stub().resolves({
-      createAppDefinition: createAppDefinitionStub,
-    });
-    clientMock.getOrganizations = stub().resolves({
+    clientMock.appDefinition.create = createAppDefinitionStub;
+    clientMock.organization.getAll = stub().resolves({
       items: [{ name: 'name', sys: { id: organizationId } }],
     });
     selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await subject(token, { locations: ['entry-field', 'dialog'] });
-    assert(createAppDefinitionStub.calledWithMatch({ src: 'http://localhost:3000' }));
+    assert(createAppDefinitionStub.calledWithMatch(match.any, { src: 'http://localhost:3000' }));
   });
 
   it('does not set default src if only location is dialog', async () => {
     const createAppDefinitionStub = stub().resolves({ sys: { id: 'testId' } });
-    clientMock.getOrganization = stub().resolves({
-      createAppDefinition: createAppDefinitionStub,
-    });
-    clientMock.getOrganizations = stub().resolves({
+    clientMock.appDefinition.create = createAppDefinitionStub;
+    clientMock.organization.getAll = stub().resolves({
       items: [{ name: 'name', sys: { id: organizationId } }],
     });
     selectFromListMock.returns({ name: 'name', value: organizationId });
 
     await subject(token, { locations: ['dialog'] });
-    assert(createAppDefinitionStub.calledWithMatch({ src: undefined }));
+    assert(createAppDefinitionStub.calledWithMatch(match.any, { src: undefined }));
   });
 });

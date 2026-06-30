@@ -1,7 +1,7 @@
 import ora from 'ora';
 import { selectFromList, throwError } from './utils';
 import { APP_DEF_ENV_KEY } from './constants';
-import { AppDefinition, ClientAPI } from 'contentful-management';
+import { AppDefinitionProps, PlainClientAPI } from 'contentful-management';
 
 export interface Definition {
   name: string;
@@ -9,16 +9,17 @@ export interface Definition {
   locations: string[];
 }
 
-async function fetchDefinitions(client: ClientAPI, orgId: string): Promise<Definition[]> {
+async function fetchDefinitions(client: PlainClientAPI, orgId: string): Promise<Definition[]> {
   try {
-    const organization = await client.getOrganization(orgId);
-
-    const batchedAppDefinitions: AppDefinition[] = [];
+    const batchedAppDefinitions: AppDefinitionProps[] = [];
     let skip = 0;
     let totalNumOfAppDefinitions = 0;
 
     while (skip === 0 || batchedAppDefinitions.length < totalNumOfAppDefinitions) {
-      const appDefinitionsResponse = await organization.getAppDefinitions({ skip, limit: 100 });
+      const appDefinitionsResponse = await client.appDefinition.getMany({
+        organizationId: orgId,
+        query: { skip, limit: 100 },
+      });
 
       totalNumOfAppDefinitions = appDefinitionsResponse.total;
       batchedAppDefinitions.push(...appDefinitionsResponse.items);
@@ -39,7 +40,7 @@ async function fetchDefinitions(client: ClientAPI, orgId: string): Promise<Defin
   }
 }
 
-export async function selectDefinition(client: ClientAPI, orgId: string): Promise<Definition> {
+export async function selectDefinition(client: PlainClientAPI, orgId: string): Promise<Definition> {
   const defSpinner = ora('Fetching all definitions...').start();
   const definitions = await fetchDefinitions(client, orgId);
   defSpinner.stop();
@@ -48,13 +49,15 @@ export async function selectDefinition(client: ClientAPI, orgId: string): Promis
 }
 
 export async function getDefinitionById(
-  client: ClientAPI,
+  client: PlainClientAPI,
   orgId: string,
   defId: string
 ): Promise<Definition> {
   try {
-    const organization = await client.getOrganization(orgId);
-    const definition = await organization.getAppDefinition(defId);
+    const definition = await client.appDefinition.get({
+      organizationId: orgId,
+      appDefinitionId: defId,
+    });
     return {
       name: definition.name,
       value: definition.sys.id,
