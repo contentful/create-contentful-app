@@ -1,7 +1,7 @@
 import { stub, match, SinonStub } from 'sinon';
 import assert from 'assert';
 import proxyquire from 'proxyquire';
-import { AppUpload, ClientAPI } from 'contentful-management';
+import { AppUpload, PlainClientAPI } from 'contentful-management';
 import { UploadSettings } from '../types';
 import { processCreateAppBundleError } from './create-app-bundle';
 
@@ -14,7 +14,7 @@ const mockedSettings = {
 
 describe('createAppBundleFromUpload', () => {
   let createAppBundleFromUpload: typeof import('./create-app-bundle').createAppBundleFromUpload,
-    clientMock: ClientAPI,
+    clientMock: PlainClientAPI,
     createClientArgs: any[];
 
   beforeEach(() => {
@@ -27,13 +27,9 @@ describe('createAppBundleFromUpload', () => {
 
   beforeEach(() => {
     clientMock = {
-      getOrganization: () => ({
-        getAppDefinition: () => ({
-          createAppBundle: () => bundleMock,
-        }),
-      }),
-      getOrganizations: stub(),
-    } as unknown as ClientAPI;
+      appDefinition: { get: () => ({ sys: { id: 'id' } }) },
+      appBundle: { create: () => bundleMock },
+    } as unknown as PlainClientAPI;
 
     ({ createAppBundleFromUpload } = proxyquire('./create-app-bundle', {
       'contentful-management': {
@@ -50,12 +46,9 @@ describe('createAppBundleFromUpload', () => {
   });
   it('shows creation error when createAppBundle throws', async () => {
     clientMock = {
-      getOrganization: () => ({
-        getAppDefinition: () => ({
-          createAppBundle: stub().rejects(new Error()),
-        }),
-      }),
-    } as unknown as ClientAPI;
+      appDefinition: { get: () => ({ sys: { id: 'id' } }) },
+      appBundle: { create: stub().rejects(new Error()) },
+    } as unknown as PlainClientAPI;
     await createAppBundleFromUpload(mockedSettings, 'upload-id');
 
     assert((console.log as SinonStub).calledWith(match(/Creation error:/)));
@@ -68,7 +61,7 @@ describe('createAppBundleFromUpload', () => {
 
 describe('createAppBundleFromSettings', () => {
   let createAppBundleFromSettings: typeof import('./create-app-bundle').createAppBundleFromSettings,
-    clientMock: ClientAPI,
+    clientMock: PlainClientAPI,
     uploadMock: AppUpload,
     createClientArgs: any[];
 
@@ -82,13 +75,9 @@ describe('createAppBundleFromSettings', () => {
 
   beforeEach(() => {
     clientMock = {
-      getOrganization: () => ({
-        getAppDefinition: () => ({
-          createAppBundle: () => bundleMock,
-        }),
-      }),
-      getOrganizations: stub(),
-    } as unknown as ClientAPI;
+      appDefinition: { get: () => ({ sys: { id: 'id' } }) },
+      appBundle: { create: () => bundleMock },
+    } as unknown as PlainClientAPI;
 
     uploadMock = { sys: { id: 'test-id' } } as AppUpload;
 

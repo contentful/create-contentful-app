@@ -1,16 +1,16 @@
 import ora from 'ora';
 import { selectFromList, throwError } from './utils';
 import { ORG_ID_ENV_KEY } from './constants';
-import { ClientAPI } from 'contentful-management';
+import { PlainClientAPI } from 'contentful-management';
 
 export interface Organization {
   name: string;
   value: string;
 }
 
-async function fetchOrganizations(client: ClientAPI): Promise<Organization[]> {
+async function fetchOrganizations(client: PlainClientAPI): Promise<Organization[]> {
   try {
-    const orgs = await client.getOrganizations();
+    const orgs = await client.organization.getAll();
 
     return orgs.items.map((org) => ({
       name: org.name,
@@ -24,7 +24,7 @@ async function fetchOrganizations(client: ClientAPI): Promise<Organization[]> {
   }
 }
 
-export async function selectOrganization(client: ClientAPI): Promise<Organization> {
+export async function selectOrganization(client: PlainClientAPI): Promise<Organization> {
   const orgSpinner = ora('Fetching your organizations...').start();
 
   try {
@@ -36,9 +36,12 @@ export async function selectOrganization(client: ClientAPI): Promise<Organizatio
   }
 }
 
-export async function getOrganizationById(client: ClientAPI, orgId: string): Promise<Organization> {
+export async function getOrganizationById(
+  client: PlainClientAPI,
+  orgId: string
+): Promise<Organization> {
   try {
-    const org = await client.getOrganization(orgId);
+    const org = await client.organization.get({ organizationId: orgId });
     return {
       name: org.name,
       value: org.sys.id,

@@ -1,11 +1,12 @@
 import assert from 'assert';
 import { stub, match, SinonStub } from 'sinon';
 import proxyquire from 'proxyquire';
-import { ClientAPI } from 'contentful-management';
+import { PlainClientAPI } from 'contentful-management';
 import { UploadSettings } from '../types';
 
 describe('createAppUpload', () => {
-  let createAppUpload: typeof import('./create-app-upload').createAppUpload, clientMock: ClientAPI;
+  let createAppUpload: typeof import('./create-app-upload').createAppUpload,
+    clientMock: PlainClientAPI;
   const uploadMock = { sys: { id: 'test-id' } };
   const mockedSettings = {
     accessToken: 'token',
@@ -22,10 +23,8 @@ describe('createAppUpload', () => {
 
   beforeEach(() => {
     clientMock = {
-      getOrganization: () => ({
-        createAppUpload: () => uploadMock,
-      }),
-    } as unknown as ClientAPI;
+      appUpload: { create: () => uploadMock },
+    } as unknown as PlainClientAPI;
 
     ({ createAppUpload } = proxyquire('./create-app-upload', {
       'contentful-management': {
@@ -45,10 +44,8 @@ describe('createAppUpload', () => {
 
   it('shows creation error when createAppUpload throws', async () => {
     clientMock = {
-      getOrganization: () => ({
-        createAppUpload: stub().rejects(new Error()),
-      }),
-    } as unknown as ClientAPI;
+      appUpload: { create: stub().rejects(new Error()) },
+    } as unknown as PlainClientAPI;
     await createAppUpload(mockedSettings);
 
     assert((console.log as SinonStub).calledWith(match(/Creation error:/)));
