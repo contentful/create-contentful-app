@@ -1,3 +1,28 @@
+# 4.0.0 (2026-07-02)
+
+### 🚀 Features
+
+- ⚠️  migrate app-scripts to contentful-management v12 (plain client, Node 20+) ([#3090](https://github.com/contentful/create-contentful-app/pull/3090))
+
+### ⚠️  Breaking Changes
+
+- migrate app-scripts to contentful-management v12 (plain client, Node 20+)  ([#3090](https://github.com/contentful/create-contentful-app/pull/3090))
+  @contentful/app-scripts, @contentful/create-contentful-app,
+  and the create-contentful-app CLI now require Node.js >=20. Node 18 (EOL) is
+  no longer supported.
+  Co-authored-by: Claude Opus 4.8 <noreply@anthropic.com>
+  Co-authored-by: Cursor <cursoragent@cursor.com>
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 4.0.0
+
+### ❤️ Thank You
+
+- Claude Opus 4.8
+- Cursor @cursoragent
+- Jared Jolton @jjolton-contentful
+
 ## 3.0.1 (2026-05-21)
 
 ### 🧱 Updated Dependencies
