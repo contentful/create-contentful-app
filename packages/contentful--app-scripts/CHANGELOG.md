@@ -1,3 +1,14 @@
+## 4.1.0 (2026-07-23)
+
+### 🚀 Features
+
+- add experience-toolbar to location prompts [AIS-314] ([#3099](https://github.com/contentful/create-contentful-app/pull/3099))
+
+### ❤️ Thank You
+
+- Cursor @cursoragent
+- Jared Jolton @jjolton-contentful
+
 # 4.0.0 (2026-07-02)
 
 ### 🚀 Features
