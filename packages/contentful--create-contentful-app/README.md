@@ -56,6 +56,20 @@ Select between predefined and custom templates:
 
 These flags are mutually exclusive. If no flag is provided, the TypeScript template is used.
 
+### AI App-Building Skill
+
+By default, `create-contentful-app` installs Contentful's official app-building AI skill ([`contentful-custom-app-from-scratch`](https://github.com/contentful/skills)) into your new app. The skill gives AI coding harnesses (Claude Code, OpenAI Codex, Cursor, and others) expert guidance for building Contentful apps. It is pulled live via the [`skills`](https://skills.sh) CLI at scaffold time, so you always get the current version, and the CLI automatically detects your harness.
+
+In interactive mode you are asked whether to include it (default yes). Installation is best-effort: if it fails (e.g. you are offline), your app is still created and a message shows the command to add it later.
+
+- `--skip-skills` (or `--no-skills`): do not install the app-building skill.
+
+To install it manually later, run this inside your app folder:
+
+```bash
+npx skills add contentful/skills --skill contentful-custom-app-from-scratch
+```
+
 Some popular templates are:
 
 | Template                                                                         | CLI Command                                       |
@@ -98,6 +112,8 @@ Options:
                                                 format: URL (HTTPS or SSH) or vendor:user/repo (e.g., github:user/repo)
   -f, --function <function-template-name>       include the specified function template
   --skip-ui                                     use with --function to clone the template without a user interface (UI).
+  --skip-skills                                 skip installing the Contentful app-building AI skill into the new app
+  --no-skills                                   alias for --skip-skills
   -h, --help                                    shows all available CLI options
 ```
 

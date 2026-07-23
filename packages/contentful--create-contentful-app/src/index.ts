@@ -19,6 +19,7 @@ import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
+import { installAppBuildingSkill, resolveShouldIncludeSkill } from './skills';
 import { track } from './analytics';
 import { generateFunction } from '@contentful/app-scripts';
 import fs from 'fs';
@@ -145,6 +146,21 @@ async function initProject(appName: string, options: CLIOptions) {
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
+
+    // Whether the CLI is running without any template-selecting flags. In that
+    // case we prompt about the app-building skill; otherwise we honor the flag.
+    const isInteractiveRun =
+      !normalizedOptions.example &&
+      !normalizedOptions.source &&
+      !normalizedOptions.javascript &&
+      !normalizedOptions.typescript &&
+      !normalizedOptions.function;
+
+    const includeSkill = await resolveShouldIncludeSkill(normalizedOptions, isInteractiveRun);
+    if (includeSkill) {
+      await installAppBuildingSkill(fullAppFolder);
+    }
+
     successMessage(fullAppFolder, packageManager);
   } catch (err) {
     error(`Failed to create ${highlight(chalk.cyan(appName))}`, err);
@@ -245,6 +261,11 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .option('-f, --function [function-template-name]', 'include the specified function template')
     .option('--skip-ui', 'use with --function to clone the template without a user interface (UI).')
+    .option(
+      '--skip-skills',
+      'skip installing the Contentful app-building AI skill into the new app'
+    )
+    .option('--no-skills', 'alias for --skip-skills')
     .action(initProject);
   await program.parseAsync();
 })();
