@@ -64,12 +64,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22.22.1'
+          # Major line: Node owns npm. Floating npm@latest breaks when engines diverge.
+          node-version: '22'
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Install latest npm
-        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci
