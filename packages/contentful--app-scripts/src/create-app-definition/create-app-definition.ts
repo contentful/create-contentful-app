@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { PlainClientAPI, createClient } from 'contentful-management';
+import { OrganizationProps, PlainClientAPI, createClient } from 'contentful-management';
 import chalk from 'chalk';
 import { isString, isPlainObject, has } from 'lodash';
 
@@ -12,9 +12,22 @@ import { createTypeSafeLocations } from '../create-type-safe-locations';
 
 async function fetchOrganizations(client: PlainClientAPI) {
   try {
-    const orgs = await client.organization.getAll();
+    const batchedOrganizations: OrganizationProps[] = [];
+    let skip = 0;
+    let totalNumOfOrganizations = 0;
 
-    return orgs.items.map((org) => ({
+    while (skip === 0 || batchedOrganizations.length < totalNumOfOrganizations) {
+      const organizationsResponse = await client.organization.getAll({
+        query: { skip, limit: 100 },
+      });
+
+      totalNumOfOrganizations = organizationsResponse.total;
+      batchedOrganizations.push(...organizationsResponse.items);
+
+      skip += 100;
+    }
+
+    return batchedOrganizations.map((org) => ({
       name: org.name,
       value: org.sys.id,
     }));
