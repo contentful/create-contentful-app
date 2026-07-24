@@ -64,10 +64,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          # Major line: Node owns npm. Floating npm@latest breaks when engines diverge.
           node-version: '22'
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
+
+      # Unscoped create-contentful-app publishes to npmjs via OIDC trusted publishing
+      # (NPM_CONFIG_PROVENANCE). That needs npm >= 11.5.1; Node 22 ships 10.x.
+      # Pin 11.x — do not use npm@latest (12+ has tighter Node engines).
+      - name: Install npm for trusted publishing
+        run: npm install -g npm@11.18.0
 
       - name: Install dependencies
         run: npm ci
