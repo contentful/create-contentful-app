@@ -1,7 +1,7 @@
 import ora from 'ora';
 import { selectFromList, throwError } from './utils';
 import { ORG_ID_ENV_KEY } from './constants';
-import { PlainClientAPI } from 'contentful-management';
+import { OrganizationProps, PlainClientAPI } from 'contentful-management';
 
 export interface Organization {
   name: string;
@@ -10,9 +10,22 @@ export interface Organization {
 
 async function fetchOrganizations(client: PlainClientAPI): Promise<Organization[]> {
   try {
-    const orgs = await client.organization.getAll();
+    const batchedOrganizations: OrganizationProps[] = [];
+    let skip = 0;
+    let totalNumOfOrganizations = 0;
 
-    return orgs.items.map((org) => ({
+    while (skip === 0 || batchedOrganizations.length < totalNumOfOrganizations) {
+      const organizationsResponse = await client.organization.getAll({
+        query: { skip, limit: 100 },
+      });
+
+      totalNumOfOrganizations = organizationsResponse.total;
+      batchedOrganizations.push(...organizationsResponse.items);
+
+      skip += 100;
+    }
+
+    return batchedOrganizations.map((org) => ({
       name: org.name,
       value: org.sys.id,
     }));
