@@ -17,6 +17,8 @@ describe('organization-api', () => {
     selectFromListMock: SinonStub;
 
   beforeEach(() => {
+    stub(console, 'log');
+
     getAllStub = stub();
     clientMock = {
       organization: { getAll: getAllStub },
@@ -36,6 +38,10 @@ describe('organization-api', () => {
         start: () => ({ stop: stub() }),
       }),
     }));
+  });
+
+  afterEach(() => {
+    (console.log as SinonStub).restore();
   });
 
   it('fetches all organizations across multiple pages', async () => {
@@ -69,12 +75,9 @@ describe('organization-api', () => {
   });
 
   it('throws when unable to fetch organizations', async () => {
-    stub(console, 'log');
     getAllStub.rejects(new Error('network'));
 
     await assert.rejects(() => selectOrganization(clientMock), /Could not fetch your organizations/);
     assert((console.log as SinonStub).calledWith(match(/Could not fetch your organizations/)));
-
-    (console.log as SinonStub).restore();
   });
 });
