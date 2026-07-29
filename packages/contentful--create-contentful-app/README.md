@@ -67,7 +67,7 @@ In interactive mode you are asked whether to include it (default yes). Installat
 To install it manually later, run this inside your app folder:
 
 ```bash
-npx skills add contentful/skills --skill contentful-custom-app-from-scratch
+npx -y skills add contentful/skills --skill contentful-custom-app-from-scratch -y
 ```
 
 Some popular templates are:

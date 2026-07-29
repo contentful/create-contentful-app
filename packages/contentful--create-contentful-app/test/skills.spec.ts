@@ -38,6 +38,8 @@ describe('skills', () => {
       const warning = logged.find((line) => typeof line === 'string' && line.includes('Warning'));
       expect(warning, 'a warning should be logged').to.exist;
       expect(warning).to.include(MANUAL_INSTALL_COMMAND);
+      // Surfaces the underlying failure reason to help support.
+      expect(warning).to.include('offline');
     });
 
     it('does not throw when the installer rejects', async () => {

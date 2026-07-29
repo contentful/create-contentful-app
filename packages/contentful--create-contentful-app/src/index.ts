@@ -26,6 +26,20 @@ import fs from 'fs';
 
 const DEFAULT_APP_NAME = 'contentful-app';
 
+/**
+ * Whether the CLI is running without any template-selecting flags. In that case
+ * we prompt the user (e.g. for the app-building skill); otherwise we honor the flags.
+ */
+function isInteractiveRun(options: CLIOptions): boolean {
+  return (
+    !options.example &&
+    !options.source &&
+    !options.javascript &&
+    !options.typescript &&
+    !options.function
+  );
+}
+
 function successMessage(folder: string, packageManager: PackageManager) {
   let command = '';
   if (packageManager === 'yarn') {
@@ -147,16 +161,10 @@ async function initProject(appName: string, options: CLIOptions) {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
 
-    // Whether the CLI is running without any template-selecting flags. In that
-    // case we prompt about the app-building skill; otherwise we honor the flag.
-    const isInteractiveRun =
-      !normalizedOptions.example &&
-      !normalizedOptions.source &&
-      !normalizedOptions.javascript &&
-      !normalizedOptions.typescript &&
-      !normalizedOptions.function;
-
-    const includeSkill = await resolveShouldIncludeSkill(normalizedOptions, isInteractiveRun);
+    const includeSkill = await resolveShouldIncludeSkill(
+      normalizedOptions,
+      isInteractiveRun(normalizedOptions)
+    );
     if (includeSkill) {
       await installAppBuildingSkill(fullAppFolder);
     }
@@ -168,12 +176,7 @@ async function initProject(appName: string, options: CLIOptions) {
   }
 
   async function addAppExample(fullAppFolder: string) {
-    const isInteractive =
-      !normalizedOptions.example &&
-      !normalizedOptions.source &&
-      !normalizedOptions.javascript &&
-      !normalizedOptions.typescript &&
-      !normalizedOptions.function;
+    const isInteractive = isInteractiveRun(normalizedOptions);
 
     const templateSource = await getTemplateSource(options);
 

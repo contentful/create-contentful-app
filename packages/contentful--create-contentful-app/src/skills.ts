@@ -10,7 +10,7 @@ export const APP_BUILDING_SKILL = 'contentful-custom-app-from-scratch';
  * The command a user can run manually to install the skill later. Kept in sync
  * with the arguments passed to the default runner below.
  */
-export const MANUAL_INSTALL_COMMAND = `npx skills add ${SKILLS_SOURCE} --skill ${APP_BUILDING_SKILL}`;
+export const MANUAL_INSTALL_COMMAND = `npx -y skills add ${SKILLS_SOURCE} --skill ${APP_BUILDING_SKILL} -y`;
 
 /**
  * Runs the skill installer in the given app folder. Resolves on success and
@@ -60,8 +60,9 @@ export async function installAppBuildingSkill(
     console.log(`${success('Done!')} Added the ${highlight(APP_BUILDING_SKILL)} skill to your app.`);
     return true;
   } catch (e) {
+    const reason = e instanceof Error ? e.message : String(e);
     warn(
-      `Could not install the Contentful app-building AI skill. Your app was created successfully. ` +
+      `Could not install the Contentful app-building AI skill (${reason}). Your app was created successfully. ` +
         `To add it later, run ${choice(MANUAL_INSTALL_COMMAND)} inside your app folder.`
     );
     return false;
