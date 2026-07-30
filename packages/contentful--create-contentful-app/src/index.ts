@@ -19,11 +19,26 @@ import { code, error, highlight, success, warn, wrapInBlanks } from './logger';
 import chalk from 'chalk';
 import { CREATE_APP_DEFINITION_GUIDE_URL, EXAMPLES_REPO_URL } from './constants';
 import { getTemplateSource } from './getTemplateSource';
+import { installAppBuildingSkill, resolveShouldIncludeSkill } from './skills';
 import { track } from './analytics';
 import { generateFunction } from '@contentful/app-scripts';
 import fs from 'fs';
 
 const DEFAULT_APP_NAME = 'contentful-app';
+
+/**
+ * Whether the CLI is running without any template-selecting flags. In that case
+ * we prompt the user (e.g. for the app-building skill); otherwise we honor the flags.
+ */
+function isInteractiveRun(options: CLIOptions): boolean {
+  return (
+    !options.example &&
+    !options.source &&
+    !options.javascript &&
+    !options.typescript &&
+    !options.function
+  );
+}
 
 function successMessage(folder: string, packageManager: PackageManager) {
   let command = '';
@@ -145,6 +160,15 @@ async function initProject(appName: string, options: CLIOptions) {
     } else {
       await exec('npm', ['install', '--no-audit', '--no-fund'], { cwd: fullAppFolder });
     }
+
+    const includeSkill = await resolveShouldIncludeSkill(
+      normalizedOptions,
+      isInteractiveRun(normalizedOptions)
+    );
+    if (includeSkill) {
+      await installAppBuildingSkill(fullAppFolder);
+    }
+
     successMessage(fullAppFolder, packageManager);
   } catch (err) {
     error(`Failed to create ${highlight(chalk.cyan(appName))}`, err);
@@ -152,12 +176,7 @@ async function initProject(appName: string, options: CLIOptions) {
   }
 
   async function addAppExample(fullAppFolder: string) {
-    const isInteractive =
-      !normalizedOptions.example &&
-      !normalizedOptions.source &&
-      !normalizedOptions.javascript &&
-      !normalizedOptions.typescript &&
-      !normalizedOptions.function;
+    const isInteractive = isInteractiveRun(normalizedOptions);
 
     const templateSource = await getTemplateSource(options);
 
@@ -245,6 +264,11 @@ async function initProject(appName: string, options: CLIOptions) {
     )
     .option('-f, --function [function-template-name]', 'include the specified function template')
     .option('--skip-ui', 'use with --function to clone the template without a user interface (UI).')
+    .option(
+      '--skip-skills',
+      'skip installing the Contentful app-building AI skill into the new app'
+    )
+    .option('--no-skills', 'alias for --skip-skills')
     .action(initProject);
   await program.parseAsync();
 })();

@@ -26,3 +26,5 @@ dist
 .vscode
 .parcel-cache
 .history
+
+.vbw-planning/
