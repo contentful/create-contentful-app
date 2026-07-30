@@ -69,6 +69,20 @@ describe('createTypeSafeLocations', () => {
     ]);
   });
 
+  it('should return an array of objects with just location for experience-toolbar', () => {
+    const settings: LocationsSettings = {
+      locations: ['experience-toolbar'],
+    };
+
+    const result = createTypeSafeLocations(settings);
+
+    assert.deepEqual(result, [
+      {
+        location: 'experience-toolbar',
+      },
+    ]);
+  });
+
   it('should return an empty array if locations array is empty', () => {
     const settings: LocationsSettings = {
       locations: [],

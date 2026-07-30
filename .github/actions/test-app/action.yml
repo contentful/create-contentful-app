@@ -8,7 +8,7 @@ runs:
   using: 'composite'
   steps:
     - name: Test built wrapper app (Unix)
-      if: ${{ inputs.os }} == 'ubuntu-latest'
+      if: inputs.os == 'ubuntu-latest'
       shell: bash
       run: |
         FORMER_CWD="$(pwd)"
@@ -20,7 +20,7 @@ runs:
         npm t
 
     - name: Test built wrapper app (Windows)  
-      if: ${{ inputs.os }} == 'windows-latest'
+      if: inputs.os == 'windows-latest'
       shell: pwsh
       run: |
         $FORMER_CWD = (Get-Location).Path

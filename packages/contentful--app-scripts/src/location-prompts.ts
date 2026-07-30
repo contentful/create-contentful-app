@@ -11,6 +11,7 @@ export const selectLocationsPrompt = {
     { name: 'Entry editor', value: 'entry-editor' },
     { name: 'Page', value: 'page' },
     { name: 'Home', value: 'home' },
+    { name: 'Experience and fragment canvas toolbar', value: 'experience-toolbar' },
   ],
 };
 
