@@ -1,3 +1,18 @@
+## 4.2.0 (2026-07-30)
+
+### 🚀 Features
+
+- **create-contentful-app:** install app-building AI skill on scaffold ([#3093](https://github.com/contentful/create-contentful-app/pull/3093))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/create-contentful-app to 4.1.2
+
+### ❤️ Thank You
+
+- Claude Opus 4.8
+- Niko Berry
+
 ## 4.1.1 (2026-07-24)
 
 ### 🧱 Updated Dependencies
