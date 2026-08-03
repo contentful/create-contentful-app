@@ -11,9 +11,7 @@
     {
       "matchHost": "npm.pkg.github.com",
       "hostType": "npm",
-      "encrypted": {
-        "token": "{{secrets.NPM_REGISTRY_REGISTRY_GH_ORG_TOKEN}}"
-      }
+      "token": "{{ secrets.NPM_REGISTRY_REGISTRY_GH_ORG_TOKEN }}"
     }
   ],
   "packageRules": [
