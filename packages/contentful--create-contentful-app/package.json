@@ -68,7 +68,7 @@
     "@types/node-fetch": "^2.6.2",
     "@types/rimraf": "3.0.2",
     "@types/sinon": "^21.0.1",
-    "@types/sinon-chai": "^3.2.9",
+    "@types/sinon-chai": "^3.2.12",
     "@types/tildify": "2.0.2",
     "@types/validate-npm-package-name": "4.0.2",
     "chai": "^4.3.7",
