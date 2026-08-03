@@ -4,16 +4,6 @@
   "npm": {
     "enabled": true
   },
-  "registryAliases": {
-    "npm-github": "https://npm.pkg.github.com"
-  },
-  "hostRules": [
-    {
-      "matchHost": "npm.pkg.github.com",
-      "hostType": "npm",
-      "token": "{{ secrets.NPM_REGISTRY_REGISTRY_GH_ORG_TOKEN }}"
-    }
-  ],
   "packageRules": [
     {
       "matchPackageNames": ["@types/node"],
