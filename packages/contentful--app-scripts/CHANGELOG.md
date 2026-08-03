@@ -1,3 +1,10 @@
+## 4.1.2 (2026-08-03)
+
+### 🩹 Fixes
+
+- **deps:** update dependency adm-zip to v0.6.0 [security] ([#3113](https://github.com/contentful/create-contentful-app/pull/3113))
+- **deps:** update dependency esbuild to ^0.28.1 [security] ([#3111](https://github.com/contentful/create-contentful-app/pull/3111))
+
 ## 4.1.1 (2026-07-24)
 
 ### 🩹 Fixes
