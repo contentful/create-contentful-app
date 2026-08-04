@@ -1,3 +1,13 @@
+## 4.1.5 (2026-08-04)
+
+### 🩹 Fixes
+
+- **deps:** update dependency inquirer to v8.2.7 ([#3128](https://github.com/contentful/create-contentful-app/pull/3128))
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 4.1.4
+
 ## 4.1.4 (2026-08-03)
 
 ### 🧱 Updated Dependencies

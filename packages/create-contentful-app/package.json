@@ -1,6 +1,6 @@
 {
   "name": "create-contentful-app",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",
@@ -29,7 +29,7 @@
     "create-contentful-app": "index.js"
   },
   "dependencies": {
-    "@contentful/create-contentful-app": "4.1.4"
+    "@contentful/create-contentful-app": "4.1.5"
   },
   "bugs": {
     "url": "https://github.com/contentful/create-contentful-app/issues"
