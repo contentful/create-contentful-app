@@ -1,6 +1,6 @@
 {
   "name": "@contentful/create-contentful-app",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "description": "A template for building Contentful Apps",
   "keywords": [
     "contentful",

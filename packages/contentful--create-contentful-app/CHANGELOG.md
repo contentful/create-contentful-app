@@ -1,3 +1,9 @@
+## 4.1.6 (2026-08-04)
+
+### 🩹 Fixes
+
+- **deps:** update dependency node-fetch to v2.7.0 ([#3139](https://github.com/contentful/create-contentful-app/pull/3139))
+
 ## 4.1.5 (2026-08-04)
 
 ### 🩹 Fixes
