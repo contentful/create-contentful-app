@@ -1,3 +1,7 @@
+## 4.1.6 (2026-08-04)
+
+This was a version bump only for @contentful/app-scripts to align it with other projects, there were no code changes.
+
 ## 4.1.5 (2026-08-04)
 
 ### 🩹 Fixes
