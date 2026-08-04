@@ -1,3 +1,9 @@
+## 4.1.5 (2026-08-04)
+
+### 🩹 Fixes
+
+- **deps:** update dependency @segment/analytics-node to ^3.1.0 ([#3138](https://github.com/contentful/create-contentful-app/pull/3138))
+
 ## 4.1.4 (2026-08-04)
 
 ### 🩹 Fixes

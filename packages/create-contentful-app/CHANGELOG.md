@@ -1,3 +1,9 @@
+## 4.2.5 (2026-08-04)
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/create-contentful-app to 4.1.7
+
 ## 4.2.4 (2026-08-04)
 
 ### 🧱 Updated Dependencies
