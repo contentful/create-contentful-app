@@ -6,6 +6,11 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 import { type BuildFunctionsOptions, type ContentfulFunction } from '../types';
 import { z } from 'zod';
 import { ID_REGEX, resolveManifestFile } from '../utils';
+import {
+  formatStorageValidationError,
+  parseStorageDeclaration,
+  type StorageDeclaration,
+} from '../manifest/storage';
 
 type ContentfulFunctionToBuild = Omit<ContentfulFunction, 'entryFile'> & { entryFile: string };
 
@@ -34,6 +39,19 @@ export const validateFunctions = (manifest: Record<string, any>) => {
     throw new Error(
       `Invalid Contentful Function manifest: ${JSON.stringify(validationResult.error.issues)}`
     );
+  }
+
+  let storage: StorageDeclaration | undefined;
+  try {
+    storage = manifest.storage === undefined ? undefined : parseStorageDeclaration(manifest.storage);
+    const functionIds = new Set(validationResult.data.functions.map((fn) => fn.id));
+    for (const functionId of storage?.functions ?? []) {
+      if (!functionIds.has(functionId)) {
+        throw new Error(`Storage declaration references unknown function id: '${functionId}'.`);
+      }
+    }
+  } catch (error) {
+    throw new Error(`Invalid Contentful Function manifest: ${formatStorageValidationError(error)}`);
   }
 
   const uniqueValues = new Set();
