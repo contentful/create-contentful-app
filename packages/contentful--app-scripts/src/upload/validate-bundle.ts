@@ -14,8 +14,15 @@ const fileContainsAbsolutePath = (fileContent: string) => {
 
 export const validateBundle = (
   path: string,
-  { functions }: Pick<UploadSettings, 'functions'>
+  { functions, storage }: Pick<UploadSettings, 'functions' | 'storage'>
 ) => {
+  const functionIds = new Set((functions ?? []).map(({ id }) => id));
+  for (const functionId of storage?.functions ?? []) {
+    if (!functionIds.has(functionId)) {
+      throw new Error(`Storage declaration references unknown function id: '${functionId}'.`);
+    }
+  }
+
   const buildFolder = Path.join('.', path);
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });
   const entry = getEntryFile(files);
