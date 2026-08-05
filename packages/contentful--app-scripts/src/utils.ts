@@ -7,6 +7,11 @@ import { Organization } from './organization-api';
 import { ContentfulFunction } from './types';
 import { DEFAULT_CONTENTFUL_APP_HOST } from './constants';
 import { resolve } from 'node:path';
+import {
+  formatStorageValidationError,
+  parseStorageDeclaration,
+  type StorageDeclaration,
+} from './manifest/storage';
 
 const DEFAULT_MANIFEST_PATH = resolve('.', 'contentful-app-manifest.json');
 
@@ -180,6 +185,23 @@ export function getFunctionsFromManifest(): Omit<ContentfulFunction, 'entryFile'
       `${chalk.red('Error:')} Invalid JSON in manifest file at ${chalk.bold(
         DEFAULT_MANIFEST_PATH
       )}.`
+    );
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
+  }
+}
+
+export function getStorageFromManifest(): StorageDeclaration | undefined {
+  if (!fs.existsSync(DEFAULT_MANIFEST_PATH)) return undefined;
+
+  try {
+    const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
+    return manifest.storage === undefined ? undefined : parseStorageDeclaration(manifest.storage);
+  } catch (error) {
+    console.log(
+      `${chalk.red('Error:')} Invalid storage declaration in manifest file at ${chalk.bold(
+        DEFAULT_MANIFEST_PATH
+      )}: ${formatStorageValidationError(error)}`
     );
     // eslint-disable-next-line no-process-exit
     process.exit(1);

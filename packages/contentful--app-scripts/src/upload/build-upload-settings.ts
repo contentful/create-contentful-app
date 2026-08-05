@@ -1,12 +1,15 @@
 import { prompt } from 'inquirer';
 import { getAppInfo } from '../get-app-info';
-import { getFunctionsFromManifest } from '../utils';
+import { getFunctionsFromManifest, getStorageFromManifest } from '../utils';
 import { DEFAULT_CONTENTFUL_API_HOST } from '../constants';
 import { UploadOptions, UploadSettings } from '../types';
 import path from 'node:path';
 
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
+  // upload intentionally reads the default manifest; unlike build-functions, it has no --manifest-file option.
   const functionManifest = getFunctionsFromManifest();
+  // upload intentionally reads the default manifest; unlike build-functions, it has no --manifest-file option.
+  const storageDeclaration = getStorageFromManifest();
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
 
@@ -51,6 +54,7 @@ export async function buildAppUploadSettings(options: UploadOptions): Promise<Up
     comment,
     host: hostValue,
     functions: functionManifest,
+    storage: storageDeclaration,
     ...appUploadSettings,
     ...appInfo,
   };

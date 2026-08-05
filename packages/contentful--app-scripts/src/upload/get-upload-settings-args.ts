@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { getAppInfo } from '../get-app-info';
 import { validateArguments } from '../validate-arguments';
-import { getFunctionsFromManifest } from '../utils';
+import { getFunctionsFromManifest, getStorageFromManifest } from '../utils';
 import { UploadOptions, UploadSettings } from '../types';
 
 const requiredOptions = {
@@ -14,7 +14,10 @@ const requiredOptions = {
 
 export async function getUploadSettingsArgs(options: UploadOptions): Promise<UploadSettings> {
   const validateSpinner = ora('Validating your input...').start();
+  // upload intentionally reads the default manifest; unlike build-functions, it has no --manifest-file option.
   const functionManifest = getFunctionsFromManifest();
+  // upload intentionally reads the default manifest; unlike build-functions, it has no --manifest-file option.
+  const storageDeclaration = getStorageFromManifest();
   const { bundleDir, comment, skipActivation, host, userAgentApplication } = options;
 
   try {
@@ -28,6 +31,7 @@ export async function getUploadSettingsArgs(options: UploadOptions): Promise<Upl
       host,
       userAgentApplication,
       functions: functionManifest,
+      storage: storageDeclaration,
     };
   } catch (err: any) {
     console.log(`
