@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import assert from 'assert';
-import { formatStorageValidationError, parseStorageDeclaration } from './storage';
+import {
+  assertStorageFunctionsKnown,
+  formatStorageValidationError,
+  parseStorageDeclaration,
+} from './storage';
 
 // RFC "App-manifest-contract" storage POC example (PIC-1333): one namespace,
 // one Function, and the brand_guidelines table with topic/guidance columns.
@@ -202,6 +206,69 @@ describe('parseStorageDeclaration', () => {
           },
         ],
       })
+    );
+  });
+
+  it('rejects a table name longer than 64 characters', () => {
+    const [table] = storagePoc.storage.tables;
+    assert.throws(() =>
+      parseStorageDeclaration({
+        ...storagePoc.storage,
+        tables: [{ ...table, name: 'a'.repeat(65) }],
+      })
+    );
+  });
+
+  it('rejects a table with 51 columns', () => {
+    const [table] = storagePoc.storage.tables;
+    const columns = Array.from({ length: 51 }, (_, index) => ({
+      name: `column_${index}`,
+      type: 'text',
+      nullable: true,
+    }));
+    assert.throws(() =>
+      parseStorageDeclaration({
+        ...storagePoc.storage,
+        tables: [{ ...table, columns }],
+      })
+    );
+  });
+
+  it('rejects a declaration with 11 tables', () => {
+    const [table] = storagePoc.storage.tables;
+    const tables = Array.from({ length: 11 }, (_, index) => ({
+      ...table,
+      name: `table_${index}`,
+    }));
+    assert.throws(() =>
+      parseStorageDeclaration({
+        ...storagePoc.storage,
+        tables,
+      })
+    );
+  });
+});
+
+describe('assertStorageFunctionsKnown', () => {
+  it('does not throw when every storage.functions id is known', () => {
+    const storage = parseStorageDeclaration(storagePoc.storage);
+    assert.doesNotThrow(() =>
+      assertStorageFunctionsKnown(storage, new Set(['brandGuidelines']))
+    );
+  });
+
+  it('does not throw when storage is undefined', () => {
+    assert.doesNotThrow(() => assertStorageFunctionsKnown(undefined, new Set()));
+  });
+
+  it('throws with the unknown function id when storage.functions references one', () => {
+    const storage = parseStorageDeclaration({
+      ...storagePoc.storage,
+      functions: ['missingFunction'],
+    });
+    assert.throws(
+      () => assertStorageFunctionsKnown(storage, new Set(['brandGuidelines'])),
+      /Storage declaration references unknown function id: 'missingFunction'\./
     );
   });
 });

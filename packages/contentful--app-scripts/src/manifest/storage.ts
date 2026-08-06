@@ -14,14 +14,26 @@ export const IDENTIFIER_REGEX = /^[A-Za-z_][A-Za-z0-9_]*$/;
  */
 const RESERVED_NAME_PREFIX = '_cf_';
 
+/**
+ * Identifier length and per-declaration count caps, mirroring
+ * `functions-api-client`'s `StorageDeclarationSchema` (PIC-1338) so a
+ * locally-valid declaration isn't later rejected by the authoritative
+ * server-side check.
+ */
+export const IDENTIFIER_MAX_LENGTH = 64;
+export const TABLE_MAX_COLUMNS = 50;
+export const TABLES_MAX_COUNT = 10;
+
 const storageColumnTypeSchema = z.enum(['text', 'integer', 'real', 'boolean', 'json']);
 
 // The RFC does not define a column `default` field (custom SQL defaults are
 // not expressible in the manifest), so `.strict()` rejects it along with any
-// other unrecognised key.
+// other unrecognised key. `default` will need to be revisited when schema
+// versioning/migrations land, since authoring migrations is explicitly out
+// of scope for this ticket (PIC-1333).
 const storageColumnSchema = z
   .object({
-    name: z.string().regex(IDENTIFIER_REGEX, 'Invalid column name'),
+    name: z.string().regex(IDENTIFIER_REGEX, 'Invalid column name').max(IDENTIFIER_MAX_LENGTH),
     type: storageColumnTypeSchema,
     nullable: z.boolean(),
     index: z.boolean().optional(),
@@ -31,17 +43,27 @@ const storageColumnSchema = z
 
 const storageTableSchema = z
   .object({
-    name: z.string().regex(IDENTIFIER_REGEX, 'Invalid table name'),
-    columns: z.array(storageColumnSchema).min(1, 'a table must declare at least one column'),
+    name: z.string().regex(IDENTIFIER_REGEX, 'Invalid table name').max(IDENTIFIER_MAX_LENGTH),
+    columns: z
+      .array(storageColumnSchema)
+      .min(1, 'a table must declare at least one column')
+      .max(TABLE_MAX_COLUMNS, 'a table may declare at most 50 columns'),
   })
   .strict();
 
 const storageDeclarationSchema = z
   .object({
     version: z.literal(1),
-    namespace: z.string().regex(IDENTIFIER_REGEX, 'Invalid namespace').optional(),
+    namespace: z
+      .string()
+      .regex(IDENTIFIER_REGEX, 'Invalid namespace')
+      .max(IDENTIFIER_MAX_LENGTH)
+      .optional(),
     functions: z.array(z.string()).min(1),
-    tables: z.array(storageTableSchema).min(1),
+    tables: z
+      .array(storageTableSchema)
+      .min(1)
+      .max(TABLES_MAX_COUNT, 'a storage declaration may declare at most 10 tables'),
   })
   .strict()
   .superRefine((storage, ctx) => {
@@ -130,6 +152,24 @@ export type StorageDeclaration = z.infer<typeof storageDeclarationSchema>;
 
 export const parseStorageDeclaration = (storage: unknown): StorageDeclaration =>
   storageDeclarationSchema.parse(storage);
+
+/**
+ * Shared cross-field check used by both the build-time Function manifest
+ * validation and the upload-time bundle validation: every Function id
+ * referenced in `storage.functions` must be present in `functionIds`. Throws
+ * on the first unknown id; callers are responsible for their own error
+ * wrapping/prefixing.
+ */
+export const assertStorageFunctionsKnown = (
+  storage: StorageDeclaration | undefined,
+  functionIds: Set<string>
+): void => {
+  for (const functionId of storage?.functions ?? []) {
+    if (!functionIds.has(functionId)) {
+      throw new Error(`Storage declaration references unknown function id: '${functionId}'.`);
+    }
+  }
+};
 
 export const formatStorageValidationError = (error: unknown): string => {
   if (error instanceof z.ZodError) {

@@ -2,6 +2,7 @@ import Path from 'node:path';
 import fs from 'node:fs';
 import chalk from 'chalk';
 import { UploadSettings } from '../types';
+import { assertStorageFunctionsKnown } from '../manifest/storage';
 
 const ACCEPTED_ENTRY_FILES = ['index.html'];
 const getEntryFile = (files: string[]) => files.find((file) => ACCEPTED_ENTRY_FILES.includes(file));
@@ -17,11 +18,7 @@ export const validateBundle = (
   { functions, storage }: Pick<UploadSettings, 'functions' | 'storage'>
 ) => {
   const functionIds = new Set((functions ?? []).map(({ id }) => id));
-  for (const functionId of storage?.functions ?? []) {
-    if (!functionIds.has(functionId)) {
-      throw new Error(`Storage declaration references unknown function id: '${functionId}'.`);
-    }
-  }
+  assertStorageFunctionsKnown(storage, functionIds);
 
   const buildFolder = Path.join('.', path);
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });

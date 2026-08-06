@@ -7,6 +7,7 @@ import { type BuildFunctionsOptions, type ContentfulFunction } from '../types';
 import { z } from 'zod';
 import { ID_REGEX, resolveManifestFile } from '../utils';
 import {
+  assertStorageFunctionsKnown,
   formatStorageValidationError,
   parseStorageDeclaration,
   type StorageDeclaration,
@@ -45,11 +46,7 @@ export const validateFunctions = (manifest: Record<string, any>) => {
   try {
     storage = manifest.storage === undefined ? undefined : parseStorageDeclaration(manifest.storage);
     const functionIds = new Set(validationResult.data.functions.map((fn) => fn.id));
-    for (const functionId of storage?.functions ?? []) {
-      if (!functionIds.has(functionId)) {
-        throw new Error(`Storage declaration references unknown function id: '${functionId}'.`);
-      }
-    }
+    assertStorageFunctionsKnown(storage, functionIds);
   } catch (error) {
     throw new Error(`Invalid Contentful Function manifest: ${formatStorageValidationError(error)}`);
   }
