@@ -6,6 +6,7 @@ import {
 } from 'contentful-management';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
+import { StorageDeclaration } from './manifest/storage';
 
 export interface ContentfulFunction {
   id: string;
@@ -81,6 +82,7 @@ export interface UploadSettings {
   userAgentApplication?: string;
   host?: string;
   functions?: ContentfulFunction[];
+  storage?: StorageDeclaration;
 }
 
 export interface BuildFunctionsOptions {

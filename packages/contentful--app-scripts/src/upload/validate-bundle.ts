@@ -2,6 +2,7 @@ import Path from 'node:path';
 import fs from 'node:fs';
 import chalk from 'chalk';
 import { UploadSettings } from '../types';
+import { assertStorageFunctionsKnown } from '../manifest/storage';
 
 const ACCEPTED_ENTRY_FILES = ['index.html'];
 const getEntryFile = (files: string[]) => files.find((file) => ACCEPTED_ENTRY_FILES.includes(file));
@@ -14,8 +15,11 @@ const fileContainsAbsolutePath = (fileContent: string) => {
 
 export const validateBundle = (
   path: string,
-  { functions }: Pick<UploadSettings, 'functions'>
+  { functions, storage }: Pick<UploadSettings, 'functions' | 'storage'>
 ) => {
+  const functionIds = new Set((functions ?? []).map(({ id }) => id));
+  assertStorageFunctionsKnown(storage, functionIds);
+
   const buildFolder = Path.join('.', path);
   const files = fs.readdirSync(buildFolder, { recursive: true, encoding: 'utf-8' });
   const entry = getEntryFile(files);
