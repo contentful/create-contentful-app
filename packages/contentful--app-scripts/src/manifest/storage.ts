@@ -1,17 +1,10 @@
 import { z } from 'zod';
 
 /**
- * Namespace character set for the RFC "storage" declaration's `namespace`
- * field. Accepts hyphens and underscores in addition to alphanumerics,
- * distinct from the Function-ID charset (`ID_REGEX` in `../utils`).
- */
-export const NAMESPACE_REGEX = /^[A-Za-z0-9_-]+$/;
-
-/**
- * Identifier character set for RFC table and column names: a leading
- * letter or underscore, followed by letters, digits, or underscores.
- * Deliberately separate from `NAMESPACE_REGEX` so it can preserve the
- * underscore used by the RFC's own `brand_guidelines` example.
+ * Identifier character set for RFC table, column, and namespace names: a
+ * leading letter or underscore, followed by letters, digits, or underscores.
+ * Confirmed against the downstream Functions API's `StorageDeclarationSchema`
+ * (functions-api PR #2572), not invented locally.
  */
 export const IDENTIFIER_REGEX = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
@@ -39,14 +32,14 @@ const storageColumnSchema = z
 const storageTableSchema = z
   .object({
     name: z.string().regex(IDENTIFIER_REGEX, 'Invalid table name'),
-    columns: z.array(storageColumnSchema),
+    columns: z.array(storageColumnSchema).min(1, 'a table must declare at least one column'),
   })
   .strict();
 
 const storageDeclarationSchema = z
   .object({
     version: z.literal(1),
-    namespace: z.string().regex(NAMESPACE_REGEX, 'Invalid namespace'),
+    namespace: z.string().regex(IDENTIFIER_REGEX, 'Invalid namespace').optional(),
     functions: z.array(z.string()).min(1),
     tables: z.array(storageTableSchema).min(1),
   })

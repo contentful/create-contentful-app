@@ -30,6 +30,14 @@ describe('parseStorageDeclaration', () => {
     );
   });
 
+  it('parses a declaration with namespace omitted, without injecting one', () => {
+    const withoutNamespace: Record<string, unknown> = { ...storagePoc.storage };
+    delete withoutNamespace.namespace;
+    const parsed = parseStorageDeclaration(withoutNamespace);
+    assert.deepEqual(parsed, withoutNamespace);
+    assert.ok(!('namespace' in parsed));
+  });
+
   it('rejects an empty functions array', () => {
     assert.throws(() => parseStorageDeclaration({ ...storagePoc.storage, functions: [] }));
   });
@@ -45,6 +53,16 @@ describe('parseStorageDeclaration', () => {
 
   it('rejects an empty tables array', () => {
     assert.throws(() => parseStorageDeclaration({ ...storagePoc.storage, tables: [] }));
+  });
+
+  it('rejects a table with no columns', () => {
+    const [table] = storagePoc.storage.tables;
+    assert.throws(() =>
+      parseStorageDeclaration({
+        ...storagePoc.storage,
+        tables: [{ ...table, columns: [] }],
+      })
+    );
   });
 
   it('rejects an unsupported column type', () => {

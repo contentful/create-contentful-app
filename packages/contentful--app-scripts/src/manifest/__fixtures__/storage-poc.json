@@ -11,7 +11,7 @@
   ],
   "storage": {
     "version": 1,
-    "namespace": "content-ops",
+    "namespace": "content_ops",
     "functions": ["brandGuidelines"],
     "tables": [
       {
