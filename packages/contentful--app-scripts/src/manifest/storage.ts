@@ -10,9 +10,10 @@ export const IDENTIFIER_REGEX = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
 /**
  * Prefix reserved by the platform; table and column names may not start
- * with it (case-insensitive), regardless of `IDENTIFIER_REGEX`.
+ * with it (case-insensitive), regardless of `IDENTIFIER_REGEX`. Already
+ * lowercase: comparisons below run against already-lowercased names.
  */
-const RESERVED_NAME_PREFIX = '_cf_';
+const RESERVED_NAME_PREFIX_LOWERCASE = '_cf_';
 
 /**
  * Identifier length and per-declaration count caps, mirroring
@@ -92,11 +93,11 @@ const storageDeclarationSchema = z
       }
       seenTableNames.add(lowerCaseTableName);
 
-      if (lowerCaseTableName.startsWith(RESERVED_NAME_PREFIX)) {
+      if (lowerCaseTableName.startsWith(RESERVED_NAME_PREFIX_LOWERCASE)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ['tables', tableIndex, 'name'],
-          message: `Table name uses the reserved '${RESERVED_NAME_PREFIX}' prefix: '${table.name}'`,
+          message: `Table name uses the reserved '${RESERVED_NAME_PREFIX_LOWERCASE}' prefix: '${table.name}'`,
         });
       }
 
@@ -115,11 +116,11 @@ const storageDeclarationSchema = z
         }
         seenColumnNames.add(lowerCaseColumnName);
 
-        if (lowerCaseColumnName.startsWith(RESERVED_NAME_PREFIX)) {
+        if (lowerCaseColumnName.startsWith(RESERVED_NAME_PREFIX_LOWERCASE)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             path: ['tables', tableIndex, 'columns', columnIndex, 'name'],
-            message: `Column name uses the reserved '${RESERVED_NAME_PREFIX}' prefix: '${column.name}'`,
+            message: `Column name uses the reserved '${RESERVED_NAME_PREFIX_LOWERCASE}' prefix: '${column.name}'`,
           });
         }
 

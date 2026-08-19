@@ -196,7 +196,9 @@ export function getStorageFromManifest(): StorageDeclaration | undefined {
 
   try {
     const manifest = JSON.parse(fs.readFileSync(DEFAULT_MANIFEST_PATH, { encoding: 'utf8' }));
-    return manifest.storage === undefined ? undefined : parseStorageDeclaration(manifest.storage);
+    return manifest['storage'] === undefined
+      ? undefined
+      : parseStorageDeclaration(manifest['storage']);
   } catch (error) {
     console.log(
       `${chalk.red('Error:')} Invalid storage declaration in manifest file at ${chalk.bold(

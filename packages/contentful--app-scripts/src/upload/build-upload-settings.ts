@@ -8,7 +8,6 @@ import path from 'node:path';
 export async function buildAppUploadSettings(options: UploadOptions): Promise<UploadSettings> {
   // upload intentionally reads the default manifest; unlike build-functions, it has no --manifest-file option.
   const functionManifest = getFunctionsFromManifest();
-  // upload intentionally reads the default manifest; unlike build-functions, it has no --manifest-file option.
   const storageDeclaration = getStorageFromManifest();
   const prompts = [];
   const { bundleDir, comment, skipActivation, host } = options;
