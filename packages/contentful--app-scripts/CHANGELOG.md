@@ -1,3 +1,9 @@
+## 4.1.8 (2026-08-20)
+
+### 🩹 Fixes
+
+- **deps:** update dependency esbuild to ^0.28.2 ([#3148](https://github.com/contentful/create-contentful-app/pull/3148))
+
 ## 4.1.7 (2026-08-20)
 
 ### 🩹 Fixes
