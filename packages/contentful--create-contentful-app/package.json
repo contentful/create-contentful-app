@@ -74,7 +74,7 @@
     "chai": "^4.5.0",
     "chai-as-promised": "^7.1.2",
     "contentful-management": "11.76.0",
-    "mocha": "^11.7.6",
+    "mocha": "^11.8.0",
     "sinon": "^21.1.2",
     "sinon-chai": "^3.7.0",
     "ts-node": "^10.9.2"
