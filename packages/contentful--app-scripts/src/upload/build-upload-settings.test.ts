@@ -7,15 +7,20 @@ import { buildAppUploadSettings, hostProtocolFilter } from './build-upload-setti
 import * as getAppInfoModule from '../get-app-info';
 import * as utilsModule from '../utils';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const storageEnabledManifest = require('../manifest/__fixtures__/storage-poc.json');
+
 describe('buildAppUploadSettings', () => {
   let promptStub;
   let getAppInfoStub;
   let getFunctionsFromManifestStub;
+  let getStorageFromManifestStub;
 
   beforeEach(() => {
     promptStub = sinon.stub(inquirer, 'prompt');
     getAppInfoStub = sinon.stub(getAppInfoModule, 'getAppInfo');
     getFunctionsFromManifestStub = sinon.stub(utilsModule, 'getFunctionsFromManifest');
+    getStorageFromManifestStub = sinon.stub(utilsModule, 'getStorageFromManifest');
   });
 
   afterEach(() => {
@@ -100,5 +105,39 @@ describe('buildAppUploadSettings', () => {
     const result = await buildAppUploadSettings(options);
 
     assert.strictEqual(result.skipActivation, true);
+  });
+
+  it('retains the same storageDeclaration object as storage upload settings', async () => {
+    const options = {};
+    promptStub.resolves({
+      bundleDirectory: './build',
+      comment: '',
+      activateBundle: true,
+      host: 'api.contentful.com',
+    });
+    getAppInfoStub.resolves({ appId: '123', appName: 'Test App' });
+    getFunctionsFromManifestStub.returns('functionsManifest');
+    getStorageFromManifestStub.returns(storageEnabledManifest.storage);
+
+    const result = await buildAppUploadSettings(options);
+
+    assert.deepEqual(result.storage, storageEnabledManifest.storage);
+  });
+
+  it('returns undefined storage upload settings when the manifest has no storage declaration', async () => {
+    const options = {};
+    promptStub.resolves({
+      bundleDirectory: './build',
+      comment: '',
+      activateBundle: true,
+      host: 'api.contentful.com',
+    });
+    getAppInfoStub.resolves({ appId: '123', appName: 'Test App' });
+    getFunctionsFromManifestStub.returns('functionsManifest');
+    getStorageFromManifestStub.returns(undefined);
+
+    const result = await buildAppUploadSettings(options);
+
+    assert.strictEqual(result.storage, undefined);
   });
 });

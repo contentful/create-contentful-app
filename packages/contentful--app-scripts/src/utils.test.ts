@@ -265,6 +265,75 @@ describe('get functions from manifest', () => {
   });
 });
 
+describe('get storage from manifest', () => {
+  let exitStub: SinonStub, consoleLog: SinonStub;
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const storageEnabledManifest = require('./manifest/__fixtures__/storage-poc.json');
+
+  const fs = {
+    existsSync: stub(),
+    readFileSync: stub(),
+  };
+  const chalk = {
+    bold: stub(),
+    red: stub(),
+  };
+
+  const { getStorageFromManifest } = proxyquire('./utils', { 'node:fs': fs, chalk });
+
+  beforeEach(() => {
+    exitStub = stub(process, 'exit');
+    consoleLog = stub(console, 'log');
+  });
+  afterEach(() => {
+    exitStub.restore();
+    consoleLog.restore();
+  });
+
+  it('should return undefined if manifest does not exist', () => {
+    fs.existsSync.returns(false);
+
+    const result = getStorageFromManifest();
+
+    assert.equal(result, undefined);
+  });
+
+  it('should return undefined if manifest has no storage declaration', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(JSON.stringify({ functions: [] }));
+
+    const result = getStorageFromManifest();
+
+    assert.equal(result, undefined);
+  });
+
+  it('returns the storage declaration exactly as declared', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(JSON.stringify(storageEnabledManifest));
+
+    assert.deepEqual(getStorageFromManifest(), storageEnabledManifest.storage);
+  });
+
+  it('prints Zod issue paths before exiting for an invalid declaration', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.returns(JSON.stringify({ storage: { tables: [] } }));
+
+    getStorageFromManifest();
+    assert.match(consoleLog.firstCall.args[0], /tables/);
+    assert.ok(exitStub.calledOnceWith(1));
+  });
+
+  it('should exit with error if manifest is invalid JSON', () => {
+    fs.existsSync.returns(true);
+    fs.readFileSync.throws();
+
+    getStorageFromManifest();
+
+    assert.ok(exitStub.calledOnceWith(1));
+  });
+});
+
 describe('get web app hostname', () => {
   it('should return the default if host is undefined', () => {
     const result = getWebAppHostname(undefined);

@@ -129,4 +129,48 @@ describe('validateFunctions', () => {
     };
     assert.doesNotThrow(() => validateFunctions(manifest));
   });
+
+  it('should not throw an error for a manifest without a storage declaration', () => {
+    const manifest = {
+      functions: [
+        {
+          id: 'example',
+          name: 'myFunc',
+          entryFile: 'index.ts',
+          description: 'My function',
+          accepts: ['appaction.call'],
+          path: 'path/to/file.ts',
+        },
+      ],
+    };
+    assert.doesNotThrow(() => validateFunctions(manifest));
+  });
+
+  const storageEnabledManifest = require('../../manifest/__fixtures__/storage-poc.json');
+
+  it('accepts a valid storage-enabled Function manifest', () => {
+    assert.doesNotThrow(() => validateFunctions(storageEnabledManifest));
+  });
+
+  it('rejects storage that enables a Function absent from the manifest', () => {
+    assert.throws(
+      () =>
+        validateFunctions({
+          ...storageEnabledManifest,
+          storage: { ...storageEnabledManifest.storage, functions: ['missingFunction'] },
+        }),
+      /Invalid Contentful Function manifest:.*missingFunction/
+    );
+  });
+
+  it('prefixes a storage parser error with the Function-manifest error', () => {
+    assert.throws(
+      () =>
+        validateFunctions({
+          ...storageEnabledManifest,
+          storage: { ...storageEnabledManifest.storage, tables: [] },
+        }),
+      /Invalid Contentful Function manifest:.*tables/
+    );
+  });
 });

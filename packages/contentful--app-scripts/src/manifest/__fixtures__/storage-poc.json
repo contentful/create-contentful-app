@@ -1,0 +1,35 @@
+{
+  "functions": [
+    {
+      "id": "brandGuidelines",
+      "name": "Brand Guidelines Context",
+      "description": "Provides brand guideline context storage lookups to app actions.",
+      "path": "functions/brand-guidelines.js",
+      "entryFile": "functions/brand-guidelines.ts",
+      "accepts": ["appaction.call"]
+    }
+  ],
+  "storage": {
+    "version": 1,
+    "namespace": "content_ops",
+    "functions": ["brandGuidelines"],
+    "tables": [
+      {
+        "name": "brand_guidelines",
+        "columns": [
+          {
+            "name": "topic",
+            "type": "text",
+            "nullable": false,
+            "primaryKey": true
+          },
+          {
+            "name": "guidance",
+            "type": "text",
+            "nullable": false
+          }
+        ]
+      }
+    ]
+  }
+}

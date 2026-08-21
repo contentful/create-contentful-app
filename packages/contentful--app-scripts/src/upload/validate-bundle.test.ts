@@ -4,6 +4,14 @@ import assert from 'assert';
 import { UploadSettings } from '../types';
 import path from 'node:path';
 
+// RFC "App-manifest-contract" storage POC example (PIC-1333), reused as the
+// example storage declaration for the upload-path cross-field checks below.
+// require() (not `import`) matches the JSON-fixture convention already used
+// in build-upload-settings.test.ts.
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const storagePoc = require('../manifest/__fixtures__/storage-poc.json');
+const storageDeclaration = storagePoc.storage;
+
 describe('validateBundle', () => {
   beforeEach(() => {
     sinon.stub(console, 'warn');
@@ -75,5 +83,31 @@ describe('validateBundle', () => {
         `Function "myOtherFunc" is missing its entry file at "${path.join('build', 'functions', 'myOtherFunc.js')}".`
       );
     }
+  });
+
+  it('rejects storage that names a Function missing from upload settings', () => {
+    const settings = {
+      functions: [{ id: 'brandGuidelines', path: 'functions/brand-guidelines.js' }],
+      storage: { ...storageDeclaration, functions: ['missingFunction'] },
+    } as Pick<UploadSettings, 'functions' | 'storage'>;
+    const fsstub = {
+      readdirSync: () => ['functions', path.join('functions', 'brand-guidelines.js')],
+    };
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
+
+    assert.throws(() => validateBundle('build', settings), /missingFunction/);
+  });
+
+  it('accepts storage when every listed Function is in upload settings', () => {
+    const settings = {
+      functions: [{ id: 'brandGuidelines', path: 'functions/brand-guidelines.js' }],
+      storage: storageDeclaration,
+    } as Pick<UploadSettings, 'functions' | 'storage'>;
+    const fsstub = {
+      readdirSync: () => ['functions', path.join('functions', 'brand-guidelines.js')],
+    };
+    const { validateBundle } = proxyquire('./validate-bundle', { 'node:fs': fsstub });
+
+    assert.doesNotThrow(() => validateBundle('build', settings));
   });
 });
