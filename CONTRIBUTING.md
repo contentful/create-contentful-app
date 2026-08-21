@@ -4,7 +4,7 @@
 
 | Tool | Version |
 |------|---------|
-| Node.js | ≥ 18 (`.nvmrc`: `lts/*`) |
+| Node.js | ≥ 20 (`.nvmrc`: `v22`) |
 | npm | ≥ 8 |
 
 ## Setup
@@ -18,23 +18,23 @@ npm ci
 ## Running Tests
 
 ```bash
-npm test   # lerna run test — runs Mocha tests across all packages
+npm test   # nx run-many -t test — runs Mocha tests across all packages
 ```
 
 Tests use **Mocha + Chai + Sinon**. Test files are in `packages/<pkg>/test/`.
 
-The CI suite also runs integration tests that scaffold a real app and run its full build + test cycle — these run in CircleCI only.
+The CI suite also runs integration tests that scaffold a real app and run its full build + test cycle — these run in GitHub Actions only, across a Node and OS matrix.
 
 ## Building
 
 ```bash
-npm run build   # lerna run build
+npm run build   # nx run-many -t build
 ```
 
 ## Linting
 
 ```bash
-npm run lint   # lerna run lint
+npm run lint   # nx run-many -t lint
 ```
 
 Prettier runs automatically on staged files via `lint-staged` (Husky pre-commit hook). Don't skip it.
@@ -61,15 +61,18 @@ create-contentful-app my-test-app
 
 ## Releasing
 
-Releases are automated via semantic-release on the `master` branch. Do not manually bump versions.
+Releases are automated via `nx release` on the `main` branch, driven by conventional commits.
+Do not manually bump versions. See
+[ADR 2026-01-20](./docs/ADRs/2026-01-20-adopt-nx-release-replace-lerna.md) for why Nx Release
+replaced Lerna.
 
 **Canary**: merge to the `canary` branch → publishes `X.Y.Z-alpha.N` under the `canary` dist-tag.
 
 ## Branch Strategy
 
-- **`master`** — production; triggers release on merge
+- **`main`** — production; triggers release on merge
 - **`canary`** — prerelease; publishes canary versions
-- **Feature branches** — PR against `master`
+- **Feature branches** — PR against `main`
 
 ## Troubleshooting
 
