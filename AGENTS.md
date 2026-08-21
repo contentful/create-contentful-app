@@ -26,11 +26,14 @@ packages/
 - **`contentful-app-manifest.json` is never removed after cloning** — it's in `IGNORED_CLONED_FILES`. When using `--action` or `--function` flags, the manifest is merged (not replaced) into the scaffolded app root.
 - **`--action` and `--function` flags run a merge step** — both `build-actions.js` / `build-functions.js` are moved to root and `build:actions` / `build:functions` scripts are injected into the generated `package.json`.
 - **`useSDK()` and `useAutoResizer()`** from `@contentful/react-apps-toolkit` are the canonical React hooks for all 56 apps in the `apps` monorepo. Changes to hook signatures are breaking.
-- **Lerna 6 + Nx** — each package versions independently. Use `lerna run <script>` for cross-package operations.
+- **Nx** — each package versions independently. Use `nx run-many -t <target>` for cross-package
+  operations. Lerna was removed; see
+  [ADR 2026-01-20](./docs/ADRs/2026-01-20-adopt-nx-release-replace-lerna.md).
 
 ## Never / Always
 
 - **Never** rename template folders in the `apps` repo without updating `src/constants.ts` here.
-- **Never** manually bump package versions — releases are automated via semantic-release on `master`.
+- **Never** manually bump package versions — `nx release` versions packages from conventional
+  commits when CI passes on `main`.
 - **Always** test the CLI end-to-end after changes — CI scaffolds a real app and runs its full build + test cycle.
 - **Always** check `@contentful/react-apps-toolkit` for breaking changes before bumping — all apps in the monorepo depend on it.

@@ -68,21 +68,30 @@ React hooks all apps should use:
 
 ## Monorepo Setup
 
-- **Lerna 6 + Nx** — Nx caches build outputs; Lerna handles versioning and publishing
-- **Independent versioning** — each package has its own semver
-- **Node ≥ 18** — CI tests on multiple Node LTS versions (see `.circleci/config.yml`)
-- **CircleCI** — lint-and-test → test-built-app (real scaffold + build + test) → release
+- **Nx** — owns build caching, task running (`nx run-many`), versioning, and publishing. Lerna
+  was removed in favour of Nx Release; see
+  [ADR 2026-01-20](./docs/ADRs/2026-01-20-adopt-nx-release-replace-lerna.md).
+- **npm workspaces** — `workspaces: ["packages/*"]` handles dependency linking
+- **Independent versioning** — each package has its own semver, driven by conventional commits
+- **Node ≥ 20** — `engines.node` is `>=20`; `.nvmrc` pins `v22`
+- **GitHub Actions** — a CI workflow gates every push and PR; a separate release workflow runs
+  after CI succeeds on `main` or `canary`
 
 ## CI / Release
 
 ```
-Every branch:
-  lint-and-test (Node 18 + 20)
-  test-built-app (scaffold a real app → npm run build + test)
-  test-built-app-actions-functions (scaffold with --action --function flags)
+CI (.github/workflows/ci.yaml) — every push and PR to main or canary:
+  matrix: Node 20.20 / 22.23 / 24.18  ×  ubuntu-latest / windows-latest
+    install-and-build
+    lint-and-test
+    test-app       (scaffold a real app → build + test)
+    test-functions (scaffold with app functions → build)
+  ci-status        (single aggregate status check over the matrix)
 
-master branch (after all tests pass):
-  lerna version --conventional-commits  →  lerna publish from-git
+Release (.github/workflows/release.yaml) — after CI succeeds on main or canary:
+  nx release --skip-publish   (version, changelog, tag)
+  git push --follow-tags
+  nx release publish          (npmjs, OIDC trusted publishing with provenance)
 ```
 
 Canary releases publish from the `canary` branch with `X.Y.Z-alpha.N` format under the `canary` dist-tag.
