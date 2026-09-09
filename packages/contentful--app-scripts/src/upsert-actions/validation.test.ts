@@ -411,6 +411,46 @@ describe('validateActionsManifest', () => {
 		}
 	});
 
+	it('throws if a native category action defines null parameters', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				name: 'Test Action',
+				category: 'Entries.v1.0',
+				functionId: 'test-function',
+				parameters: null,
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('may not define "parameters"');
+		}
+	});
+
+	it('throws if a native category action defines null resultSchema', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				name: 'Test Action',
+				category: 'Entries.v1.0',
+				functionId: 'test-function',
+				resultSchema: null,
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('may not define "resultSchema"');
+		}
+	});
+
 	it('throws if a native category action defines parametersSchema', async () => {
 		const manifest = {
 			actions: [{
