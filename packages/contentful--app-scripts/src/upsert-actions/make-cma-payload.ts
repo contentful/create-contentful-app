@@ -39,6 +39,7 @@ export function makeAppActionCMAPayload(action: AppActionManifest): CreateAppAct
 				category: action.category,
 				...(customAction.parameters !== undefined && { parameters: customAction.parameters }),
 				...(customAction.parametersSchema !== undefined && { parametersSchema: customAction.parametersSchema }),
+				...(customAction.resultSchema !== undefined && { resultSchema: customAction.resultSchema }),
 			} as CustomCategoryAppActionProps)
 			: ({
 				category: action.category,
@@ -48,7 +49,6 @@ export function makeAppActionCMAPayload(action: AppActionManifest): CreateAppAct
 		...baseProps,
 		...additionalPropsByType,
 		...additionalPropsByCategory,
-		...(action.resultSchema !== undefined && { resultSchema: action.resultSchema }),
 	};
 	return payload;
 }
