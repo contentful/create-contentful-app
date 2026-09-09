@@ -1,3 +1,14 @@
+## 4.1.10 (2026-09-09)
+
+### 🩹 Fixes
+
+- support parametersSchema in upsert-actions ([#3160](https://github.com/contentful/create-contentful-app/pull/3160))
+
+### ❤️ Thank You
+
+- Cursor @cursoragent
+- Jared Jolton @jjolton-contentful
+
 ## 4.1.9 (2026-09-09)
 
 ### 🩹 Fixes
