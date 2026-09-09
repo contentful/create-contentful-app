@@ -15,7 +15,9 @@ export type EndpointAppActionProps = {
 }
 export type CustomCategoryAppActionProps = {
 	category: 'Custom';
-	parameters: AppActionParameterDefinition[];
+	parameters?: AppActionParameterDefinition[];
+	parametersSchema?: Record<string, unknown>;
+	resultSchema?: Record<string, unknown>;
 }
 export type BuiltInCategoryAppActionProps = {
 	category: Omit<AppActionCategoryType, 'Custom'>;

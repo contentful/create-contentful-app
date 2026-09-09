@@ -17,6 +17,12 @@ const validateParameters = (parameters: unknown[]) => {
 	return errors;
 }
 
+const isDefined = (value: unknown): boolean => value !== undefined;
+
+const isJsonSchemaObject = (value: unknown): boolean => {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 export const validateId = (id: string) => {
 	if (!isValidActionId(id)) {
 		return {
@@ -68,18 +74,47 @@ export function validateActionsManifest(
 			}
 		}
 
-		if (action.category !== 'Custom' && action.parameters) {
+		if (action.category !== 'Custom' && isDefined(action.parameters)) {
 			acc.push(new Error('Invalid App Action manifest: native Action categories may not define "parameters"'));
 		}
 
-		if (action.category === 'Custom' && !action.parameters) {
-			acc.push(new Error('Invalid App Action manifest: "Custom" Action categories must define "parameters"'));
+		if (action.category !== 'Custom' && isDefined(action.parametersSchema)) {
+			acc.push(new Error('Invalid App Action manifest: native Action categories may not define "parametersSchema"'));
 		}
 
-		if (action.category === 'Custom' && action.parameters) {
-			const parameterErrors = validateParameters(action.parameters);
-			if (parameterErrors.length) {
-				acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parameterErrors)}`));
+		if (action.category !== 'Custom' && isDefined(action.resultSchema)) {
+			acc.push(new Error('Invalid App Action manifest: native Action categories may not define "resultSchema"'));
+		}
+
+		if (action.category === 'Custom') {
+			if (isDefined(action.parameters) && !Array.isArray(action.parameters)) {
+				acc.push(new Error('Invalid App Action manifest: "parameters" must be an array'));
+			}
+
+			const hasParameters = Array.isArray(action.parameters);
+			const hasParametersSchema = isDefined(action.parametersSchema);
+
+			if (!hasParameters && !hasParametersSchema) {
+				acc.push(new Error('Invalid App Action manifest: "Custom" Action categories must define "parameters" or "parametersSchema"'));
+			}
+
+			if (hasParameters && hasParametersSchema) {
+				acc.push(new Error('Invalid App Action manifest: "Custom" Action categories may not define both "parameters" and "parametersSchema"'));
+			}
+
+			if (hasParameters) {
+				const parameterErrors = validateParameters(action.parameters as unknown[]);
+				if (parameterErrors.length) {
+					acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parameterErrors)}`));
+				}
+			}
+
+			if (hasParametersSchema && !isJsonSchemaObject(action.parametersSchema)) {
+				acc.push(new Error('Invalid App Action manifest: "parametersSchema" must be a JSON Schema object'));
+			}
+
+			if (isDefined(action.resultSchema) && !isJsonSchemaObject(action.resultSchema)) {
+				acc.push(new Error('Invalid App Action manifest: "resultSchema" must be a JSON Schema object'));
 			}
 		}
 

@@ -43,6 +43,56 @@ describe('makeAppActionCMAPayload', () => {
 		});
 	});
 
+	it('maps a custom action with parametersSchema and resultSchema', () => {
+		const action: AppActionManifest = {
+			id: 'customAction',
+			name: 'Custom Action',
+			description: 'A custom function action',
+			type: 'function-invocation',
+			functionId: 'myFunction',
+			category: 'Custom',
+			parametersSchema: {
+				type: 'object',
+				properties: {
+					input: { type: 'string' },
+				},
+			},
+			resultSchema: {
+				type: 'object',
+				properties: {
+					success: { type: 'boolean' },
+				},
+			},
+		};
+
+		expect(makeAppActionCMAPayload(action)).to.deep.equal({
+			id: 'customAction',
+			name: 'Custom Action',
+			description: 'A custom function action',
+			type: 'function-invocation',
+			function: {
+				sys: {
+					id: 'myFunction',
+					linkType: 'Function',
+					type: 'Link',
+				},
+			},
+			category: 'Custom',
+			parametersSchema: {
+				type: 'object',
+				properties: {
+					input: { type: 'string' },
+				},
+			},
+			resultSchema: {
+				type: 'object',
+				properties: {
+					success: { type: 'boolean' },
+				},
+			},
+		});
+	});
+
 	it('should allow optional id for function-invocation type action', () => {
 		const action: AppActionManifest = {
 			name: 'Test Function Action',
