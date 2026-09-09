@@ -11,7 +11,8 @@ import {
   isValidHostedCodePath,
   MIN_FUNCTION_ID_LENGTH,
   MAX_FUNCTION_ID_LENGTH,
-} from '@contentful/node-apps-toolkit';
+  // eslint-disable-next-line node/no-missing-import
+} from '@contentful/node-apps-toolkit/validation';
 
 type ContentfulFunctionToBuild = Omit<ContentfulFunction, 'entryFile'> & { entryFile: string };
 

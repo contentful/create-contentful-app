@@ -4,7 +4,8 @@ import {
 	ActionParameterDefinition,
 	MIN_ACTION_ID_LENGTH,
 	MAX_ACTION_ID_LENGTH,
-} from '@contentful/node-apps-toolkit';
+	// eslint-disable-next-line node/no-missing-import
+} from '@contentful/node-apps-toolkit/validation';
 import { CreateAppActionOptions as UpsertAppActionOptions } from './types';
 
 const validateParameters = (parameters: unknown[]) => {

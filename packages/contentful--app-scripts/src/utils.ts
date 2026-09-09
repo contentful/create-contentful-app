@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import { isValidNetworkAddress, isValidFunctionEventType } from '@contentful/node-apps-toolkit';
+// eslint-disable-next-line node/no-missing-import
+import { isValidNetworkAddress, isValidFunctionEventType } from '@contentful/node-apps-toolkit/validation';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
