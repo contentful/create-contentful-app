@@ -138,6 +138,123 @@ describe('validateActionsManifest', () => {
 		}
 	});
 
+	it('throws if an action id exceeds 64 characters', async () => {
+		const manifest = {
+			actions: [{
+				id: 'a'.repeat(65),
+				type: 'endpoint',
+				name: 'Test Action',
+				category: 'Entries.v1.0',
+				url: 'https://test.com',
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('Invalid App Action manifest');
+		}
+	});
+
+	it('accepts a parameter with no "required" field', async () => {
+		// Regression: the previous zod schema marked "required" as
+		// non-optional, even though contentful-management's own type (and
+		// the backend's actual schema) treats it as optional.
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: [{
+					id: 'param1',
+					name: 'Parameter 1',
+					type: 'Symbol',
+				}]
+			}]
+		};
+
+		const result = await validateActionsManifest(manifest);
+		expect(result).to.deep.equal(manifest.actions);
+	});
+
+	it('throws if a parameter id exceeds 64 characters', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: [{
+					id: 'a'.repeat(65),
+					name: 'Parameter 1',
+					type: 'Symbol',
+				}]
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('Invalid App Action manifest');
+			expect(error.message).to.include('invalid "parameters"');
+		}
+	});
+
+	it('throws if a parameter description exceeds 255 characters', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: [{
+					id: 'param1',
+					name: 'Parameter 1',
+					description: 'a'.repeat(256),
+					type: 'Symbol',
+				}]
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('invalid "parameters"');
+		}
+	});
+
+	it('throws if a parameter options array is empty', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: [{
+					id: 'param1',
+					name: 'Parameter 1',
+					type: 'Enum',
+					options: [],
+				}]
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('invalid "parameters"');
+		}
+	});
+
 	it('throws if a custom category action does not define parameters', async () => {
 		const manifest = {
 			actions: [{

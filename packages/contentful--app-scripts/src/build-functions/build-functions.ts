@@ -5,7 +5,14 @@ import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfil
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { type BuildFunctionsOptions, type ContentfulFunction } from '../types';
 import { z } from 'zod';
-import { ID_REGEX, resolveManifestFile } from '../utils';
+import { resolveManifestFile } from '../utils';
+import {
+  isValidFunctionId,
+  isValidHostedCodePath,
+  MIN_FUNCTION_ID_LENGTH,
+  MAX_FUNCTION_ID_LENGTH,
+  // eslint-disable-next-line node/no-missing-import
+} from '@contentful/node-apps-toolkit/validation';
 
 type ContentfulFunctionToBuild = Omit<ContentfulFunction, 'entryFile'> & { entryFile: string };
 
@@ -14,14 +21,17 @@ const functionManifestSchema = z
     functions: z.array(
       z
         .object({
-          id: z.string().regex(ID_REGEX, 'Invalid "id" (must only contain alphanumeric characters)'),
+          id: z
+            .string()
+            .refine(
+              isValidFunctionId,
+              `Invalid "id" (must be ${MIN_FUNCTION_ID_LENGTH}-${MAX_FUNCTION_ID_LENGTH} alphanumeric characters)`
+            ),
           name: z.string(),
           description: z.string(),
-          path: z.string(),
+          path: z.string().refine(isValidHostedCodePath, 'Invalid "path" (must end in .js or .mjs)'),
           entryFile: z.string(),
           accepts: z.array(z.string()),
-        }, {
-
         })
         .required()
     ),
