@@ -85,7 +85,11 @@ export function validateActionsManifest(
 		}
 
 		if (action.category === 'Custom') {
-			const hasParameters = action.parameters !== undefined;
+			if (action.parameters !== undefined && !Array.isArray(action.parameters)) {
+				acc.push(new Error('Invalid App Action manifest: "parameters" must be an array'));
+			}
+
+			const hasParameters = Array.isArray(action.parameters);
 			const hasParametersSchema = action.parametersSchema !== undefined;
 
 			if (!hasParameters && !hasParametersSchema) {
@@ -97,7 +101,7 @@ export function validateActionsManifest(
 			}
 
 			if (hasParameters) {
-				const parameterErrors = validateParameters(action.parameters);
+				const parameterErrors = validateParameters(action.parameters as unknown[]);
 				if (parameterErrors.length) {
 					acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parameterErrors)}`));
 				}

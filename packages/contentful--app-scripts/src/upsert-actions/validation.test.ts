@@ -324,6 +324,50 @@ describe('validateActionsManifest', () => {
 		}
 	});
 
+	it('throws if parameters is null instead of an array', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: null,
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('"parameters" must be an array');
+		}
+	});
+
+	it('throws an array error for null parameters even when parametersSchema is present', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: null,
+				parametersSchema: {
+					type: 'object',
+				},
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('"parameters" must be an array');
+			expect(error.message).not.to.include('may not define both');
+		}
+	});
+
 	it('throws if parametersSchema is not a JSON Schema object', async () => {
 		const manifest = {
 			actions: [{
