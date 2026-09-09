@@ -43,6 +43,44 @@ describe('makeAppActionCMAPayload', () => {
 		});
 	});
 
+	it('maps a custom action with parametersSchema and resultSchema', () => {
+		const action: AppActionManifest = {
+			id: 'initiateGdocOauth',
+			name: 'Initiate Gdoc OAuth Flow',
+			description: 'Initiates the OAuth flow for Drive Integration',
+			type: 'function-invocation',
+			functionId: 'initiateGdocOauth',
+			category: 'Custom',
+			parametersSchema: {
+				type: 'object',
+			},
+			resultSchema: {
+				type: 'object',
+			},
+		};
+
+		expect(makeAppActionCMAPayload(action)).to.deep.equal({
+			id: 'initiateGdocOauth',
+			name: 'Initiate Gdoc OAuth Flow',
+			description: 'Initiates the OAuth flow for Drive Integration',
+			type: 'function-invocation',
+			function: {
+				sys: {
+					id: 'initiateGdocOauth',
+					linkType: 'Function',
+					type: 'Link',
+				},
+			},
+			category: 'Custom',
+			parametersSchema: {
+				type: 'object',
+			},
+			resultSchema: {
+				type: 'object',
+			},
+		});
+	});
+
 	it('should allow optional id for function-invocation type action', () => {
 		const action: AppActionManifest = {
 			name: 'Test Function Action',

@@ -17,6 +17,10 @@ const validateParameters = (parameters: unknown[]) => {
 	return errors;
 }
 
+const isJsonSchemaObject = (value: unknown): boolean => {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 export const validateId = (id: string) => {
 	if (!isValidActionId(id)) {
 		return {
@@ -72,15 +76,40 @@ export function validateActionsManifest(
 			acc.push(new Error('Invalid App Action manifest: native Action categories may not define "parameters"'));
 		}
 
-		if (action.category === 'Custom' && !action.parameters) {
-			acc.push(new Error('Invalid App Action manifest: "Custom" Action categories must define "parameters"'));
+		if (action.category !== 'Custom' && action.parametersSchema) {
+			acc.push(new Error('Invalid App Action manifest: native Action categories may not define "parametersSchema"'));
 		}
 
-		if (action.category === 'Custom' && action.parameters) {
-			const parameterErrors = validateParameters(action.parameters);
-			if (parameterErrors.length) {
-				acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parameterErrors)}`));
+		if (action.category !== 'Custom' && action.resultSchema) {
+			acc.push(new Error('Invalid App Action manifest: native Action categories may not define "resultSchema"'));
+		}
+
+		if (action.category === 'Custom') {
+			const hasParameters = action.parameters !== undefined;
+			const hasParametersSchema = action.parametersSchema !== undefined;
+
+			if (!hasParameters && !hasParametersSchema) {
+				acc.push(new Error('Invalid App Action manifest: "Custom" Action categories must define "parameters" or "parametersSchema"'));
 			}
+
+			if (hasParameters && hasParametersSchema) {
+				acc.push(new Error('Invalid App Action manifest: "Custom" Action categories may not define both "parameters" and "parametersSchema"'));
+			}
+
+			if (hasParameters) {
+				const parameterErrors = validateParameters(action.parameters);
+				if (parameterErrors.length) {
+					acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parameterErrors)}`));
+				}
+			}
+
+			if (hasParametersSchema && !isJsonSchemaObject(action.parametersSchema)) {
+				acc.push(new Error('Invalid App Action manifest: "parametersSchema" must be a JSON Schema object'));
+			}
+		}
+
+		if (action.resultSchema !== undefined && !isJsonSchemaObject(action.resultSchema)) {
+			acc.push(new Error('Invalid App Action manifest: "resultSchema" must be a JSON Schema object'));
 		}
 
 		return acc;

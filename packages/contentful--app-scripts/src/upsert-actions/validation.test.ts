@@ -255,7 +255,7 @@ describe('validateActionsManifest', () => {
 		}
 	});
 
-	it('throws if a custom category action does not define parameters', async () => {
+	it('throws if a custom category action does not define parameters or parametersSchema', async () => {
 		const manifest = {
 			actions: [{
 				type: 'function-invocation',
@@ -267,9 +267,119 @@ describe('validateActionsManifest', () => {
 
 		try {
 			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
 		} catch (error) {
 			expect(error).to.be.instanceOf(Error);
-			expect(error.message).to.include('Invalid App Action manifest');
+			expect(error.message).to.include('must define "parameters" or "parametersSchema"');
+		}
+	});
+
+	it('validates a custom category action with parametersSchema', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'initiateGdocOauth',
+				name: 'Initiate Gdoc OAuth Flow',
+				description: 'Initiates the OAuth flow for Drive Integration',
+				category: 'Custom',
+				parametersSchema: {
+					type: 'object',
+				},
+				resultSchema: {
+					type: 'object',
+				},
+			}]
+		};
+
+		const result = await validateActionsManifest(manifest);
+		expect(result).to.deep.equal(manifest.actions);
+	});
+
+	it('throws if a custom category action defines both parameters and parametersSchema', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parameters: [],
+				parametersSchema: {
+					type: 'object',
+				},
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('may not define both "parameters" and "parametersSchema"');
+		}
+	});
+
+	it('throws if parametersSchema is not a JSON Schema object', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parametersSchema: [],
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('"parametersSchema" must be a JSON Schema object');
+		}
+	});
+
+	it('throws if resultSchema is not a JSON Schema object', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				functionId: 'test-function',
+				name: 'Test Action',
+				category: 'Custom',
+				parametersSchema: {
+					type: 'object',
+				},
+				resultSchema: 'invalid',
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('"resultSchema" must be a JSON Schema object');
+		}
+	});
+
+	it('throws if a native category action defines parametersSchema', async () => {
+		const manifest = {
+			actions: [{
+				type: 'function-invocation',
+				name: 'Test Action',
+				category: 'Entries.v1.0',
+				functionId: 'test-function',
+				parametersSchema: {
+					type: 'object',
+				},
+			}]
+		};
+
+		try {
+			await validateActionsManifest(manifest);
+			expect.fail('expected validateActionsManifest to throw');
+		} catch (error) {
+			expect(error).to.be.instanceOf(Error);
+			expect(error.message).to.include('may not define "parametersSchema"');
 		}
 	});
 

@@ -4,6 +4,7 @@ export type BaseAppActionProps = {
 	id?: string;
 	name: string;
 	description?: string;
+	resultSchema?: Record<string, unknown>;
 }
 export type FunctionAppActionManifestProps = {
 	type: 'function-invocation';
@@ -15,7 +16,8 @@ export type EndpointAppActionProps = {
 }
 export type CustomCategoryAppActionProps = {
 	category: 'Custom';
-	parameters: AppActionParameterDefinition[];
+	parameters?: AppActionParameterDefinition[];
+	parametersSchema?: Record<string, unknown>;
 }
 export type BuiltInCategoryAppActionProps = {
 	category: Omit<AppActionCategoryType, 'Custom'>;
