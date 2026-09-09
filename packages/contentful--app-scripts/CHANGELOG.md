@@ -1,3 +1,14 @@
+## 4.1.9 (2026-09-09)
+
+### 🩹 Fixes
+
+- validate manifests with shared rules from node-apps-toolkit ([#3159](https://github.com/contentful/create-contentful-app/pull/3159), [#859](https://github.com/contentful/create-contentful-app/issues/859))
+
+### ❤️ Thank You
+
+- Claude Opus 5 (1M context)
+- Michael Pineiro @michaelpineirocontentful
+
 ## 4.1.8 (2026-08-20)
 
 ### 🩹 Fixes
