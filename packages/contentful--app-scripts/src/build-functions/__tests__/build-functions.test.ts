@@ -102,6 +102,7 @@ describe('validateFunctions', () => {
     assert.throws(() => validateFunctions(manifest));
   });
 
+
   it('should throw an error if a function is missing an accepts', () => {
     const manifest = { ...validManifest };
     manifest.functions = manifest.functions.map((f) => deleteProp(f, 'accepts'));
@@ -123,7 +124,77 @@ describe('validateFunctions', () => {
           entryFile: 'index.ts',
           description: 'My function',
           accepts: ['appaction.call'],
+          path: 'path/to/file.js',
+        },
+      ],
+    };
+    assert.doesNotThrow(() => validateFunctions(manifest));
+  });
+
+  it('should throw an error if a function id exceeds 64 characters', () => {
+    // Regression: this manifest-build-time check only ever validated the
+    // character set (alphanumeric), never a length bound, so an id this
+    // long would pass here and only fail once uploaded to the backend.
+    const manifest = {
+      functions: [
+        {
+          id: 'a'.repeat(65),
+          name: 'myFunc',
+          entryFile: 'index.ts',
+          description: 'My function',
+          accepts: ['appaction.call'],
+          path: 'path/to/file.js',
+        },
+      ],
+    };
+    assert.throws(() => validateFunctions(manifest));
+  });
+
+  it('should not throw an error for a function id at the maximum length of 64 characters', () => {
+    const manifest = {
+      functions: [
+        {
+          id: 'a'.repeat(64),
+          name: 'myFunc',
+          entryFile: 'index.ts',
+          description: 'My function',
+          accepts: ['appaction.call'],
+          path: 'path/to/file.js',
+        },
+      ],
+    };
+    assert.doesNotThrow(() => validateFunctions(manifest));
+  });
+
+  it('should throw an error if a function path does not end in .js or .mjs', () => {
+    // Regression: this manifest-build-time check never validated the shape
+    // of "path" at all, so a path with the wrong (or no) extension would
+    // pass here and only fail once uploaded to the backend.
+    const manifest = {
+      functions: [
+        {
+          id: 'example',
+          name: 'myFunc',
+          entryFile: 'index.ts',
+          description: 'My function',
+          accepts: ['appaction.call'],
           path: 'path/to/file.ts',
+        },
+      ],
+    };
+    assert.throws(() => validateFunctions(manifest));
+  });
+
+  it('should not throw an error for a function path ending in .mjs', () => {
+    const manifest = {
+      functions: [
+        {
+          id: 'example',
+          name: 'myFunc',
+          entryFile: 'index.ts',
+          description: 'My function',
+          accepts: ['appaction.call'],
+          path: 'path/to/file.mjs',
         },
       ],
     };

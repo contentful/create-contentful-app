@@ -1,24 +1,26 @@
-import z from 'zod';
+import {
+	isValidActionId,
+	validateActionParameter,
+	ActionParameterDefinition,
+	MIN_ACTION_ID_LENGTH,
+	MAX_ACTION_ID_LENGTH,
+} from '@contentful/node-apps-toolkit';
 import { CreateAppActionOptions as UpsertAppActionOptions } from './types';
-import { ID_REGEX } from '../utils';
 
-const parametersSchema = z
-	.array(
-		z.object({
-			id: z.string(),
-			name: z.string(),
-			description: z.string().optional(),
-			type: z.enum(['Symbol', 'Enum', 'Number', 'Boolean']),
-			required: z.boolean(),
-			default: z.union([z.string(), z.number(), z.boolean()]).optional(),
-		})
-	)
+const validateParameters = (parameters: unknown[]) => {
+	const errors: string[] = [];
+	parameters.forEach((parameter, index) => {
+		const parameterErrors = validateActionParameter(parameter as ActionParameterDefinition);
+		parameterErrors.forEach((error) => errors.push(`parameters[${index}]: ${error}`));
+	});
+	return errors;
+}
 
 export const validateId = (id: string) => {
-	if (!ID_REGEX.test(id)) {
+	if (!isValidActionId(id)) {
 		return {
 			ok: false,
-			message: `Invalid "id" (must only contain alphanumeric characters). Received: ${id}.`,
+			message: `Invalid "id" (must be ${MIN_ACTION_ID_LENGTH}-${MAX_ACTION_ID_LENGTH} alphanumeric characters). Received: ${id}.`,
 		}
 	}
 	return { ok: true };
@@ -74,9 +76,9 @@ export function validateActionsManifest(
 		}
 
 		if (action.category === 'Custom' && action.parameters) {
-			const parametersValidationResult = parametersSchema.safeParse(action.parameters);
-			if (!parametersValidationResult.success) {
-				acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parametersValidationResult.error.errors)}`));
+			const parameterErrors = validateParameters(action.parameters);
+			if (parameterErrors.length) {
+				acc.push(new Error(`Invalid App Action manifest: invalid "parameters" - ${JSON.stringify(parameterErrors)}`));
 			}
 		}
 

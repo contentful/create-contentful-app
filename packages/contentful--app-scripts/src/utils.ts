@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+import { isValidNetworkAddress, isValidFunctionEventType } from '@contentful/node-apps-toolkit';
 import { cacheEnvVars } from './cache-credential';
 import { Definition } from './definition-api';
 import { Organization } from './organization-api';
@@ -10,18 +11,6 @@ import { resolve } from 'node:path';
 
 const DEFAULT_MANIFEST_PATH = resolve('.', 'contentful-app-manifest.json');
 
-const functionEvents = {
-  appActionCall: 'appaction.call',
-  appEventFilter: 'appevent.filter',
-  appEventHandler: 'appevent.handler',
-  appEventTransformation: 'appevent.transformation',
-  fieldMappingEvent: 'graphql.field.mapping',
-  resourceTypeMappingEvent: 'graphql.resourcetype.mapping',
-  queryEvent: 'graphql.query',
-  resourceLinksSearchEvent: 'resources.search',
-  resourceLinksLookupEvent: 'resources.lookup',
-};
-
 export const throwValidationException = (subject: string, message?: string, details?: string) => {
   console.log(`${chalk.red('Validation Error:')} Missing or invalid ${subject}.`);
   message && console.log(message);
@@ -30,26 +19,10 @@ export const throwValidationException = (subject: string, message?: string, deta
   throw new TypeError(message);
 };
 
-export const isValidNetwork = (address: string): boolean => {
-  // Regular expression to validate network addresses
-  const addressRegex = new RegExp(
-    '^(?:' + // Start of the non-capturing group for the entire address
-      '(?:' + // Start of the non-capturing group for domain names
-      '(?:\\*\\.)' + // Matches wildcard domains like *.example.com
-      '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)' + // Matches a single subdomain
-      '[a-zA-Z]{2,63}' + // Matches the top-level domain (TLD). Upper bound of 63 follows RFC 1035 §2.3.4, which defines the maximum length of a single DNS label. ICANN began delegating long gTLDs (e.g. .hosting, .international) from 2012 onwards, making the previous limit of 6 too restrictive.
-      '|' + // OR
-      '(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+' + // Matches standard domains with one or more subdomains
-      '[a-zA-Z]{2,63}' + // Matches the top-level domain (TLD). Upper bound of 63 follows RFC 1035 §2.3.4, which defines the maximum length of a single DNS label. ICANN began delegating long gTLDs (e.g. .hosting, .international) from 2012 onwards, making the previous limit of 6 too restrictive.
-      ')|' + // End of the non-capturing group for domain names, OR
-      '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' + // Matches the first three octets of an IPv4 address
-      '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|' + // Matches the last octet of an IPv4 address
-      '(\\[(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\\]' + // Matches IPv6 addresses in square brackets
-      '|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})' + // Matches IPv6 addresses without square brackets
-      ')(?::\\d{1,5})?$' // Matches an optional port number (1 to 5 digits)
-  );
-  return addressRegex.test(address);
-};
+// Kept as its own export (rather than re-exporting isValidNetworkAddress
+// directly) for backward compatibility with existing consumers of this
+// package's public API.
+export const isValidNetwork = (address: string): boolean => isValidNetworkAddress(address);
 
 export const stripProtocol = (url: string) => {
   const protocolRemovedUrl = url.replace(/^https?:\/\//, '');
@@ -137,9 +110,7 @@ export function getFunctionsFromManifest(): Omit<ContentfulFunction, 'entryFile'
         : [];
 
       const accepts = 'accepts' in item && Array.isArray(item.accepts) ? item.accepts : undefined;
-      const hasInvalidEvent = accepts?.some(
-        (event) => !Object.values(functionEvents).includes(event)
-      );
+      const hasInvalidEvent = accepts?.some((event) => !isValidFunctionEventType(event));
 
       const hasInvalidNetwork = allowNetworks.find((netWork) => !isValidNetwork(netWork));
       if (hasInvalidNetwork) {

@@ -61,9 +61,17 @@ describe('isValidIpAddress', () => {
     assert.strictEqual(result, false);
   });
 
-  it('returns false for invalid wildcard domain address', () => {
+  it('returns true for a wildcard domain with multiple subdomain labels', () => {
+    // Regression: the wildcard branch only matched a single subdomain
+    // label, rejecting real customer domains even though the non-wildcard
+    // branch already allows any number of subdomains.
     const result = isValidNetwork('*.too.example.com');
-    assert.strictEqual(result, false);
+    assert.strictEqual(result, true);
+  });
+
+  it('returns true for a wildcard domain with many subdomain labels', () => {
+    const result = isValidNetwork('*.one.two.three.example.com');
+    assert.strictEqual(result, true);
   });
 
   it('returns false for invalid wildcard domain address', () => {
