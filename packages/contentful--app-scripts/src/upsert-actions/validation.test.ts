@@ -278,15 +278,21 @@ describe('validateActionsManifest', () => {
 		const manifest = {
 			actions: [{
 				type: 'function-invocation',
-				functionId: 'initiateGdocOauth',
-				name: 'Initiate Gdoc OAuth Flow',
-				description: 'Initiates the OAuth flow for Drive Integration',
+				functionId: 'myFunction',
+				name: 'Custom Action',
+				description: 'A custom function action',
 				category: 'Custom',
 				parametersSchema: {
 					type: 'object',
+					properties: {
+						input: { type: 'string' },
+					},
 				},
 				resultSchema: {
 					type: 'object',
+					properties: {
+						success: { type: 'boolean' },
+					},
 				},
 			}]
 		};

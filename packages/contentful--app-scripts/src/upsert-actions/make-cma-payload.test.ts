@@ -45,28 +45,34 @@ describe('makeAppActionCMAPayload', () => {
 
 	it('maps a custom action with parametersSchema and resultSchema', () => {
 		const action: AppActionManifest = {
-			id: 'initiateGdocOauth',
-			name: 'Initiate Gdoc OAuth Flow',
-			description: 'Initiates the OAuth flow for Drive Integration',
+			id: 'customAction',
+			name: 'Custom Action',
+			description: 'A custom function action',
 			type: 'function-invocation',
-			functionId: 'initiateGdocOauth',
+			functionId: 'myFunction',
 			category: 'Custom',
 			parametersSchema: {
 				type: 'object',
+				properties: {
+					input: { type: 'string' },
+				},
 			},
 			resultSchema: {
 				type: 'object',
+				properties: {
+					success: { type: 'boolean' },
+				},
 			},
 		};
 
 		expect(makeAppActionCMAPayload(action)).to.deep.equal({
-			id: 'initiateGdocOauth',
-			name: 'Initiate Gdoc OAuth Flow',
-			description: 'Initiates the OAuth flow for Drive Integration',
+			id: 'customAction',
+			name: 'Custom Action',
+			description: 'A custom function action',
 			type: 'function-invocation',
 			function: {
 				sys: {
-					id: 'initiateGdocOauth',
+					id: 'myFunction',
 					linkType: 'Function',
 					type: 'Link',
 				},
@@ -74,9 +80,15 @@ describe('makeAppActionCMAPayload', () => {
 			category: 'Custom',
 			parametersSchema: {
 				type: 'object',
+				properties: {
+					input: { type: 'string' },
+				},
 			},
 			resultSchema: {
 				type: 'object',
+				properties: {
+					success: { type: 'boolean' },
+				},
 			},
 		});
 	});
