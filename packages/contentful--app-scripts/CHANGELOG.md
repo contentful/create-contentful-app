@@ -1,3 +1,9 @@
+## 4.1.11 (2026-09-10)
+
+### 🩹 Fixes
+
+- **deps:** update dependency ignore to v7.0.8 ([#3153](https://github.com/contentful/create-contentful-app/pull/3153))
+
 ## 4.1.10 (2026-09-09)
 
 ### 🩹 Fixes
