@@ -1,3 +1,9 @@
+## 4.1.14 (2026-09-13)
+
+### 🧱 Updated Dependencies
+
+- Updated @contentful/app-scripts to 4.1.12
+
 ## 4.1.13 (2026-09-10)
 
 ### 🧱 Updated Dependencies

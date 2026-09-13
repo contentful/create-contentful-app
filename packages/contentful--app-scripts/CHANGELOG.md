@@ -1,3 +1,9 @@
+## 4.1.12 (2026-09-13)
+
+### 🩹 Fixes
+
+- **deps:** update dependency adm-zip to v0.6.1 [security] ([#3162](https://github.com/contentful/create-contentful-app/pull/3162))
+
 ## 4.1.11 (2026-09-10)
 
 ### 🩹 Fixes
