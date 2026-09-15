@@ -28,4 +28,4 @@ spec:
   lifecycle: production  
   system: app-framework
   # your team name as it appears in github when tagging them for reviews
-  owner: group:team-extensibility
+  owner: group:group-applied-ai-solutions
