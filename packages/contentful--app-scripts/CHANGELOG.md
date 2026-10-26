@@ -1,3 +1,13 @@
+## 4.1.16 (2026-10-26)
+
+### 🩹 Fixes
+
+- **deps:** update dependency zod to v4 [security] ([#3180](https://github.com/contentful/create-contentful-app/pull/3180))
+
+### ❤️ Thank You
+
+- Jared Jolton
+
 ## 4.1.15 (2026-10-23)
 
 ### 🩹 Fixes

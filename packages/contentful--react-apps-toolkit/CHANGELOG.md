@@ -1,3 +1,13 @@
+## 3.0.1 (2026-10-26)
+
+### 🩹 Fixes
+
+- **deps:** update dependency zod to v4 [security] ([#3180](https://github.com/contentful/create-contentful-app/pull/3180))
+
+### ❤️ Thank You
+
+- Jared Jolton
+
 # 3.0.0 (2026-10-23)
 
 This was a version bump only for @contentful/react-apps-toolkit to align it with other projects, there were no code changes.
