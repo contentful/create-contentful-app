@@ -14,7 +14,7 @@ async function createAppBundleFromFile(orgId: string, token: string, zip: Buffer
     },
     { type: 'plain' }
   );
-  return await client.appUpload.create({ organizationId: orgId }, { file: zip });
+  return await client.appUpload.create({ organizationId: orgId }, { file: zip as unknown as ArrayBuffer });
 }
 
 export async function createAppUpload(settings: UploadSettings) {
