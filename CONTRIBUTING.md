@@ -5,7 +5,7 @@
 | Tool | Version |
 |------|---------|
 | Node.js | ≥ 20 (`.nvmrc`: `v22`) |
-| npm | ≥ 8 |
+| npm | ≥ 8 (≥ 11.10 to install or update dependencies, so `min-release-age` in `.npmrc` takes effect; `package.json` declares `npm@11.18.0`) |
 
 ## Setup
 

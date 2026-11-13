@@ -4,6 +4,7 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "private": true,
+  "packageManager": "npm@11.18.0",
   "workspaces": [
     "packages/*"
   ],
